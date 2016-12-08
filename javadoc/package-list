@@ -1,0 +1,14 @@
+ua.com.alexcoffee.aspect
+ua.com.alexcoffee.config
+ua.com.alexcoffee.controller.admin
+ua.com.alexcoffee.controller.client
+ua.com.alexcoffee.controller.manager
+ua.com.alexcoffee.controller.other
+ua.com.alexcoffee.dao
+ua.com.alexcoffee.dao.impl
+ua.com.alexcoffee.enums
+ua.com.alexcoffee.exception
+ua.com.alexcoffee.model
+ua.com.alexcoffee.repository
+ua.com.alexcoffee.service
+ua.com.alexcoffee.service.impl
