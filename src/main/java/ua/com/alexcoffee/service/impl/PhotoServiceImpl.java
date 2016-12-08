@@ -38,11 +38,6 @@ import java.io.OutputStream;
 public class PhotoServiceImpl extends MainServiceImpl<Photo> implements PhotoService {
 
     /**
-     * Путь для сохранения файлов в файловой системе.
-     */
-    private static final String PATH = "c:/Server/apache-tomcat-8.0.33/webapps/ROOT/resources/img/";
-
-    /**
      * Реализация интерфейса {@link PhotoDAO} для работы изображений с базой данных.
      */
     private final PhotoDAO dao;
@@ -107,7 +102,7 @@ public class PhotoServiceImpl extends MainServiceImpl<Photo> implements PhotoSer
     @Transactional
     public void saveFile(MultipartFile photo) {
         if (photo != null && !photo.isEmpty()) {
-            try (OutputStream stream = new FileOutputStream(PATH + photo.getOriginalFilename())) {
+            try (OutputStream stream = new FileOutputStream(Photo.PATH + photo.getOriginalFilename())) {
                 stream.write(photo.getBytes());
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -124,7 +119,7 @@ public class PhotoServiceImpl extends MainServiceImpl<Photo> implements PhotoSer
     @Transactional
     public void deleteFile(String url) {
         if (url != null && !url.isEmpty()) {
-            File file = new File(PATH + url);
+            File file = new File(Photo.PATH + url);
             if (file.exists() && file.isFile()) {
                 file.delete();
             }

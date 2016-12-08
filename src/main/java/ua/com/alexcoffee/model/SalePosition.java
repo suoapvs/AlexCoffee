@@ -77,12 +77,10 @@ public class SalePosition extends Model {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("SalePosition #" + getId() + ": ");
-        sb.append("\n").append(this.product.getTitle()).append("\n№ ").append(this.product.getId())
-                .append(", ").append(this.product.getPrice()).append(" UAH")
-                .append("\nNumber = ").append(this.number)
-                .append("\nPrice = ").append(getPrice());
-        return sb.toString();
+        return "SalePosition #" + getId()
+                + ":\n" + this.product.getTitle()
+                + "\n№ " + this.product.getId() + ", " + this.product.getPrice() + " UAH"
+                + "\nNumber = " + this.number + "\nPrice = " + getPrice();
     }
 
     /**

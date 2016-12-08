@@ -158,12 +158,8 @@ public class User extends Model implements UserDetails {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Name: ").append(this.name)
-                .append("\nRole: ").append(this.role.getDescription())
-                .append("\nEmail: ").append(this.email)
-                .append("\nPhone: ").append(this.phone);
-        return sb.toString();
+        return "Name: " + this.name + "\nRole: " + this.role.getDescription()
+                + "\nEmail: " + this.email + "\nPhone: " + this.phone;
     }
 
     /**

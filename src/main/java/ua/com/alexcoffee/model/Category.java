@@ -94,11 +94,7 @@ public class Category extends Model {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nTitle: ").append(this.title)
-                .append("\nUrl: ").append(this.url)
-                .append("\nDiscription: ").append(this.description);
-        return sb.toString();
+        return "Title: " + this.title + "\nUrl: " + this.url + "\nDescription: " + this.description;
     }
 
     /**

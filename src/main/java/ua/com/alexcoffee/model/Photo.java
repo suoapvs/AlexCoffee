@@ -21,6 +21,11 @@ public class Photo extends Model {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Путь к папке с изображениями в файловой системе.
+     */
+    public static final String PATH = System.getenv("CATALINA_HOME") + "/webapps/ROOT/resources/img/";
+
+    /**
      * Название изображения. Значение поля сохраняется в колонке "title". Не может быть null.
      */
     @Column(name = "title", nullable = false)
@@ -94,11 +99,7 @@ public class Photo extends Model {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nTitle: ").append(this.title)
-                .append("\nphoto short link: ").append(this.photoLinkShort)
-                .append("\nphoto long link: ").append(this.photoLinkLong);
-        return sb.toString();
+        return "Title: " + this.title + "\nphoto short link: " + this.photoLinkShort + "\nphoto long link: " + this.photoLinkLong;
     }
 
     /**
