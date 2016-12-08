@@ -1,5 +1,6 @@
 ua.com.alexcoffee.aspect
 ua.com.alexcoffee.config
+ua.com.alexcoffee.controller
 ua.com.alexcoffee.controller.admin
 ua.com.alexcoffee.controller.client
 ua.com.alexcoffee.controller.manager
@@ -12,3 +13,4 @@ ua.com.alexcoffee.model
 ua.com.alexcoffee.repository
 ua.com.alexcoffee.service
 ua.com.alexcoffee.service.impl
+ua.com.alexcoffee.tools
