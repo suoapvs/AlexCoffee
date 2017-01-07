@@ -7,7 +7,7 @@ import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
-import ua.com.alexcoffee.service.UserService;
+import ua.com.alexcoffee.service.interfaces.UserService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;

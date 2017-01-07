@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.tools;
 
-import ua.com.alexcoffee.dao.*;
+import ua.com.alexcoffee.dao.interfaces.*;
 import ua.com.alexcoffee.enums.RoleEnum;
 import ua.com.alexcoffee.enums.StatusEnum;
 import ua.com.alexcoffee.model.*;

@@ -1,9 +1,15 @@
 package ua.com.alexcoffee.exception;
 
 /**
- * Исключение генерируется, если пользователь не имеет достаточных прав для доступа к странице.
+ * Исключение генерируется,
+ * если пользователь не имеет достаточных
+ * прав для доступа к странице.
+ *
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  */
-public class ForbiddenException extends RuntimeException {
+public final class ForbiddenException
+        extends RuntimeException {
     /**
      * Конструктр без параметров.
      */
@@ -16,7 +22,7 @@ public class ForbiddenException extends RuntimeException {
      *
      * @param message Сообщение исключения.
      */
-    public ForbiddenException(String message) {
+    public ForbiddenException(final String message) {
         super(message);
     }
 }

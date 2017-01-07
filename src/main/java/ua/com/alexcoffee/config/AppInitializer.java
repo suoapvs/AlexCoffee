@@ -10,20 +10,26 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * Диспетчер Сервлета, который отвечает за инициализацию Spring MVC и меппинг URL.
- * Класс расширяет класс AbstractAnnotationConfigDispatcherServletInitializer.
+ * Диспетчер Сервлета, который отвечает
+ * за инициализацию Spring MVC и меппинг URL.
+ * Класс расширяет класс
+ * AbstractAnnotationConfigDispatcherServletInitializer.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see WebConfig
  * @see RootConfig
  * @see SecurityConfig
  * @see SecurityInitializer
  */
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer
+        extends AbstractAnnotationConfigDispatcherServletInitializer {
     /**
-     * Возвращает конфигурацию, в которой инициализируем ViewResolver.
+     * Возвращает конфигурацию, в которой
+     * инициализируем ViewResolver.
      *
-     * @return Массив объектов класса Class - класс с настройками {@link WebConfig}.
+     * @return Массив объектов класса Class
+     * - класс с настройками {@link WebConfig}.
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {
@@ -31,17 +37,25 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
 
     /**
-     * Возвращает конфигурации, которые инициализируют Beans.
+     * Возвращает конфигурации,
+     * которые инициализируют Beans.
      *
-     * @return Массив объектов класса Class - класс с настройками {@link RootConfig} и {@link SecurityConfig}.
+     * @return Массив объектов класса Class
+     * - класс с настройками {@link RootConfig}
+     * и {@link SecurityConfig}.
      */
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{RootConfig.class, SecurityConfig.class};
+        return new Class<?>[]{
+                RootConfig.class,
+                SecurityConfig.class
+        };
     }
 
     /**
-     * Настроили мэпинг сервлета на "/" и поэтому все запросы будут перехвачены Диспетчером Сервлета Spring.
+     * Настроили мэпинг сервлета на "/"
+     * и поэтому все запросы будут перехвачены
+     * Диспетчером Сервлета Spring.
      *
      * @return Массив типа String.
      */
@@ -58,9 +72,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
      *                          AbstractAnnotationConfigDispatcherServletInitializer.
      */
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(final ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
-        FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
+        final FilterRegistration.Dynamic encodingFilter = servletContext
+                .addFilter(
+                        "encodingFilter",
+                        new CharacterEncodingFilter()
+                );
         encodingFilter.setInitParameter("encoding", "UTF-8");
         encodingFilter.setInitParameter("forceEncoding", "true");
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");
@@ -73,8 +91,11 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
      * @return Объект класса DispatcherServlet.
      */
     @Override
-    protected DispatcherServlet createDispatcherServlet(WebApplicationContext context) {
-        final DispatcherServlet dispatcherServlet = (DispatcherServlet) super.createDispatcherServlet(context);
+    protected DispatcherServlet createDispatcherServlet(
+            final WebApplicationContext context
+    ) {
+        final DispatcherServlet dispatcherServlet =
+                (DispatcherServlet) super.createDispatcherServlet(context);
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
         return dispatcherServlet;
     }

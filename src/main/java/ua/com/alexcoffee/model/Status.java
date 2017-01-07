@@ -6,33 +6,43 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * Класс описывает сущность "Статус заказов", наследует класс {@link Model}.
  * Аннотация @Entity говорит о том что объекты этого класса будет обрабатываться hibernate.
- * Аннотация @Table(name = "statuses") указывает на таблицу "statuses", в которой будут храниться объекты.
+ * Аннотация @Table(name = "statuses") указывает на таблицу "statuses",
+ * в которой будут храниться объекты.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see StatusEnum
  * @see Order
  */
 @Entity
 @Table(name = "statuses")
-public class Status extends Model {
+public final class Status extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Название статуса, может принимать одно из значений перечисления {@link StatusEnum}.
-     * Значение поля сохраняется в колонке "title". Не может быть null.
+     * Название статуса, может принимать одно
+     * из значений перечисления {@link StatusEnum}.
+     * Значение поля сохраняется в колонке "title".
+     * Не может быть null.
      */
-    @Column(name = "title", nullable = false)
+    @Column(
+            name = "title",
+            nullable = false
+    )
     @Enumerated(EnumType.STRING)
     private StatusEnum title;
 
     /**
-     * Описание товара. Значение поля сохраняется в колонке "description".
+     * Описание товара.
+     * Значение поля сохраняется в колонке "description".
      */
     @Column(name = "description")
     private String description;
@@ -44,7 +54,11 @@ public class Status extends Model {
      * Выборка объектов orders при первом доступе к ним.
      * Сущности orders автоматически удаляется при удалении текущей.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "status", cascade = CascadeType.REMOVE)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "status",
+            cascade = CascadeType.REMOVE
+    )
     private List<Order> orders = new ArrayList<>();
 
     /**
@@ -57,10 +71,15 @@ public class Status extends Model {
     /**
      * Конструктор для инициализации основных переменных заказа.
      *
-     * @param title       Название заказа, может принимать одно из значений перечисления {@link StatusEnum}.
+     * @param title       Название заказа, может принимать
+     *                    одно из значений
+     *                    перечисления {@link StatusEnum}.
      * @param description Описание статуса.
      */
-    public Status(StatusEnum title, String description) {
+    public Status(
+            final StatusEnum title,
+            final String description
+    ) {
         super();
         this.title = title;
         this.description = description;
@@ -68,48 +87,55 @@ public class Status extends Model {
 
     /**
      * Возвращает описание статуса.
-     * Переопределенный метод родительского класса {@link Object}.
+     * Переопределенный метод родительского
+     * класса {@link Object}.
      *
-     * @return Значение типа {@link String} - строка описание статуса (имя, описание).
+     * @return Значение типа {@link String} -
+     * строка описание статуса (имя, описание).
      */
     @Override
     public String toString() {
-        return "Title: " + this.title.name() + "\nDescription: " + this.description;
+        return "Title: " + this.title.name()
+                + "\nDescription: " + this.description;
     }
 
     /**
      * Добавляет заказы в список текущего статуса.
      *
-     * @param order Заказ, который имеет текущий статус.
+     * @param order Заказ, который
+     *              имеет текущий статус.
      */
-    public void addOrder(Order order) {
+    public void addOrder(final Order order) {
         this.orders.add(order);
     }
 
     /**
      * Добавляет список заказов в список заказов orders.
      *
-     * @param orders Список заказов, которые будут иметь текущий статус.
+     * @param orders Список заказов, которые
+     *               будут иметь текущий статус.
      */
-    public void addOrders(List<Order> orders) {
+    public void addOrders(final List<Order> orders) {
         this.orders.addAll(orders);
     }
 
     /**
      * Удаляет заказ из списка текущего статуса.
      *
-     * @param order Заказ, у которого будет удаленен текущий статус.
+     * @param order Заказ, у которого
+     *              будет удаленен текущий статус.
      */
-    public void removeOrder(Order order) {
+    public void removeOrder(final Order order) {
         this.orders.remove(order);
     }
 
     /**
      * Метод удаляет список заказов из списка orders.
      *
-     * @param orders Список заказов, у которых будет удаленен текущий статус.
+     * @param orders Список заказов, у которых
+     *               будет удаленен текущий статус.
      */
-    public void removeOrders(List<Order> orders) {
+    public void removeOrders(final List<Order> orders) {
         this.orders.removeAll(orders);
     }
 
@@ -124,44 +150,50 @@ public class Status extends Model {
      * Конвертирует список заказов текущего статуса
      * в список только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} - список заказов только для чтения или пустой список.
+     * @return Объект типа {@link List} -
+     * список заказов только для чтения
+     * или пустой список.
      */
     public List<Order> getOrders() {
         return getUnmodifiableList(this.orders);
     }
 
     /**
-     * Устанавливает список заказов текущего статуса.
+     * Устанавливает список заказов
+     * текущего статуса.
      *
      * @param orders Список заказов.
      */
-    public void setOrders(List<Order> orders) {
+    public void setOrders(final List<Order> orders) {
         this.orders = orders;
     }
 
     /**
      * Возвращает название статуса.
      *
-     * @return Объект перечисление {@link StatusEnum} - название статуса.
+     * @return Объект перечисление {@link StatusEnum} -
+     * название статуса.
      */
     public StatusEnum getTitle() {
         return this.title;
     }
 
     /**
-     * Устанавливает название статуса, которое может принимать одно из
+     * Устанавливает название статуса,
+     * которое может принимать одно из
      * значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
      */
-    public void setTitle(StatusEnum title) {
+    public void setTitle(final StatusEnum title) {
         this.title = title;
     }
 
     /**
      * Возвращает описание статуса.
      *
-     * @return Значение типа {@link String} - описание статуса.
+     * @return Значение типа {@link String} -
+     * описание статуса.
      */
     public String getDescription() {
         return this.description;
@@ -172,7 +204,7 @@ public class Status extends Model {
      *
      * @param description Описание статуса.
      */
-    public void setDescription(String description) {
-        this.description = description != null ? description : "";
+    public void setDescription(final String description) {
+        this.description = isNotBlank(description) ? description : "";
     }
 }

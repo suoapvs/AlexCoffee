@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.ShoppingCartDAO;
+import ua.com.alexcoffee.dao.interfaces.ShoppingCartDAO;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
-import ua.com.alexcoffee.service.ShoppingCartService;
+import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 
 import java.util.List;
 
@@ -22,14 +22,16 @@ import java.util.List;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see ShoppingCart
  * @see ShoppingCartService
  * @see ShoppingCartDAO
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public class ShoppingCartServiceImpl implements ShoppingCartService {
+public final class ShoppingCartServiceImpl
+        implements ShoppingCartService {
     /**
      * Реализация интерфейса для работы з торговой корзиной.
      */
@@ -37,25 +39,30 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
-     * Помечаный аннотацией @Autowired, которая позволит Spring автоматически инициализировать объект.
+     * Помечаный аннотацией @Autowired,
+     * которая позволит Spring автоматически инициализировать объект.
      *
      * @param shoppingCartDAO Реализация интерфейса для работы з торговой корзиной.
      */
     @Autowired
-    public ShoppingCartServiceImpl(ShoppingCartDAO shoppingCartDAO) {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public ShoppingCartServiceImpl(final ShoppingCartDAO shoppingCartDAO) {
         this.shoppingCartDAO = shoppingCartDAO;
     }
 
     /**
-     * Возвращает объект корзину. Режим только для чтения.
+     * Возвращает объект корзину.
+     * Режим только для чтения.
      *
-     * @return Объект класса {@link ShoppingCart} - торговая корзина.
-     * @throws BadRequestException Бросает исключение, если корзина отсутствует.
+     * @return Объект класса {@link ShoppingCart} -
+     * торговая корзина.
+     * @throws BadRequestException Бросает исключение,
+     *                             если корзина отсутствует.
      */
     @Override
     @Transactional(readOnly = true)
     public ShoppingCart getShoppingCart() throws BadRequestException {
-        ShoppingCart shoppingCart = this.shoppingCartDAO.get();
+        final ShoppingCart shoppingCart = this.shoppingCartDAO.get();
         if (shoppingCart == null) {
             throw new BadRequestException("Can't find shopping cart!");
         }
@@ -65,20 +72,23 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     /**
      * Добавляет торговую позицию в список корзины.
      *
-     * @param salePosition Торговая позиция, которая будет добавлена в корзину.
+     * @param salePosition Торговая позиция,
+     *                     которая будет добавлена в корзину.
      */
     @Override
     @Transactional
-    public void add(SalePosition salePosition) {
+    public void add(final SalePosition salePosition) {
         if (salePosition != null) {
             this.shoppingCartDAO.addSalePosition(salePosition);
         }
     }
 
     /**
-     * Возвращает список всех торговых позиций в корзине. Режим только для чтения.
+     * Возвращает список всех торговых позиций в корзине.
+     * Режим только для чтения.
      *
-     * @return Объект типа {@link List} - список торговых позиций.
+     * @return Объект типа {@link List} -
+     * список торговых позиций.
      */
     @Override
     @Transactional(readOnly = true)
@@ -89,18 +99,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     /**
      * Удаляет торговую позицию из корзины.
      *
-     * @param salePosition Торговая позиция для удаления из корзины.
+     * @param salePosition Торговая позиция для
+     *                     удаления из корзины.
      */
     @Override
     @Transactional
-    public void remove(SalePosition salePosition) {
+    public void remove(final SalePosition salePosition) {
         if (salePosition != null) {
             this.shoppingCartDAO.removeSalePosition(salePosition);
         }
     }
 
     /**
-     * Очищает корзину. Удаляет все торговые позиции в корзине.
+     * Очищает корзину.
+     * Удаляет все торговые позиции в корзине.
      */
     @Override
     @Transactional
@@ -109,9 +121,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     /**
-     * Возвращает цену корзины - цена всех продаж. Режим только для чтения.
+     * Возвращает цену корзины -
+     * цена всех продаж.
+     * Режим только для чтения.
      *
-     * @return Значение типа double - цена корзины.
+     * @return Значение типа double -
+     * цена корзины.
      */
     @Override
     @Transactional(readOnly = true)
@@ -120,10 +135,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     /**
-     * Возвращает размер корзины, то есть количество товаров в корзине.
+     * Возвращает размер корзины,
+     * то есть количество товаров в корзине.
      * Режим только для чтения.
      *
-     * @return Значение типа int - количество товаров в корзине.
+     * @return Значение типа int -
+     * количество товаров в корзине.
      */
     @Override
     @Transactional(readOnly = true)

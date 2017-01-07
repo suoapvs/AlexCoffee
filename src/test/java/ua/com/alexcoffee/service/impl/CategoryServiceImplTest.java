@@ -6,7 +6,7 @@ import org.junit.Test;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Category;
-import ua.com.alexcoffee.service.CategoryService;
+import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;

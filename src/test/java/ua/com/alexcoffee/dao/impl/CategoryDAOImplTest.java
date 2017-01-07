@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alexcoffee.config.RootConfig;
 import ua.com.alexcoffee.config.WebConfig;
-import ua.com.alexcoffee.dao.CategoryDAO;
+import ua.com.alexcoffee.dao.interfaces.CategoryDAO;
 import ua.com.alexcoffee.model.Category;
 
 import java.util.ArrayList;

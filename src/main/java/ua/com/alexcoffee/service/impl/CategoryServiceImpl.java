@@ -1,15 +1,16 @@
 package ua.com.alexcoffee.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.CategoryDAO;
+import ua.com.alexcoffee.dao.interfaces.CategoryDAO;
 import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.service.CategoryService;
+import ua.com.alexcoffee.service.interfaces.CategoryService;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Category}
@@ -22,7 +23,8 @@ import ua.com.alexcoffee.service.CategoryService;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainServiceImpl
  * @see CategoryService
  * @see Category
@@ -30,9 +32,12 @@ import ua.com.alexcoffee.service.CategoryService;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public class CategoryServiceImpl extends MainServiceImpl<Category> implements CategoryService {
+public final class CategoryServiceImpl
+        extends MainServiceImpl<Category>
+        implements CategoryService {
     /**
-     * Реализация интерфейса {@link CategoryDAO} для работы категорий с базой данных.
+     * Реализация интерфейса {@link CategoryDAO}
+     * для работы категорий с базой данных.
      */
     private final CategoryDAO dao;
 
@@ -41,46 +46,57 @@ public class CategoryServiceImpl extends MainServiceImpl<Category> implements Ca
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link CategoryDAO} для работы категорий с базой данных.
+     * @param dao Реализация интерфейса {@link CategoryDAO}
+     *            для работы категорий с базой данных.
      */
     @Autowired
-    public CategoryServiceImpl(CategoryDAO dao) {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public CategoryServiceImpl(final CategoryDAO dao) {
         super(dao);
         this.dao = dao;
     }
 
     /**
-     * Возвращает категорию из базы данных, у которой совпадает параметр url.
+     * Возвращает категорию из базы данных,
+     * у которой совпадает параметр url.
      * Режим только для чтения.
      *
      * @param url URL категории для возврата.
      * @return Объект класса {@link Category} - категория с уникальным url полем.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр url.
-     * @throws BadRequestException       Бросает исключение, если не найдена категория с входящим параметром url.
+     * @throws WrongInformationException Бросает исключение,
+     * если пустой входной параметр url.
+     * @throws BadRequestException       Бросает исключение,
+     * если не найдена категория с входящим параметром url.
      */
     @Override
     @Transactional(readOnly = true)
-    public Category get(String url) throws WrongInformationException, BadRequestException {
-        if (url == null || url.isEmpty()) {
+    public Category get(final String url)
+            throws WrongInformationException, BadRequestException {
+        if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
-        Category category = this.dao.get(url);
+        final Category category = this.dao.get(url);
         if (category == null) {
-            throw new BadRequestException("Can't find category by url " + url + "!");
+            throw new BadRequestException(
+                    "Can't find category by url " + url + "!"
+            );
         }
         return category;
     }
 
     /**
-     * Удаляет категрию из базы даных, у которого совпадает поле url.
+     * Удаляет категрию из базы даных,
+     * у которого совпадает поле url.
      *
      * @param url URL категории для удаления.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр url.
+     * @throws WrongInformationException Бросает исключение,
+     * если пустой входной параметр url.
      */
     @Override
     @Transactional
-    public void remove(String url) throws WrongInformationException {
-        if (url == null || url.isEmpty()) {
+    public void remove(final String url)
+            throws WrongInformationException {
+        if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
         this.dao.remove(url);

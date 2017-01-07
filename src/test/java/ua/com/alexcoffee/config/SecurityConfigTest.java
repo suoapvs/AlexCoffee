@@ -9,8 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ua.com.alexcoffee.service.RoleService;
-import ua.com.alexcoffee.service.UserService;
+import ua.com.alexcoffee.service.interfaces.RoleService;
+import ua.com.alexcoffee.service.interfaces.UserService;
 
 import static org.junit.Assert.assertNotNull;
 

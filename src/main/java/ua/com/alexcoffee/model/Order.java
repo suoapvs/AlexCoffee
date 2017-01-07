@@ -5,105 +5,153 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
- * Класс описывает сущность "Заказы", наследует класс {@link Model}.
- * Заказ описывает торговые позиции, клиента, сделавшего заказ, и менеджера, который обработал заказ.
- * Аннотация @Entity говорит о том что объекты этого класса будет обрабатываться hibernate.
- * Аннотация @Table(name = "orders") указывает на таблицу "orders", в которой будут храниться объекты.
+ * Класс описывает сущность "Заказы",
+ * наследует класс {@link Model}.
+ * Заказ описывает торговые позиции,
+ * клиента, сделавшего заказ, и менеджера,
+ * который обработал заказ.
+ * Аннотация @Entity говорит о том что объекты
+ * этого класса будет обрабатываться hibernate.
+ * Аннотация @Table(name = "orders") указывает
+ * на таблицу "orders", в которой будут храниться
+ * объекты.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see Status
  * @see User
  * @see SalePosition
  */
 @Entity
 @Table(name = "orders")
-public class Order extends Model {
+public final class Order extends Model {
     /**
-     * Номер версии класса необходимый для десериализации и сериализации.
+     * Номер версии класса необходимый
+     * для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Номер заказа. Значение поля сохраняется в колонке "number". Не может быть null.
+     * Номер заказа. Значение поля сохраняется
+     * в колонке "number". Не может быть null.
      */
-    @Column(name = "number", nullable = false)
+    @Column(
+            name = "number",
+            nullable = false
+    )
     private String number;
 
     /**
-     * Дата модификации заказа. Значение поля сохраняется в колонке "date". Не может быть null.
+     * Дата модификации заказа. Значение поля
+     * сохраняется в колонке "date". Не может быть null.
      */
-    @Column(name = "date", nullable = false)
+    @Column(
+            name = "date",
+            nullable = false
+    )
     private String date;
 
     /**
-     * Адрес доставки заказа. Значение поля сохраняется в колонке "shipping_address".
+     * Адрес доставки заказа. Значение поля
+     * сохраняется в колонке "shipping_address".
      */
     @Column(name = "shipping_address")
     private String shippingAddress;
 
     /**
-     * Детали доставки заказа. Значение поля сохраняется в колонке "shipping_details".
+     * Детали доставки заказа. Значение поля
+     * сохраняется в колонке "shipping_details".
      */
     @Column(name = "shipping_details")
     private String shippingDetails;
 
     /**
-     * Описание заказа. Значение поля сохраняется в колонке "description".
+     * Описание заказа. Значение поля с
+     * охраняется в колонке "description".
      */
     @Column(name = "description")
     private String description;
 
     /**
-     * Статус заказа.
-     * Значение поля (id объекта status) сохраняется в колонке "status_id".
+     * Статус заказа. Значение поля (id объекта status)
+     * сохраняется в колонке "status_id".
      * Между объектами классов {@link Order} и
-     * {@link Status} связь многие-к-одному, а именно
-     * много разных заказов могут иметь одинаковый статус выполнения.
-     * Выборка объекта status до первого доступа нему, при первом доступе к текущему объекту.
+     * {@link Status} связь многие-к-одному, а
+     * именно много разных заказов могут иметь
+     * одинаковый статус выполнения. Выборка объекта
+     * status до первого доступа нему, при первом
+     * доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @JoinColumn(
+            name = "status_id",
+            referencedColumnName = "id"
+    )
     private Status status;
 
     /**
      * Клиент, оформивший заказ.
-     * Значение поля (id объекта client) сохраняется в колонке "client_id".
-     * Между объектами классов {@link Order} и
-     * {@link User} связь один-к-одному, а именно каждая
-     * запись в одной таблице напрямую связана с отдельной записью в другой таблице.
-     * Выборка объекта client до первого доступа нему, при первом доступе к текущему объекту.
-     * Сущности связаны полностью каскадным обновлением записей в базе данных.
+     * Значение поля (id объекта client) сохраняется
+     * в колонке "client_id". Между объектами
+     * классов {@link Order} и {@link User} связь
+     * один-к-одному, а именно каждая запись в одной
+     * таблице напрямую связана с отдельной записью
+     * в другой таблице. Выборка объекта client до
+     * первого доступа нему, при первом доступе к
+     * текущему объекту. Сущности связаны полностью
+     * каскадным обновлением записей в базе данных.
      */
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "client_id",
+            referencedColumnName = "id"
+    )
     private User client;
 
     /**
      * Менеджер, обработавший заказ.
-     * Значение поля (id объекта manager) сохраняется в колонке "manager_id".
-     * Между объектами классов {@link Order} и
-     * {@link User} связь много-к-одному, а именно каждая
-     * запись в одной таблице напрямую связана с отдельной записью в другой таблице.
-     * Выборка объекта manager до первого доступа нему, при первом доступе к текущему объекту.
+     * Значение поля (id объекта manager)
+     * сохраняется в колонке "manager_id".
+     * Между объектами классов {@link Order}
+     * и {@link User} связь много-к-одному,
+     * а именно каждая запись в одной таблице
+     * напрямую связана с отдельной записью
+     * в другой таблице. Выборка объекта manager
+     * до первого доступа нему, при первом
+     * доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @JoinColumn(
+            name = "manager_id",
+            referencedColumnName = "id"
+    )
     private User manager;
 
     /**
      * Список торговых позиция текущего заказу.
-     * К текущему заказу можно добраться через поле "order"
-     * в объекте класса {@link SalePosition}.
-     * Выборка продаж при первом доступе к текущему объекту.
-     * Сущности связаны полностью каскадным обновлением записей в базе данных.
+     * К текущему заказу можно добраться через
+     * поле "order" в объекте класса {@link SalePosition}.
+     * Выборка продаж при первом доступе к текущему
+     * объекту. Сущности связаны полностью каскадным
+     * обновлением записей в базе данных.
      */
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "order",
+            cascade = CascadeType.ALL
+    )
     private List<SalePosition> salePositions = new ArrayList<>();
 
     /**
      * Конструктр без параметров.
-     * Автоматически инициализируются поля номер и дата модификации заказа.
+     * Автоматически инициализируются
+     * поля номер и дата модификации заказа.
      */
     public Order() {
         super();
@@ -115,13 +163,18 @@ public class Order extends Model {
     }
 
     /**
-     * Конструктор для инициализации основных переменных заказа.
+     * Конструктор для инициализации
+     * основных переменных заказа.
      *
      * @param status        Статус заказа.
      * @param client        Клиент, оформивший заказ.
      * @param salePositions Список торговых позиция.
      */
-    public Order(Status status, User client, List<SalePosition> salePositions) {
+    public Order(
+            final Status status,
+            final User client,
+            final List<SalePosition> salePositions
+    ) {
         this();
         this.status = status;
         this.client = client;
@@ -130,58 +183,84 @@ public class Order extends Model {
 
     /**
      * Возвращает описание заказа.
-     * Переопределенный метод родительского класса {@link Object}.
+     * Переопределенный метод
+     * родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - строка описание заказа (номер, статус, дата, информация о клиенте,
-     * информация о менеджере, адрес и детали доставкиб описание, торговые позиции).
+     * @return Значение типа {@link String} -
+     * строка описание заказа (номер, статус,
+     * дата, информация о клиенте,
+     * информация о менеджере, адрес и
+     * детали доставкиб описание, торговые позиции).
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append(this.number).append(", ")
                 .append(this.status.getDescription()).append(",\n").append(this.date);
 
         if (this.client != null) {
-            sb.append("\n\nClient: ").append(this.client.getName())
-                    .append("\ne-mail: ").append(this.client.getEmail())
-                    .append("\nphone: ").append(this.client.getPhone()).append("\n");
+            sb.append("\n\nClient: ")
+                    .append(this.client.getName())
+                    .append("\ne-mail: ")
+                    .append(this.client.getEmail())
+                    .append("\nphone: ")
+                    .append(this.client.getPhone())
+                    .append("\n");
         }
-
         if (this.manager != null) {
-            sb.append("\n").append(this.manager.getRole().getDescription())
-                    .append(" ").append(this.manager.getName()).append("\n");
+            sb.append("\n")
+                    .append(this.manager.getRole().getDescription())
+                    .append(" ")
+                    .append(this.manager.getName())
+                    .append("\n");
         }
-
         if (!this.shippingAddress.isEmpty()) {
-            sb.append("\nShipping address: ").append(this.shippingAddress);
+            sb.append("\nShipping address: ")
+                    .append(this.shippingAddress);
         }
         if (!this.shippingDetails.isEmpty()) {
-            sb.append("\nShipping details: ").append(this.shippingDetails);
+            sb.append("\nShipping details: ")
+                    .append(this.shippingDetails);
         }
         if (!this.description.isEmpty()) {
-            sb.append("\nDescription: ").append(this.description);
+            sb.append("\nDescription: ")
+                    .append(this.description);
         }
 
         if (this.salePositions != null && !this.salePositions.isEmpty()) {
             sb.append("\nSale Positions: ");
             int count = 1;
             for (SalePosition salePosition : this.salePositions) {
-                sb.append("\n").append(count++).append(") ").append(salePosition.getProduct().getTitle())
-                        .append(", № ").append(salePosition.getProduct().getId()).append(",\n")
-                        .append(salePosition.getNumber()).append(" x ")
-                        .append(salePosition.getProduct().getPrice()).append(" = ")
-                        .append(salePosition.getPrice()).append(" UAH;");
+                sb.append("\n")
+                        .append(count++)
+                        .append(") ")
+                        .append(salePosition.getProduct().getTitle())
+                        .append(", № ")
+                        .append(salePosition.getProduct().getId())
+                        .append(",\n")
+                        .append(salePosition.getNumber())
+                        .append(" x ")
+                        .append(salePosition.getProduct().getPrice())
+                        .append(" = ")
+                        .append(salePosition.getPrice())
+                        .append(" UAH;");
             }
-            sb.append("\n\nPRICE = ").append(getPrice()).append(" UAH");
+            sb.append("\n\nPRICE = ")
+                    .append(getPrice())
+                    .append(" UAH");
         }
         return sb.toString();
     }
 
     /**
-     * Генерирует строку для конечного сравнения заказа в методе equals() родительского класса.
-     * Переопределенный метод родительского класса {@link Model}.
+     * Генерирует строку для конечного
+     * сравнения заказа в методе equals()
+     * родительского класса.
+     * Переопределенный метод
+     * родительского класса {@link Model}.
      *
-     * @return Значение типа {@link String} - номер заказа.
+     * @return Значение типа {@link String} -
+     * номер заказа.
      */
     @Override
     public String toEquals() {
@@ -200,8 +279,15 @@ public class Order extends Model {
      * @param client          Клиент, оформивший заказ.
      * @param manager         Менеджер, обработавший заказ.
      */
-    public void initialize(String number, Date date, String shippingAddress, String shippingDetails,
-                           String description, Status status, User client, User manager) {
+    public void initialize(
+            final String number,
+            final Date date,
+            final String shippingAddress,
+            final String shippingDetails,
+            final String description,
+            final Status status, User client,
+            final User manager
+    ) {
         setNumber(number);
         setDate(date);
         setShippingAddress(shippingAddress);
@@ -213,11 +299,13 @@ public class Order extends Model {
     }
 
     /**
-     * Добавляет торговую позицию в текущий заказа.
+     * Добавляет торговую
+     * позицию в текущий заказа.
      *
-     * @param salePosition Торговая позиция, которая будет добавлена в заказ.
+     * @param salePosition Торговая позиция,
+     *                     которая будет добавлена в заказ.
      */
-    public void addSalePosition(SalePosition salePosition) {
+    public void addSalePosition(final SalePosition salePosition) {
         this.salePositions.add(salePosition);
         if (salePosition.getOrder() != this) {
             salePosition.setOrder(this);
@@ -225,72 +313,94 @@ public class Order extends Model {
     }
 
     /**
-     * Добавляет список торговых позиций в текущий заказ.
+     * Добавляет список торговых
+     * позиций в текущий заказ.
      *
-     * @param salePositions Список торговых позиций, которые будут дабавлены в заказ.
+     * @param salePositions Список торговых позиций,
+     *                      которые будут дабавлены в заказ.
      */
-    public void addSalePositions(List<SalePosition> salePositions) {
+    public void addSalePositions(
+            final List<SalePosition> salePositions
+    ) {
         this.salePositions.addAll(salePositions);
-        for (SalePosition salePosition : salePositions) {
-            if (salePosition.getOrder() != this) {
-                salePosition.setOrder(this);
-            }
-        }
+        salePositions.stream()
+                .filter(
+                        salePosition -> salePosition.getOrder() != this
+                )
+                .forEach(
+                        salePosition -> salePosition.setOrder(this)
+                );
     }
 
     /**
-     * Удаляет торговую позицию из текущего заказа.
+     * Удаляет торговую позицию
+     * из текущего заказа.
      *
-     * @param salePosition Торговая позиция, которая будет удалена из заказу.
+     * @param salePosition Торговая позиция,
+     *                     которая будет удалена из заказу.
      */
-    public void removeSalePosition(SalePosition salePosition) {
+    public void removeSalePosition(final SalePosition salePosition) {
         this.salePositions.remove(salePosition);
     }
 
     /**
-     * Удаляет список торговых позиция из текущего заказа.
+     * Удаляет список торговых
+     * позиция из текущего заказа.
      *
-     * @param salePositions Список торговых позиция, которые будут удалены из заказа.
+     * @param salePositions Список торговых позиция,
+     *                      которые будут удалены из заказа.
      */
-    public void removeSalePositions(List<SalePosition> salePositions) {
+    public void removeSalePositions(
+            final List<SalePosition> salePositions
+    ) {
         this.salePositions.removeAll(salePositions);
     }
 
     /**
-     * Очищает список торговых позиция текущего заказа.
+     * Очищает список торговых
+     * позиция текущего заказа.
      */
     public void clearSalePositions() {
         this.salePositions.clear();
     }
 
     /**
-     * Конвертирует список торговых позиций текущего заказа в список
+     * Конвертирует список торговых
+     * позиций текущего заказа в список
      * только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} - список торговых позиция только для чтения или пустой список.
+     * @return Объект типа {@link List} -
+     * список торговых позиция только
+     * для чтения или пустой список.
      */
     public List<SalePosition> getSalePositions() {
         return getUnmodifiableList(this.salePositions);
     }
 
     /**
-     * Устанавливает список торговых позицияй текущему заказу.
+     * Устанавливает список торговых
+     * позицияй текущему заказу.
      *
      * @param salePositions Список торговых позиция.
      */
-    public void setSalePositions(List<SalePosition> salePositions) {
+    public void setSalePositions(
+            final List<SalePosition> salePositions
+    ) {
         this.salePositions = salePositions;
-        for (SalePosition salePosition : this.salePositions) {
-            if (salePosition.getOrder() != this) {
-                salePosition.setOrder(this);
-            }
-        }
+        this.salePositions.stream()
+                .filter(
+                        salePosition -> salePosition.getOrder() != this
+                )
+                .forEach(
+                        salePosition -> salePosition.setOrder(this)
+                );
     }
 
     /**
      * Возвращает номер заказа.
      *
-     * @return Значение типа {@link String} - номер заказа.
+     * @return Значение типа {@link String} -
+     * номер заказа.
      */
     public String getNumber() {
         return this.number;
@@ -301,8 +411,10 @@ public class Order extends Model {
      *
      * @param number Номер заказа.
      */
-    public void setNumber(String number) {
-        this.number = number == null ? "" : number;
+    public void setNumber(
+            final String number
+    ) {
+        this.number = isNotBlank(number) ? number : "";
     }
 
     /**
@@ -315,7 +427,8 @@ public class Order extends Model {
     /**
      * Возвращает дату последней модификации заказа.
      *
-     * @return Значение типа {@link String} - дата модификации заказа.
+     * @return Значение типа {@link String} -
+     * дата модификации заказа.
      */
     public String getDate() {
         return this.date;
@@ -326,14 +439,15 @@ public class Order extends Model {
      *
      * @param date Дата модификации заказа.
      */
-    public void setDate(Date date) {
+    public void setDate(final Date date) {
         this.date = date != null ? dateToString(date) : "";
     }
 
     /**
      * Возвращает статус работы заказа.
      *
-     * @return Объект класса {@link Status} - статус заказа.
+     * @return Объект класса {@link Status} -
+     * статус заказа.
      */
     public Status getStatus() {
         return this.status;
@@ -344,50 +458,57 @@ public class Order extends Model {
      *
      * @param status Статус заказа.
      */
-    public void setStatus(Status status) {
+    public void setStatus(final Status status) {
         this.status = status;
     }
 
     /**
-     * Возвращает клиента, оформивший заказ.
+     * Возвращает клиента,
+     * оформивший заказ.
      *
-     * @return Объект класса {@link User} - клиент, оформивший заказ.
+     * @return Объект класса {@link User} -
+     * клиент, оформивший заказ.
      */
     public User getClient() {
         return this.client;
     }
 
     /**
-     * Устанавливает клиента, оформившего заказ.
+     * Устанавливает клиента,
+     * оформившего заказ.
      *
      * @param client Клиент, оформивший заказ.
      */
-    public void setClient(User client) {
+    public void setClient(final User client) {
         this.client = client;
     }
 
     /**
-     * Возвращает менеджера, обработавший заказ.
+     * Возвращает менеджера,
+     * обработавший заказ.
      *
-     * @return Объект класса {@link User} - менеджер, обработавший заказ.
+     * @return Объект класса {@link User} -
+     * менеджер, обработавший заказ.
      */
     public User getManager() {
         return this.manager;
     }
 
     /**
-     * Устанавливает менеджера, обработавший заказ.
+     * Устанавливает менеджера,
+     * обработавший заказ.
      *
      * @param manager Менеджер, обработавший заказ.
      */
-    public void setManager(User manager) {
+    public void setManager(final User manager) {
         this.manager = manager;
     }
 
     /**
      * Возвращает адрес доставки заказа.
      *
-     * @return Значение типа {@link String} - адресс доставки заказа.
+     * @return Значение типа {@link String} -
+     * адресс доставки заказа.
      */
     public String getShippingAddress() {
         return this.shippingAddress;
@@ -398,14 +519,15 @@ public class Order extends Model {
      *
      * @param shippingAddress Адрес доставки заказа.
      */
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress != null ? shippingAddress : "";
+    public void setShippingAddress(final String shippingAddress) {
+        this.shippingAddress = isNotBlank(shippingAddress) ? shippingAddress : "";
     }
 
     /**
      * Возвращает детали доставки заказа.
      *
-     * @return Значение типа {@link String} - детали доставки заказа.
+     * @return Значение типа {@link String} -
+     * детали доставки заказа.
      */
     public String getShippingDetails() {
         return this.shippingDetails;
@@ -416,14 +538,15 @@ public class Order extends Model {
      *
      * @param shippingDetails Детали доставки заказа.
      */
-    public void setShippingDetails(String shippingDetails) {
-        this.shippingDetails = shippingDetails != null ? shippingDetails : "";
+    public void setShippingDetails(final String shippingDetails) {
+        this.shippingDetails = isNotBlank(shippingDetails) ? shippingDetails : "";
     }
 
     /**
      * Возвращает описание заказа.
      *
-     * @return Значение типа {@link String} - описание заказа.
+     * @return Значение типа {@link String} -
+     * описание заказа.
      */
     public String getDescription() {
         return this.description;
@@ -434,14 +557,16 @@ public class Order extends Model {
      *
      * @param description Описание заказа.
      */
-    public void setDescription(String description) {
-        this.description = description != null ? description : "";
+    public void setDescription(final String description) {
+        this.description = isNotBlank(description) ? description : "";
     }
 
     /**
-     * Возвращает цену заказа - общую стоимость всех торговых позиция.
+     * Возвращает цену заказа -
+     * общую стоимость всех торговых позиция.
      *
-     * @return Значение типа double - цена заказа.
+     * @return Значение типа double -
+     * цена заказа.
      */
     public double getPrice() {
         double price = 0;

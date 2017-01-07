@@ -9,7 +9,7 @@ import ua.com.alexcoffee.controller.manager.ManagerOrdersController;
 import ua.com.alexcoffee.controller.manager.ManagerUsersController;
 import ua.com.alexcoffee.controller.other.AdviceController;
 import ua.com.alexcoffee.controller.other.SEOController;
-import ua.com.alexcoffee.service.*;
+import ua.com.alexcoffee.service.interfaces.*;
 
 import static ua.com.alexcoffee.tools.MockService.*;
 

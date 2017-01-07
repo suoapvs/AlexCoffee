@@ -3,7 +3,7 @@ package ua.com.alexcoffee.dao.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
-import ua.com.alexcoffee.dao.SalePositionDAO;
+import ua.com.alexcoffee.dao.interfaces.SalePositionDAO;
 import ua.com.alexcoffee.repository.SalePositionRepository;
 import ua.com.alexcoffee.model.SalePosition;
 
@@ -17,7 +17,8 @@ import ua.com.alexcoffee.model.SalePosition;
  * Это позволяет Spring автоматически зарегестрировать компонент в своём контексте
  * для последующей инъекции.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see DataDAOImpl
  * @see SalePositionDAO
  * @see SalePosition
@@ -25,7 +26,9 @@ import ua.com.alexcoffee.model.SalePosition;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public class SalePositionDAOImpl extends DataDAOImpl<SalePosition> implements SalePositionDAO {
+public final class SalePositionDAOImpl
+        extends DataDAOImpl<SalePosition>
+        implements SalePositionDAO {
     /**
      * Конструктор для инициализации основных переменных.
      * Помечаный аннотацией @Autowired, которая позволит Spring

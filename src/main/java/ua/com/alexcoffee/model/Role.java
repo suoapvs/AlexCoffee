@@ -6,35 +6,50 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * Класс описывает сущность "Роль пользвателей", наследует класс {@link Model}.
- * Аннотация @Entity говорит о том что объекты этого класса будет обрабатываться hibernate.
- * Аннотация @Table(name = "roles") указывает на таблицу "roles", в которой будут храниться объекты.
+ * Аннотация @Entity говорит о том что объекты этого класса будет
+ * обрабатываться hibernate.
+ * Аннотация @Table(name = "roles") указывает на таблицу "roles",
+ * в которой будут храниться объекты.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see RoleEnum
  * @see User
  */
 @Entity
 @Table(name = "roles")
-public class Role extends Model {
+public final class Role extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Название роли, может принимать одно из значений перечисления {@link RoleEnum}.
-     * Значение поля сохраняется в колонке "title". Не может быть null.
+     * Название роли, может принимать одно
+     * из значений перечисления {@link RoleEnum}.
+     * Значение поля сохраняется в колонке "title".
+     * Не может быть null.
      */
-    @Column(name = "title", nullable = false)
+    @Column(
+            name = "title",
+            nullable = false
+    )
     @Enumerated(EnumType.STRING)
     private RoleEnum title;
 
     /**
-     * Описание роли. Значение поля сохраняется в колонке "description".
+     * Описание роли.
+     * Значение поля сохраняется в колонке "description".
+     * Не может быть null.
      */
-    @Column(name = "description", nullable = false)
+    @Column(
+            name = "description",
+            nullable = false
+    )
     private String description;
 
     /**
@@ -44,7 +59,11 @@ public class Role extends Model {
      * Выборка объектов users при первом доступе к ним.
      * Сущности users автоматически удаляется при удалении текущей.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.REMOVE)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "role",
+            cascade = CascadeType.REMOVE
+    )
     private List<User> users = new ArrayList<>();
 
     /**
@@ -55,12 +74,17 @@ public class Role extends Model {
     }
 
     /**
-     * Конструктор для инициализации основных переменных роли.
+     * Конструктор для инициализации
+     * основных переменных роли.
      *
-     * @param title       Название роли, может принимать одно из значений перечисления {@link RoleEnum}.
+     * @param title       Название роли, может принимать одно
+     *                    из значений перечисления {@link RoleEnum}.
      * @param description Описание роли.
      */
-    public Role(RoleEnum title, String description) {
+    public Role(
+            final RoleEnum title,
+            final String description
+    ) {
         super();
         this.title = title;
         this.description = description;
@@ -68,20 +92,25 @@ public class Role extends Model {
 
     /**
      * Возвращает описание роли.
-     * Переопределенный метод родительского класса {@link Object}.
+     * Переопределенный метод
+     * родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - строка описание роли (имя, описание).
+     * @return Значение типа {@link String} -
+     * строка описание роли (имя, описание).
      */
     @Override
     public String toString() {
-        return "Title: " + this.title.name() + "\nDescription: " + this.description;
+        return "Title: " + this.title.name()
+                + "\nDescription: " + this.description;
     }
 
     /**
-     * Генерирует строку для конечного сравнения роли в методе equals() родительского класса.
+     * Генерирует строку для конечного сравнения роли
+     * в методе equals() родительского класса.
      * Переопределенный метод родительского класса {@link Model}.
      *
-     * @return Значение типа {@link String} - название роли.
+     * @return Значение типа {@link String} -
+     * название роли.
      */
     public String toEquals() {
         return this.title.name();
@@ -92,34 +121,37 @@ public class Role extends Model {
      *
      * @param user Пользователь, который имеет текущую роль.
      */
-    public void addUser(User user) {
+    public void addUser(final User user) {
         this.users.add(user);
     }
 
     /**
      * Добавляет список пользователей в список пользователей users.
      *
-     * @param users Список пользователей, которые будут иметь текущую роль.
+     * @param users Список пользователей,
+     *              которые будут иметь текущую роль.
      */
-    public void addUsers(List<User> users) {
+    public void addUsers(final List<User> users) {
         this.users.addAll(users);
     }
 
     /**
      * Удаляет пользователя из списка текущей роли.
      *
-     * @param user Пользователь, у которого будет удалена текущая роль.
+     * @param user Пользователь, у которого
+     *             будет удалена текущая роль.
      */
-    public void removeUser(User user) {
+    public void removeUser(final User user) {
         this.users.remove(user);
     }
 
     /**
      * Метод удаляет список пользователей из списка users.
      *
-     * @param users Список пользователей,  у которых будет удалена текущая роль.
+     * @param users Список пользователей,
+     *              у которых будет удалена текущая роль.
      */
-    public void removeUsers(List<User> users) {
+    public void removeUsers(final List<User> users) {
         this.users.removeAll(users);
     }
 
@@ -134,7 +166,9 @@ public class Role extends Model {
      * Конвертирует список пользователей текущей роли
      * в список только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} - список пользователей только для чтения или пустой список.
+     * @return Объект типа {@link List} -
+     * список пользователей только для чтения
+     * или пустой список.
      */
     public List<User> getUsers() {
         return getUnmodifiableList(this.users);
@@ -145,33 +179,36 @@ public class Role extends Model {
      *
      * @param users Список пользователей.
      */
-    public void setUsers(List<User> users) {
+    public void setUsers(final List<User> users) {
         this.users = users;
     }
 
     /**
      * Возвращает название роли.
      *
-     * @return Объект перечисление {@link RoleEnum} - название роли.
+     * @return Объект перечисление {@link RoleEnum} -
+     * название роли.
      */
     public RoleEnum getTitle() {
         return this.title;
     }
 
     /**
-     * Устанавливает название роли, которое может принимать одно из
+     * Устанавливает название роли,
+     * которое может принимать одно из
      * значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
      */
-    public void setTitle(RoleEnum title) {
+    public void setTitle(final RoleEnum title) {
         this.title = title;
     }
 
     /**
      * Возвращает описание роли.
      *
-     * @return Значение типа {@link String} - описание роли.
+     * @return Значение типа {@link String} -
+     * описание роли.
      */
     public String getDescription() {
         return this.description;
@@ -182,7 +219,7 @@ public class Role extends Model {
      *
      * @param description Описание роли.
      */
-    public void setDescription(String description) {
-        this.description = description == null ? "" : description;
+    public void setDescription(final String description) {
+        this.description = isNotBlank(description) ? description : "";
     }
 }

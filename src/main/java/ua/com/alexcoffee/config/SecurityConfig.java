@@ -8,15 +8,21 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ua.com.alexcoffee.service.RoleService;
+import ua.com.alexcoffee.service.interfaces.RoleService;
 
 /**
- * Класс настройки безопасности Spring Security. Класс расширяет класс WebSecurityConfigurerAdapter.
- * Аннотация @EnableWebSecurity в связке с WebSecurityConfigurerAdapter классом работает над обеспечением
- * аутентификации. Помечен аннотацией @ComponentScan - указываем фреймворку Spring, что компоненты надо
- * искать внутри пакетов "ua.com.alexcoffee.service" и "ua.com.alexcoffee.dao".
+ * Класс настройки безопасности Spring Security.
+ * Класс расширяет класс WebSecurityConfigurerAdapter.
+ * Аннотация @EnableWebSecurity в связке с
+ * WebSecurityConfigurerAdapter классом работает
+ * над обеспечением
+ * аутентификации. Помечен аннотацией @ComponentScan
+ * - указываем фреймворку Spring, что компоненты надо
+ * искать внутри пакетов "ua.com.alexcoffee.service"
+ * и "ua.com.alexcoffee.dao".
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see UserDetailsService
  * @see RoleService
  * @see ua.com.alexcoffee.model.User
@@ -26,7 +32,8 @@ import ua.com.alexcoffee.service.RoleService;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig
+        extends WebSecurityConfigurerAdapter {
     /**
      * Префикс URL запросов для администраторов.
      */
@@ -58,40 +65,62 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String ACCESS_DENIED_PAGE = "/forbidden_exception";
 
     /**
-     * Объект сервиса для работы с зарегистрированными пользователями.
-     * Поле помечано аннотацией @Autowired, которая позволит Spring автоматически инициализировать объект.
+     * Объект сервиса для работы с зарегистрированными
+     * пользователями. Поле помечано аннотацией @Autowired,
+     * которая позволит Spring автоматически инициализировать
+     * объект.
      */
     @Autowired
-    public UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     /**
      * Объект сервиса для работы с ролями пользователей.
-     * Поле помечано аннотацией @Autowired, которая позволит Spring автоматически инициализировать объект.
+     * Поле помечано аннотацией @Autowired, которая
+     * позволит Spring автоматически инициализировать
+     * объект.
      */
     @Autowired
     private RoleService roleService;
 
     /**
-     * Настройка правил доступа пользователей к страницам сайта. Указываем адреса ресурсов с
-     * ограниченным доступом, ограничение задано по ролям. К страницам, URL которых начинается
-     * на "{@value ADMIN_REQUEST_URl}", имеют доступ только пользователи с ролью - администратор.
-     * К страницам, URL которых начинается на "{@value MANAGER_REQUEST_URl}", имеют доступ
-     * администраторы и менеджера. Чтобы попасть на эти страницы, нужно пройти этам авторизации.
+     * Настройка правил доступа пользователей к
+     * страницам сайта. Указываем адреса ресурсов с
+     * ограниченным доступом, ограничение задано по
+     * ролям. К страницам, URL которых начинается
+     * на "{@value ADMIN_REQUEST_URl}", имеют доступ
+     * только пользователи с ролью - администратор.
+     * К страницам, URL которых начинается на
+     * "{@value MANAGER_REQUEST_URl}", имеют доступ
+     * администраторы и менеджера. Чтобы попасть на
+     * эти страницы, нужно пройти этам авторизации.
      *
-     * @param httpSecurity Объект класса HttpSecurity для настройки прав доступа к страницам.
+     * @param httpSecurity Объект класса HttpSecurity
+     *                     для настройки прав доступа к страницам.
      * @throws Exception Исключение методов класса HttpSecurity.
      */
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+    protected void configure(final HttpSecurity httpSecurity)
+            throws Exception {
         httpSecurity
                 .logout()
                 .invalidateHttpSession(false)
                 .and()
                 .authorizeRequests()
                 .antMatchers(ADMIN_REQUEST_URl)
-                .hasRole(this.roleService.getAdministrator().getTitle().name())
+                .hasRole(
+                        this.roleService.getAdministrator()
+                                .getTitle()
+                                .name()
+                )
                 .antMatchers(MANAGER_REQUEST_URl)
-                .hasAnyRole(roleService.getAdministrator().getTitle().name(), this.roleService.getManager().getTitle().name())
+                .hasAnyRole(
+                        roleService.getAdministrator()
+                                .getTitle()
+                                .name(),
+                        this.roleService.getManager()
+                                .getTitle()
+                                .name()
+                )
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
@@ -105,15 +134,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Настройка пользователей с их ролями. Пользователи будут подгружатся с базы данных,
-     * используя реализацию методов интерфейса UserDetailsService. Также в памяти сохраняется
-     * запись об резервном пользоватети с правами администратора.
+     * Настройка пользователей с их ролями.
+     * Пользователи будут подгружатся с базы данных,
+     * используя реализацию методов интерфейса
+     * UserDetailsService. Также в памяти сохраняется
+     * запись об резервном пользоватети с правами
+     * администратора.
      *
-     * @param builder Объект класса AuthenticationManagerBuilder.
-     * @throws Exception Исключение методов класса AuthenticationManagerBuilder.
+     * @param builder Объект класса
+     *                AuthenticationManagerBuilder.
+     * @throws Exception Исключение методов класса
+     *                   AuthenticationManagerBuilder.
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder builder)
+            throws Exception {
         builder.userDetailsService(this.userDetailsService);
     }
 }

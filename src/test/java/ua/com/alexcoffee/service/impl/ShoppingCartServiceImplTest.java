@@ -6,7 +6,7 @@ import org.junit.Test;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
-import ua.com.alexcoffee.service.ShoppingCartService;
+import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 import ua.com.alexcoffee.tools.MockService;
 
 import static org.junit.Assert.assertNotNull;

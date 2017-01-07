@@ -13,7 +13,8 @@ import java.util.*;
  * Аннотация @MappedSuperclass аннотация определяет класс, описанные
  * свойства и методы которого будут применены в классах-наследниках.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see Category
  * @see Order
  * @see Photo
@@ -26,44 +27,56 @@ import java.util.*;
 @MappedSuperclass
 public abstract class Model implements Serializable {
     /**
-     * Номер версии класса необходимый для десериализации и сериализации.
+     * Номер версии класса необходимый
+     * для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Набор вожможных для использованния символов по-умолчанию.
+     * Набор вожможных для использованния
+     * символов по-умолчанию.
      */
-    protected static final char[] CODE_PATTERN = {'A', 'L', 'E', 'X', 'C', 'F', 'E', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+    private static final char[] CODE_PATTERN =
+            "ALEXCOFFEE1234567890".toCharArray();
 
     /**
-     * Длина возвращаемой строки по-умолчанию {@value CODE_LENGTH}.
+     * Длина возвращаемой строки
+     * по-умолчанию 6.
      */
-    protected static final int CODE_LENGTH = 6;
+    private static final int CODE_LENGTH = 6;
 
     /**
-     * Строка-формат для даты по-умолчанию {@value DATE_PATTERN}.
+     * Строка-формат для даты
+     * по-умолчанию "EEE, d MMM yyyy, HH:mm:ss".
      */
-    protected static final String DATE_PATTERN = "EEE, d MMM yyyy, HH:mm:ss";
+    private static final String DATE_PATTERN =
+            "EEE, d MMM yyyy, HH:mm:ss";
 
     /**
-     * Название (код) часового пояса по-умолчанию {@value TIME_ZONE}.
+     * Название (код) часового пояса
+     * по-умолчанию "GMT+3".
      */
-    protected static final String TIME_ZONE = "GMT+3";
+    private static final String TIME_ZONE = "GMT+3";
 
     /**
      * Уникальный код обьекта.
-     * Аннотация @Id говорит о том что поле является ключем для текущего объекта,
+     * Аннотация @Id говорит о том что поле
+     * является ключем для текущего объекта,
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Сравнивает текущий объект с объектом переданым как параметр.
-     * Переопределенный метод родительского класса {@link Object}.
+     * Сравнивает текущий объект с объектом
+     * переданым как параметр.
+     * Переопределенный метод
+     * родительского класса {@link Object}.
      *
      * @param obj объект для сравнения с текущим объектом.
-     * @return Значение типа boolean - результат сравнения текущего объекта с переданным объектом.
+     * @return Значение типа boolean -
+     * результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
     public boolean equals(Object obj) {
@@ -76,14 +89,17 @@ public abstract class Model implements Serializable {
         if (!(obj instanceof Model)) {
             return false;
         }
-        Model other = (Model) obj;
+        final Model other = (Model) obj;
         return (this.toEquals().equals(other.toEquals()));
     }
 
     /**
-     * Возвращает хеш код объекта. Переопределенный метод родительского класса {@link Object}.
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского
+     * класса {@link Object}.
      *
-     * @return Значение типа int - уникальный номер объекта.
+     * @return Значение типа int -
+     * уникальный номер объекта.
      */
     @Override
     public int hashCode() {
@@ -91,87 +107,121 @@ public abstract class Model implements Serializable {
     }
 
     /**
-     * Генерирует строку для конечного сравнения объектов в методе equals().
-     * Что бы в дочернем классе не переопределять весь метод equals(), можно
-     * переопределить тьлько этот метод.
+     * Генерирует строку для конечного
+     * сравнения объектов в методе equals().
+     * Что бы в дочернем классе не переопределять
+     * весь метод equals(), можно переопределить
+     * тьлько этот метод.
      *
-     * @return Значение типа {@link String} - результат работы метода toString().
+     * @return Значение типа {@link String} -
+     * результат работы метода toString().
      */
     public String toEquals() {
         return toString();
     }
 
     /**
-     * Возвращает рандомную строку из набор символов и длинны по-умолчанию.
+     * Возвращает рандомную строку из набор
+     * символов и длинны по-умолчанию.
      *
-     * @return Значение типа {@link String} - рандомная строка из набора
+     * @return Значение типа {@link String} -
+     * рандомная строка из набора
      * символов CODE_PATTERN длиной {@value CODE_LENGTH}.
      */
-    public static String createRandomString() {
-        return createRandomString(CODE_PATTERN, CODE_LENGTH);
+    static String createRandomString() {
+        return createRandomString(
+                CODE_PATTERN,
+                CODE_LENGTH
+        );
     }
 
     /**
-     * Возвращает рандомную строку используя набор символов pattern длиной length.
+     * Возвращает рандомную строку используя
+     * набор символов pattern длиной length.
      *
-     * @param pattern Набор вожможных для использованния символов.
+     * @param pattern Набор вожможных для
+     *                использованния символов.
      * @param length  Длина возвращаемой строки.
-     * @return Значение типа {@link String} - рандомная строка из набора символов pattern длиной length.
+     * @return Значение типа {@link String} -
+     * рандомная строка из набора символов
+     * pattern длиной length.
      */
-    public static String createRandomString(char[] pattern, int length) {
-        StringBuilder builder = new StringBuilder();
-
+    static String createRandomString(
+            final char[] pattern,
+            final int length
+    ) {
+        final StringBuilder sb = new StringBuilder();
+        final Random random = new Random();
         for (int i = 0; i < length; i++) {
-            int number = new Random().nextInt(pattern.length);
-            char ch = pattern[number];
-            builder.append(ch);
+            sb.append(
+                    pattern[random.nextInt(
+                            pattern.length
+                    )]
+            );
         }
-
-        return builder.toString();
+        return sb.toString();
     }
 
     /**
-     * Конвертирует дату типа Date в строку используя для работы входящими параметрами
-     * формат даты {@value DATE_PATTERN} и часовой пояс (@value TIME_ZONE} по-умолчанию.
+     * Конвертирует дату типа Date в строку
+     * используя для работы входящими параметрами
+     * формат даты {@value DATE_PATTERN}
+     * и часовой пояс (@value TIME_ZONE} по-умолчанию.
      *
-     * @param date Значение даты типа Date для обработки.
-     * @return Значение типа {@link String} - дата в виде строки.
+     * @param date Значение даты типа Date
+     *             для обработки.
+     * @return Значение типа {@link String} -
+     * дата в виде строки.
      */
-    public static String dateToString(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-        TimeZone timeZone = TimeZone.getTimeZone(TIME_ZONE);
-        return dateToStringWithFormat(date, dateFormat, timeZone);
+    static String dateToString(final Date date) {
+        return dateToStringWithFormat(date,
+                new SimpleDateFormat(DATE_PATTERN),
+                TimeZone.getTimeZone(TIME_ZONE)
+        );
     }
 
     /**
-     * Конвертирует дату типа Date в строку используя для работы входящими параметрами
+     * Конвертирует дату типа Date в строку
+     * используя для работы входящими параметрами
      * формат даты и часовой пояс.
      *
      * @param date       Значение даты типа Date для обработки.
-     * @param dateFormat Формат даты для обработки входного параметра date.
-     * @param timeZone   Часовой пояс для обработки входного параметра date.
-     * @return Значение типа {@link String} - дата в виде строки.
+     * @param dateFormat Формат даты для обработки
+     *                   входного параметра date.
+     * @param timeZone   Часовой пояс для обработки
+     *                   входного параметра date.
+     * @return Значение типа {@link String} -
+     * дата в виде строки.
      */
-    public static String dateToStringWithFormat(Date date, DateFormat dateFormat, TimeZone timeZone) {
+    private static String dateToStringWithFormat(
+            final Date date,
+            final DateFormat dateFormat,
+            final TimeZone timeZone
+    ) {
         dateFormat.setTimeZone(timeZone);
         return dateFormat.format(date);
     }
 
     /**
-     * Возвращает номер версии класса необходимый для десериализации и сериализации.
+     * Возвращает номер версии класса
+     * необходимый для десериализации
+     * и сериализации.
      *
-     * @return Значение типа {@link Long} - значение поля serialVersionUID.
+     * @return Значение типа {@link Long} -
+     * значение поля serialVersionUID.
      */
     public Long getId() {
         return this.id;
     }
 
     /**
-     * Устанавливает номер версии класса необходимый для десериализации и сериализации.
+     * Устанавливает номер версии класса
+     * необходимый для десериализации и сериализации.
      *
-     * @param id Значение параметра будет записано в поле id объекта.
+     * @param id Значение параметра будет
+     *           записано в поле id объекта.
      */
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -182,9 +232,17 @@ public abstract class Model implements Serializable {
      *
      * @param list Входной объект коллекции для обработки.
      * @param <T>  Возможный тип объектов в списке.
-     * @return Значение типа {@link List} - список только для чтения или пустой список.
+     * @return Значение типа {@link List} -
+     * список только для чтения или пустой список.
      */
-    public static <T extends Object> List<T> getUnmodifiableList(List<T> list) {
-        return list == null || list.isEmpty() ? Collections.EMPTY_LIST : Collections.unmodifiableList(list);
+    public static <T extends Model> List<T> getUnmodifiableList(
+            final List<T> list
+    ) {
+        return (
+                list != null
+        ) && (
+                !list.isEmpty()
+        ) ? Collections.unmodifiableList(list)
+                : Collections.EMPTY_LIST;
     }
 }

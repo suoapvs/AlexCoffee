@@ -3,9 +3,9 @@ package ua.com.alexcoffee.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import ua.com.alexcoffee.dao.SalePositionDAO;
+import ua.com.alexcoffee.dao.interfaces.SalePositionDAO;
 import ua.com.alexcoffee.model.SalePosition;
-import ua.com.alexcoffee.service.SalePositionService;
+import ua.com.alexcoffee.service.interfaces.SalePositionService;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link SalePosition}
@@ -18,7 +18,8 @@ import ua.com.alexcoffee.service.SalePositionService;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainServiceImpl
  * @see SalePositionService
  * @see SalePosition
@@ -26,17 +27,21 @@ import ua.com.alexcoffee.service.SalePositionService;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public class SalePositionServiceImpl extends MainServiceImpl<SalePosition> implements SalePositionService {
+public final class SalePositionServiceImpl
+        extends MainServiceImpl<SalePosition>
+        implements SalePositionService {
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link SalePositionDAO} для работы торговых позиций с базой данных.
+     * @param dao Реализация интерфейса {@link SalePositionDAO}
+     *            для работы торговых позиций с базой данных.
      */
     @Autowired
-    public SalePositionServiceImpl(SalePositionDAO dao) {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public SalePositionServiceImpl(final SalePositionDAO dao) {
         super(dao);
     }
 }

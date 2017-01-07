@@ -13,9 +13,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * сущностью (обязательно). Второй Generic E должен быть оберточным типом
  * того типа которым есть id нашей сущности (обязательно).
  *
- * @author Yurii Salimov
  * @param <T> Тип (класс) сущности.
  * @param <E> Тип id сущности.
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see CategoryRepository
  * @see OrderRepository
  * @see PhotoRepository
@@ -26,6 +27,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see UserRepository
  * @see Model
  */
-public interface MainRepository<T extends Model, E extends Number> extends JpaRepository<T, E> {
-
+public interface MainRepository<T extends Model, E extends Number>
+        extends JpaRepository<T, E> {
 }

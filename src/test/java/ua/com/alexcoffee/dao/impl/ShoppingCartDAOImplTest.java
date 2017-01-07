@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ua.com.alexcoffee.config.RootConfig;
 import ua.com.alexcoffee.config.WebConfig;
-import ua.com.alexcoffee.dao.ShoppingCartDAO;
+import ua.com.alexcoffee.dao.interfaces.ShoppingCartDAO;
 import ua.com.alexcoffee.model.Product;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;

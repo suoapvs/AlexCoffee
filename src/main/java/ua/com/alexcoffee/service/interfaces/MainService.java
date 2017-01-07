@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.service;
+package ua.com.alexcoffee.service.interfaces;
 
 import ua.com.alexcoffee.model.Model;
 import ua.com.alexcoffee.service.impl.MainServiceImpl;
@@ -10,7 +10,9 @@ import java.util.List;
  * с объектами  дочерних классов родительского класса {@link Model}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov
+ * @param <T> Класс-наследник класса {@link Model}.
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see Model
  * @see MainServiceImpl
  * @see CategoryService
@@ -48,14 +50,16 @@ public interface MainService<T extends Model> {
      * Получение модели по уникальному коду id.
      *
      * @param id Уникальный код модели.
-     * @return Объект класса {@link Model} -  модель с кодом id.
+     * @return Объект класса {@link Model} -
+     * модель с кодом id.
      */
     T get(Long id);
 
     /**
      * Получение всех моделей.
      *
-     * @return Объект типа {@link List} - список всех моделей.
+     * @return Объект типа {@link List} -
+     * список всех моделей.
      */
     List<T> getAll();
 

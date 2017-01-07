@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.service.SenderService;
+import ua.com.alexcoffee.service.interfaces.SenderService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.Properties;

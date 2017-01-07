@@ -18,17 +18,30 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
- * Класс основных конфигураций для Spring: DataSource, JpaVendorAdapter, JpaTransactionManager,
- * BeanPostProcessor, CommonsMultipartResolver.
- * Помечен аннотацией @Configuration - класс является источником определения бинов;
- * аннотацией @EnableTransactionManagement - активирует возможности Spring транзакции через @Transactional;
- * аннотацией @EnableJpaRepositories - активирует Spring Data JPA, который будет создавать конкретную
- * реализацию для репозитория из пакета "ua.com.alexcoffee.repository" и настраивать на взаимодействие
- * с БД в памяти, используя JPA;
- * аннотацией @ComponentScan - указываем фреймворку Spring, что компоненты надо искать внутри
+ * Класс основных конфигураций для Spring:
+ * DataSource,
+ * JpaVendorAdapter,
+ * JpaTransactionManager,
+ * BeanPostProcessor,
+ * CommonsMultipartResolver.
+ * Помечен аннотацией @Configuration -
+ * класс является источником определения
+ * бинов;
+ * аннотацией @EnableTransactionManagement -
+ * активирует возможности Spring транзакции
+ * через @Transactional;
+ * аннотацией @EnableJpaRepositories - активирует
+ * Spring Data JPA, который будет создавать
+ * конкретную реализацию для репозитория из
+ * пакета "ua.com.alexcoffee.repository" и
+ * настраивать на взаимодействие с БД в
+ * памяти, используя JPA;
+ * аннотацией @ComponentScan - указываем фреймворку
+ * Spring, что компоненты надо искать внутри
  * пакета "ua.com.alexcoffee.model".
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  */
 @Configuration
 @EnableTransactionManagement
@@ -39,7 +52,13 @@ public class RootConfig {
     /**
      * Путь к базе данных.
      */
-    private static final String DATABASE_URL = "jdbc:mysql://127.0.0.1:3306/alexcoffee?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT";
+    private static final String DATABASE_URL =
+            "jdbc:mysql://127.0.0.1:3306/alexcoffee?"
+                    + "autoReconnect=true"
+                    + "&useSSL=false&useUnicode=true"
+                    + "&useJDBCCompliantTimezoneShift=true"
+                    + "&useLegacyDatetimeCode=false"
+                    + "&serverTimezone=GMT";
 
     /**
      * Драйвер для подключение к базе данных.
@@ -59,12 +78,14 @@ public class RootConfig {
     /**
      * Диалект Hibernate SQL для базы данных.
      */
-    private static final String DATABASE_DIALECT = "org.hibernate.dialect.MySQLDialect";
+    private static final String DATABASE_DIALECT =
+            "org.hibernate.dialect.MySQLDialect";
 
     /**
      * Пакет сканирования для фабрики EntityManager.
      */
-    private static final String PACKAGE_TO_SCAN = "ua.com.alexcoffee.model";
+    private static final String PACKAGE_TO_SCAN =
+            "ua.com.alexcoffee.model";
 
     /**
      * Начальный размер пула соединений.
@@ -72,29 +93,36 @@ public class RootConfig {
     private static final int INITIAL_SIZE = 5;
 
     /**
-     * Максимальное количество активных соединений, которые могут быть выделены в то же время.
+     * Максимальное количество активных соединений,
+     * которые могут быть выделены в то же время.
      */
     private static final int MAX_ACTIVE = 20;
 
     /**
-     * Это свойство определяет, будет ли пул проверки объектов, прежде чем они заимствованы у бассейна.
+     * Это свойство определяет, будет ли пул проверки
+     * объектов, прежде чем они заимствованы у бассейна.
      */
     private static final boolean TEST_ON_BORROW = true;
 
     /**
-     * Запрос SQL, который будет использоваться для проверки соединения из этого пула перед их возвращением к вызывающему.
+     * Запрос SQL, который будет использоваться
+     * для проверки соединения из этого пула
+     * перед их возвращением к вызывающему.
      */
     private static final String VALIDATION_QUERY = "SELECT 1";
 
     /**
-     * Возвращает объект класса DataSource с настройками подключения к базе данных.
-     * Нужен для получения физического соединения с базой данных.
+     * Возвращает объект класса DataSource
+     * с настройками подключения к базе данных.
+     * Нужен для получения физического
+     * соединения с базой данных.
      *
-     * @return Объект класса DataSource - настройки для базы данных.
+     * @return Объект класса DataSource -
+     * настройки для базы данных.
      */
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+        final BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(DATABASE_URL);
         dataSource.setDriverClassName(DATABASE_DRIVER);
         dataSource.setUsername(DATABASE_USERNAME);
@@ -107,13 +135,17 @@ public class RootConfig {
     }
 
     /**
-     * Возвращает настройки адаптера (JPA provider) для подключения к базе данных.
+     * Возвращает настройки адаптера
+     * (JPA provider) для подключения
+     * к базе данных.
      *
-     * @return Объект класса HibernateJpaVendorAdapter - адаптера для подключения к базе данных..
+     * @return Объект класса HibernateJpaVendorAdapter -
+     * адаптера для подключения к базе данных..
      */
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        final HibernateJpaVendorAdapter adapter =
+                new HibernateJpaVendorAdapter();
         adapter.setShowSql(false);
         adapter.setGenerateDdl(true);
         adapter.setDatabasePlatform(DATABASE_DIALECT);
@@ -121,15 +153,23 @@ public class RootConfig {
     }
 
     /**
-     * Создает фабрику EntityManager, может быть передана в DAO, JPA с помощью инъекции зависимостей.
+     * Создает фабрику EntityManager,
+     * может быть передана в DAO,
+     * JPA с помощью инъекции зависимостей.
      *
-     * @param dataSource       Объект класса DataSource с настройками подключения к базе данных.
-     * @param jpaVendorAdapter Реализация интерфейса JpaVendorAdapter - адаптера для подключения к базе данных.
+     * @param dataSource       Объект класса DataSource с
+     *                         настройками подключения к базе данных.
+     * @param jpaVendorAdapter Реализация интерфейса JpaVendorAdapter -
+     *                         адаптера для подключения к базе данных.
      * @return Объект класса LocalContainerEntityManagerFactoryBean.
      */
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            final DataSource dataSource,
+            final JpaVendorAdapter jpaVendorAdapter
+    ) {
+        final LocalContainerEntityManagerFactoryBean entityManagerFactory =
+                new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactory.setPackagesToScan(PACKAGE_TO_SCAN);
@@ -137,21 +177,28 @@ public class RootConfig {
     }
 
     /**
-     * Возвращает менеджера транзакций, который  подходит для приложений, использующих единую
-     * JPA EntityManagerFactory для транзакционного доступа к данным.
+     * Возвращает менеджера транзакций, который
+     * подходит для приложений, использующих единую
+     * JPA EntityManagerFactory для транзакционного
+     * доступа к данным.
      *
      * @param entityManagerFactory Реализация интерфейса EntityManagerFactory.
-     * @return Объект класса JpaTransactionManager с входящей фабрикой ентети менеджера factory.
+     * @return Объект класса JpaTransactionManager
+     * с входящей фабрикой ентети менеджера factory.
      */
     @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    public JpaTransactionManager transactionManager(
+            final EntityManagerFactory entityManagerFactory
+    ) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
     /**
-     * Переводит (перехватывает) любые JPA или Hibernate исключения в Spring исключения.
+     * Переводит (перехватывает) любые JPA
+     * или Hibernate исключения в Spring исключения.
      *
-     * @return Реализация интерфейса PersistenceExceptionTranslationPostProcessor.
+     * @return Реализация интерфейса
+     * PersistenceExceptionTranslationPostProcessor.
      */
     @Bean
     public BeanPostProcessor persistenceTranslation() {
@@ -159,10 +206,12 @@ public class RootConfig {
     }
 
     /**
-     * Возвращает объект класса CommonsMultipartResolver, который сохраняет временные файлы
+     * Возвращает объект класса CommonsMultipartResolver,
+     * который сохраняет временные файлы
      * во временный каталог сервлет контейнера.
      *
-     * @return Объект класса CommonsMultipartResolver для временного сохранения файлов.
+     * @return Объект класса CommonsMultipartResolver
+     * для временного сохранения файлов.
      */
     @Bean
     public CommonsMultipartResolver multipartResolver() {

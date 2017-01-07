@@ -7,28 +7,36 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.*;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * Класс описывает сущность "Пользователь", наследует класс {@link Model}
  * и реализует методы интерфейса {@link UserDetails}.
- * В классе обязательно поле role, то есть можно создавать пользователей с разными правами (администраторы
+ * В классе обязательно поле role, то есть можно создавать пользователей
+ * с разными правами (администраторы
  * клиенты и т.д).
- * Аннотация @Entity говорит о том что объекты этого класса будет обрабатываться hibernate.
- * Аннотация @Table(name = "users") указывает на таблицу "users", в которой будут храниться объекты.
+ * Аннотация @Entity говорит о том что объекты этого класса будет
+ * обрабатываться hibernate.
+ * Аннотация @Table(name = "users") указывает на таблицу "users",
+ * в которой будут храниться объекты.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see Role
  * @see Order
  */
 @Entity
 @Table(name = "users")
-public class User extends Model implements UserDetails {
+public final class User extends Model implements UserDetails {
     /**
-     * Номер версии класса необходимый для десериализации и сериализации.
+     * Номер версии класса необходимый
+     * для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Имя пользователя. Значение поля сохраняется в колонке "name". Не может быть null.
+     * Имя пользователя. Значение поля сохраняется
+     * в колонке "name". Не может быть null.
      */
     @Column(name = "name", nullable = false)
     private String name;
@@ -49,16 +57,24 @@ public class User extends Model implements UserDetails {
 
     /**
      * Электронная почта пользователя.
-     * Значение поля сохраняется в колонке "email". Не может быть null.
+     * Значение поля сохраняется в колонке "email".
+     * Не может быть null.
      */
-    @Column(name = "email", nullable = false)
+    @Column(
+            name = "email",
+            nullable = false
+    )
     private String email;
 
     /**
      * Номер телефона пользователя.
-     * Значение поля сохраняется в колонке "phone". Не может быть null.
+     * Значение поля сохраняется в колонке "phone".
+     * Не может быть null.
      */
-    @Column(name = "phone", nullable = false)
+    @Column(
+            name = "phone",
+            nullable = false
+    )
     private String phone;
 
     /**
@@ -83,21 +99,27 @@ public class User extends Model implements UserDetails {
     private String skype;
 
     /**
-     * Описание заказа. Значение поля сохраняется в колонке "description".
+     * Описание заказа.
+     * Значение поля сохраняется в колонке "description".
      */
     @Column(name = "description")
     private String description;
 
     /**
      * Роль пользователя.
-     * Значение поля (id объекта role) сохраняется в колонке "role_id". Не может быть null.
+     * Значение поля (id объекта role) сохраняется в колонке "role_id".
+     * Не может быть null.
      * Между объектами классов {@link User} и
      * {@link Role} связь многие-к-одному, а именно
      * много разных пользователей могут иметь одинаковую роль (права) на сайте.
-     * Выборка объекта status до первого доступа нему, при первом доступе к текущему объекту.
+     * Выборка объекта status до первого доступа нему,
+     * при первом доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(
+            name = "role_id",
+            referencedColumnName = "id"
+    )
     private Role role;
 
     /**
@@ -105,9 +127,14 @@ public class User extends Model implements UserDetails {
      * К текущему пользователю можно добраться через поле "client"
      * в объекте класса {@link Order}.
      * Выборка продаж при первом доступе к текущему объекту.
-     * Сущности clientOrders автоматически удаляются при удалении текущей сущности.
+     * Сущности clientOrders автоматически удаляются
+     * при удалении текущей сущности.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.REMOVE)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "client",
+            cascade = CascadeType.REMOVE
+    )
     private List<Order> clientOrders = new ArrayList<>();
 
     /**
@@ -115,9 +142,14 @@ public class User extends Model implements UserDetails {
      * К текущему пользователю можно добраться через поле "manager"
      * в объекте класса {@link Order}.
      * Выборка продаж при первом доступе к текущему объекту.
-     * Сущности managerOrders автоматически удаляются при удалении текущей сущности.
+     * Сущности managerOrders автоматически удаляются
+     * при удалении текущей сущности.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "manager", cascade = CascadeType.REMOVE)
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "manager",
+            cascade = CascadeType.REMOVE
+    )
     private List<Order> managerOrders = new ArrayList<>();
 
     /**
@@ -135,7 +167,12 @@ public class User extends Model implements UserDetails {
      * @param phone Номер телефона пользователя.
      * @param role  Роль пользователя.
      */
-    public User(String name, String email, String phone, Role role) {
+    public User(
+            final String name,
+            final String email,
+            final String phone,
+            final Role role
+    ) {
         super();
         this.name = name;
         this.email = email;
@@ -151,33 +188,42 @@ public class User extends Model implements UserDetails {
 
     /**
      * Возвращает описание пользователя.
-     * Переопределенный метод родительского класса {@link Object}.
+     * Переопределенный метод родительского
+     * класса {@link Object}.
      *
-     * @return Значение типа {@link String} - строка описание пользователя
+     * @return Значение типа {@link String} -
+     * строка описание пользователя
      * (имя, роль, электронная почта, номер телефона).
      */
     @Override
     public String toString() {
-        return "Name: " + this.name + "\nRole: " + this.role.getDescription()
-                + "\nEmail: " + this.email + "\nPhone: " + this.phone;
+        return "Name: " + this.name
+                + "\nRole: " + this.role.getDescription()
+                + "\nEmail: " + this.email
+                + "\nPhone: " + this.phone;
     }
 
     /**
-     * Генерирует строку для конечного сравнения пользователей в методе equals() родительского класса.
+     * Генерирует строку для конечного сравнения пользователей
+     * в методе equals() родительского класса.
      * Переопределенный метод родительского класса {@link Model}.
      *
-     * @return Значение типа {@link String} - имя пользователя + электронная почта + номер телефона.
+     * @return Значение типа {@link String} -
+     * имя пользователя + электронная почта + номер телефона.
      */
     @Override
     public String toEquals() {
-        return getName() + getEmail() + getPhone();
+        return getName()
+                + getEmail()
+                + getPhone();
     }
 
     /**
-     * Возвращает значение типа boolean в зависемости от срока действия аккаунта.
+     * Возвращает значение типа boolean в зависемости
+     * от срока действия аккаунта.
      * Реализованый метод интерфейса {@link UserDetails}.
      *
-     * @return true - если текущий аккаунт работоспособный.
+     * @return {@code true} - если текущий аккаунт работоспособный.
      */
     @Override
     public boolean isAccountNonExpired() {
@@ -186,10 +232,11 @@ public class User extends Model implements UserDetails {
 
 
     /**
-     * Возвращает значение типа boolean от того, заблокирован текущий аккаунт
-     * (пользователь) или нет. Реализованый метод интерфейса {@link UserDetails}.
+     * Возвращает значение типа boolean от того,
+     * заблокирован текущий аккаунт (пользователь) или нет.
+     * Реализованый метод интерфейса {@link UserDetails}.
      *
-     * @return true - если текущий аккаунт не заблокирован.
+     * @return {@code true} - если текущий аккаунт не заблокирован.
      */
     @Override
     public boolean isAccountNonLocked() {
@@ -197,10 +244,12 @@ public class User extends Model implements UserDetails {
     }
 
     /**
-     * Возвращает значение типа boolean от того, активны ли права (полномичия)
-     * данного аккаунта или нет. Реализованый метод интерфейса {@link UserDetails}.
+     * Возвращает значение типа boolean от того,
+     * активны ли права (полномичия)
+     * данного аккаунта или нет.
+     * Реализованый метод интерфейса {@link UserDetails}.
      *
-     * @return true - если срок прав текущего аккаунта не истек.
+     * @return {@code true} - если срок прав текущего аккаунта не истек.
      */
     @Override
     public boolean isCredentialsNonExpired() {
@@ -208,10 +257,11 @@ public class User extends Model implements UserDetails {
     }
 
     /**
-     * Возвращает значение типа boolean от того, активный ли
-     * текущий аккаунт или нет. Реализованый метод интерфейса {@link UserDetails}.
+     * Возвращает значение типа boolean от того,
+     * активный ли текущий аккаунт или нет.
+     * Реализованый метод интерфейса {@link UserDetails}.
      *
-     * @return true - если текущий аккаунт активный.
+     * @return {@code true} - если текущий аккаунт активный.
      */
     @Override
     public boolean isEnabled() {
@@ -219,15 +269,22 @@ public class User extends Model implements UserDetails {
     }
 
     /**
-     * Возвращает список всех ролей пользователя через объект-обертку
-     * класса SimpleGrantedAuthority. Реализованый метод интерфейса {@link UserDetails}.
+     * Возвращает список всех ролей пользователя
+     * через объект-обертку
+     * класса SimpleGrantedAuthority.
+     * Реализованый метод интерфейса {@link UserDetails}.
      *
-     * @return Объект типа {@link List} - список ролей пользователя.
+     * @return Объект типа {@link List} -
+     * список ролей пользователя.
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_" + this.role.getTitle().name()));
+        final List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(
+                new SimpleGrantedAuthority(
+                        "ROLE_" + this.role.getTitle().name()
+                )
+        );
         return roles;
     }
 
@@ -245,9 +302,18 @@ public class User extends Model implements UserDetails {
      * @param description Описание пользователя.
      * @param role        Роль пользователя.
      */
-    public void initialize(String name, String username, String password, String email,
-                           String phone, String vkontakte, String facebook, String skype,
-                           String description, Role role) {
+    public void initialize(
+            final String name,
+            final String username,
+            final String password,
+            final String email,
+            final String phone,
+            final String vkontakte,
+            final String facebook,
+            final String skype,
+            final String description,
+            final Role role
+    ) {
         setName(name);
         setUsername(username);
         setPassword(password);
@@ -263,7 +329,8 @@ public class User extends Model implements UserDetails {
     /**
      * Возвращает имя пользователя.
      *
-     * @return Значение типа {@link String} - имя пользователя.
+     * @return Значение типа {@link String} -
+     * имя пользователя.
      */
     public String getName() {
         return this.name;
@@ -274,14 +341,15 @@ public class User extends Model implements UserDetails {
      *
      * @param name Имя пользователя.
      */
-    public void setName(String name) {
-        this.name = name != null ? name : "";
+    public void setName(final String name) {
+        this.name = isNotBlank(name) ? name : "";
     }
 
     /**
      * Возвращает логин пользователя.
      *
-     * @return Значение типа {@link String} - логин пользователя.
+     * @return Значение типа {@link String} -
+     * логин пользователя.
      */
     public String getUsername() {
         return this.username;
@@ -292,14 +360,15 @@ public class User extends Model implements UserDetails {
      *
      * @param username Логин пользователя.
      */
-    public void setUsername(String username) {
-        this.username = username != null ? username : "";
+    public void setUsername(final String username) {
+        this.username = isNotBlank(username) ? username : "";
     }
 
     /**
      * Возвращает пароль пользователя.
      *
-     * @return Значение типа {@link String} - пароль пользователя.
+     * @return Значение типа {@link String} -
+     * пароль пользователя.
      */
     public String getPassword() {
         return this.password;
@@ -310,14 +379,15 @@ public class User extends Model implements UserDetails {
      *
      * @param password Пароль пользователя.
      */
-    public void setPassword(String password) {
-        this.password = password != null ? password : "";
+    public void setPassword(final String password) {
+        this.password = isNotBlank(password) ? password : "";
     }
 
     /**
      * Возвращает электронную почту пользователя.
      *
-     * @return Значение типа {@link String} - электронная почта пользователя.
+     * @return Значение типа {@link String} -
+     * электронная почта пользователя.
      */
     public String getEmail() {
         return this.email;
@@ -328,14 +398,15 @@ public class User extends Model implements UserDetails {
      *
      * @param email Электронная почта пользователя.
      */
-    public void setEmail(String email) {
-        this.email = email != null ? email : "";
+    public void setEmail(final String email) {
+        this.email = isNotBlank(email) ? email : "";
     }
 
     /**
      * Метод возвращает номер телефона пользвателя.
      *
-     * @return Значение типа {@link String} - номер телефона пользвателя.
+     * @return Значение типа {@link String} -
+     * номер телефона пользвателя.
      */
     public String getPhone() {
         return this.phone;
@@ -346,68 +417,78 @@ public class User extends Model implements UserDetails {
      *
      * @param phone Номер телефона пользователя.
      */
-    public void setPhone(String phone) {
-        this.phone = phone != null ? phone : "";
+    public void setPhone(final String phone) {
+        this.phone = isNotBlank(phone) ? phone : "";
     }
 
     /**
-     * Метод возвращает ссылку на страничку в соц. сети "ВКонтакте" пользователя.
+     * Метод возвращает ссылку на страничку
+     * в соц. сети "ВКонтакте" пользователя.
      *
-     * @return Значение типа {@link String} - ссылка "ВКонтакте" пользователя.
+     * @return Значение типа {@link String} -
+     * ссылка "ВКонтакте" пользователя.
      */
     public String getVkontakte() {
         return this.vkontakte;
     }
 
     /**
-     * Устанавливает ссылку на страничку в соц. сети "ВКонтакте" пользователя.
+     * Устанавливает ссылку на страничку
+     * в соц. сети "ВКонтакте" пользователя.
      *
      * @param vkontakte Ссылка "ВКонтакте" пользователя.
      */
-    public void setVkontakte(String vkontakte) {
-        this.vkontakte = vkontakte != null ? vkontakte : "";
+    public void setVkontakte(final String vkontakte) {
+        this.vkontakte = isNotBlank(vkontakte) ? vkontakte : "";
     }
 
     /**
-     * Метод возвращает ссылку на страничку в соц. сети "Facebook" пользователя.
+     * Метод возвращает ссылку на страничку
+     * в соц. сети "Facebook" пользователя.
      *
-     * @return Значение типа {@link String} - ссылка "Facebook" пользователя.
+     * @return Значение типа {@link String} -
+     * ссылка "Facebook" пользователя.
      */
     public String getFacebook() {
         return this.facebook;
     }
 
     /**
-     * Устанавливает ссылку на страничку в соц. сети "Facebook" пользователя.
+     * Устанавливает ссылку на страничку
+     * в соц. сети "Facebook" пользователя.
      *
      * @param facebook Ссылка "Facebook" пользователя.
      */
-    public void setFacebook(String facebook) {
-        this.facebook = facebook != null ? facebook : "";
+    public void setFacebook(final String facebook) {
+        this.facebook = isNotBlank(facebook) ? facebook : "";
     }
 
     /**
-     * Метод возвращает логин пользователя в месенджере "Skype".
+     * Метод возвращает логин пользователя
+     * в месенджере "Skype".
      *
-     * @return Значение типа {@link String} - логин "Skype".
+     * @return Значение типа {@link String} -
+     * логин "Skype".
      */
     public String getSkype() {
         return this.skype;
     }
 
     /**
-     * Устанавливает логин пользователя в месенджере "Skype".
+     * Устанавливает логин пользователя
+     * в месенджере "Skype".
      *
      * @param skype Логин "Skype".
      */
-    public void setSkype(String skype) {
-        this.skype = skype != null ? skype : "";
+    public void setSkype(final String skype) {
+        this.skype = isNotBlank(skype) ? skype : "";
     }
 
     /**
      * Возвращает описание пользователя.
      *
-     * @return Значение типа {@link String} - описание пользователя.
+     * @return Значение типа {@link String} -
+     * описание пользователя.
      */
     public String getDescription() {
         return this.description;
@@ -418,14 +499,15 @@ public class User extends Model implements UserDetails {
      *
      * @param description Описание пользователя.
      */
-    public void setDescription(String description) {
-        this.description = description != null ? description : "";
+    public void setDescription(final String description) {
+        this.description = isNotBlank(description) ? description : "";
     }
 
     /**
      * Возвращает роль пользователя.
      *
-     * @return Объект класса {@link Role} - роль пользователя.
+     * @return Объект класса {@link Role} -
+     * роль пользователя.
      */
     public Role getRole() {
         return this.role;
@@ -434,9 +516,9 @@ public class User extends Model implements UserDetails {
     /**
      * Устанавливает роль пользователя.
      *
-     * @param role Hоль пользователя.
+     * @param role Роль пользователя.
      */
-    public void setRole(Role role) {
+    public void setRole(final Role role) {
         this.role = role;
     }
 
@@ -444,37 +526,44 @@ public class User extends Model implements UserDetails {
      * Конвертирует список заказов, которые оформил
      * текущий клиент, в список только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} - список заказов только для чтения или пустой список.
+     * @return Объект типа {@link List} -
+     * список заказов только для чтения или пустой список.
      */
     public List<Order> getClientOrders() {
         return getUnmodifiableList(this.clientOrders);
     }
 
     /**
-     * Устанавливает список заказов, которые оформил текущий клиент.
+     * Устанавливает список заказов,
+     * которые оформил текущий клиент.
      *
-     * @param clientOrders Список заказов, оформленных клиентом.
+     * @param clientOrders Список заказов,
+     *                     оформленных клиентом.
      */
-    public void setClientOrders(List<Order> clientOrders) {
+    public void setClientOrders(final List<Order> clientOrders) {
         this.clientOrders = clientOrders;
     }
 
     /**
      * Конвертирует список заказов, которые обработал
-     * текущий менеджер, в список только для чтений и возвращает его.
+     * текущий менеджер, в список только
+     * для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} - список заказов только для чтения или пустой список.
+     * @return Объект типа {@link List} -
+     * список заказов только для чтения или пустой список.
      */
     public List<Order> getManagerOrders() {
         return getUnmodifiableList(this.managerOrders);
     }
 
     /**
-     * Устанавливает список заказов, которые обработал текущий менеджер.
+     * Устанавливает список заказов,
+     * которые обработал текущий менеджер.
      *
-     * @param managerOrders Список заказов, обработаных менеджером.
+     * @param managerOrders Список заказов,
+     *                      обработаных менеджером.
      */
-    public void setManagerOrders(List<Order> managerOrders) {
+    public void setManagerOrders(final List<Order> managerOrders) {
         this.managerOrders = managerOrders;
     }
 }

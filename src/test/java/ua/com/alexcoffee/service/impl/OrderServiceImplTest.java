@@ -6,7 +6,7 @@ import org.junit.Test;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.service.OrderService;
+import ua.com.alexcoffee.service.interfaces.OrderService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;

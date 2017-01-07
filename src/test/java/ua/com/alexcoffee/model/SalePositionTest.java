@@ -117,20 +117,16 @@ public class SalePositionTest {
     public void getPriceTest() {
         Product product = new Product("", "", null, null, 100);
         SalePosition salePosition = new SalePosition(product, 10);
-
         assertTrue(salePosition.getPrice() == product.getPrice() * 10);
     }
 
     @Test
     public void numberIncrTest() {
         System.out.print("-> numberIncr() - ");
-
         SalePosition position = new SalePosition(new Product(), 1);
-        position.numberIncr();
-        position.numberIncr();
-
+        position.numberIncrement();
+        position.numberIncrement();
         assertTrue(position.getNumber() == 3);
-
         System.out.println("OK!");
     }
 

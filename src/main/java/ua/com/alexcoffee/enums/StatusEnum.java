@@ -1,8 +1,35 @@
 package ua.com.alexcoffee.enums;
 
 /**
- * Перечесление вожможных статусов выполнения заказа.
+ * Перечесление вожможных статусов
+ * выполнения заказа.
+ *
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  */
 public enum StatusEnum {
-    NEW, WORK, DELIVERY, CLOSED, REJECTION;
+    /**
+     * Новый заказ.
+     */
+    NEW,
+
+    /**
+     * Заказ в работу.
+     */
+    WORK,
+
+    /**
+     * Доставка заказа.
+     */
+    DELIVERY,
+
+    /**
+     * Заказ закрыт.
+     */
+    CLOSED,
+
+    /**
+     * Отказ заказа.
+     */
+    REJECTION
 }

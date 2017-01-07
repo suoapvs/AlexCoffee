@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.service;
+package ua.com.alexcoffee.service.interfaces;
 
 import ua.com.alexcoffee.model.Order;
 
@@ -10,7 +10,8 @@ import java.util.Properties;
  * Интерфейс сервисного слоя для работы с электронной почтой.
  * Представляет методы для отправки сообщений на электронную почту.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.SenderServiceImpl
  */
@@ -46,5 +47,10 @@ public interface SenderService {
      * @throws MessagingException           Исключение класса InternetAddress.
      * @throws UnsupportedEncodingException Исключение кодировки метдом MimeUtility.encodeText().
      */
-    void sendMessage(Properties properties, String toEmail, String subject, String text) throws MessagingException, UnsupportedEncodingException;
+    void sendMessage(
+            Properties properties,
+            String toEmail,
+            String subject,
+            String text
+    ) throws MessagingException, UnsupportedEncodingException;
 }

@@ -7,15 +7,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.UserDAO;
+import ua.com.alexcoffee.dao.interfaces.UserDAO;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.service.UserService;
+import ua.com.alexcoffee.service.interfaces.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link User}
@@ -29,7 +31,8 @@ import java.util.List;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainServiceImpl
  * @see UserService
  * @see User
@@ -37,9 +40,12 @@ import java.util.List;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public class UserServiceImpl extends MainServiceImpl<User> implements UserService, UserDetailsService {
+public final class UserServiceImpl
+        extends MainServiceImpl<User>
+        implements UserService, UserDetailsService {
     /**
-     * Реализация интерфейса {@link UserDAO} для работы пользователей с базой данных.
+     * Реализация интерфейса {@link UserDAO}
+     * для работы пользователей с базой данных.
      */
     private final UserDAO dao;
 
@@ -48,10 +54,12 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link UserDAO} для работы пользователей с базой данных.
+     * @param dao Реализация интерфейса {@link UserDAO}
+     *            для работы пользователей с базой данных.
      */
     @Autowired
-    public UserServiceImpl(UserDAO dao) {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public UserServiceImpl(final UserDAO dao) {
         super(dao);
         this.dao = dao;
     }
@@ -62,18 +70,25 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      *
      * @param name Имя пользователя для возврата.
      * @return Объект класса {@link User} - пользователь с именем name.
-     * @throws WrongInformationException Бросает исключение, когда пустой входной параметр name.
-     * @throws BadRequestException       Бросает исключение, если не найден пользователь с входящим параметром name.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   когда пустой входной параметр name.
+     * @throws BadRequestException       Бросает исключение,
+     *                                   если не найден пользователь с входящим параметром name.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getByName(String name) throws WrongInformationException, BadRequestException {
-        if (name == null || name.isEmpty()) {
-            throw new WrongInformationException("No user name!");
+    public User getByName(final String name)
+            throws WrongInformationException, BadRequestException {
+        if (isBlank(name)) {
+            throw new WrongInformationException(
+                    "No user name!"
+            );
         }
-        User user = this.dao.getByName(name);
+        final User user = this.dao.getByName(name);
         if (user == null) {
-            throw new BadRequestException("Can't find user by name " + name + "!");
+            throw new BadRequestException(
+                    "Can't find user by name " + name + "!"
+            );
         }
         return user;
     }
@@ -84,42 +99,55 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      *
      * @param username Логин пользователя для возврата.
      * @return Объект класса {@link User} - пользователь с логином username.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр username.
-     * @throws BadRequestException       Бросает исключение, если не найден пользователь с входящим параметром username.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр username.
+     * @throws BadRequestException       Бросает исключение,
+     *                                   если не найден пользователь с входящим параметром username.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getByUsername(String username) throws WrongInformationException, BadRequestException {
-        if (username == null || username.isEmpty()) {
+    public User getByUsername(final String username)
+            throws WrongInformationException, BadRequestException {
+        if (isBlank(username)) {
             throw new WrongInformationException("No username!");
         }
-        User user = this.dao.getByUsername(username);
+        final User user = this.dao.getByUsername(username);
         if (user == null) {
-            throw new BadRequestException("Can't find user by username " + username + "!");
+            throw new BadRequestException(
+                    "Can't find user by username " + username + "!"
+            );
         }
         return user;
     }
 
     /**
-     * Возвращает главного администратора сайта. Режим только для чтения.
+     * Возвращает главного администратора сайта.
+     * Режим только для чтения.
      *
-     * @return Объект класса {@link User} - главный администратор.
-     * @throws BadRequestException Бросает исключение, если не найден пользователь-админ.
+     * @return Объект класса {@link User} -
+     * главный администратор.
+     * @throws BadRequestException Бросает исключение,
+     *                             если не найден пользователь-админ.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getMainAdministrator() throws BadRequestException {
-        User user = this.dao.getMainAdministrator();
+    public User getMainAdministrator()
+            throws BadRequestException {
+        final User user = this.dao.getMainAdministrator();
         if (user == null) {
-            throw new BadRequestException("Can't find administrator!");
+            throw new BadRequestException(
+                    "Can't find administrator!"
+            );
         }
         return user;
     }
 
     /**
-     * Возвращает список всех администраторов сайта. Режим только для чтения.
+     * Возвращает список всех администраторов сайта.
+     * Режим только для чтения.
      *
-     * @return Объект типа {@link List} - список администраторов.
+     * @return Объект типа {@link List} -
+     * список администраторов.
      */
     @Override
     @Transactional(readOnly = true)
@@ -128,9 +156,11 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
     }
 
     /**
-     * Возвращает список всех менеджеров сайта. Режим только для чтения.
+     * Возвращает список всех менеджеров сайта.
+     * Режим только для чтения.
      *
-     * @return Объект типа {@link List} - список менеджеров.
+     * @return Объект типа {@link List} -
+     * список менеджеров.
      */
     @Override
     @Transactional(readOnly = true)
@@ -139,9 +169,11 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
     }
 
     /**
-     * Возвращает список всех клиентов сайта. Режим только для чтения.
+     * Возвращает список всех клиентов сайта.
+     * Режим только для чтения.
      *
-     * @return Объект типа {@link List} - список клиентов.
+     * @return Объект типа {@link List} -
+     * список клиентов.
      */
     @Override
     @Transactional(readOnly = true)
@@ -150,23 +182,31 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
     }
 
     /**
-     * Возвращает список персонала сайта. Режим только для чтения.
+     * Возвращает список персонала сайта.
+     * Режим только для чтения.
      *
-     * @return Объект типа {@link List} - список персонала.
+     * @return Объект типа {@link List} -
+     * список персонала.
      */
     @Override
     @Transactional(readOnly = true)
     public List<User> getPersonnel() {
-        List<User> users = new ArrayList<>();
-        users.addAll(getAdministrators());
-        users.addAll(getManagers());
+        final List<User> users = new ArrayList<>();
+        users.addAll(
+                getAdministrators()
+        );
+        users.addAll(
+                getManagers()
+        );
         return users;
     }
 
     /**
-     * Возвращает авторизированого пользователя. Режим только для чтения.
+     * Возвращает авторизированого пользователя.
+     * Режим только для чтения.
      *
-     * @return Объект класса {@link User} - авторизированый пользователь.
+     * @return Объект класса {@link User} -
+     * авторизированый пользователь.
      */
     @Override
     @Transactional(readOnly = true)
@@ -179,12 +219,14 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      * имя с значением входящего параметра.
      *
      * @param name Имя пользователя для удаления.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр username.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр username.
      */
     @Override
     @Transactional
-    public void removeByName(String name) throws WrongInformationException {
-        if (name == null || name.isEmpty()) {
+    public void removeByName(final String name)
+            throws WrongInformationException {
+        if (isBlank(name)) {
             throw new WrongInformationException("No username!");
         }
         this.dao.remove(name);
@@ -195,11 +237,13 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      * роль с значением входящего параметра.
      *
      * @param role Роль пользователя для удаления.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр role.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр role.
      */
     @Override
     @Transactional
-    public void removeByRole(Role role) throws WrongInformationException {
+    public void removeByRole(final Role role)
+            throws WrongInformationException {
         if (role == null) {
             throw new WrongInformationException("No user role!");
         }
@@ -212,11 +256,13 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
     @Override
     @Transactional
     public void removePersonnel() {
-        List<User> personnel = getPersonnel();
+        final List<User> personnel = getPersonnel();
         if (personnel.isEmpty()) {
             return;
         }
-        personnel.remove(getMainAdministrator());
+        personnel.remove(
+                getMainAdministrator()
+        );
         this.dao.remove(personnel);
     }
 
@@ -227,11 +273,13 @@ public class UserServiceImpl extends MainServiceImpl<User> implements UserServic
      *
      * @param username Логин пользователя для возврата
      * @return Объект класса {@link User} - пользователь с логином username.
-     * @throws UsernameNotFoundException Бросает исключеник, если пользователь с логином username не найден.
+     * @throws UsernameNotFoundException Бросает исключеник,
+     *                                   если пользователь с логином username не найден.
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username)
+            throws UsernameNotFoundException {
         return getByUsername(username);
     }
 }

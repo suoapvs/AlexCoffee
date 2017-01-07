@@ -1,13 +1,13 @@
 package ua.com.alexcoffee.service.impl;
 
 import org.springframework.context.annotation.ComponentScan;
-import ua.com.alexcoffee.dao.StatusDAO;
+import ua.com.alexcoffee.dao.interfaces.StatusDAO;
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.enums.StatusEnum;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
 import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.service.StatusService;
+import ua.com.alexcoffee.service.interfaces.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainServiceImpl
  * @see StatusService
  * @see Status
@@ -31,9 +32,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public class StatusServiceImpl extends MainServiceImpl<Status> implements StatusService {
+public final class StatusServiceImpl
+        extends MainServiceImpl<Status>
+        implements StatusService {
     /**
-     * Реализация интерфейса {@link StatusDAO} для работы статусов заказов с базой данных.
+     * Реализация интерфейса {@link StatusDAO}
+     * для работы статусов заказов с базой данных.
      */
     private final StatusDAO dao;
 
@@ -42,10 +46,12 @@ public class StatusServiceImpl extends MainServiceImpl<Status> implements Status
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link StatusDAO} для работы статусов заказов с базой данных.
+     * @param dao Реализация интерфейса {@link StatusDAO}
+     *            для работы статусов заказов с базой данных.
      */
     @Autowired
-    public StatusServiceImpl(StatusDAO dao) {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    public StatusServiceImpl(final StatusDAO dao) {
         super(dao);
         this.dao = dao;
     }
@@ -55,17 +61,26 @@ public class StatusServiceImpl extends MainServiceImpl<Status> implements Status
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр title.
-     * @throws DuplicateException        Бросает исключение, если в БД уже есть такой объект.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр title.
+     * @throws DuplicateException        Бросает исключение,
+     *                                   если в БД уже есть такой объект.
      */
     @Override
     @Transactional
-    public void add(StatusEnum title, String description) throws WrongInformationException, DuplicateException {
+    public void add(
+            final StatusEnum title,
+            final String description
+    ) throws WrongInformationException, DuplicateException {
         if (title == null) {
-            throw new WrongInformationException("No status title!");
+            throw new WrongInformationException(
+                    "No status title!"
+            );
         }
         if (this.dao.get(title) != null) {
-            throw new DuplicateException("Duplicate status with title  " + title + "!");
+            throw new DuplicateException(
+                    "Duplicate status with title  " + title + "!"
+            );
         }
         this.dao.add(new Status(title, description));
     }
@@ -75,19 +90,27 @@ public class StatusServiceImpl extends MainServiceImpl<Status> implements Status
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @return Объект класса {@link Status} - статус с названием title.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр title.
-     * @throws BadRequestException       Бросает исключение, если не найден статус с входящим параметром title.
+     * @return Объект класса {@link Status} -
+     * статус с названием title.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр title.
+     * @throws BadRequestException       Бросает исключение,
+     *                                   если не найден статус с входящим параметром title.
      */
     @Override
     @Transactional(readOnly = true)
-    public Status get(StatusEnum title) throws WrongInformationException, BadRequestException {
+    public Status get(final StatusEnum title)
+            throws WrongInformationException, BadRequestException {
         if (title == null) {
-            throw new WrongInformationException("No status title!");
+            throw new WrongInformationException(
+                    "No status title!"
+            );
         }
-        Status status = this.dao.get(title);
+        final Status status = this.dao.get(title);
         if (status == null) {
-            throw new BadRequestException("Can't find status by title " + title + "!");
+            throw new BadRequestException(
+                    "Can't find status by title " + title + "!"
+            );
         }
         return status;
     }
@@ -95,15 +118,19 @@ public class StatusServiceImpl extends MainServiceImpl<Status> implements Status
     /**
      * Возвращает статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} - статус по-умолчание.
-     * @throws BadRequestException Бросает исключение, если не найден статус по-умолчание.
+     * @return Объект класса {@link Status} -
+     * статус по-умолчание.
+     * @throws BadRequestException Бросает исключение,
+     *                             если не найден статус по-умолчание.
      */
     @Override
     @Transactional(readOnly = true)
     public Status getDefault() throws BadRequestException {
-        Status status = this.dao.getDefault();
+        final Status status = this.dao.getDefault();
         if (status == null) {
-            throw new BadRequestException("Can't find default status!");
+            throw new BadRequestException(
+                    "Can't find default status!"
+            );
         }
         return status;
     }
@@ -113,13 +140,17 @@ public class StatusServiceImpl extends MainServiceImpl<Status> implements Status
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса для удаления.
-     * @throws WrongInformationException Бросает исключение, если пустой входной параметр title.
+     * @throws WrongInformationException Бросает исключение,
+     *                                   если пустой входной параметр title.
      */
     @Override
     @Transactional
-    public void remove(StatusEnum title) throws WrongInformationException {
+    public void remove(final StatusEnum title)
+            throws WrongInformationException {
         if (title == null) {
-            throw new WrongInformationException("No status title!");
+            throw new WrongInformationException(
+                    "No status title!"
+            );
         }
         this.dao.remove(title);
     }

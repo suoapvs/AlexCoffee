@@ -7,22 +7,27 @@ import ua.com.alexcoffee.model.Role;
  * Репозиторий для объектов класса {@link Role}, предоставляющий
  * набор методов JPA для работы с БД. Наследует интерфейс {@link MainRepository}.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see MainRepository
  * @see Role
  */
-public interface RoleRepository extends MainRepository<Role, Long> {
+public interface RoleRepository
+        extends MainRepository<Role, Long> {
     /**
-     * Возвращает роль из базы даных по названию, которое может принимать
+     * Возвращает роль из базы даных по названию,
+     * которое может принимать
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
-     * @return Объект класса {@link Role} - роль с уникальным названием.
+     * @return Объект класса {@link Role} -
+     * роль с уникальным названием.
      */
     Role findByTitle(RoleEnum title);
 
     /**
-     * Удаляет роль из базы даных по названию, которое может принимать одно
+     * Удаляет роль из базы даных по названию,
+     * которое может принимать одно
      * из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.

@@ -1,13 +1,15 @@
-package ua.com.alexcoffee.service;
+package ua.com.alexcoffee.service.interfaces;
 
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.enums.StatusEnum;
 
 /**
  * Интерфейс сервисного слоя, описывает набор методов для работы
- * с объектами класса {@link Status}. Расширяет интерфейс {@link MainService}.
+ * с объектами класса {@link Status}.
+ * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see Status
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.MainServiceImpl
@@ -27,14 +29,16 @@ public interface StatusService extends MainService<Status> {
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса для возвращения.
-     * @return Объект класса {@link Status} - статус с названием title.
+     * @return Объект класса {@link Status} -
+     * статус с названием title.
      */
     Status get(StatusEnum title);
 
     /**
      * Возвращает статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} - статус по-умолчание.
+     * @return Объект класса {@link Status} -
+     * статус по-умолчание.
      */
     Status getDefault();
 

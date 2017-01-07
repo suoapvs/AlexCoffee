@@ -8,7 +8,7 @@ import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
 import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Status;
-import ua.com.alexcoffee.service.StatusService;
+import ua.com.alexcoffee.service.interfaces.StatusService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.service;
+package ua.com.alexcoffee.service.interfaces;
 
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
@@ -7,20 +7,24 @@ import java.util.List;
 
 /**
  * Интерфейс сервисного слоя, описывает набор методов для работы
- * с объектами класса {@link User}. Расширяет интерфейс {@link MainService}.
+ * с объектами класса {@link User}.
+ * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov
+ * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @version 1.2
  * @see User
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.UserServiceImpl
  */
-public interface UserService extends MainService<User> {
+public interface UserService
+        extends MainService<User> {
     /**
      * Возвращает пользователя, у которого совпадает
      * имя с значением входящего параметра.
      *
      * @param name Имя пользователя для возврата.
-     * @return Объект класса {@link User} - пользователь с именем name.
+     * @return Объект класса {@link User} -
+     * пользователь с именем name.
      */
     User getByName(String name);
 
@@ -29,49 +33,56 @@ public interface UserService extends MainService<User> {
      * логин с значением входящего параметра.
      *
      * @param username Логин пользователя для возврата.
-     * @return Объект класса {@link User} - пользователь с логином username.
+     * @return Объект класса {@link User} -
+     * пользователь с логином username.
      */
     User getByUsername(String username);
 
     /**
      * Возвращает главного администратора сайта.
      *
-     * @return Объект класса {@link User} - главный администратор.
+     * @return Объект класса {@link User} -
+     * главный администратор.
      */
     User getMainAdministrator();
 
     /**
      * Возвращает список всех администраторов сайта.
      *
-     * @return Объект типа {@link List} - список администраторов.
+     * @return Объект типа {@link List} -
+     * список администраторов.
      */
     List<User> getAdministrators();
 
     /**
      * Возвращает список всех менеджеров сайта.
      *
-     * @return Объект типа {@link List} - список менеджеров.
+     * @return Объект типа {@link List} -
+     * список менеджеров.
      */
     List<User> getManagers();
 
     /**
      * Возвращает список всех клиентов сайта.
      *
-     * @return Объект типа {@link List} - список клиентов.
+     * @return Объект типа {@link List} -
+     * список клиентов.
      */
     List<User> getClients();
 
     /**
      * Возвращает список персонала сайта.
      *
-     * @return Объект типа {@link List} - список персонала.
+     * @return Объект типа {@link List} -
+     * список персонала.
      */
     List<User> getPersonnel();
 
     /**
      * Возвращает авторизированого пользователя.
      *
-     * @return Объект класса {@link User} - авторизированый пользователь.
+     * @return Объект класса {@link User} -
+     * авторизированый пользователь.
      */
     User getAuthenticatedUser();
 
@@ -84,8 +95,9 @@ public interface UserService extends MainService<User> {
     void removeByName(String name);
 
     /**
-     * Удаляет пользователя из базы даных, у которого совпадает
-     * роль с значением входящего параметра.
+     * Удаляет пользователя из базы даных,
+     * у которого совпадает роль с значением
+     * входящего параметра.
      *
      * @param role Роль пользователя для удаления.
      */

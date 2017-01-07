@@ -1,8 +1,8 @@
 package ua.com.alexcoffee.tools;
 
-import ua.com.alexcoffee.dao.*;
-import ua.com.alexcoffee.service.*;
+import ua.com.alexcoffee.dao.interfaces.*;
 import ua.com.alexcoffee.service.impl.*;
+import ua.com.alexcoffee.service.interfaces.*;
 
 import static ua.com.alexcoffee.tools.MockDAO.*;
 
