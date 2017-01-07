@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Кофе || Alex Coffee">
         <title>Кофе || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- All products -->
+        <%-- All products --%>
     <div class="container-fluid width">
         <section id="products admin-page">
             <div class="row admin-page">
@@ -26,8 +24,7 @@
                         <b>
                             <span class="color-brown">Товары</span>
                             <c:if test="${fn:length(products) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                                <br>
+                                <span class="color-red"> - список пуст!</span><br>
                                 <a href="add_product" title="Добавить новый товар">
                                     <button class="btn btn-success" type="submit">Добавить</button>
                                 </a>
@@ -35,7 +32,6 @@
                         </b>
                     </div>
                 </div>
-
                 <c:if test="${fn:length(products) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
@@ -52,13 +48,11 @@
                                     </a>
                                 </th>
                             </tr>
-
                             <c:forEach items="${products}" var="product">
                                 <tr>
                                     <td>
                                         <a href="../product_${product.url}"
-                                           title="Перейти к товару ${product.title}">
-                                                ${product.title}</a>
+                                           title="Перейти к товару ${product.title}">${product.title}</a>
                                     </td>
                                     <td class="hidden-xs">
                                         <a href="view_category_${product.category.id}"
@@ -66,16 +60,14 @@
                                                 ${product.category.title}</a>
                                     </td>
                                     <td>
-                                        <a href="view_product_${product.id}"
-                                           title="Смотреть товар ${product.title}">
+                                        <a href="view_product_${product.id}" title="Смотреть товар ${product.title}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
                                         <a href="edit_product_${product.id}"
                                            title="Редактировать товар ${product.title}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="delete_product_${product.id}"
-                                           title="Удалить товар ${product.title}">
+                                        <a href="delete_product_${product.id}" title="Удалить товар ${product.title}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>
                                     </td>
@@ -90,3 +82,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

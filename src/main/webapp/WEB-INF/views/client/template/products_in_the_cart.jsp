@@ -29,9 +29,7 @@
                            title="Перейти к категории ${position.product.category.title}">
                                 ${position.product.category.title}</a>
                     </td>
-                    <td>
-                        <fmt:formatNumber type="number" value="${position.product.price}"/> грн
-                    </td>
+                    <td><fmt:formatNumber type="number" value="${position.product.price}"/> грн</td>
                 </tr>
             </c:forEach>
             <tr>
@@ -44,3 +42,5 @@
         </table>
     </div>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

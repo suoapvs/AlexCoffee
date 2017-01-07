@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Персонал || Alex Coffee">
         <title>Персонал || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-
-    <!-- All users -->
+        <%-- All users --%>
     <div class="container-fluid width">
         <section id="persons">
             <div class="row admin-page">
@@ -25,13 +23,10 @@
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Персонал</span>
-                            <c:if test="${fn:length(users) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                            </c:if>
+                            <c:if test="${fn:length(users) eq 0}"><span class="color-red"> - список пуст!</span></c:if>
                         </b>
                     </div>
                 </div>
-
                 <c:if test="${fn:length(users) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
@@ -51,9 +46,7 @@
                                             <c:when test="${user.role eq manager_role}">
                                                 <span class="color-green">${user.role.description}</span>
                                             </c:when>
-                                            <c:otherwise>
-                                                ${user.role.description}
-                                            </c:otherwise>
+                                            <c:otherwise>${user.role.description}</c:otherwise>
                                         </c:choose>
                                     </td>
                                     <td>${user.name}</td>
@@ -75,3 +68,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

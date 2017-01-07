@@ -5,17 +5,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+        <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Категория ${category.title} || Alex Coffee">
         <title>Категория ${category.title} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Category -->
+    <%-- Category --%>
     <div class="container-fluid width">
         <section id="category">
             <div class="row admin-page">
@@ -27,7 +25,6 @@
                         </b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <table class="table">
                         <tr>
@@ -38,8 +35,7 @@
                             <th>URl:</th>
                             <td>
                                 <a href="../category_${category.url}"
-                                   title="Перейти к категории ${category.title}">
-                                        ${category.url}</a>
+                                   title="Перейти к категории ${category.title}">${category.url}</a>
                             </td>
                         </tr>
                         <tr>
@@ -77,3 +73,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

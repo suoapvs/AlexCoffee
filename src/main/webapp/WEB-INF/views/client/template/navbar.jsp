@@ -8,8 +8,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span><span class="icon-bar"></span>
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand text-shadow">
                     <a href="home">
@@ -19,7 +18,6 @@
                     </a>
                 </div>
             </div>
-
             <div id="navbar" class="navbar-collapse collapse">
                 <div id="menu-product">
                     <ul class="nav navbar-nav">
@@ -30,12 +28,11 @@
                         <li id="nav-payments" class="hidden-sm"><a href="home#payments">Оплата</a></li>
                         <li id="nav-contacts" class="hidden-sm"><a href="home#contacts">Контакты</a></li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li id="nav-cart">
                             <a href="cart">
-                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-                                Корзина (${cart_size})
+                                <span class="glyphicon glyphicon-shopping-cart"
+                                      aria-hidden="true"></span> Корзина (${cart_size})
                             </a>
                         </li>
                     </ul>
@@ -44,3 +41,5 @@
         </div>
     </nav>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

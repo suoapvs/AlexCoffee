@@ -5,38 +5,31 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Новая категория || Alex Coffee">
         <title>Новая категория || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Add category -->
+        <%-- Add category --%>
     <div class="container-fluid width">
         <section id="category">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
-                        <b>
-                            <span class="color-green">Новая </span>
-                            <span class="color-brown">категория</span>
-                        </b>
+                        <b><span class="color-green">Новая </span><span class="color-brown">категория</span></b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form enctype="multipart/form-data" action="save_category" method="post">
                         <table class="table">
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title"
-                                           placeholder=" Введите название категории"
-                                           minlength="5" maxlength="50" required>
+                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="50"
+                                           placeholder=" Введите название категории" required>
                                 </td>
                             </tr>
                             <tr>
@@ -50,15 +43,15 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder=" Введите описание категории" maxlength="500"></textarea>
+                                <textarea class="input-order textarea" name="description" maxlength="500"
+                                          placeholder=" Введите описание категории"></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Изображение:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="photo_title"
-                                           placeholder="Введите название фото" minlength="5" maxlength="100" required>
+                                    <input class="input-order" type="text" name="photo_title" required
+                                           placeholder="Введите название фото" minlength="5" maxlength="100">
                                     <br><input type="file" name="photo" accept="image/*">
                                 </td>
                             </tr>
@@ -78,3 +71,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

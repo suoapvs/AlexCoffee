@@ -5,17 +5,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Редактирование категории ${category.title} || Alex Coffee">
         <title>Редактирование категории ${category.title} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Edit category -->
+        <%-- Edit category --%>
     <div class="container-fluid width">
         <section id="category">
             <div class="row admin-page">
@@ -27,7 +25,6 @@
                         </b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form enctype="multipart/form-data" action="update_category" method="post">
                         <input type="hidden" name="id" value="${category.id}">
@@ -35,9 +32,8 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title"
-                                           placeholder=" Введите название категории" value="${category.title}"
-                                           minlength="5" maxlength="50" required>
+                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="50"
+                                           placeholder=" Введите название категории" value="${category.title}" required>
                                 </td>
                             </tr>
                             <tr>
@@ -70,8 +66,7 @@
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о категории">Сохранить
-                                    </button>
+                                            title="Обновить информацию о категории">Сохранить</button>
                                     <button class="btn btn-info" type="reset" title="Сбросить введенные даные">Сброс
                                     </button>
                                 </td>
@@ -85,3 +80,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

@@ -4,7 +4,6 @@
 <c:if test="${auth_user ne null}">
     <c:set var="reqmap" value="../"/>
 </c:if>
-
 <div class="container-fluid width">
     <footer>
         <div class="row footer text-shadow text-center">
@@ -14,9 +13,7 @@
                         <span class="footer-text-label color-green">Alex</span>
                         <span class="footer-text-label color-brown">Coffee</span>
                     </h3>
-                    <h3>
-                        <img src="${reqmap}resources/img/main_icon.png" alt="Alex Coffee">
-                    </h3>
+                    <h3><img src="${reqmap}resources/img/main_icon.png" alt="Alex Coffee"></h3>
                     <h3>
                         <span class="footer-text-label color-green">Лучший магазин </span>
                         <span class="footer-text-label color-brown">кофе</span>
@@ -35,3 +32,5 @@
         </div>
     </footer>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

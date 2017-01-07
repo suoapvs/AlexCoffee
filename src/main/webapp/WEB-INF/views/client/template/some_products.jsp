@@ -17,9 +17,11 @@
                         </c:if>
                     </div>
                 </h3>
-
+                <%-- PRODUCTS LIST --%>
                 <jsp:include page="/WEB-INF/views/client/template/products_list.jsp"/>
             </div>
         </div>
     </section>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

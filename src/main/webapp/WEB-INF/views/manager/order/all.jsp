@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Заказы || Alex Coffee">
         <title>Заказы || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-
-    <!-- All orders -->
+        <%-- All orders --%>
     <div class="container-fluid width">
         <section id="orders">
             <div class="row admin-page">
@@ -25,13 +23,10 @@
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Заказы</span>
-                            <c:if test="${fn:length(orders) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                            </c:if>
+                            <c:if test="${fn:length(orders) eq 0}"><span class="color-red"> - список пуст!</span></c:if>
                         </b>
                     </div>
                 </div>
-
                 <c:if test="${fn:length(orders) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
@@ -49,9 +44,7 @@
                                             <c:when test="${order.status eq status_new}">
                                                 <span class="color-green">${order.status.description}</span>
                                             </c:when>
-                                            <c:otherwise>
-                                                ${order.status.description}
-                                            </c:otherwise>
+                                            <c:otherwise>${order.status.description}</c:otherwise>
                                         </c:choose>
                                     </td>
                                     <td class="hidden-xs">${order.date}</td>
@@ -60,7 +53,8 @@
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
                                         <c:if test="${(order.status eq status_new) or (order.manager eq auth_user)}">
-                                            <a href="edit_order_${order.id}" title="Редактировать заказ ${order.number}">
+                                            <a href="edit_order_${order.id}"
+                                               title="Редактировать заказ ${order.number}">
                                                 <button class="btn btn-success" type="submit">Редактировать</button>
                                             </a>
                                         </c:if>
@@ -76,3 +70,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

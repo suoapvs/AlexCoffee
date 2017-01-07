@@ -6,26 +6,22 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="${product.title} || Alex Coffee">
         <title>${product.title} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Product -->
+        <%-- Product --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
-                        <b>
-                            <span class="color-brown">Товар </span>
-                            <span class="color-green">"${product.title}"</span>
-                        </b>
+                        <b><span class="color-brown">Товар </span><span
+                                class="color-green">"${product.title}"</span></b>
                     </div>
                 </div>
 
@@ -35,17 +31,14 @@
                             <th>Название:</th>
                             <td>
                                 <a href="../product_${product.url}"
-                                   title="Перейти к товару ${product.title}">
-                                        ${product.title}
-                                </a>
+                                   title="Перейти к товару ${product.title}">${product.title}</a>
                             </td>
                         </tr>
                         <tr>
                             <th>Категория:</th>
                             <td>
                                 <a href="view_category_${product.id}"
-                                   title="Смотреть категорию ${product.category.title}">
-                                        ${product.category.title}</a>
+                                   title="Смотреть категорию ${product.category.title}">${product.category.title}</a>
                             </td>
                         </tr>
                         <tr>
@@ -96,3 +89,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

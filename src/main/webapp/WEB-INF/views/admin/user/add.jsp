@@ -1,41 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html>
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Новый работник || Alex Coffee">
         <title>Новый работник || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Add user -->
+        <%-- Add user --%>
     <div class="container-fluid width">
         <section id="user">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
-                        <b>
-                            <span class="color-green">Новый </span>
-                            <span class="color-brown">работник</span>
-                        </b>
+                        <b><span class="color-green">Новый </span><span class="color-brown">работник</span></b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form action="save_user" method="post">
                         <table class="table">
                             <tr>
                                 <th>Имя:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="name"
-                                           placeholder="Введите имя"
+                                    <input class="input-order" type="text" name="name" placeholder="Введите имя"
                                            minlength="2" maxlength="50" required>
                                 </td>
                             </tr>
@@ -107,9 +101,8 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder=" Введите описание работника"
-                                          maxlength="500"></textarea>
+                                    <textarea class="input-order textarea" placeholder=" Введите описание работника"
+                                              name="description" maxlength="500"></textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -128,3 +121,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

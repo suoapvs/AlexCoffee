@@ -18,27 +18,25 @@
               content="alexcoffee, alex coffee, интернет, магазин, вкусный, аромтный, кофе, купить, куплю, в Киеве, в Украине, Киев, Украина"/>
         <meta name="title" content="Alex Coffee || Лучший магазин кофе">
         <title>Alex Coffee || Лучший магазин кофе</title>
-        <!-- Favicon -->
+            <%-- Favicon --%>
         <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <!-- Styles -->
+            <%-- Styles --%>
         <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="resources/bootstrap/css/animate.css" rel="stylesheet" type="text/css">
         <link href="resources/bootstrap/css/style.css" rel="stylesheet" type="text/css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
               type="text/css">
-        <!-- Scripts -->
+            <%-- Scripts --%>
         <script src="resources/bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/jquery.appear.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="resources/bootstrap/js/main.js" type="text/javascript"></script>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/home_navbar.jsp"/>
-
-    <!-- Main logo -->
+        <%-- Main logo --%>
     <div class="container-fluid width">
         <section id="main">
             <div class="row main text-shadow">
@@ -46,12 +44,12 @@
                     <span class="main-text-label color-green">Alex</span>
                     <span class="main-text-label color-brown">Coffee</span>
                     <h1>
-                        <!--
-                        <a href="/test" title="Что это значит?">
-                        <img id = "label-main" class="main-label-test" alt="Alex Coffee"
-                             src="resources/img/main_big_icon_test.png">
-                        </a>
-                        -->
+                            <%--
+                            <a href="/test" title="Что это значит?">
+                            <img id = "label-main" class="main-label-test" alt="Alex Coffee"
+                                 src="resources/img/main_big_icon_test.png">
+                            </a>
+                            --%>
                         <img id="label-main" class="main-label " alt="Alex Coffee"
                              src="resources/img/main_big_icon.png">
                     </h1>
@@ -61,8 +59,7 @@
             </div>
         </section>
     </div>
-
-    <!-- Categories -->
+        <%-- Categories --%>
     <div class="container-fluid width">
         <section id="categories">
             <div class="row categories">
@@ -79,8 +76,6 @@
                         </div>
                     </h3>
                 </div>
-
-
                 <c:if test="${fn:length(categories) gt 0}">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <c:forEach items="${categories}" var="category">
@@ -95,7 +90,6 @@
                                 </div>
                             </div>
                         </c:forEach>
-
                         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                             <h4 class="text-all-products text-shadow">
                                 <a href="all_products" title="Перейти ко всем товарам">Весь ассортимент кофе</a>
@@ -106,11 +100,9 @@
             </div>
         </section>
     </div>
-
-    <!-- SOME PRODUCTS -->
+        <%-- SOME PRODUCTS --%>
     <jsp:include page="/WEB-INF/views/client/template/some_products.jsp"/>
-
-    <!-- Delivery -->
+        <%-- Delivery --%>
     <div class="container-fluid width">
         <section id="delivery">
             <div class="row delivery">
@@ -124,7 +116,6 @@
                         </div>
                     </h3>
                 </div>
-
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-car fa-5x color-green" id="icon1"></i>
                     <p class="icon-text">Курьер по адресу <br>Киев</p>
@@ -146,8 +137,7 @@
             </div>
         </section>
     </div>
-
-    <!-- Payments -->
+        <%-- Payments --%>
     <div class="container-fluid width">
         <section id="payments">
             <div class="row payments">
@@ -161,7 +151,6 @@
                         </div>
                     </h3>
                 </div>
-
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-money fa-5x color-green" id="icon4"></i>
                     <p class="icon-text">Оплата курьеру</p>
@@ -183,8 +172,7 @@
             </div>
         </section>
     </div>
-
-    <!-- Contacts -->
+        <%-- Contacts --%>
     <div class="container-fluid width">
         <section id="contacts">
             <div class="row contacts intro-text">
@@ -192,9 +180,7 @@
                     <h3>
                         <img id="label-cantacts" width="90px" height="90px" alt="Alex Coffee"
                              src="resources/img/section_icon_5.png">
-                        <div class="text-shadow">
-                            <span class="home-block-name color-green">Контакты</span>
-                        </div>
+                        <div class="text-shadow"><span class="home-block-name color-green">Контакты</span></div>
                     </h3>
                     <br>
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
@@ -204,22 +190,19 @@
                                 <span class="glyphicon glyphicon-map-marker social color-green"
                                       aria-hidden="true"></span>&nbsp;Украина, г. Киев, ул. Михаила Ломоносова, 55
                                 <br>(5 мин ходьбы от метро Выставочный центр)
-                            </p>
-                            <br>
+                            </p><br>
                             <p>
                                 <a href="tel:+380637399290" title="Позвонить на телефон">
                                     <span class="glyphicon glyphicon-phone social color-green"
                                           aria-hidden="true"></span>&nbsp;+38(063)73-99-290
                                 </a>
-                            </p>
-                            <br>
+                            </p><br>
                             <p>
                                 <a href="mailto:info@alexcoffee.com.ua" title="Написать письмо" target="_blank">
                                     <span class="glyphicon glyphicon-envelope social color-green"
                                           aria-hidden="true"></span>&nbsp;info@alexcoffee.com.ua
                                 </a>
-                            </p>
-                            <br>
+                            </p><br>
                             <p>
                                 <a href="https://www.facebook.com/yurii.alex.salimov" title="Facebook" target="_blank">
                                     <i class="fa fa-facebook-official fa-2x social color-green"></i></a>
@@ -227,11 +210,9 @@
                                     <i class="fa fa-vk fa-2x social color-brown"></i></a>
                                 <a href="skype:yurii.salimov?call" title="Skype" target="_blank">
                                     <i class="fa fa-skype fa-2x social color-green"></i></a>
-                            </p>
-                            <br>
+                            </p><br>
                         </div>
                     </div>
-
                     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
                         <div>
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12101.231188451986!2d30.46496854249532!3d50.38574881210299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c8e75044d5f9%3A0xb47cad6bc4ff220a!2z0LLRg9C70LjRhtGPINCc0LjRhdCw0LnQu9CwINCb0L7QvNC-0L3QvtGB0L7QstCwLCA1NSwg0JrQuNGX0LI!5e0!3m2!1sru!2sua!4v1473607244254"
@@ -242,12 +223,12 @@
             </div>
         </section>
     </div>
-
-    <!-- FOOTER -->
+        <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-
-    <!-- Scripts -->
+        <%-- Scripts --%>
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

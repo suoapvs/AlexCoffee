@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+        <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Категории кофе || Alex Coffee">
         <title>Категории кофе || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- All categories -->
+    <%-- All categories --%>
     <div class="container-fluid width">
         <section id="categories">
             <div class="row admin-page">
@@ -26,8 +24,7 @@
                         <b>
                             <span class="color-brown">Категории</span>
                             <c:if test="${fn:length(categories) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                                <br>
+                                <span class="color-red"> - список пуст!</span><br>
                                 <a href="add_category" title="Добавить новую категорию">
                                     <button class="btn btn-success" type="submit">Добавить</button>
                                 </a>
@@ -35,7 +32,6 @@
                         </b>
                     </div>
                 </div>
-
                 <c:if test="${fn:length(categories) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
@@ -57,8 +53,7 @@
                                 <tr>
                                     <td>
                                         <a href="../category_${category.url}"
-                                           title="Перейти к категории ${category.title}">
-                                                ${category.title}</a>
+                                           title="Перейти к категории ${category.title}">${category.title}</a>
                                     </td>
                                     <td class="hidden-xs">${category.url}</td>
                                     <td>
@@ -86,3 +81,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

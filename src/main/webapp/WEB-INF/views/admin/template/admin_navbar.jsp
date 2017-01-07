@@ -7,8 +7,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span><span class="icon-bar"></span>
+                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand text-shadow">
                     <a href="../home">
@@ -20,7 +19,6 @@
                     </a>
                 </div>
             </div>
-
             <div id="navbar" class="navbar-collapse collapse">
                 <div id="menu-product">
                     <ul class="nav navbar-nav">
@@ -30,7 +28,6 @@
                         <li id="nav-persons"><a href="users">Персонал</a></li>
                         <li id="nav-manager"><a href="../manager/orders">Для менеджеров</a></li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li id="auth-user"><a href="view_user_${auth_user.id}">${auth_user.name}</a></li>
                         <li id="nav-logout">
@@ -45,3 +42,5 @@
         </div>
     </nav>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

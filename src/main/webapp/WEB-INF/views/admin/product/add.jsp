@@ -7,17 +7,16 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Новый продукт || Alex Coffee">
         <title>Новый продукт || Alex Coffee</title>
     </head>
     <body>
 
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Add product -->
+        <%-- Add product --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
@@ -29,16 +28,14 @@
                         </b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form enctype="multipart/form-data" action="save_product" method="post">
                         <table class="table">
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title"
-                                           placeholder="Введите название товара"
-                                           minlength="5" maxlength="100" required>
+                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="100"
+                                           placeholder="Введите название товара" required>
                                 </td>
                             </tr>
                             <tr>
@@ -62,23 +59,22 @@
                             <tr>
                                 <th>Параметры:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="parameters"
-                                          placeholder="Введите параметры товара" maxlength="500" required></textarea>
+                                    <textarea class="input-order textarea" name="parameters" maxlength="500"
+                                              placeholder="Введите параметры товара" required></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder="Введите описание товара" maxlength="500"></textarea>
+                                    <textarea class="input-order textarea" name="description" maxlength="500"
+                                              placeholder="Введите описание товара"></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Изображение:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="photo_title"
-                                           placeholder="Введите название фото"
-                                           minlength="5" maxlength="100" required>
+                                    <input class="input-order" type="text" name="photo_title" required
+                                           placeholder="Введите название фото" minlength="5" maxlength="100">
                                     <br>Малое: <input type="file" name="small_photo" accept="image/*">
                                     <br>Большое: <input type="file" name="big_photo" accept="image/*">
                                 </td>
@@ -86,9 +82,8 @@
                             <tr>
                                 <th>Цена:</th>
                                 <td>
-                                    <input class="input-order" type="number" name="price"
-                                           placeholder="Введите цену товара"
-                                           min="0" max="99999" step="0.01" required>
+                                    <input class="input-order" type="number" name="price" required
+                                           placeholder="Введите цену товара" min="0" max="99999" step="0.01">
                                 </td>
                             </tr>
                             <tr>
@@ -107,3 +102,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

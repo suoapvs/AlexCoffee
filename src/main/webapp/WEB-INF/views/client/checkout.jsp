@@ -11,21 +11,19 @@
         <meta name="robots" content="noindex,nofollow">
         <meta name="title" content="Оформление заказа || Alex Coffee">
         <title>Оформление заказа || Alex Coffee</title>
-        <!-- Favicon -->
+        <%-- Favicon --%>
         <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <!-- Styles -->
+        <%-- Styles --%>
         <link  href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link  href="resources/bootstrap/css/animate.css" rel="stylesheet" type="text/css">
         <link  href="resources/bootstrap/css/style.css" rel="stylesheet" type="text/css">
         <link  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-
-    <!-- CHECKOUT -->
+    <%-- CHECKOUT --%>
     <div class="container-fluid width">
         <section id="checkout">
             <div class="row checkout">
@@ -40,17 +38,14 @@
                         С уважением, команда <b>Alex Coffee</b>.<br>
                     </div>
                 </div>
-
-                <!-- PRODUCTS IN ORDER -->
+                <%-- PRODUCTS IN ORDER --%>
                 <jsp:include page="/WEB-INF/views/client/template/products_in_the_cart.jsp"/>
             </div>
         </section>
     </div>
-
-    <!-- FOOTER -->
+    <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-
-    <!-- Scripts -->
+    <%-- Scripts --%>
     <script src="resources/bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="resources/bootstrap/js/jquery.appear.js" type="text/javascript"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -58,3 +53,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

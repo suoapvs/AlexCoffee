@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Редактирование заказа ${order.number} || Alex Coffee">
         <title>Редактирование заказа ${order.number} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-
-    <!-- Edit order -->
+        <%-- Edit order --%>
     <div class="container-fluid width">
         <section id="order">
             <div class="row admin-page">
@@ -29,7 +27,6 @@
                         </b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form action="update_order" method="post">
                         <input type="hidden" name="id" value="${order.id}">
@@ -66,29 +63,25 @@
                                     <input class="input-order" type="text" name="user_name"
                                            placeholder=" Введите имя клиента" value="${order.client.name}"
                                            minlength="2" maxlength="50" required>
-                                    <br><input class="input-order" type="email" name="user_email"
-                                               value="${order.client.email}"
+                                    <br><input class="input-order" name="user_email" value="${order.client.email}"
                                                placeholder=" Введите email клиента, формат (A-Z, a-z, 0-9, _, ., @)"
-                                               pattern="[A-Za-z0-9_.@]{5,50}" minlength="5" maxlength="50">
-                                    <br><input id="phone" class="input-order" type="text" name="user_phone"
-                                               placeholder=" Введите телефон клиента" value="${order.client.phone}"
-                                               required>
+                                               pattern="[A-Za-z0-9_.@]{5,50}" minlength="5" maxlength="50" type="email">
+                                    <br><input id="phone" class="input-order" type="text" name="user_phone" required
+                                               placeholder=" Введите телефон клиента" value="${order.client.phone}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Адрес доставки:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="shipping-address"
-                                           placeholder=" Введите адрес доставки" value="${order.shippingAddress}"
-                                           maxlength="100">
+                                    <input class="input-order" type="text" name="shipping-address" maxlength="100"
+                                           placeholder=" Введите адрес доставки" value="${order.shippingAddress}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Детали доставки:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="shipping-details"
-                                           placeholder=" Введите детали даставки" value="${order.shippingDetails}"
-                                           maxlength="100">
+                                    <input class="input-order" type="text" name="shipping-details" maxlength="100"
+                                           placeholder=" Введите детали даставки" value="${order.shippingDetails}">
                                 </td>
                             </tr>
                             <tr>
@@ -102,9 +95,7 @@
                                 <th>Товары:</th>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${fn:length(sale_positions) eq 0}">
-                                            Cписок товаров пуст!
-                                        </c:when>
+                                        <c:when test="${fn:length(sale_positions) eq 0}">Cписок товаров пуст!</c:when>
                                         <c:when test="${fn:length(sale_positions) gt 0}">
                                             <c:forEach items="${sale_positions}" var="position">
                                                 <a href="../product_${position.product.url}"
@@ -140,3 +131,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

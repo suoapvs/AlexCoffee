@@ -6,17 +6,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Редактирование продукта ${product.title} || Alex Coffee">
         <title>Редактирование продукта ${product.title} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Edit product -->
+        <%-- Edit product --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
@@ -28,7 +26,6 @@
                         </b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form enctype="multipart/form-data" action="update_product" method="post">
                         <input type="hidden" name="id" value="${product.id}">
@@ -36,9 +33,8 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title"
-                                           placeholder="Введите название товара" value="${product.title}"
-                                           minlength="5" maxlength="100" required>
+                                    <input class="input-order" type="text" name="title" value="${product.title}"
+                                           placeholder="Введите название товара" minlength="5" maxlength="100" required>
                                 </td>
                             </tr>
                             <tr>
@@ -65,17 +61,15 @@
                             <tr>
                                 <th>Параметры:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="parameters"
-                                          placeholder="Введите параметры товара"
-                                          maxlength="500" required>${product.parameters}</textarea>
+                                <textarea class="input-order textarea" placeholder="Введите параметры товара"
+                                          name="parameters" maxlength="500" required>${product.parameters}</textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder="Введите описание товара"
-                                          maxlength="500">${product.description}</textarea>
+                                <textarea class="input-order textarea" placeholder="Введите описание товара"
+                                          name="description" maxlength="500">${product.description}</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -115,3 +109,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

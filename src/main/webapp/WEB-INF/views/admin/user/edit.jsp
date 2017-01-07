@@ -1,21 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html>
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="${user.name} || Alex Coffee">
         <title>${user.name} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- Edit user -->
+        <%-- Edit user --%>
     <div class="container-fluid width">
         <section id="user">
             <div class="row admin-page">
@@ -24,7 +23,6 @@
                         <b><span class="color-green">${user.name}</span></b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <form action="update_user" method="post">
                         <input type="hidden" name="id" value="${user.id}">
@@ -32,9 +30,9 @@
                             <tr>
                                 <th>Имя:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="name"
+                                    <input class="input-order" type="text" name="name" minlength="2" maxlength="50"
                                            placeholder=" Введите имя" value="${user.name}"
-                                           minlength="2" maxlength="50" required>
+                                           required>
                                 </td>
                             </tr>
                             <tr>
@@ -55,8 +53,7 @@
                                 <td>
                                     <input class="input-order" type="text" name="username" pattern="[A-Za-z0-9_]{5,50}"
                                            placeholder=" Введите логин, формат (A-Z, a-z, 0-9, _)"
-                                           value="${user.username}"
-                                           minlength="5" maxlength="50" required>
+                                           value="${user.username}" minlength="5" maxlength="50" required>
                                 </td>
                             </tr>
                             <tr>
@@ -64,8 +61,7 @@
                                 <td>
                                     <input class="input-order" type="text" name="password" pattern="[A-Za-z0-9]{6,50}"
                                            placeholder=" Введите пароль, формат (A-Z, a-z, 0-9)"
-                                           value="${user.password}"
-                                           minlength="6" maxlength="50" required>
+                                           value="${user.password}" minlength="6" maxlength="50" required>
                                 </td>
                             </tr>
                             <tr>
@@ -110,9 +106,8 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder=" Введите описание работника"
-                                          maxlength="250">${user.description}</textarea>
+                                    <textarea class="input-order textarea" placeholder=" Введите описание работника"
+                                              name="description" maxlength="250">${user.description}</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -134,3 +129,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

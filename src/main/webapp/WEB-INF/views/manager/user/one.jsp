@@ -7,28 +7,23 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="${user.name} | ${user.role.description} || Alex Coffee">
         <title>${user.name} | ${user.role.description} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-
-    <!-- User -->
+        <%-- User --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
-                        <b>
-                            <span class="color-brown">${user.name}</span>
-                        </b>
+                        <b><span class="color-brown">${user.name}</span></b>
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <table class="table">
                         <tr>
@@ -45,9 +40,7 @@
                                     <c:when test="${user.role eq manager_role}">
                                         <span class="color-green">${user.role.description}</span>
                                     </c:when>
-                                    <c:otherwise>
-                                        ${user.role.description}
-                                    </c:otherwise>
+                                    <c:otherwise>${user.role.description}</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -57,9 +50,7 @@
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td>
-                                <a href="mailto:${user.email}" title="Email" target="_blank">${user.email}</a>
-                            </td>
+                            <td><a href="mailto:${user.email}" title="Email" target="_blank">${user.email}</a></td>
                         </tr>
                         <tr>
                             <th>Телефон:</th>
@@ -113,3 +104,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+        <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Заказ ${order.number} || Alex Coffee">
         <title>Заказ ${order.number} || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-
-    <!-- Order -->
+    <%-- Order --%>
     <div class="container-fluid width">
         <section id="order">
             <div class="row admin-page">
@@ -43,9 +41,7 @@
                                     <c:when test="${order.status eq status_new}">
                                         <span class="color-green"><b>${order.status.description}</b></span>
                                     </c:when>
-                                    <c:otherwise>
-                                        ${order.status.description}
-                                    </c:otherwise>
+                                    <c:otherwise>${order.status.description}</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -65,15 +61,11 @@
                                             <c:when test="${order.manager.role eq manager_role}">
                                                 <span class="color-green">${order.manager.role.description}</span>
                                             </c:when>
-                                            <c:otherwise>
-                                                ${order.manager.role.description}
-                                            </c:otherwise>
+                                            <c:otherwise>${order.manager.role.description}</c:otherwise>
                                         </c:choose>
                                         <a href="view_user_${order.manager.id}">${order.manager.name}</a>
                                     </c:when>
-                                    <c:otherwise>
-                                        -
-                                    </c:otherwise>
+                                    <c:otherwise>-</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -92,9 +84,7 @@
                                     <c:when test="${(order.shippingAddress ne null) and (order.shippingAddress ne '')}">
                                         ${order.shippingAddress}
                                     </c:when>
-                                    <c:otherwise>
-                                        -
-                                    </c:otherwise>
+                                    <c:otherwise>-</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -105,9 +95,7 @@
                                     <c:when test="${(order.shippingDetails ne null) and (order.shippingDetails ne '')}">
                                         ${order.shippingDetails}
                                     </c:when>
-                                    <c:otherwise>
-                                        -
-                                    </c:otherwise>
+                                    <c:otherwise>-</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -118,9 +106,7 @@
                                     <c:when test="${(order.description ne null) and (order.description ne '')}">
                                         ${order.description}
                                     </c:when>
-                                    <c:otherwise>
-                                        -
-                                    </c:otherwise>
+                                    <c:otherwise>-</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -137,9 +123,7 @@
                                             <br>--------------<br>
                                         </c:forEach>
                                     </c:when>
-                                    <c:otherwise>
-                                        Cписок товаров пуст!
-                                    </c:otherwise>
+                                    <c:otherwise>Cписок товаров пуст!</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -169,3 +153,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

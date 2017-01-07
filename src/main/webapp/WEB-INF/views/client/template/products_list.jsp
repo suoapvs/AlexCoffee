@@ -11,12 +11,8 @@
                     <img src="resources/img/${product.photo.photoLinkShort}" alt="${product.title}"
                          class="img-thumbnail blink" width="185px" height="185px">
                     <div class="text-shadow">${product.title}</div>
-
-                    <p class="price-top">
-                        <fmt:formatNumber type="number" value="${product.price}"/> грн
-                    </p>
+                    <p class="price-top"><fmt:formatNumber type="number" value="${product.price}"/> грн</p>
                 </a>
-
                 <form action="cart_add_quickly" method="post">
                     <input type="hidden" name="id" value="${product.id}">
                     <input type="hidden" name="url" value="/all_products">
@@ -28,3 +24,5 @@
         </div>
     </c:forEach>
 </c:if>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

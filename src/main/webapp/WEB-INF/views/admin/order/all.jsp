@@ -7,17 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <!-- HEAD -->
+        <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Заказы || Alex Coffee">
         <title>Заказы || Alex Coffee</title>
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-
-    <!-- All orders -->
+    <%-- All orders --%>
     <div class="container-fluid width">
         <section id="orders">
             <div class="row admin-page">
@@ -25,9 +23,7 @@
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Заказы</span>
-                            <c:if test="${fn:length(orders) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                            </c:if>
+                            <c:if test="${fn:length(orders) eq 0}"><span class="color-red"> - список пуст!</span></c:if>
                         </b>
                     </div>
                 </div>
@@ -54,9 +50,7 @@
                                             <c:when test="${order.status eq status_new}">
                                                 <span class="color-green">${order.status.description}</span>
                                             </c:when>
-                                            <c:otherwise>
-                                                ${order.status.description}
-                                            </c:otherwise>
+                                            <c:otherwise>${order.status.description}</c:otherwise>
                                         </c:choose>
                                     </td>
                                     <td class="hidden-xs">${order.date}</td>
@@ -83,3 +77,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

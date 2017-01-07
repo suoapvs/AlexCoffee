@@ -15,9 +15,7 @@
                         <span class="nav-text-label color-green">Alex</span>
                         <span class="nav-text-label color-brown">Coffee</span>
                     </a>
-                    <a href="../manager">
-                        <span class="nav-text-label color-green">M</span>
-                    </a>
+                    <a href="../manager"><span class="nav-text-label color-green">M</span></a>
                 </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -26,7 +24,6 @@
                         <li id="nav-orders"><a href="orders">Заказы</a></li>
                         <li id="nav-persons"><a href="users">Персонал</a></li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
                         <li id="auth-user"><a href="view_user_${auth_user.id}">${auth_user.name}</a></li>
                         <li id="nav-logout">
@@ -41,3 +38,5 @@
         </div>
     </nav>
 </div>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>

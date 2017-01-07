@@ -15,21 +15,19 @@
         <meta name="robots" content="index,follow">
         <meta name="title" content="${category.title} || Alex Coffee">
         <title>${category.title} || Alex Coffee</title>
-        <!-- Favicon -->
+        <%-- Favicon --%>
         <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <!-- Styles -->
+        <%-- Styles --%>
         <link  href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link  href="resources/bootstrap/css/animate.css" rel="stylesheet" type="text/css">
         <link  href="resources/bootstrap/css/style.css" rel="stylesheet" type="text/css">
         <link  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-
-    <!-- NAVBAR -->
+    <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-
-    <!-- Coffee -->
+    <%-- Coffee --%>
     <div class="container-fluid width">
         <section id="products_${category.url}">
             <div class="row products">
@@ -45,10 +43,8 @@
                         </div>
                     </h3>
                 </div>
-
-                <!-- PRODUCTS IN CATEGORY -->
+                <%-- PRODUCTS IN CATEGORY --%>
                 <jsp:include page="/WEB-INF/views/client/template/products_list.jsp"/>
-
                 <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <h4 class="text-all-products text-shadow">
                         <a href="all_products" title="Перейти ко всем товарам">Весь ассортимент кофе</a>
@@ -57,8 +53,7 @@
             </div>
         </section>
     </div>
-
-    <!-- Category description -->
+    <%-- Category description --%>
     <c:if test="${category.description ne ''}">
         <div class="container-fluid width">
             <section id="category-description">
@@ -71,11 +66,9 @@
             </section>
         </div>
     </c:if>
-
-    <!-- FOOTER -->
+    <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-
-    <!-- Scripts -->
+    <%-- Scripts --%>
     <script src="resources/bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="resources/bootstrap/js/jquery.appear.js" type="text/javascript"></script>
     <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -83,3 +76,5 @@
     </body>
     </html>
 </compress:html>
+
+<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>
