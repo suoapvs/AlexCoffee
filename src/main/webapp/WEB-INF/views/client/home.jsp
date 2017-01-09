@@ -19,19 +19,14 @@
         <meta name="title" content="Alex Coffee || Лучший магазин кофе">
         <title>Alex Coffee || Лучший магазин кофе</title>
             <%-- Favicon --%>
-        <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
             <%-- Styles --%>
-        <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link href="resources/bootstrap/css/animate.css" rel="stylesheet" type="text/css">
-        <link href="resources/bootstrap/css/style.css" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/bootstrap/css/animate.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/bootstrap/css/style.css"/>" rel="stylesheet" type="text/css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
               type="text/css">
-            <%-- Scripts --%>
-        <script src="resources/bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-        <script src="resources/bootstrap/js/jquery.appear.js" type="text/javascript"></script>
-        <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="resources/bootstrap/js/main.js" type="text/javascript"></script>
     </head>
     <body>
         <%-- NAVBAR --%>
@@ -45,15 +40,15 @@
                     <span class="main-text-label color-brown">Coffee</span>
                     <h1>
                             <%--
-                            <a href="/test" title="Что это значит?">
-                            <img id = "label-main" class="main-label-test" alt="Alex Coffee"
-                                 src="resources/img/main_big_icon_test.png">
+                            <a href="<c:url value="/test" title="Что это значит?">
+                            <img src="resources/img/main_big_icon_test.png"/>"
+                                id = "label-main" class="main-label-test" alt="Alex Coffee">
                             </a>
                             --%>
-                        <img id="label-main" class="main-label " alt="Alex Coffee"
-                             src="resources/img/main_big_icon.png">
+                        <img src="<c:url value="/resources/img/main_big_icon.png"/>"
+                             id="label-main" class="main-label " alt="Alex Coffee">
                     </h1>
-                    <span class="main-text-label color-green">Лучший магазин</span>
+                    <span class="main-text-label color-green">Лучший магазин </span>
                     <span class="main-text-label color-brown"> кофе</span>
                 </div>
             </div>
@@ -64,16 +59,14 @@
         <section id="categories">
             <div class="row categories">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <h3 class="intro-text">
-                        <img id="label-category" width="90px" height="90px" alt="Alex Coffee"
-                             src="resources/img/section_icon_1.png">
-                        <div class="text-shadow">
-                            <span class="home-block-name color-green">Категории</span>
-                            <span class="home-block-name color-brown"> Кофе</span>
-                            <c:if test="${fn:length(categories) eq 0}">
-                                <span class="color-red"> - список пуст!</span>
-                            </c:if>
-                        </div>
+                    <h3 class="intro-text text-shadow">
+                        <img src="<c:url value="/resources/img/section_icon_1.png"/>"
+                             id="label-category" width="90px" height="90px" alt="Alex Coffee">
+                        <br><span class="home-block-name color-green">Категории</span>
+                        <span class="home-block-name color-brown"> Кофе</span>
+                        <c:if test="${fn:length(categories) eq 0}">
+                            <span class="color-red"> - список пуст!</span>
+                        </c:if>
                     </h3>
                 </div>
                 <c:if test="${fn:length(categories) gt 0}">
@@ -81,10 +74,11 @@
                         <c:forEach items="${categories}" var="category">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                 <div class="category">
-                                    <a href="category_${category.url}" title="Перейти к категории ${category.title}">
-                                        <img class="img-thumbnail blink" width="150px" height="150px"
-                                             alt="${category.title}"
-                                             src="resources/img/${category.photo.photoLinkShort}">
+                                    <a href="<c:url value="/category_${category.url}"/>"
+                                       title="Перейти к категории ${category.title}">
+                                        <img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
+                                             class="img-thumbnail blink" width="150px" height="150px"
+                                             alt="${category.title}">
                                         <div class="text-shadow">${category.title}</div>
                                     </a>
                                 </div>
@@ -92,7 +86,9 @@
                         </c:forEach>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                             <h4 class="text-all-products text-shadow">
-                                <a href="all_products" title="Перейти ко всем товарам">Весь ассортимент кофе</a>
+                                <a href="<c:url value="/all_products"/>" title="Перейти ко всем товарам">
+                                    Весь ассортимент кофе
+                                </a>
                             </h4>
                         </div>
                     </div>
@@ -107,18 +103,16 @@
         <section id="delivery">
             <div class="row delivery">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <h3 class="intro-text">
-                        <img id="label-delivery" width="90px" height="90px" alt="Alex Coffee"
-                             src="resources/img/section_icon_3.png">
-                        <div class="text-shadow">
-                            <span class="home-block-name color-green">Доставка</span>
-                            <span class="home-block-name color-brown"> Кофе</span>
-                        </div>
+                    <h3 class="intro-text text-shadow">
+                        <img src="<c:url value="/resources/img/section_icon_3.png"/>"
+                             id="label-delivery" width="90px" height="90px" alt="Alex Coffee">
+                        <br><span class="home-block-name color-green">Доставка</span>
+                        <span class="home-block-name color-brown"> Кофе</span>
                     </h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-car fa-5x color-green" id="icon1"></i>
-                    <p class="icon-text">Курьер по адресу <br>Киев</p>
+                    <p class="icon-text">Курьер по адресу<br>Киев</p>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-truck fa-5x color-green" id="icon2"></i>
@@ -126,7 +120,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-shopping-cart fa-5x color-green" id="icon3"></i>
-                    <p class="icon-text">Самовывоз <br>Киев</p>
+                    <p class="icon-text">Самовывоз<br>Киев</p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h4 class="text-delivery">
@@ -142,13 +136,11 @@
         <section id="payments">
             <div class="row payments">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <h3 class="intro-text">
-                        <img id="label-payments" width="90px" height="90px" alt="Alex Coffee"
-                             src="resources/img/section_icon_4.png">
-                        <div class="text-shadow">
-                            <span class="home-block-name color-green">Оплата</span>
-                            <span class="home-block-name color-brown"> Кофе</span>
-                        </div>
+                    <h3 class="intro-text text-shadow">
+                        <img src="<c:url value="/resources/img/section_icon_4.png"/>"
+                             id="label-payments" width="90px" height="90px" alt="Alex Coffee">
+                        <br><span class="home-block-name color-green">Оплата</span>
+                        <span class="home-block-name color-brown"> Кофе</span>
                     </h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
@@ -177,10 +169,10 @@
         <section id="contacts">
             <div class="row contacts intro-text">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                    <h3>
-                        <img id="label-cantacts" width="90px" height="90px" alt="Alex Coffee"
-                             src="resources/img/section_icon_5.png">
-                        <div class="text-shadow"><span class="home-block-name color-green">Контакты</span></div>
+                    <h3 class="text-shadow">
+                        <img src="<c:url value="/resources/img/section_icon_5.png"/>"
+                             id="label-cantacts" width="90px" height="90px" alt="Alex Coffee">
+                        <br><span class="home-block-name color-green">Контакты</span>
                     </h3>
                     <br>
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
@@ -214,10 +206,8 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7">
-                        <div>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12101.231188451986!2d30.46496854249532!3d50.38574881210299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c8e75044d5f9%3A0xb47cad6bc4ff220a!2z0LLRg9C70LjRhtGPINCc0LjRhdCw0LnQu9CwINCb0L7QvNC-0L3QvtGB0L7QstCwLCA1NSwg0JrQuNGX0LI!5e0!3m2!1sru!2sua!4v1473607244254"
-                                    width="700" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12101.231188451986!2d30.46496854249532!3d50.38574881210299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4c8e75044d5f9%3A0xb47cad6bc4ff220a!2z0LLRg9C70LjRhtGPINCc0LjRhdCw0LnQu9CwINCb0L7QvNC-0L3QvtGB0L7QstCwLCA1NSwg0JrQuNGX0LI!5e0!3m2!1sru!2sua!4v1473607244254"
+                                width="700" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -226,6 +216,10 @@
         <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
         <%-- Scripts --%>
+    <script src="<c:url value="/resources/bootstrap/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/jquery.appear.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/main.js"/>" type="text/javascript"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     </body>
     </html>

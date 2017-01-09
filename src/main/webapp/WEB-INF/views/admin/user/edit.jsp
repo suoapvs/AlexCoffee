@@ -24,21 +24,20 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="update_user" method="post">
+                    <form action="<c:url value="/admin/update_user"/>" method="post">
                         <input type="hidden" name="id" value="${user.id}">
                         <table class="table">
                             <tr>
                                 <th>Имя:</th>
                                 <td>
                                     <input class="input-order" type="text" name="name" minlength="2" maxlength="50"
-                                           placeholder=" Введите имя" value="${user.name}"
-                                           required>
+                                           placeholder=" Введите имя" value="${user.name}" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Роль:</th>
                                 <td>
-                                    <select class="input-order" name="role">
+                                    <select class="input-order" name="role" title="Роль пользователя">
                                         <option value="${user.role.id}">${user.role.description}</option>
                                         <c:forEach items="${roles}" var="role">
                                             <c:if test="${role ne user.role}">
@@ -114,9 +113,11 @@
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о пользователи">Сохранить
+                                            title="Обновить информацию о пользователи">
+                                        Сохранить
                                     </button>
-                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">Сброс
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
                                     </button>
                                 </td>
                             </tr>

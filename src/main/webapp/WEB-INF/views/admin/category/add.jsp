@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html>
@@ -23,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form enctype="multipart/form-data" action="save_category" method="post">
+                    <form action="<c:url value="/admin/save_category"/>" method="post" enctype="multipart/form-data" >
                         <table class="table">
                             <tr>
                                 <th>Название:</th>
@@ -58,8 +59,12 @@
                             <tr>
                                 <th></th>
                                 <td>
-                                    <button class="btn btn-success" type="submit">Добавить категорию</button>
-                                    <button class="btn btn-info" type="reset">Сброс</button>
+                                    <button class="btn btn-success" type="submit" title="Добавить новую категорию">
+                                        Добавить категорию
+                                    </button>
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
+                                    </button>
                                 </td>
                             </tr>
                         </table>

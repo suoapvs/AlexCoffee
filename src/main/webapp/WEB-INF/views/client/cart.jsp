@@ -16,19 +16,20 @@
         <meta name="robots" content="noindex,nofollow">
         <meta name="title" content="Корзина || Alex Coffee">
         <title>Корзина || Alex Coffee</title>
-        <%-- Favicon --%>
-        <link rel="shortcut icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="resources/img/favicon.ico" type="image/x-icon">
-        <%-- Styles --%>
-        <link  href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link  href="resources/bootstrap/css/animate.css" rel="stylesheet" type="text/css">
-        <link  href="resources/bootstrap/css/style.css" rel="stylesheet" type="text/css">
-        <link  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+            <%-- Favicon --%>
+        <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+            <%-- Styles --%>
+        <link href="<c:url value="/resources/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/bootstrap/css/animate.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/bootstrap/css/style.css"/>" rel="stylesheet" type="text/css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+              rel="stylesheet" type="text/css">
     </head>
     <body>
-    <%-- NAVBAR --%>
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-    <%-- CART --%>
+        <%-- CART --%>
     <div class="container-fluid width">
         <section id="cart">
             <div class="row cart">
@@ -36,14 +37,14 @@
                     <div class="row section-name text-shadow color-brown">
                         <b>
                             <span class="color-brown">Корзина</span>
-                            <%-- If cert is empty --%>
+                                <%-- If cert is empty --%>
                             <c:if test="${fn:length(sale_positions) eq 0}">
                                 <span class="color-green"> - список пуст!</span>
                             </c:if>
                         </b>
                     </div>
                 </div>
-                <%-- If Cart is not empty --%>
+                    <%-- If Cart is not empty --%>
                 <c:if test="${fn:length(sale_positions) gt 0}">
                     <%-- PRODUCTS IN THE CART --%>
                     <jsp:include page="/WEB-INF/views/client/template/products_in_the_cart.jsp"/>
@@ -69,10 +70,10 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 text-center">
-                            <a href="all_products">
+                            <a href="<c:url value="/all_products"/>">
                                 <button class="btn btn-success">Продолжить покупки</button>
                             </a>
-                            <a href="cart_clear">
+                            <a href="<c:url value="/cart_clear"/>">
                                 <button class="btn btn-success">Очистить корзину</button>
                             </a>
                         </div>
@@ -81,14 +82,14 @@
             </div>
         </section>
     </div>
-    <%-- FOOTER --%>
+        <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-    <%-- Scripts --%>
-    <script src="resources/bootstrap/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="resources/bootstrap/js/jquery.appear.js" type="text/javascript"></script>
-    <script src="resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="resources/bootstrap/js/main.js" type="text/javascript"></script>
-    <script src="resources/bootstrap/js/jquery.maskedinput.min.js" type="text/javascript"></script>
+        <%-- Scripts --%>
+    <script src="<c:url value="/resources/bootstrap/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/jquery.appear.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/main.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/bootstrap/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
     </body>
     </html>
 </compress:html>

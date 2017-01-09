@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="update_order" method="post">
+                    <form action="<c:url value="/admin/update_order"/>" method="post">
                         <input type="hidden" name="id" value="${order.id}">
                         <input type="hidden" name="auth_user" value="${auth_user.id}">
                         <table class="table">
@@ -43,7 +43,7 @@
                             <tr>
                                 <th>Статус:</th>
                                 <td>
-                                    <select class="input-order" name="status">
+                                    <select class="input-order" name="status" title="Статус заказа">
                                         <option value="${order.status.id}">${order.status.description}</option>
                                         <c:forEach items="${statuses}" var="status">
                                             <c:if test="${status.id ne order.status.id}">
@@ -60,9 +60,8 @@
                             <tr>
                                 <th>Клиент:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="user_name"
-                                           placeholder=" Введите имя клиента" value="${order.client.name}"
-                                           minlength="2" maxlength="50" required><br>
+                                    <input class="input-order" type="text" name="user_name" minlength="2" maxlength="50"
+                                           placeholder=" Введите имя клиента" value="${order.client.name}" required><br>
                                     <input class="input-order" type="email" name="user_email" minlength="5"
                                            value="${order.client.email}" pattern="[A-Za-z0-9_.@]{5,50}" maxlength="50"
                                            placeholder=" Введите email клиента, формат (A-Z, a-z, 0-9, _, ., @)"><br>
@@ -100,9 +99,10 @@
                                         </c:when>
                                         <c:when test="${fn:length(sale_positions) gt 0}">
                                             <c:forEach items="${sale_positions}" var="position">
-                                                <a href="../product_${position.product.url}"
+                                                <a href="<c:url value="/product_${position.product.url}"/>"
                                                    title="Перейти к товару ${position.product.title}">
-                                                        ${position.product.title}</a>, № ${position.product.id},
+                                                        ${position.product.title}
+                                                </a>, № ${position.product.id},
                                                 <br>${position.number} x ${position.product.price} грн
                                                 <br>--------------<br>
                                             </c:forEach>
@@ -117,10 +117,11 @@
                             <tr>
                                 <th></th>
                                 <td>
-                                    <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о заказе">Сохранить
+                                    <button class="btn btn-success" type="submit" title="Обновить информацию о заказе">
+                                        Сохранить
                                     </button>
-                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">Сброс
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
                                     </button>
                                 </td>
                             </tr>

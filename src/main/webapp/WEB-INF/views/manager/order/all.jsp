@@ -49,11 +49,12 @@
                                     </td>
                                     <td class="hidden-xs">${order.date}</td>
                                     <td>
-                                        <a href="view_order_${order.id}" title="Смотреть заказ ${order.number}">
+                                        <a href="<c:url value="/manager/view_order_${order.id}"/>"
+                                           title="Смотреть заказ ${order.number}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
                                         <c:if test="${(order.status eq status_new) or (order.manager eq auth_user)}">
-                                            <a href="edit_order_${order.id}"
+                                            <a href="<c:url value="/manager/edit_order_${order.id}"/>"
                                                title="Редактировать заказ ${order.number}">
                                                 <button class="btn btn-success" type="submit">Редактировать</button>
                                             </a>

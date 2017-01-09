@@ -60,8 +60,9 @@
                             <tr>
                                 <th>ВКонтакте:</th>
                                 <td>
-                                    <a href="https://${user.vkontakte}" title="ВКонтакте"
-                                       target="_blank">${user.vkontakte}</a>
+                                    <a href="https://${user.vkontakte}" title="ВКонтакте" target="_blank">
+                                            ${user.vkontakte}
+                                    </a>
                                 </td>
                             </tr>
                         </c:if>
@@ -69,8 +70,9 @@
                             <tr>
                                 <th>Facebook:</th>
                                 <td>
-                                    <a href="https://${user.facebook}" title="Facebook"
-                                       target="_blank">${user.facebook}</a>
+                                    <a href="https://${user.facebook}" title="Facebook" target="_blank">
+                                            ${user.facebook}
+                                    </a>
                                 </td>
                             </tr>
                         </c:if>
@@ -78,7 +80,9 @@
                             <tr>
                                 <th>Skype:</th>
                                 <td>
-                                    <a href="skype:${user.skype}?call" title="Skype" target="_blank">${user.skype}</a>
+                                    <a href="skype:${user.skype}?call" title="Skype" target="_blank">
+                                            ${user.skype}
+                                    </a>
                                 </td>
                             </tr>
                         </c:if>
@@ -91,7 +95,7 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="users" title="Вернуться к списку пользователей">
+                                <a href="<c:url value="/manager/users"/>" title="Вернуться к списку пользователей">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

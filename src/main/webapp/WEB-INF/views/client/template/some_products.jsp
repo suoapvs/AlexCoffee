@@ -7,8 +7,8 @@
         <div class="row products">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <h3 class="intro-text">
-                    <img id="label-products"  width="150px" height="150px" alt="Alex Coffee"
-                         src="resources/img/all_products_icon.png">
+                    <img src="<c:url value="/resources/img/all_products_icon.png"/>"
+                         id="label-products" width="150px" height="150px" alt="Alex Coffee">
                     <div class="text-shadow">
                         <span class="home-block-name color-green">Наши</span>
                         <span class="home-block-name color-brown"> товары</span>

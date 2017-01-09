@@ -30,15 +30,19 @@
                         <tr>
                             <th>Название:</th>
                             <td>
-                                <a href="../product_${product.url}"
-                                   title="Перейти к товару ${product.title}">${product.title}</a>
+                                <a href="<c:url value="/product_${product.url}"/>"
+                                   title="Перейти к товару ${product.title}">
+                                   ${product.title}
+                                </a>
                             </td>
                         </tr>
                         <tr>
                             <th>Категория:</th>
                             <td>
-                                <a href="view_category_${product.id}"
-                                   title="Смотреть категорию ${product.category.title}">${product.category.title}</a>
+                                <a href="<c:url value="/admin/view_category_${product.id}"/>"
+                                   title="Смотреть категорию ${product.category.title}">
+                                   ${product.category.title}
+                                </a>
                             </td>
                         </tr>
                         <tr>
@@ -53,11 +57,11 @@
                             <th>Изображение:</th>
                             <td>
                                     ${product.photo.title}
-                                <br><img width="75px" height="75px" alt="${product.title}"
-                                         src="../resources/img/${product.photo.photoLinkShort}">
+                                <br><img src="<c:url value="/resources/img/${product.photo.photoLinkShort}"/>"
+                                         width="75px" height="75px" alt="${product.title}">
                                 <c:if test="${product.photo.photoLinkLong ne null}">
-                                    <img width="100px" height="100px" alt="${product.title}"
-                                         src="../resources/img/${product.photo.photoLinkLong}">
+                                    <img src="<c:url value="/resources/img/${product.photo.photoLinkLong}"/>"
+                                         width="100px" height="100px" alt="${product.title}">
                                 </c:if>
                             </td>
                         </tr>
@@ -68,15 +72,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="edit_product_${product.id}"
+                                <a href="<c:url value="/admin/edit_product_${product.id}"/>"
                                    title="Редактировать товар ${product.title}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="delete_product_${product.id}"
+                                <a href="<c:url value="/admin/delete_product_${product.id}"/>"
                                    title="Удалить товар ${product.title}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="products" title="Вернуться к списку товаров">
+                                <a href="<c:url value="/admin/products"/>" title="Вернуться к списку товаров">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

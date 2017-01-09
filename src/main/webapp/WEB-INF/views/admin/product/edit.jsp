@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form enctype="multipart/form-data" action="update_product" method="post">
+                    <form action="<c:url value="/admin/update_product"/>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${product.id}">
                         <table class="table">
                             <tr>
@@ -48,7 +48,7 @@
                             <tr>
                                 <th>Категория:</th>
                                 <td>
-                                    <select class="input-order" name="category">
+                                    <select class="input-order" name="category" title="Категория товара">
                                         <option value="${product.category.id}">${product.category.title}</option>
                                         <c:forEach items="${categories}" var="category">
                                             <c:if test="${category.id ne product.category.id}">
@@ -93,10 +93,11 @@
                             <tr>
                                 <th></th>
                                 <td>
-                                    <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о товаре">Сохранить
+                                    <button class="btn btn-success" type="submit" title="Обновить информацию о товаре">
+                                        Сохранить
                                     </button>
-                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">Сброс
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
                                     </button>
                                 </td>
                             </tr>

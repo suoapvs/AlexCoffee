@@ -1,19 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html>
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <%-- HEAD --%>
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Категория ${category.title} || Alex Coffee">
         <title>Категория ${category.title} || Alex Coffee</title>
     </head>
     <body>
-    <%-- NAVBAR --%>
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-    <%-- Category --%>
+        <%-- Category --%>
     <div class="container-fluid width">
         <section id="category">
             <div class="row admin-page">
@@ -34,7 +35,7 @@
                         <tr>
                             <th>URl:</th>
                             <td>
-                                <a href="../category_${category.url}"
+                                <a href="<c:url value="/category_${category.url}"/>"
                                    title="Перейти к категории ${category.title}">${category.url}</a>
                             </td>
                         </tr>
@@ -45,22 +46,22 @@
                         <tr>
                             <th>Изображение:</th>
                             <td>${category.photo.title}
-                                <br><img width="75px" height="75px" alt="${category.title}"
-                                         src="resources/img/${category.photo.photoLinkShort}">
+                                <br><img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
+                                         width="75px" height="75px" alt="${category.title}">
                             </td>
                         </tr>
                         <tr>
                             <th></th>
                             <td>
-                                <a href="edit_category_${category.id}"
+                                <a href="<c:url value="/admin/edit_category_${category.id}"/>"
                                    title="Редактировать категорию ${category.title}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="delete_category_${category.id}"
+                                <a href="<c:url value="/admin/delete_category_${category.id}"/>"
                                    title="Удалить категорию ${category.title}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="categories" title="Вернуться к списку категорий">
+                                <a href="<c:url value="/admin/categories"/>" title="Вернуться к списку категорий">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

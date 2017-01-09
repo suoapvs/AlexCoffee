@@ -7,15 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <%-- HEAD --%>
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Заказ ${order.number} || Alex Coffee">
         <title>Заказ ${order.number} || Alex Coffee</title>
     </head>
     <body>
-    <%-- NAVBAR --%>
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
-    <%-- Order --%>
+        <%-- Order --%>
     <div class="container-fluid width">
         <section id="order">
             <div class="row admin-page">
@@ -63,7 +63,9 @@
                                             </c:when>
                                             <c:otherwise>${order.manager.role.description}</c:otherwise>
                                         </c:choose>
-                                        <a href="view_user_${order.manager.id}">${order.manager.name}</a>
+                                        <a href="<c:url value="/manager/view_user_${order.manager.id}"/>">
+                                                ${order.manager.name}
+                                        </a>
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
                                 </c:choose>
@@ -116,14 +118,15 @@
                                 <c:choose>
                                     <c:when test="${fn:length(sale_positions) gt 0}">
                                         <c:forEach items="${sale_positions}" var="position">
-                                            <a href="../product_${position.product.url}"
+                                            <a href="<c:url value="/product_${position.product.url}"/>"
                                                title="Перейти к товару ${position.product.title}">
-                                                    ${position.product.title}</a>, № ${position.product.id},
+                                                    ${position.product.title}
+                                            </a>, № ${position.product.id},
                                             <br>${position.number} x ${position.product.price} грн
                                             <br>--------------<br>
                                         </c:forEach>
                                     </c:when>
-                                    <c:otherwise>Cписок товаров пуст!</c:otherwise>
+                                    <c:otherwise>Список товаров пуст!</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
@@ -135,12 +138,12 @@
                             <th></th>
                             <td>
                                 <c:if test="${(order.status eq status_new) or (order.manager eq auth_user)}">
-                                    <a href="edit_order_${order.id}"
+                                    <a href="<c:url value="/manager/edit_order_${order.id}"/>"
                                        title="Редактировать заказ ${order.number}">
                                         <button class="btn btn-success" type="submit">Редактировать</button>
                                     </a>
                                 </c:if>
-                                <a href="orders" title="Вернуться к списку заказов">
+                                <a href="<c:url value="/manager/orders"/>" title="Вернуться к списку заказов">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

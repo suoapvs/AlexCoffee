@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html>
@@ -26,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form enctype="multipart/form-data" action="update_category" method="post">
+                    <form action="<c:url value="/admin/update_category"/>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${category.id}">
                         <table class="table">
                             <tr>
@@ -47,9 +48,8 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder=" Введите описание категории"
-                                          maxlength="500">${category.description}</textarea>
+                                <textarea class="input-order textarea" name="description" maxlength="500"
+                                          placeholder=" Введите описание категории">${category.description}</textarea>
                                 </td>
                             </tr>
                             <tr>
@@ -66,8 +66,11 @@
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о категории">Сохранить</button>
-                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">Сброс
+                                            title="Обновить информацию о категории">
+                                        Сохранить
+                                    </button>
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
                                     </button>
                                 </td>
                             </tr>

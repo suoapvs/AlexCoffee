@@ -13,7 +13,6 @@
         <title>Новый продукт || Alex Coffee</title>
     </head>
     <body>
-
         <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
         <%-- Add product --%>
@@ -29,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form enctype="multipart/form-data" action="save_product" method="post">
+                    <form action="<c:url value="/admin/save_product"/>" enctype="multipart/form-data" method="post">
                         <table class="table">
                             <tr>
                                 <th>Название:</th>
@@ -49,7 +48,7 @@
                             <tr>
                                 <th>Категория:</th>
                                 <td>
-                                    <select class="input-order" name="category">
+                                    <select class="input-order" name="category" title="Категория товара">
                                         <c:forEach items="${categories}" var="category">
                                             <option value="${category.id}">${category.title}</option>
                                         </c:forEach>
@@ -89,8 +88,12 @@
                             <tr>
                                 <th></th>
                                 <td>
-                                    <button class="btn btn-success" type="submit">Добавить товар</button>
-                                    <button class="btn btn-info" type="reset">Сброс</button>
+                                    <button class="btn btn-success" type="submit" title="Добавить новый товар">
+                                        Добавить товар
+                                    </button>
+                                    <button class="btn btn-info" type="reset" title="Сбросить введенные даные">
+                                        Сброс
+                                    </button>
                                 </td>
                             </tr>
                         </table>

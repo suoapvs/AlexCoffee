@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="save_user" method="post">
+                    <form action="<c:url value="/admin/save_user"/>" method="post">
                         <table class="table">
                             <tr>
                                 <th>Имя:</th>
@@ -36,7 +36,7 @@
                             <tr>
                                 <th>Роль:</th>
                                 <td>
-                                    <select class="input-order" name="role">
+                                    <select class="input-order" name="role" title="Роль пользователя">
                                         <c:forEach items="${roles}" var="role">
                                             <option value="${role.id}">${role.description}</option>
                                         </c:forEach>

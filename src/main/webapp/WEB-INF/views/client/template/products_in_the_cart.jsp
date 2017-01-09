@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -15,19 +15,21 @@
             <c:forEach items="${sale_positions}" var="position">
                 <tr>
                     <td>
-                        <a href="product_${position.product.url}" title="Перейти к ${position.product.title}">
+                        <a href="<c:url value="/product_${position.product.url}"/>"
+                           title="Перейти к ${position.product.title}">
                                 ${position.product.title}
                         </a>
                     </td>
                     <td>${position.number}</td>
                     <td>
-                        <img width="50px" height="50px" alt="${position.product.title}"
-                             src="resources/img/${position.product.photo.photoLinkShort}">
+                        <img src="<c:url value="/resources/img/${position.product.photo.photoLinkShort}"/>"
+                             width="50px" height="50px" alt="${position.product.title}">
                     </td>
                     <td>
-                        <a href="category_${position.product.category.url}"
+                        <a href="<c:url value="/category_${position.product.category.url}"/>"
                            title="Перейти к категории ${position.product.category.title}">
-                                ${position.product.category.title}</a>
+                                ${position.product.category.title}
+                        </a>
                     </td>
                     <td><fmt:formatNumber type="number" value="${position.product.price}"/> грн</td>
                 </tr>

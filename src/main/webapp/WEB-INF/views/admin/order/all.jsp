@@ -7,15 +7,15 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <%-- HEAD --%>
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Заказы || Alex Coffee">
         <title>Заказы || Alex Coffee</title>
     </head>
     <body>
-    <%-- NAVBAR --%>
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-    <%-- All orders --%>
+        <%-- All orders --%>
     <div class="container-fluid width">
         <section id="orders">
             <div class="row admin-page">
@@ -37,7 +37,7 @@
                                 <th class="hidden-xs">Дата</th>
                                 <th>
                                     Действие
-                                    <a href="delete_all_orders" title="Удалить все заказы">
+                                    <a href="<c:url value="/admin/delete_all_orders"/>" title="Удалить все заказы">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
@@ -55,14 +55,16 @@
                                     </td>
                                     <td class="hidden-xs">${order.date}</td>
                                     <td>
-                                        <a href="view_order_${order.id}" title="Смотреть заказ ${order.number}">
+                                        <a href="<c:url value="/admin/view_order_${order.id}"/>"
+                                           title="Смотреть заказ ${order.number}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="edit_order_${order.id}"
+                                        <a href="<c:url value="/admin/edit_order_${order.id}"/>"
                                            title="Редактировать заказ ${order.number}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="delete_order_${order.id}" title="Удалить заказ ${order.number}">
+                                        <a href="<c:url value="/admin/delete_order_${order.id}"/>"
+                                           title="Удалить заказ ${order.number}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>
                                     </td>

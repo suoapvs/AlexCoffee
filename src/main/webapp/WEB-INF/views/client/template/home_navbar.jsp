@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="width">
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -10,10 +11,10 @@
                     <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand text-shadow">
-                    <a href="home">
+                    <a href="<c:url value="/home"/>">
                         <span class="nav-text-label color-green">Alex</span>
                         <span class="nav-text-label color-brown">Coffee</span>
-                        <img class="nav-label" src="resources/img/main_icon.png" alt="AlexCoffee">
+                        <img src="<c:url value="/resources/img/main_icon.png"/>" class="nav-label" alt="AlexCoffee">
                     </a>
                 </div>
             </div>
@@ -30,7 +31,7 @@
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="nav-cart">
-                        <a href="cart">
+                        <a href="<c:url value="/cart"/>">
                             <span class="glyphicon glyphicon-shopping-cart"
                                   aria-hidden="true"></span> Корзина (${cart_size})
                         </a>
