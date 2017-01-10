@@ -84,14 +84,15 @@ public class ManagerUsersController {
     /**
      * Возвращает всех пользователей
      * на страницу "manager/user/all".
-     * URL запроса "/manager/users",
+     * URL запроса {"/manager/user",
+     * "/manager/user/", "/manager/user/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/users",
+            value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
     public ModelAndView viewAllPersonnel(
@@ -121,7 +122,7 @@ public class ManagerUsersController {
      * Возвращает пользователя с
      * уникальным кодом id на
      * страницу "manager/user/one".
-     * URL запроса "/manager/view_user_{id}",
+     * URL запроса "/manager/user/view/{id}",
      * метод GET.
      *
      * @param id           Код пользователя, которого
@@ -130,7 +131,7 @@ public class ManagerUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_user_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewUser(

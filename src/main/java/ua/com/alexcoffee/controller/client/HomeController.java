@@ -138,7 +138,7 @@ public class HomeController {
      * базы подгружаются категории
      * товаров, 12 рандомных товаров
      * и количество товаров в корзине.
-     * URL запроса {"/", "/index"},
+     * URL запроса {"", "/", "/index", "/home"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -146,7 +146,7 @@ public class HomeController {
      */
     @RequestMapping(
             value = {
-                    "/",
+                    "", "/",
                     "/index",
                     "/home"
             },
@@ -171,27 +171,10 @@ public class HomeController {
     }
 
     /**
-     * Перенаправляет по по запросу "/".
-     *
-     * @param modelAndView Объект класса {@link ModelAndView}.
-     * @return Объект класса {@link ModelAndView}.
-     */
-    @RequestMapping(
-            value = "",
-            method = RequestMethod.GET
-    )
-    public ModelAndView redirectToHome(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
-    }
-
-    /**
      * Возвращает страницу "client/category"
      * с товарами, которые пренадлежат
      * категории с url.
-     * URL запроса "/category_{url}",
+     * URL запроса "/category/{url}",
      * метод GET.
      *
      * @param url          URL категории, товары
@@ -201,7 +184,7 @@ public class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/category_{url}",
+            value = "/category/{url}",
             method = RequestMethod.GET
     )
     public ModelAndView viewProductsInCategory(
@@ -227,14 +210,14 @@ public class HomeController {
     /**
      * Возвращает страницу "client/products"
      * с всема товарами.
-     * URL запроса "/all_products",
+     * URL запроса "/product/all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/all_products",
+            value = "/product/all",
             method = RequestMethod.GET
     )
     public ModelAndView viewAllProducts(
@@ -257,7 +240,7 @@ public class HomeController {
      * с 1-м товаром с уникальним URL,
      * который совпадает с входящим
      * параметром url.
-     * URL запроса "/product_{url}",
+     * URL запроса "/product/{url}",
      * метод GET.
      * В запросе в параметре url можно
      * передавать как URL так
@@ -270,7 +253,7 @@ public class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/product_{url}",
+            value = "/product/{url}",
             method = RequestMethod.GET
     )
     public ModelAndView viewProduct(
@@ -339,7 +322,7 @@ public class HomeController {
      * Добавляет товар с уникальным кодом id
      * в корзину и перенаправляет
      * по запросу "/cart".
-     * URL запроса "/cart_add",
+     * URL запроса "/cart/add",
      * метод POST.
      *
      * @param id           Код товара, который
@@ -348,7 +331,7 @@ public class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/cart_add",
+            value = "/cart/add",
             method = RequestMethod.POST
     )
     public ModelAndView addProductToCart(
@@ -367,21 +350,20 @@ public class HomeController {
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/cart_add"
-     * методом GET.
+     * если обратится по запросу "/cart/add" методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
      *                                   если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/cart_add",
+            value = "/cart/add",
             method = RequestMethod.GET
     )
     public void addProductToCart()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/cart_add\" is not supported!"
+                "GET method in \"/add\" is not supported!"
         );
     }
 
@@ -390,7 +372,7 @@ public class HomeController {
      * с уникальным номером id в корзину
      * и перенаправление
      * по запросу входящего параметра url.
-     * URL запроса "/cart_add_quickly",
+     * URL запроса "/cart/add_quickly",
      * метод POST.
      *
      * @param id           Код товара, который
@@ -401,7 +383,7 @@ public class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/cart_add_quickly",
+            value = "/cart/add_quickly",
             method = RequestMethod.POST
     )
     public ModelAndView addProductToCartQuickly(
@@ -421,7 +403,7 @@ public class HomeController {
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/cart_add_quickly"
+     * если обратится по запросу "/cart/add_quickly"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -429,26 +411,26 @@ public class HomeController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/cart_add_quickly",
+            value = "/cart/add_quickly",
             method = RequestMethod.GET
     )
     public void addProductToCartQuickly()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/cart_add_quickly\" is not supported!"
+                "GET method in \"/add_quickly\" is not supported!"
         );
     }
 
     /**
      * Очищает корзину от торгвых позиции
      * и перенаправление по запросу "/cart".
-     * URL запроса "/cart_clear", метод GET.
+     * URL запроса "/cart/clear", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/cart_clear",
+            value = "/cart/clear",
             method = RequestMethod.GET
     )
     public ModelAndView clearCart(

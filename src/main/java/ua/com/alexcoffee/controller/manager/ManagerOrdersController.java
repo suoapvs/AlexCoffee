@@ -46,7 +46,7 @@ import java.util.Date;
  * @see OrderService
  */
 @Controller
-@RequestMapping(value = "/manager")
+@RequestMapping(value = "/manager/order")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class ManagerOrdersController {
     /**
@@ -110,13 +110,17 @@ public class ManagerOrdersController {
      * Возвращает все заказы,
      * сделаные клиентами,
      * на страницу "manager/order/all".
-     * URL запроса {"/manager" , "/manager/orders"},
+     * URL запроса {"/manager/order",
+     * "/manager/order/", "/manager/order/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @RequestMapping(
+            value = {"", "/", "/all"},
+            method = RequestMethod.GET
+    )
     public ModelAndView viewAllOrders(
             final ModelAndView modelAndView
     ) {
@@ -137,28 +141,10 @@ public class ManagerOrdersController {
     }
 
     /**
-     * Перенаправляет по запросу
-     * "/manager/orders".
-     *
-     * @param modelAndView Объект класса {@link ModelAndView}.
-     * @return Объект класса {@link ModelAndView}.
-     */
-    @RequestMapping(
-            value = "",
-            method = RequestMethod.GET
-    )
-    public ModelAndView redirectToOrders(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.setViewName("redirect:/manager/orders");
-        return modelAndView;
-    }
-
-    /**
      * Возвращает заказ с уникальным
      * кодом id на страницу
      * "manager/order/one".
-     * URL запроса "/manager/view_order_{id}",
+     * URL запроса "/manager/order/view/{id}",
      * метод GET.
      *
      * @param id           Код заказа, который
@@ -167,7 +153,7 @@ public class ManagerOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_order_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewOrder(
@@ -211,7 +197,7 @@ public class ManagerOrdersController {
      * id, или перенаправляет по запросу
      * "/manager/orders", если этот заказ
      * уже обработал другой менеджер.
-     * URL запроса "/admin/edit_order_{id}",
+     * URL запроса "/admin/order/edit/{id}",
      * метод GET.
      *
      * @param id           Код заказа, который
@@ -220,7 +206,7 @@ public class ManagerOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/edit_order_{id}",
+            value = "/edit/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView getEditOrderPage(
@@ -256,7 +242,7 @@ public class ManagerOrdersController {
             );
             modelAndView.setViewName("manager/order/edit");
         } else {
-            modelAndView.setViewName("redirect:/manager/orders");
+            modelAndView.setViewName("redirect:/manager/order/all");
         }
         return modelAndView;
     }
@@ -264,8 +250,8 @@ public class ManagerOrdersController {
     /**
      * Обновляет заказ по входящим параметрам
      * и перенаправляет по запросу
-     * "/admin/view_order_{id}".
-     * URL запроса "/admin/update_category",
+     * "/admin/order/view/{id}".
+     * URL запроса "/admin/order/update",
      * метод POST.
      *
      * @param id           Код заказа для обновления.
@@ -287,7 +273,7 @@ public class ManagerOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/update_order",
+            value = "/update",
             method = RequestMethod.POST
     )
     public ModelAndView updateOrder(
@@ -335,7 +321,7 @@ public class ManagerOrdersController {
             );
             this.orderService.update(order);
         }
-        modelAndView.setViewName("redirect:/manager/view_order_" + id);
+        modelAndView.setViewName("redirect:/manager/order/view/" + id);
         return modelAndView;
     }
 
@@ -343,20 +329,20 @@ public class ManagerOrdersController {
      * Возвращает исключение
      * WrongInformationException, если
      * обратится по запросу
-     * "/update_order" методом GET.
+     * "/admin/order/update" методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
      *                                   если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/update_order",
+            value = "/admin/order/update",
             method = RequestMethod.GET
     )
     public void updateOrder()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/update_order\" is not supported!"
+                "GET method in \"/admin/order/update\" is not supported!"
         );
     }
 }

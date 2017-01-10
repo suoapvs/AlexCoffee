@@ -30,9 +30,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * сообщения Spring'у о том, что данный
  * класс является bean'ом и его необходимо
  * подгрузить при старте приложения.
- * Аннотацией @RequestMapping(value = "/admin")
+ * Аннотацией @RequestMapping(value = "/admin/product")
  * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/admin".
+ * обрабатывать запросы, URI которых начинается
+ * с "/admin/product".
  * Методы класса работают с объектом,
  * возвращенным handleRequest методом,
  * является типом {@link ModelAndView},
@@ -47,7 +48,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @see ProductService
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/product")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminProductsController {
     /**
@@ -107,14 +108,16 @@ public class AdminProductsController {
     /**
      * Возвращает все товары
      * на страницу "admin/product/all".
-     * URL запроса "/admin/products",
+     * URL запроса {"/admin/product",
+     * "/admin/product/",
+     * "/admin/product/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/products",
+            value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
     public ModelAndView viewAllProducts(
@@ -135,7 +138,7 @@ public class AdminProductsController {
     /**
      * Возвращает товар с уникальным
      * кодом id на страницу "admin/product/one".
-     * URL запроса "/admin/view_product_{id}",
+     * URL запроса "/admin/view/{id}",
      * метод GET.
      *
      * @param id           Код товара,
@@ -144,7 +147,7 @@ public class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_product_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewProduct(
@@ -166,14 +169,14 @@ public class AdminProductsController {
     /**
      * Возвращает страницу "admin/product/add"
      * для добавления нового товара.
-     * URL запроса "/admin/add_product",
+     * URL запроса "/admin/product/add",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/add_product",
+            value = "/add",
             method = RequestMethod.GET
     )
     public ModelAndView getAddProductPage(
@@ -198,8 +201,8 @@ public class AdminProductsController {
     /**
      * Сохраняет новый товар по входящим
      * параметрам и перенаправляет
-     * по запросу "/admin/products".
-     * URL запроса "/admin/save_product",
+     * по запросу "/admin/product/all".
+     * URL запроса "/admin/product/save",
      * метод POST.
      *
      * @param title          Название товара
@@ -218,7 +221,7 @@ public class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/save_product",
+            value = "/save",
             method = RequestMethod.POST
     )
     public ModelAndView saveProduct(
@@ -253,13 +256,13 @@ public class AdminProductsController {
         this.productService.add(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
-        modelAndView.setViewName("redirect:/admin/products");
+        modelAndView.setViewName("redirect:/admin/product/all");
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/save_product"
+     * если обратится по запросу "/admin/product/save"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -267,12 +270,12 @@ public class AdminProductsController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/save_product",
+            value = "/save",
             method = RequestMethod.GET
     )
     public void saveProduct() throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/save_product\" is not supported!"
+                "GET method in \"/admin/product/save\" is not supported!"
         );
     }
 
@@ -280,7 +283,7 @@ public class AdminProductsController {
      * Возвращает страницу "admin/product/edit"
      * для редактирование товара с уникальным
      * кодом, который совпадает с параметром id.
-     * URL запроса "/admin/edit_product_{id}",
+     * URL запроса "/admin/product/edit/{id}",
      * метод GET.
      *
      * @param id           Код товара, который
@@ -289,7 +292,7 @@ public class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/edit_product_{id}",
+            value = "/edit/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView getEditProductPage(
@@ -319,8 +322,8 @@ public class AdminProductsController {
     /**
      * Обновляет товар по входящим параметрам
      * и перенаправляет по запросу
-     * "/admin/view_product_{id}".
-     * URL запроса "/admin/update_product",
+     * "/admin/product/view/{id}".
+     * URL запроса "/admin/product/update",
      * метод POST.
      *
      * @param id             Код товара для обновления.
@@ -343,7 +346,7 @@ public class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/update_product",
+            value = "/update",
             method = RequestMethod.POST
     )
     public ModelAndView updateProduct(
@@ -396,13 +399,13 @@ public class AdminProductsController {
         this.productService.update(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
-        modelAndView.setViewName("redirect:/admin/view_product_" + id);
+        modelAndView.setViewName("redirect:/admin/product/view/" + id);
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/update_product"
+     * если обратится по запросу "/admin/product/update"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -410,12 +413,12 @@ public class AdminProductsController {
      *                                   к этому методу GET.
      */
     @RequestMapping(
-            value = "/update_product",
+            value = "/update",
             method = RequestMethod.GET
     )
     public void updateProduct() throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/update_product\" is not supported!"
+                "GET method in \"/admin/product/update\" is not supported!"
         );
     }
 
@@ -424,7 +427,7 @@ public class AdminProductsController {
      * который совпадает с входящим
      * параметром id, и перенаправляет
      * по запросу "/admin/products".
-     * URL запроса "/admin/delete_product_{id}",
+     * URL запроса "/admin/product/delete/{id}",
      * метод GET.
      *
      * @param id           Код товара,
@@ -433,7 +436,7 @@ public class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_product_{id}",
+            value = "/delete/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView deleteProduct(
@@ -447,22 +450,22 @@ public class AdminProductsController {
 
     /**
      * Удаляет все товары и перенаправляет
-     * по запросу "/admin/products".
-     * URL запроса "/admin/delete_all_products",
+     * по запросу "/admin/product/all".
+     * URL запроса "/admin/product/delete_all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_all_products",
+            value = "/delete_all",
             method = RequestMethod.GET
     )
     public ModelAndView deleteAllProducts(
             final ModelAndView modelAndView
     ) {
         this.productService.removeAll();
-        modelAndView.setViewName("redirect:/admin/products");
+        modelAndView.setViewName("redirect:/admin/product/all");
         return modelAndView;
     }
 }

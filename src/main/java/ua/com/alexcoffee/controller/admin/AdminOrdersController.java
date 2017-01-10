@@ -29,9 +29,10 @@ import java.util.Date;
  * сообщения Spring'у о том, что данный
  * класс является bean'ом и его необходимо
  * подгрузить при старте приложения.
- * Аннотацией @RequestMapping(value = "/admin")
+ * Аннотацией @RequestMapping(value = "/admin/order")
  * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/admin".
+ * обрабатывать запросы, URI которых начинается
+ * с "/admin/order".
  * Методы класса работают с объектом,
  * возвращенным handleRequest методом,
  * является типом {@link ModelAndView},
@@ -46,7 +47,7 @@ import java.util.Date;
  * @see OrderService
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/order")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminOrdersController {
     /**
@@ -108,13 +109,16 @@ public class AdminOrdersController {
      * Возвращает все заказы,
      * сделаные клиентами,
      * на страницу "admin/order/all".
-     * URL запроса {"/admin", "/admin/orders"},
+     * URL запроса {"/admin/order",
+     * "/admin/order/", "/admin/order/all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @RequestMapping(
+            value = {"", "/", "/all"},
+            method = RequestMethod.GET)
     public ModelAndView viewAllOrders(
             final ModelAndView modelAndView
     ) {
@@ -135,26 +139,9 @@ public class AdminOrdersController {
     }
 
     /**
-     * Перенаправляет по запросу "/admin/orders".
-     *
-     * @param modelAndView Объект класса {@link ModelAndView}.
-     * @return Объект класса {@link ModelAndView}.
-     */
-    @RequestMapping(
-            value = "",
-            method = RequestMethod.GET
-    )
-    public ModelAndView redirectToOrders(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.setViewName("redirect:/admin/orders");
-        return modelAndView;
-    }
-
-    /**
      * Возвращает заказ с уникальным кодом id
      * на страницу "admin/order/one".
-     * URL запроса "/admin/view_order_{id}",
+     * URL запроса "/admin/order/view/{id}",
      * метод GET.
      *
      * @param id           Код заказа,
@@ -163,7 +150,7 @@ public class AdminOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_order_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewOrder(
@@ -205,7 +192,7 @@ public class AdminOrdersController {
      * для редактирование заказа
      * с уникальным кодом, который
      * совпадает с параметром id.
-     * URL запроса "/admin/edit_order_{id}",
+     * URL запроса "/admin/order/edit/{id}",
      * метод GET.
      *
      * @param id           Код заказа,
@@ -215,7 +202,7 @@ public class AdminOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/edit_order_{id}",
+            value = "/edit/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView getEditOrderPage(
@@ -247,8 +234,8 @@ public class AdminOrdersController {
     /**
      * Обновляет заказ по входящим
      * параметрам и перенаправляет
-     * по запросу "/admin/view_order_{id}".
-     * URL запроса "/admin/update_category",
+     * по запросу "/admin/order/view/{id}".
+     * URL запроса "/admin/order/update",
      * метод POST.
      *
      * @param id           Код заказа для обновления.
@@ -271,7 +258,7 @@ public class AdminOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/update_order",
+            value = "/update",
             method = RequestMethod.POST
     )
     public ModelAndView updateOrder(
@@ -305,13 +292,13 @@ public class AdminOrdersController {
                 manager
         );
         this.orderService.update(order);
-        modelAndView.setViewName("redirect:/admin/view_order_" + id);
+        modelAndView.setViewName("redirect:/admin/order/view/" + id);
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/update_order"
+     * если обратится по запросу "/admin/order/update"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -325,7 +312,7 @@ public class AdminOrdersController {
     public void updateOrder()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/update_order\" is not supported!"
+                "GET method in \"/admin/order/update\" is not supported!"
         );
     }
 
@@ -333,8 +320,8 @@ public class AdminOrdersController {
      * Удаляет заказ с уникальным кодом,
      * который совпадает с входящим
      * параметром id, и перенаправляет
-     * по запросу "/admin/orders".
-     * URL запроса "/delete_orders_{id}",
+     * по запросу "/admin/order/all".
+     * URL запроса "/admin/order/delete/{id}",
      * метод GET.
      *
      * @param id           Код заказа,
@@ -343,7 +330,7 @@ public class AdminOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_order_{id}",
+            value = "/delete/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView deleteOrder(
@@ -351,28 +338,28 @@ public class AdminOrdersController {
             final ModelAndView modelAndView
     ) {
         this.orderService.remove(id);
-        modelAndView.setViewName("redirect:/admin/orders");
+        modelAndView.setViewName("redirect:/admin/order/all");
         return modelAndView;
     }
 
     /**
      * Удаляет все заказы и перенаправляет
-     * по запросу "/admin/orders".
-     * URL запроса "/delete_all_orders",
+     * по запросу "/admin/order/all".
+     * URL запроса "/admin/order/delete_all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_all_orders",
+            value = "/delete_all",
             method = RequestMethod.GET
     )
     public ModelAndView deleteAllOrders(
             final ModelAndView modelAndView
     ) {
         this.orderService.removeAll();
-        modelAndView.setViewName("redirect:/admin/orders");
+        modelAndView.setViewName("redirect:/admin/order/all");
         return modelAndView;
     }
 }

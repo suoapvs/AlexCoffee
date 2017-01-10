@@ -28,9 +28,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * сообщения Spring'у о том, что данный
  * класс является bean'ом и его необходимо
  * подгрузить при старте приложения.
- * Аннотацией @RequestMapping(value = "/admin")
+ * Аннотацией @RequestMapping(value = "/admin/category")
  * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/admin".
+ * обрабатывать запросы, URI которых начинается
+ * с "/admin/category".
  * Методы класса работают с объектом,
  * возвращенным handleRequest методом,
  * является типом {@link ModelAndView},
@@ -45,7 +46,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @see CategoryService
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/category")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminCategoriesController {
     /**
@@ -95,13 +96,18 @@ public class AdminCategoriesController {
     /**
      * Возвращает все категории товаров
      * на страницу "admin/category/all".
-     * URL запроса "/admin/categories",
+     * URL запроса {"/admin/category",
+     * "/admin/category/",
+     * "/admin/category/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
-    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    @RequestMapping(
+            value = {"", "/", "/all"},
+            method = RequestMethod.GET
+    )
     public ModelAndView viewAllCategories(final ModelAndView modelAndView) {
         modelAndView.addObject(
                 "categories",
@@ -118,7 +124,7 @@ public class AdminCategoriesController {
     /**
      * Возвращает категорию с уникальным
      * кодом id на страницу "admin/category/one".
-     * URL запроса "/admin/view_category_{id}",
+     * URL запроса "/admin/category/view/{id}",
      * метод GET.
      *
      * @param id           Код категории,
@@ -127,7 +133,7 @@ public class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_category_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewCategory(
@@ -149,14 +155,14 @@ public class AdminCategoriesController {
     /**
      * Возвращает страницу "admin/category/add"
      * для добавления новой категории.
-     * URL запроса "/admin/add_category",
+     * URL запроса "/admin/category/add",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/add_category",
+            value = "/add",
             method = RequestMethod.GET
     )
     public ModelAndView getAddCategoryPage(
@@ -177,8 +183,8 @@ public class AdminCategoriesController {
     /**
      * Сохраняет новую категорию по входящим
      * параметрам и перенаправляет по запросу
-     * "/admin/categories".
-     * URL запроса "/admin/save_category",
+     * "/admin/category/all".
+     * URL запроса "/admin/category/save",
      * метод POST.
      *
      * @param title        Название категории.
@@ -193,7 +199,7 @@ public class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/save_category",
+            value = "/save",
             method = RequestMethod.POST
     )
     public ModelAndView saveCategory(
@@ -216,13 +222,13 @@ public class AdminCategoriesController {
         );
         this.categoryService.add(category);
         this.photoService.saveFile(photoFile);
-        modelAndView.setViewName("redirect:/admin/categories");
+        modelAndView.setViewName("redirect:/admin/category/all");
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/save_category"
+     * если обратится по запросу "/admin/category/save"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -230,13 +236,13 @@ public class AdminCategoriesController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/save_category",
+            value = "/save",
             method = RequestMethod.GET
     )
     public void saveCategory()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/save_category\" is not supported!"
+                "GET method in \"/admin/category/save\" is not supported!"
         );
     }
 
@@ -244,7 +250,7 @@ public class AdminCategoriesController {
      * Возвращает страницу "admin/category/edit"
      * для редактирование категории с уникальным кодом,
      * который совпадает с параметром id.
-     * URL запроса "/admin/edit_category_{id}",
+     * URL запроса "/admin/category/edit/{id}",
      * метод GET.
      *
      * @param id           Код категории,
@@ -254,7 +260,7 @@ public class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/edit_category_{id}",
+            value = "/edit/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView getEditCategoryPage(
@@ -280,8 +286,8 @@ public class AdminCategoriesController {
     /**
      * Обновляет категорию по входящим
      * параметрам и перенаправляет
-     * по запросу "/admin/view_category_{id}".
-     * URL запроса "/admin/update_category",
+     * по запросу "/admin/category/view/{id}".
+     * URL запроса "/admin/category/update",
      * метод POST.
      *
      * @param id           Код категории для обновления.
@@ -296,7 +302,7 @@ public class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/update_category",
+            value = "/update",
             method = RequestMethod.POST
     )
     public ModelAndView updateCategory(
@@ -329,13 +335,13 @@ public class AdminCategoriesController {
         );
         this.categoryService.update(category);
         this.photoService.saveFile(photoFile);
-        modelAndView.setViewName("redirect:/admin/view_category_" + id);
+        modelAndView.setViewName("redirect:/admin/view/" + id);
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/update_category"
+     * если обратится по запросу "/admin/category/update"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -343,13 +349,13 @@ public class AdminCategoriesController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/update_category",
+            value = "/update",
             method = RequestMethod.GET
     )
     public void updateCategory()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/update_category\" is not supported!"
+                "GET method in \"/admin/category/update\" is not supported!"
         );
     }
 
@@ -357,8 +363,8 @@ public class AdminCategoriesController {
      * Удаляет категорию с уникальным кодом,
      * который совпадает с входящим
      * параметром id, и перенаправляет
-     * по запросу "/admin/categories".
-     * URL запроса "/delete_category_{id}",
+     * по запросу "/admin/category/all".
+     * URL запроса "/admin/category/delete/{id}",
      * метод GET.
      *
      * @param id           Код категории,
@@ -367,7 +373,7 @@ public class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_category_{id}",
+            value = "/delete/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView deleteCategory(
@@ -375,28 +381,28 @@ public class AdminCategoriesController {
             final ModelAndView modelAndView
     ) {
         this.categoryService.remove(id);
-        modelAndView.setViewName("redirect:/admin/categories");
+        modelAndView.setViewName("redirect:/admin/category/all");
         return modelAndView;
     }
 
     /**
      * Удаляет все категории и перенаправляет
-     * по запросу "/admin/categories".
-     * URL запроса "/delete_all_categories",
+     * по запросу "/admin/category/all".
+     * URL запроса "/admin/category/delete_all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_all_categories",
+            value = "/delete_all",
             method = RequestMethod.GET
     )
     public ModelAndView deleteAllCategories(
             final ModelAndView modelAndView
     ) {
         this.categoryService.removeAll();
-        modelAndView.setViewName("redirect:/admin/categories");
+        modelAndView.setViewName("redirect:/admin/category/all");
         return modelAndView;
     }
 }

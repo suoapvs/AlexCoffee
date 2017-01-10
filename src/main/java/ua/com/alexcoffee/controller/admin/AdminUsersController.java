@@ -24,9 +24,10 @@ import ua.com.alexcoffee.service.interfaces.UserService;
  * что данный класс является bean'ом и
  * его необходимо подгрузить при старте
  * приложения.
- * Аннотацией @RequestMapping(value = "/admin")
+ * Аннотацией @RequestMapping(value = "/admin/user")
  * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/admin".
+ * обрабатывать запросы, URI которых начинается
+ * с "/admin/user".
  * Методы класса работают с объектом,
  * возвращенным handleRequest методом,
  * является типом {@link ModelAndView},
@@ -81,14 +82,15 @@ public class AdminUsersController {
     /**
      * Возвращает всех пользователей
      * на страницу "admin/user/all".
-     * URL запроса "/admin/users",
+     * URL запроса {"/admin/user",
+     * "/admin/user/", "/admin/user/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/users",
+            value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
     public ModelAndView viewAllPersonnel(
@@ -113,7 +115,7 @@ public class AdminUsersController {
      * Возвращает пользователя
      * с уникальным кодом id
      * на страницу "admin/user/one".
-     * URL запроса "/admin/view_user_{id}",
+     * URL запроса "/admin/user/view/{id}",
      * метод GET.
      *
      * @param id           Код категории,
@@ -122,7 +124,7 @@ public class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/view_user_{id}",
+            value = "/view/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView viewUser(
@@ -153,13 +155,13 @@ public class AdminUsersController {
      * для добавления нового пользователе,
      * члена персонала (администратора
      * или менеджера).
-     * URL запроса "/admin/add_user", метод GET.
+     * URL запроса "/admin/user/add", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/add_user",
+            value = "/add",
             method = RequestMethod.GET
     )
     public ModelAndView getAddUserPage(
@@ -180,8 +182,8 @@ public class AdminUsersController {
     /**
      * Сохраняет нового пользователя
      * по входящим параметрам и
-     * перенаправляет по запросу "/admin/users".
-     * URL запроса "/admin/save_user",
+     * перенаправляет по запросу "/admin/user/all".
+     * URL запроса "/admin/user/save",
      * метод POST.
      *
      * @param name         Имя нового пользователя.
@@ -203,7 +205,7 @@ public class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/save_user",
+            value = "/save",
             method = RequestMethod.POST
     )
     public ModelAndView saveUser(
@@ -234,14 +236,14 @@ public class AdminUsersController {
                 role
         );
         this.userService.add(user);
-        modelAndView.setViewName("redirect:/admin/users");
+        modelAndView.setViewName("redirect:/admin/user/all");
         return modelAndView;
     }
 
     /**
      * Возвращает исключение
      * WrongInformationException, если
-     * обратится по запросу "/save_user"
+     * обратится по запросу "/admin/user/save"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -249,13 +251,13 @@ public class AdminUsersController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/save_user",
+            value = "/save",
             method = RequestMethod.GET
     )
     public void saveUser()
             throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/save_user\" is not supported!"
+                "GET method in \"/admin/user/save\" is not supported!"
         );
     }
 
@@ -264,7 +266,7 @@ public class AdminUsersController {
      * для редактирование пользователя
      * с уникальным кодом, который совпадает
      * с параметром id.
-     * URL запроса "/admin/edit_user_{id}",
+     * URL запроса "/admin/user/edit/{id}",
      * метод GET.
      *
      * @param id           Код пользователя,
@@ -274,7 +276,7 @@ public class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/edit_user_{id}",
+            value = "/edit/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView getEditUserPage(
@@ -300,8 +302,8 @@ public class AdminUsersController {
     /**
      * Обновляет пользователя по входящим
      * параметрам и перенаправляет
-     * по запросу "/admin/view_user_{id}".
-     * URL запроса "/admin/update_user",
+     * по запросу "/admin/user/view/{id}".
+     * URL запроса "/admin/user/update",
      * метод POST.
      *
      * @param id           Код пользователя
@@ -325,7 +327,7 @@ public class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/update_user",
+            value = "/update",
             method = RequestMethod.POST
     )
     public ModelAndView updateUser(
@@ -357,13 +359,13 @@ public class AdminUsersController {
                 role
         );
         this.userService.update(user);
-        modelAndView.setViewName("redirect:/admin/view_user_" + id);
+        modelAndView.setViewName("redirect:/admin/user/view" + id);
         return modelAndView;
     }
 
     /**
      * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/update_user"
+     * если обратится по запросу "/admin/user/update"
      * методом GET.
      *
      * @throws WrongInformationException Бросает исключение,
@@ -371,12 +373,12 @@ public class AdminUsersController {
      *                                   этому методу GET.
      */
     @RequestMapping(
-            value = "/update_user",
+            value = "/update",
             method = RequestMethod.GET
     )
     public void updateUser() throws WrongInformationException {
         throw new WrongInformationException(
-                "GET method in \"/update_user\" is not supported!"
+                "GET method in \"/admin/user/update\" is not supported!"
         );
     }
 
@@ -385,8 +387,8 @@ public class AdminUsersController {
      * кодом, который совпадает с
      * входящим параметром id, и
      * перенаправляет по запросу
-     * "/admin/users".
-     * URL запроса "/delete_user_{id}",
+     * "/admin/user/all".
+     * URL запроса "/admin/user/delete/{id}",
      * метод GET.
      *
      * @param id           Код пользвателя,
@@ -395,7 +397,7 @@ public class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = "/delete_user_{id}",
+            value = "/delete/{id}",
             method = RequestMethod.GET
     )
     public ModelAndView deleteUser(
@@ -405,28 +407,28 @@ public class AdminUsersController {
         if (this.userService.getMainAdministrator().getId() != id) {
             this.userService.remove(id);
         }
-        modelAndView.setViewName("redirect:/admin/users");
+        modelAndView.setViewName("redirect:/admin/user/all");
         return modelAndView;
     }
 
     /**
      * Удаляет всех пользователей и
-     * перенаправляет по запросу "/admin/users".
-     * URL запроса "/delete_all_users",
+     * перенаправляет по запросу "/admin/user/all".
+     * URL запроса "/admin/user/delete_all",
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
-    @RequestMapping
-            (value = "/delete_all_users",
-                    method = RequestMethod.GET
-            )
+    @RequestMapping(
+            value = "/delete_all",
+            method = RequestMethod.GET
+    )
     public ModelAndView deleteAll(
             final ModelAndView modelAndView
     ) {
         this.userService.removePersonnel();
-        modelAndView.setViewName("redirect:/admin/users");
+        modelAndView.setViewName("redirect:/admin/user/all");
         return modelAndView;
     }
 }
