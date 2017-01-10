@@ -15,7 +15,7 @@
                 </a>
                 <form action="<c:url value="/cart/add_quickly"/>" method="post">
                     <input type="hidden" name="id" value="${product.id}">
-                    <input type="hidden" name="url" value="/all_products">
+                    <input type="hidden" name="url" value="/product/all">
                     <p class="text" title="Добавить ${product.title} в корзину">
                         <button class="btn btn-success" type="submit">Добавить в корзину</button>
                     </p>

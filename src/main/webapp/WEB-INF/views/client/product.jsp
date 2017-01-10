@@ -88,7 +88,7 @@
                                     </a>
                                     <form action="<c:url value="/cart/add_quickly"/>" method=post>
                                         <input type="hidden" name="id" value="${featured_product.id}">
-                                        <input type="hidden" name="url" value="/product_${product.url}">
+                                        <input type="hidden" name="url" value="/product/${product.url}">
                                         <p class="text" title="Добавить ${featured_product.title} в корзину">
                                             <button class="btn btn-success" type="submit">Добавить в корзину</button>
                                         </p>
