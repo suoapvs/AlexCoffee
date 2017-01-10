@@ -32,8 +32,16 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li id="nav-cart">
                         <a href="<c:url value="/cart"/>">
-                            <span class="glyphicon glyphicon-shopping-cart"
-                                  aria-hidden="true"></span> Корзина (${cart_size})
+                            <c:choose>
+                                <c:when test="${cart_size gt 0}">
+                                    <span class="glyphicon glyphicon-shopping-cart color-green"
+                                          aria-hidden="true"></span> Корзина (<span class="color-green">${cart_size}</span>)
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="glyphicon glyphicon-shopping-cart"
+                                          aria-hidden="true"></span> Корзина (${cart_size})
+                                </c:otherwise>
+                            </c:choose>
                         </a>
                     </li>
                 </ul>
