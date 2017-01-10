@@ -3,19 +3,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
-<compress:html>
+<compress:html removeIntertagSpaces="true">
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <%-- HEAD --%>
+            <%-- HEAD --%>
         <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
         <meta name="title" content="Категории кофе || Alex Coffee">
         <title>Категории кофе || Alex Coffee</title>
     </head>
     <body>
-    <%-- NAVBAR --%>
+        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-    <%-- All categories --%>
+        <%-- All categories --%>
     <div class="container-fluid width">
         <section id="categories">
             <div class="row admin-page">
@@ -55,7 +55,7 @@
                                     <td>
                                         <a href="<c:url value="/category_${category.url}"/>"
                                            title="Перейти к категории ${category.title}">
-                                           ${category.title}
+                                                ${category.title}
                                         </a>
                                     </td>
                                     <td class="hidden-xs">${category.url}</td>

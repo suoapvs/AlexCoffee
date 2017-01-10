@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
-<compress:html>
+<compress:html removeIntertagSpaces="true">
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
