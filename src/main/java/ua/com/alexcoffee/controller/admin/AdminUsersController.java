@@ -42,7 +42,7 @@ import ua.com.alexcoffee.service.interfaces.UserService;
  * @see UserService
  */
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = "/admin/user")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminUsersController {
     /**
