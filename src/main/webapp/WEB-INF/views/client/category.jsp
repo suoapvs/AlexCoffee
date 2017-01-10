@@ -48,7 +48,7 @@
                 <jsp:include page="/WEB-INF/views/client/template/products_list.jsp"/>
                 <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <h4 class="text-all-products text-shadow">
-                        <a href="<c:url value="/all_products"/>"
+                        <a href="<c:url value="/product/all"/>"
                            title="Перейти ко всем товарам">Весь ассортимент кофе</a>
                     </h4>
                 </div>

@@ -74,7 +74,7 @@
                         <c:forEach items="${categories}" var="category">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                 <div class="category">
-                                    <a href="<c:url value="/category_${category.url}"/>"
+                                    <a href="<c:url value="/category/${category.url}"/>"
                                        title="Перейти к категории ${category.title}">
                                         <img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
                                              class="img-thumbnail blink" width="150px" height="150px"
@@ -86,7 +86,7 @@
                         </c:forEach>
                         <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                             <h4 class="text-all-products text-shadow">
-                                <a href="<c:url value="/all_products"/>" title="Перейти ко всем товарам">
+                                <a href="<c:url value="/product/all"/>" title="Перейти ко всем товарам">
                                     Весь ассортимент кофе
                                 </a>
                             </h4>

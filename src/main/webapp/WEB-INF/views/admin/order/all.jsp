@@ -27,7 +27,6 @@
                         </b>
                     </div>
                 </div>
-
                 <c:if test="${fn:length(orders) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
@@ -37,7 +36,7 @@
                                 <th class="hidden-xs">Дата</th>
                                 <th>
                                     Действие
-                                    <a href="<c:url value="/admin/delete_all_orders"/>" title="Удалить все заказы">
+                                    <a href="<c:url value="/admin/order/delete_all"/>" title="Удалить все заказы">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
@@ -55,15 +54,15 @@
                                     </td>
                                     <td class="hidden-xs">${order.date}</td>
                                     <td>
-                                        <a href="<c:url value="/admin/view_order_${order.id}"/>"
+                                        <a href="<c:url value="/admin/order/view/${order.id}"/>"
                                            title="Смотреть заказ ${order.number}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/edit_order_${order.id}"/>"
+                                        <a href="<c:url value="/admin/order/edit/${order.id}"/>"
                                            title="Редактировать заказ ${order.number}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/delete_order_${order.id}"/>"
+                                        <a href="<c:url value="/admin/order/delete/${order.id}"/>"
                                            title="Удалить заказ ${order.number}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>

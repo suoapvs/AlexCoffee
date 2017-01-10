@@ -26,7 +26,7 @@
                             <c:if test="${fn:length(users) eq 0}">
                                 <span class="color-red"> - список пуст!</span>
                                 <br>
-                                <a href="<c:url value="/admin/add_user"/>" title="Добавить нового работника">
+                                <a href="<c:url value="/admin/user/add"/>" title="Добавить нового работника">
                                     <button class="btn btn-success" type="submit">Добавить</button>
                                 </a>
                             </c:if>
@@ -42,10 +42,10 @@
                                 <td class="hidden-xs"><b>Телефон</b>
                                 <td>
                                     <b>Действие</b>
-                                    <a href="<c:url value="/admin/add_user"/>" title="Добавить нового работника">
+                                    <a href="<c:url value="/admin/user/add"/>" title="Добавить нового работника">
                                         <button class="btn btn-success" type="submit">Добавить</button>
                                     </a>
-                                    <a href="<c:url value="/admin/delete_all_users"/>" title="Удалить всех менеджеров">
+                                    <a href="<c:url value="/admin/user/delete_all"/>" title="Удалить всех менеджеров">
                                         <button class="btn btn-danger" type="submit">Удалить всех</button>
                                     </a>
                                 </td>
@@ -66,15 +66,15 @@
                                     <td>${user.name}</td>
                                     <td class="hidden-xs">${user.phone}</td>
                                     <td>
-                                        <a href="<c:url value="/admin/view_user_${user.id}"/>"
+                                        <a href="<c:url value="/admin/user/view/${user.id}"/>"
                                            title="Смотреть информацию ${user.name}">
                                             <button class="btn btn-info btn-mg" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/edit_user_${user.id}"/>"
+                                        <a href="<c:url value="/admin/user/edit/${user.id}"/>"
                                            title="Редактировать информацию о ${user.name}">
                                             <button class="btn btn-success btn-mg" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/delete_user_${user.id}"/>"
+                                        <a href="<c:url value="/admin/user/delete/${user.id}"/>"
                                            title="Удалить информацию о ${user.name}">
                                             <button class="btn btn-danger btn-mg" type="submit">Удалить</button>
                                         </a>

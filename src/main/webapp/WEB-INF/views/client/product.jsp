@@ -46,7 +46,7 @@
                                 <fmt:formatNumber type="number" value="${product.price}"/> грн
                             </span>
                         </h3>
-                        <form action="<c:url value="/cart_add"/>" method=post>
+                        <form action="<c:url value="/cart/add"/>" method=post>
                             <input type=hidden name="id" value="${product.id}">
                             <p class="text" title="Добавить ${product.title} в корзину">
                                 <button class="btn btn-success" type="submit">Добавить в корзину</button>
@@ -76,7 +76,7 @@
                         <c:forEach items="${featured_products}" var="featured_product">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="product">
-                                    <a href="<c:url value="/product_${featured_product.url}"/>"
+                                    <a href="<c:url value="/product/${featured_product.url}"/>"
                                        title="Перейти к ${featured_product.title}">
                                         <img class=" img-thumbnail blink" width="185px" height="185px"
                                              alt="${featured_product.title}"
@@ -86,7 +86,7 @@
                                             <fmt:formatNumber type="number" value="${featured_product.price}"/> грн
                                         </p>
                                     </a>
-                                    <form action="cart_add_quickly" method=post>
+                                    <form action="<c:url value="/cart/add_quickly"/>" method=post>
                                         <input type="hidden" name="id" value="${featured_product.id}">
                                         <input type="hidden" name="url" value="/product_${product.url}">
                                         <p class="text" title="Добавить ${featured_product.title} в корзину">

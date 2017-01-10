@@ -30,7 +30,7 @@
                         <tr>
                             <th>Название:</th>
                             <td>
-                                <a href="<c:url value="/product_${product.url}"/>"
+                                <a href="<c:url value="/product/${product.url}"/>"
                                    title="Перейти к товару ${product.title}">
                                    ${product.title}
                                 </a>
@@ -39,7 +39,7 @@
                         <tr>
                             <th>Категория:</th>
                             <td>
-                                <a href="<c:url value="/admin/view_category_${product.id}"/>"
+                                <a href="<c:url value="/admin/category/view/${product.id}"/>"
                                    title="Смотреть категорию ${product.category.title}">
                                    ${product.category.title}
                                 </a>
@@ -72,15 +72,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/admin/edit_product_${product.id}"/>"
+                                <a href="<c:url value="/admin/product/edit/${product.id}"/>"
                                    title="Редактировать товар ${product.title}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="<c:url value="/admin/delete_product_${product.id}"/>"
+                                <a href="<c:url value="/admin/product/delete/${product.id}"/>"
                                    title="Удалить товар ${product.title}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="<c:url value="/admin/products"/>" title="Вернуться к списку товаров">
+                                <a href="<c:url value="/admin/product/all"/>" title="Вернуться к списку товаров">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

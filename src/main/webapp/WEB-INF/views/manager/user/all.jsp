@@ -52,7 +52,7 @@
                                     <td>${user.name}</td>
                                     <td class="hidden-xs">${user.phone}</td>
                                     <td>
-                                        <a href="<c:url value="/manager/view_user_${user.id}"/>"
+                                        <a href="<c:url value="/manager/user/view/${user.id}"/>"
                                            title="Смотреть информацию ${user.username}">
                                             <button class="btn btn-info btn-mg" type="submit">Смотреть</button>
                                         </a>

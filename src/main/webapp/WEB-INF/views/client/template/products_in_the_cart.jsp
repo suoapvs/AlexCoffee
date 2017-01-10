@@ -15,7 +15,7 @@
             <c:forEach items="${sale_positions}" var="position">
                 <tr>
                     <td>
-                        <a href="<c:url value="/product_${position.product.url}"/>"
+                        <a href="<c:url value="/product/${position.product.url}"/>"
                            title="Перейти к ${position.product.title}">
                                 ${position.product.title}
                         </a>
@@ -26,7 +26,7 @@
                              width="50px" height="50px" alt="${position.product.title}">
                     </td>
                     <td>
-                        <a href="<c:url value="/category_${position.product.category.url}"/>"
+                        <a href="<c:url value="/category/${position.product.category.url}"/>"
                            title="Перейти к категории ${position.product.category.title}">
                                 ${position.product.category.title}
                         </a>

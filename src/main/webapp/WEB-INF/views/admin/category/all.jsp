@@ -25,7 +25,7 @@
                             <span class="color-brown">Категории</span>
                             <c:if test="${fn:length(categories) eq 0}">
                                 <span class="color-red"> - список пуст!</span><br>
-                                <a href="<c:url value="/admin/add_category"/>" title="Добавить новую категорию">
+                                <a href="<c:url value="/admin/category/add"/>" title="Добавить новую категорию">
                                     <button class="btn btn-success" type="submit">Добавить</button>
                                 </a>
                             </c:if>
@@ -40,35 +40,34 @@
                                 <td class="hidden-xs"><b>URL</b></td>
                                 <th>
                                     Действие
-                                    <a href="<c:url value="/admin/add_category"/>" title="Добавить новую категорию">
+                                    <a href="<c:url value="/admin/category/add"/>" title="Добавить новую категорию">
                                         <button class="btn btn-success" type="submit">Добавить</button>
                                     </a>
-                                    <a href="<c:url value="/admin/delete_all_categories"/>"
+                                    <a href="<c:url value="/admin/category/delete_all"/>"
                                        title="Удалить все категории">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
                             </tr>
-
                             <c:forEach items="${categories}" var="category">
                                 <tr>
                                     <td>
-                                        <a href="<c:url value="/category_${category.url}"/>"
+                                        <a href="<c:url value="/category/${category.url}"/>"
                                            title="Перейти к категории ${category.title}">
                                                 ${category.title}
                                         </a>
                                     </td>
                                     <td class="hidden-xs">${category.url}</td>
                                     <td>
-                                        <a href="<c:url value="/admin/view_category_${category.id}"/>"
+                                        <a href="<c:url value="/admin/category/view/${category.id}"/>"
                                            title="Смотреть категорию ${category.title}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/edit_category_${category.id}"/>"
+                                        <a href="<c:url value="/admin/category/edit/${category.id}"/>"
                                            title="Редактировать категорию ${category.title}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/delete_category_${category.id}"/>"
+                                        <a href="<c:url value="/admin/category/delete/${category.id}"/>"
                                            title="Удалить категорию ${category.title}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>

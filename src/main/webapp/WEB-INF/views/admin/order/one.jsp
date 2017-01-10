@@ -59,7 +59,7 @@
                                             </c:when>
                                             <c:otherwise>${order.manager.role.description}</c:otherwise>
                                         </c:choose>
-                                        <a href="<c:url value="/admin/view_user_${order.manager.id}"/>">
+                                        <a href="<c:url value="/admin/user/view/${order.manager.id}"/>">
                                                 ${order.manager.name}
                                         </a>
                                     </c:when>
@@ -114,7 +114,7 @@
                                 <c:choose>
                                     <c:when test="${fn:length(sale_positions) gt 0}">
                                         <c:forEach items="${sale_positions}" var="position">
-                                            <a href="<c:url value="/product_${position.product.url}"/>"
+                                            <a href="<c:url value="/product/${position.product.url}"/>"
                                                title="Перейти к товару ${position.product.title}">
                                                     ${position.product.title}
                                             </a>, № ${position.product.id},
@@ -133,15 +133,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/admin/edit_order_${order.id}"/>"
+                                <a href="<c:url value="/admin/order/edit/${order.id}"/>"
                                    title="Редактировать заказ ${order.number}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="<c:url value="/admin/delete_order_${order.id}"/>"
+                                <a href="<c:url value="/admin/order/delete/${order.id}"/>"
                                    title="Удалить заказ ${order.number}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="<c:url value="/admin/orders"/>" title="Вернуться к списку заказов">
+                                <a href="<c:url value="/admin/order/all"/>" title="Вернуться к списку заказов">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

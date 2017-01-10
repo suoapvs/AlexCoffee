@@ -95,7 +95,7 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/manager/users"/>" title="Вернуться к списку пользователей">
+                                <a href="<c:url value="/manager/user/all"/>" title="Вернуться к списку пользователей">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

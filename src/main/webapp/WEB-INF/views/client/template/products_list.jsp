@@ -7,13 +7,13 @@
     <c:forEach items="${products}" var="product">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <div class="product">
-                <a href="<c:url value="/product_${product.url}"/>" title="Перейти к ${product.title}">
+                <a href="<c:url value="/product/${product.url}"/>" title="Перейти к ${product.title}">
                     <img src="<c:url value="/resources/img/${product.photo.photoLinkShort}"/>"
                          alt="${product.title}" class="img-thumbnail blink" width="185px" height="185px">
                     <div class="text-shadow">${product.title}</div>
                     <p class="price-top"><fmt:formatNumber type="number" value="${product.price}"/> грн</p>
                 </a>
-                <form action="<c:url value="/cart_add_quickly"/>" method="post">
+                <form action="<c:url value="/cart/add_quickly"/>" method="post">
                     <input type="hidden" name="id" value="${product.id}">
                     <input type="hidden" name="url" value="/all_products">
                     <p class="text" title="Добавить ${product.title} в корзину">

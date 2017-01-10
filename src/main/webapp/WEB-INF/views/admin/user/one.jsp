@@ -96,15 +96,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/admin/edit_user_${user.id}"/>"
+                                <a href="<c:url value="/admin/user/edit/${user.id}"/>"
                                    title="Редактировать информацию о ${user.username}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="<c:url value="/admin/delete_user_${user.id}"/>"
+                                <a href="<c:url value="/admin/user/delete/${user.id}"/>"
                                    title="Удалить информацию о ${user.username}">
                                     <button class="btn btn-danger btn-mg" type="submit">Удалить</button>
                                 </a>
-                                <a href="<c:url value="/admin/users"/>" title="Вернуться к списку пользователей">
+                                <a href="<c:url value="/admin/user/all"/>" title="Вернуться к списку пользователей">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

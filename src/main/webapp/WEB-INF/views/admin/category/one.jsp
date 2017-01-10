@@ -35,7 +35,7 @@
                         <tr>
                             <th>URl:</th>
                             <td>
-                                <a href="<c:url value="/category_${category.url}"/>"
+                                <a href="<c:url value="/category/${category.url}"/>"
                                    title="Перейти к категории ${category.title}">${category.url}</a>
                             </td>
                         </tr>
@@ -53,15 +53,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/admin/edit_category_${category.id}"/>"
+                                <a href="<c:url value="/admin/category/edit/${category.id}"/>"
                                    title="Редактировать категорию ${category.title}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="<c:url value="/admin/delete_category_${category.id}"/>"
+                                <a href="<c:url value="/admin/category/delete/${category.id}"/>"
                                    title="Удалить категорию ${category.title}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="<c:url value="/admin/categories"/>" title="Вернуться к списку категорий">
+                                <a href="<c:url value="/admin/category/all"/>" title="Вернуться к списку категорий">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

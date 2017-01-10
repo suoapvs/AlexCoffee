@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="<c:url value="/manager/update_order"/>" method="post">
+                    <form action="<c:url value="/manager/order/update"/>" method="post">
                         <input type="hidden" name="id" value="${order.id}">
                         <input type="hidden" name="auth_user" value="${auth_user.id}">
                         <table class="table">
@@ -97,7 +97,7 @@
                                         <c:when test="${fn:length(sale_positions) eq 0}">Cписок товаров пуст!</c:when>
                                         <c:when test="${fn:length(sale_positions) gt 0}">
                                             <c:forEach items="${sale_positions}" var="position">
-                                                <a href="<c:url value="/product_${position.product.url}"/>"
+                                                <a href="<c:url value="/product/${position.product.url}"/>"
                                                    title="Перейти к товару ${position.product.title}">
                                                         ${position.product.title}
                                                 </a>, № ${position.product.id},

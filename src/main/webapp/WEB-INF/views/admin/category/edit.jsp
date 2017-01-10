@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="<c:url value="/admin/update_category"/>" method="post" enctype="multipart/form-data">
+                    <form action="<c:url value="/admin/category/update"/>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${category.id}">
                         <table class="table">
                             <tr>

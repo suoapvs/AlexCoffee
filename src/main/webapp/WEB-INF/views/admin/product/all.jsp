@@ -25,7 +25,7 @@
                             <span class="color-brown">Товары</span>
                             <c:if test="${fn:length(products) eq 0}">
                                 <span class="color-red"> - список пуст!</span><br>
-                                <a href="<c:url value="/admin/add_product"/>" title="Добавить новый товар">
+                                <a href="<c:url value="/admin/product/add"/>" title="Добавить новый товар">
                                     <button class="btn btn-success" type="submit">Добавить</button>
                                 </a>
                             </c:if>
@@ -40,10 +40,10 @@
                                 <th class="hidden-xs" width="15%">Категория</th>
                                 <th width="35%">
                                     Действие
-                                    <a href="<c:url value="/admin/add_product"/>" title="Добавить новый товар">
+                                    <a href="<c:url value="/admin/product/add"/>" title="Добавить новый товар">
                                         <button class="btn btn-success" type="submit">Добавить</button>
                                     </a>
-                                    <a href="<c:url value="/admin/delete_all_products"/>" title="Удалить все товары">
+                                    <a href="<c:url value="/admin/product/delete_all"/>" title="Удалить все товары">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
@@ -51,24 +51,24 @@
                             <c:forEach items="${products}" var="product">
                                 <tr>
                                     <td>
-                                        <a href="<c:url value="/product_${product.url}"/>"
+                                        <a href="<c:url value="/product/${product.url}"/>"
                                            title="Перейти к товару ${product.title}">${product.title}</a>
                                     </td>
                                     <td class="hidden-xs">
-                                        <a href="<c:url value="/admin/view_category_${product.category.id}"/>"
+                                        <a href="<c:url value="/admin/category/view/${product.category.id}"/>"
                                            title="Смотреть категорию ${product.category.title}">
                                                 ${product.category.title}</a>
                                     </td>
                                     <td>
-                                        <a href="<c:url value="/admin/view_product_${product.id}"/>"
+                                        <a href="<c:url value="/admin/product/view/${product.id}"/>"
                                            title="Смотреть товар ${product.title}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/edit_product_${product.id}"/>"
+                                        <a href="<c:url value="/admin/product/edit/{product.id}"/>"
                                            title="Редактировать товар ${product.title}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/delete_product_${product.id}"/>"
+                                        <a href="<c:url value="/admin/product/delete/${product.id}"/>"
                                            title="Удалить товар ${product.title}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>
