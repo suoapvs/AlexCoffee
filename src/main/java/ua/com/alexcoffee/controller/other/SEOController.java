@@ -29,6 +29,29 @@ import java.util.List;
 public class SEOController {
 
     /**
+     * Информация для поисковых систем.
+     */
+    private final static String ROBOTS_TXT
+            = "User-agent: Yandex\n"
+            + "Disallow: /admin\n"
+            + "Disallow: /manager\n"
+            + "Disallow: /login\n"
+            + "Disallow: /resources\n"
+            + "Host: alexcoffee.com.ua\n\n"
+            + "User-agent: Googlebot\n"
+            + "Disallow: /admin\n"
+            + "Disallow: /manager\n"
+            + "Disallow: /login\n"
+            + "Disallow: /resources\n\n"
+            + "User-agent: *\n"
+            + "Crawl-delay: 30\n"
+            + "Disallow: /admin\n"
+            + "Disallow: /manager\n"
+            + "Disallow: /login\n"
+            + "Disallow: /resources\n\n"
+            + "Sitemap: http://alexcoffee.com.ua/sitemap.xml";
+
+    /**
      * Объект сервиса для работы
      * с товарами.
      */
@@ -77,29 +100,15 @@ public class SEOController {
      * систем.
      */
     @RequestMapping(
-            value = "/robots.txt",
+            value = {
+                    "/robots.txt",
+                    "/robots"
+            },
             produces = "text/plain"
     )
     @ResponseBody
     public String getRobotsTxt() {
-        return "User-agent: Yandex\n"
-                + "Disallow: /admin\n"
-                + "Disallow: /manager\n"
-                + "Disallow: /login\n"
-                + "Disallow: /resources\n"
-                + "Host: alexcoffee.com.ua\n\n"
-                + "User-agent: Googlebot\n"
-                + "Disallow: /admin\n"
-                + "Disallow: /manager\n"
-                + "Disallow: /login\n"
-                + "Disallow: /resources\n\n"
-                + "User-agent: *\n"
-                + "Crawl-delay: 30\n"
-                + "Disallow: /admin\n"
-                + "Disallow: /manager\n"
-                + "Disallow: /login\n"
-                + "Disallow: /resources\n\n"
-                + "Sitemap: http://alexcoffee.com.ua/sitemap.xml";
+        return ROBOTS_TXT;
     }
 
     /**
@@ -117,7 +126,10 @@ public class SEOController {
      * о ссылках на сайте для поисковых систем.
      */
     @RequestMapping(
-            value = "/sitemap.xml",
+            value = {
+                    "/sitemap.xml",
+                    "/sitemap"
+            },
             produces = "application/xml"
     )
     @ResponseBody
