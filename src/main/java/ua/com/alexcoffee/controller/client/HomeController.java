@@ -535,4 +535,38 @@ public class HomeController {
                 "You do not have sufficient permissions to access this page."
         );
     }
+
+    /**
+     * Перенаправляет на страницу с заказами для администратора.
+     *
+     * @param modelAndView Объект класса {@link ModelAndView}.
+     * @return Объект класса {@link ModelAndView}.
+     */
+    @RequestMapping(
+            value = {"/admin", "/admin/"},
+            method = RequestMethod.GET
+    )
+    public ModelAndView redirectToAdminPage(
+            final ModelAndView modelAndView
+    ) {
+        modelAndView.setViewName("redirect:/admin/order/all");
+        return modelAndView;
+    }
+
+    /**
+     * Перенаправляет на страницу с заказами для менеджера.
+     *
+     * @param modelAndView Объект класса {@link ModelAndView}.
+     * @return Объект класса {@link ModelAndView}.
+     */
+    @RequestMapping(
+            value = {"/manager", "/manager/"},
+            method = RequestMethod.GET
+    )
+    public ModelAndView redirectToManagerPage(
+            final ModelAndView modelAndView
+    ) {
+        modelAndView.setViewName("redirect:/admin/order/all");
+        return modelAndView;
+    }
 }
