@@ -50,6 +50,42 @@ public class AdviceController {
             );
 
     /**
+     * Сообщение исключения NoHandlerFoundException.
+     */
+    private final static String NO_HANDLER_FOUND_EXCEPTION_MESSAGE
+            = "Ошибка 404. Не найдено!";
+
+    /**
+     * Сообщение исключения BadRequestException.
+     */
+    private final static String BAD_REQUEST_EXCEPTION_MESSAGE
+            = "Ошибка в запросе!";
+
+    /**
+     * Сообщение исключения WrongInformationException.
+     */
+    private final static String WRONG_INFORMATION_EXCEPTION_MESSAGE
+            = "Ошибка в запросе!";
+
+    /**
+     * Сообщение исключения ForbriddenException.
+     */
+    private final static String FORBIDDEN_EXCEPTION_MESSAGE
+            = "У Вас нет достаточных прав для доступа к этой странице.";
+
+    /**
+     * Сообщение исключения DuplicateException.
+     */
+    private final static String DUPLICATE_EXCEPTION_MESSAGE
+            = "Такой объект уже существует!";
+
+    /**
+     * Сообщение все других исключений.
+     */
+    private final static String OTHER_EXCEPTION_MESSAGE
+            = "Временные неполадки с сервером... Приносим свои извинения!";
+
+    /**
      * Объект сервиса для работы с корзиной.
      */
     private final ShoppingCartService shoppingCartService;
@@ -101,7 +137,8 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "Ошибка 404. Не найдено!");
+                NO_HANDLER_FOUND_EXCEPTION_MESSAGE
+        );
     }
 
     /**
@@ -121,7 +158,7 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "Ошибка в запросе!"
+                BAD_REQUEST_EXCEPTION_MESSAGE
         );
     }
 
@@ -130,7 +167,7 @@ public class AdviceController {
      * исключения (http статус 400).
      *
      * @param exception Объект исключения
-     *                  WrongInformationException.
+     * WrongInformationException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -143,7 +180,7 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "Ошибка в запросе!"
+                WRONG_INFORMATION_EXCEPTION_MESSAGE
         );
     }
 
@@ -165,7 +202,7 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "У Вас нет достаточных прав для доступа к этой странице."
+                FORBIDDEN_EXCEPTION_MESSAGE
         );
     }
 
@@ -187,7 +224,7 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "Такой объект уже существует!"
+                DUPLICATE_EXCEPTION_MESSAGE
         );
     }
 
@@ -207,7 +244,7 @@ public class AdviceController {
         return handleException(
                 exception,
                 request,
-                "Временные неполадки с сервером... Приносим свои извинения!"
+                OTHER_EXCEPTION_MESSAGE
         );
     }
 
