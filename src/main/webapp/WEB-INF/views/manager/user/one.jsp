@@ -14,7 +14,7 @@
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
         <%-- User --%>
     <div class="container-fluid width">
         <section id="product">
@@ -95,7 +95,7 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/manager/user/all"/>" title="Вернуться к списку пользователей">
+                                <a href="<c:url value="/managers/user/all"/>" title="Вернуться к списку пользователей">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>
