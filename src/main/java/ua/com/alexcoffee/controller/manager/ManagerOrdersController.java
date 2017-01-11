@@ -46,7 +46,7 @@ import java.util.Date;
  * @see OrderService
  */
 @Controller
-@RequestMapping(value = "/manager/order")
+@RequestMapping(value = "/managers/order")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class ManagerOrdersController {
     /**
@@ -110,8 +110,8 @@ public class ManagerOrdersController {
      * Возвращает все заказы,
      * сделаные клиентами,
      * на страницу "manager/order/all".
-     * URL запроса {"/manager/order",
-     * "/manager/order/", "/manager/order/all"},
+     * URL запроса {"/managers/order",
+     * "/managers/order/", "/managers/order/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -144,7 +144,7 @@ public class ManagerOrdersController {
      * Возвращает заказ с уникальным
      * кодом id на страницу
      * "manager/order/one".
-     * URL запроса "/manager/order/view/{id}",
+     * URL запроса "/managers/order/view/{id}",
      * метод GET.
      *
      * @param id           Код заказа, который
@@ -195,7 +195,7 @@ public class ManagerOrdersController {
      * для редактирование заказа с уникальным
      * кодом,который совпадает с параметром
      * id, или перенаправляет по запросу
-     * "/manager/orders", если этот заказ
+     * "/managers/orders", если этот заказ
      * уже обработал другой менеджер.
      * URL запроса "/admin/order/edit/{id}",
      * метод GET.
@@ -242,7 +242,7 @@ public class ManagerOrdersController {
             );
             modelAndView.setViewName("manager/order/edit");
         } else {
-            modelAndView.setViewName("redirect:/manager/order/all");
+            modelAndView.setViewName("redirect:/managers/order/all");
         }
         return modelAndView;
     }
@@ -321,7 +321,7 @@ public class ManagerOrdersController {
             );
             this.orderService.update(order);
         }
-        modelAndView.setViewName("redirect:/manager/order/view/" + id);
+        modelAndView.setViewName("redirect:/managers/order/view/" + id);
         return modelAndView;
     }
 

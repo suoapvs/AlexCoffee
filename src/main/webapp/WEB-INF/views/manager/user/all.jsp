@@ -14,7 +14,7 @@
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
         <%-- All users --%>
     <div class="container-fluid width">
         <section id="persons">
@@ -52,7 +52,7 @@
                                     <td>${user.name}</td>
                                     <td class="hidden-xs">${user.phone}</td>
                                     <td>
-                                        <a href="<c:url value="/manager/user/view/${user.id}"/>"
+                                        <a href="<c:url value="/managers/user/view/${user.id}"/>"
                                            title="Смотреть информацию ${user.username}">
                                             <button class="btn btn-info btn-mg" type="submit">Смотреть</button>
                                         </a>

@@ -560,7 +560,7 @@ public class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"/manager", "/manager/"},
+            value = {"/managers", "/managers/"},
             method = RequestMethod.GET
     )
     public ModelAndView redirectToManagerPage(

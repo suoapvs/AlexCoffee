@@ -27,7 +27,7 @@
                         <li id="nav-main"><a href="<c:url value="/admin/product/all"/>">Товары</a></li>
                         <li id="nav-categories"><a href="<c:url value="/admin/category/all"/>">Категории</a></li>
                         <li id="nav-persons"><a href="<c:url value="/admin/user/all"/>">Персонал</a></li>
-                        <li id="nav-manager"><a href="<c:url value="/manager/order/all"/>">Для менеджеров</a></li>
+                        <li id="nav-manager"><a href="<c:url value="/managers/order/all"/>">Для менеджеров</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="auth-user">

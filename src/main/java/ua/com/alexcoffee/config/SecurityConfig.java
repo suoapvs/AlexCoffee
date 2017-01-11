@@ -42,7 +42,7 @@ public class SecurityConfig
     /**
      * Префикс URL запросов для менеджеров.
      */
-    private static final String MANAGER_REQUEST_URl = "/manager/**";
+    private static final String MANAGER_REQUEST_URl = "/managers/**";
 
     /**
      * URL запроса для авторизации.
@@ -114,7 +114,7 @@ public class SecurityConfig
                 )
                 .antMatchers(MANAGER_REQUEST_URl)
                 .hasAnyRole(
-                        roleService.getAdministrator()
+                        this.roleService.getAdministrator()
                                 .getTitle()
                                 .name(),
                         this.roleService.getManager()

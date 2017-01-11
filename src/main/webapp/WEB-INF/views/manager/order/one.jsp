@@ -14,7 +14,7 @@
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
         <%-- Order --%>
     <div class="container-fluid width">
         <section id="order">
@@ -63,7 +63,7 @@
                                             </c:when>
                                             <c:otherwise>${order.manager.role.description}</c:otherwise>
                                         </c:choose>
-                                        <a href="<c:url value="/manager/user/view/${order.manager.id}"/>">
+                                        <a href="<c:url value="/managers/user/view/${order.manager.id}"/>">
                                                 ${order.manager.name}
                                         </a>
                                     </c:when>
@@ -138,12 +138,12 @@
                             <th></th>
                             <td>
                                 <c:if test="${(order.status eq status_new) or (order.manager eq auth_user)}">
-                                    <a href="<c:url value="/manager/order/edit/${order.id}"/>"
+                                    <a href="<c:url value="/managers/order/edit/${order.id}"/>"
                                        title="Редактировать заказ ${order.number}">
                                         <button class="btn btn-success" type="submit">Редактировать</button>
                                     </a>
                                 </c:if>
-                                <a href="<c:url value="/manager/order/all"/>" title="Вернуться к списку заказов">
+                                <a href="<c:url value="/managers/order/all"/>" title="Вернуться к списку заказов">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

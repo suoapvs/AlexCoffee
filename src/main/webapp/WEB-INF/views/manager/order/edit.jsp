@@ -14,7 +14,7 @@
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
         <%-- Edit order --%>
     <div class="container-fluid width">
         <section id="order">
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="<c:url value="/manager/order/update"/>" method="post">
+                    <form action="<c:url value="/managers/order/update"/>" method="post">
                         <input type="hidden" name="id" value="${order.id}">
                         <input type="hidden" name="auth_user" value="${auth_user.id}">
                         <table class="table">

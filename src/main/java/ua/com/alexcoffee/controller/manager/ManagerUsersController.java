@@ -43,7 +43,7 @@ import ua.com.alexcoffee.service.interfaces.UserService;
  * @see OrderService
  */
 @Controller
-@RequestMapping(value = "/manager/user")
+@RequestMapping(value = "/managers/user")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class ManagerUsersController {
     /**
@@ -84,8 +84,8 @@ public class ManagerUsersController {
     /**
      * Возвращает всех пользователей
      * на страницу "manager/user/all".
-     * URL запроса {"/manager/user",
-     * "/manager/user/", "/manager/user/all"},
+     * URL запроса {"/managers/user",
+     * "/managers/user/", "/managers/user/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -122,7 +122,7 @@ public class ManagerUsersController {
      * Возвращает пользователя с
      * уникальным кодом id на
      * страницу "manager/user/one".
-     * URL запроса "/manager/user/view/{id}",
+     * URL запроса "/managers/user/view/{id}",
      * метод GET.
      *
      * @param id           Код пользователя, которого
