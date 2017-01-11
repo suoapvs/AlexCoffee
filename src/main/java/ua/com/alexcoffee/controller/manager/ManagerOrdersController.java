@@ -321,7 +321,7 @@ public class ManagerOrdersController {
             );
             this.orderService.update(order);
         }
-        modelAndView.setViewName("redirect:/managers/order/view/" + id);
+        modelAndView.setViewName("redirect:/manager/order/view/" + id);
         return modelAndView;
     }
 

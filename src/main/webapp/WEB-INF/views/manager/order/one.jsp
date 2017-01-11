@@ -8,13 +8,13 @@
     <html lang="ru">
     <head>
             <%-- HEAD --%>
-        <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
+        <jsp:include page="/WEB-INF/views/manager/template/head.jsp"/>
         <meta name="title" content="Заказ ${order.number} || Alex Coffee">
         <title>Заказ ${order.number} || Alex Coffee</title>
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
         <%-- Order --%>
     <div class="container-fluid width">
         <section id="order">

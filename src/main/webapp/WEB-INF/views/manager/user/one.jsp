@@ -8,13 +8,13 @@
     <html lang="ru">
     <head>
             <%-- HEAD --%>
-        <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
+        <jsp:include page="/WEB-INF/views/manager/template/head.jsp"/>
         <meta name="title" content="${user.name} | ${user.role.description} || Alex Coffee">
         <title>${user.name} | ${user.role.description} || Alex Coffee</title>
     </head>
     <body>
         <%-- NAVBAR --%>
-    <jsp:include page="/WEB-INF/views/managers/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
         <%-- User --%>
     <div class="container-fluid width">
         <section id="product">

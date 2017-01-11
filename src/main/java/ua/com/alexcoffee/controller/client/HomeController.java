@@ -566,7 +566,7 @@ public class HomeController {
     public ModelAndView redirectToManagerPage(
             final ModelAndView modelAndView
     ) {
-        modelAndView.setViewName("redirect:/admin/order/all");
+        modelAndView.setViewName("redirect:/managers/order/all");
         return modelAndView;
     }
 }
