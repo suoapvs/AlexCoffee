@@ -7,7 +7,7 @@ import ua.com.alexcoffee.model.Order;
  * с объектами класса {@link Order}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Order
  * @see MainService

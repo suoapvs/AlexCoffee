@@ -10,7 +10,7 @@ import java.util.List;
  * Представляет методы с торговой корзиной и торговыми позициями,
  * которые оформляет клиент.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see MainService
  * @see ShoppingCart

@@ -13,7 +13,7 @@ import java.util.*;
  * Аннотация @MappedSuperclass аннотация определяет класс, описанные
  * свойства и методы которого будут применены в классах-наследниках.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Category
  * @see Order

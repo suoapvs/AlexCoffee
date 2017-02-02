@@ -21,7 +21,7 @@ import java.util.List;
  * его необходимо подгрузить при
  * старте приложения.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 @Controller
@@ -34,19 +34,19 @@ public class SEOController {
     private final static String ROBOTS_TXT
             = "User-agent: Yandex\n"
             + "Disallow: /admin\n"
-            + "Disallow: /manager\n"
+            + "Disallow: /managers\n"
             + "Disallow: /login\n"
             + "Disallow: /resources\n"
             + "Host: alexcoffee.com.ua\n\n"
             + "User-agent: Googlebot\n"
             + "Disallow: /admin\n"
-            + "Disallow: /manager\n"
+            + "Disallow: /managera\n"
             + "Disallow: /login\n"
             + "Disallow: /resources\n\n"
             + "User-agent: *\n"
             + "Crawl-delay: 30\n"
             + "Disallow: /admin\n"
-            + "Disallow: /manager\n"
+            + "Disallow: /managera\n"
             + "Disallow: /login\n"
             + "Disallow: /resources\n\n"
             + "Sitemap: http://alexcoffee.com.ua/sitemap.xml";

@@ -23,7 +23,7 @@ import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
  * имя отображения. Этот тип представляет Model
  * и View в MVC шаблоне.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 @Controller

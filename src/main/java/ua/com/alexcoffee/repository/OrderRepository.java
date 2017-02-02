@@ -6,7 +6,7 @@ import ua.com.alexcoffee.model.Order;
  * Репозиторий для объектов класса {@link Order}, предоставляющий
  * набор методов JPA для работы с БД. Наследует интерфейс {@link MainRepository}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see MainRepository
  * @see Order

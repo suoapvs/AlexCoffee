@@ -8,7 +8,7 @@ import ua.com.alexcoffee.enums.StatusEnum;
  * с объектами класса {@link Status}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Status
  * @see MainService

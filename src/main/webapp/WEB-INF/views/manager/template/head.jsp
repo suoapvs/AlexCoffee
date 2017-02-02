@@ -19,4 +19,4 @@
 <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
 
-<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>
+<%-- Yurii Salimov (yuriy.alex.salimov@gmail.com) --%>

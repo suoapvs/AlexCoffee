@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.JstlView;
  * искать внутри пакетах "ua.com.alexcoffee.controller"
  * и "ua.com.alexcoffee.config".
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see AppInitializer
  * @see RootConfig

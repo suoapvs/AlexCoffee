@@ -13,7 +13,7 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  * настроить все так чтобы определенный
  * URL проходил через уровень безопасности.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see SecurityConfig
  * @see RootConfig

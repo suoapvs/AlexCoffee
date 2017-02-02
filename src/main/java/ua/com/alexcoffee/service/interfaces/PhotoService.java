@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
  * с объектами класса {@link Photo}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Photo
  * @see MainService

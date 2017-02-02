@@ -18,7 +18,7 @@ import ua.com.alexcoffee.service.interfaces.SalePositionService;
  * данной аннотацией начинается транзакция, после выполнения метода транзакция коммитится,
  * при выбрасывании RuntimeException откатывается.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see MainServiceImpl
  * @see SalePositionService

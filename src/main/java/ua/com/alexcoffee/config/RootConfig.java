@@ -40,7 +40,7 @@ import javax.sql.DataSource;
  * Spring, что компоненты надо искать внутри
  * пакета "ua.com.alexcoffee.model".
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 @Configuration

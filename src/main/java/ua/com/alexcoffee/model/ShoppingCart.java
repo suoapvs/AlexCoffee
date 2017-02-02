@@ -18,7 +18,7 @@ import java.util.List;
  * и @Scope - область видимости бина "session"
  * (один экземпляр бина для каждой сессии).
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see SalePosition
  */

@@ -15,7 +15,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * Аннотация @Table(name = "roles") указывает на таблицу "roles",
  * в которой будут храниться объекты.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see RoleEnum
  * @see User

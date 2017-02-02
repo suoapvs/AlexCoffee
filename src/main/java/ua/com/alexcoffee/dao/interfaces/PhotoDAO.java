@@ -8,7 +8,7 @@ import ua.com.alexcoffee.model.Photo;
  * {@link Photo} с базой данных.
  * Расширяет интерфейс {@link DataDAO}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see DataDAO
  * @see ua.com.alexcoffee.dao.impl.PhotoDAOImpl

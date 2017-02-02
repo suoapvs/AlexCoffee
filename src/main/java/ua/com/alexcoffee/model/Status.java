@@ -14,7 +14,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * Аннотация @Table(name = "statuses") указывает на таблицу "statuses",
  * в которой будут храниться объекты.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see StatusEnum
  * @see Order

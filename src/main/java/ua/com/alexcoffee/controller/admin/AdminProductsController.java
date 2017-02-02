@@ -42,7 +42,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * Этот тип представляет Model и View
  * в MVC шаблоне.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Product
  * @see ProductService
@@ -388,13 +388,9 @@ public class AdminProductsController {
                 photoLinkLong
         );
         product.initialize(
-                title,
-                url,
-                parameters,
-                description,
-                category,
-                photo,
-                price
+                title, url,
+                parameters, description,
+                category, photo, price
         );
         this.productService.update(product);
         this.photoService.saveFile(smallPhotoFile);

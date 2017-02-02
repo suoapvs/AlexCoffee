@@ -14,7 +14,7 @@ import java.util.List;
  * наследниками класса {@link Model}.
  *
  * @param <T> Класс-наследник класса {@link Model}.
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see CategoryDAO
  * @see OrderDAO

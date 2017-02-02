@@ -9,7 +9,7 @@ import java.util.List;
  * Интерфейс описывает набор методов
  * для работы объектов класса {@link ShoppingCart}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see ua.com.alexcoffee.dao.impl.ShoppingCartDAOImpl
  * @see SalePosition

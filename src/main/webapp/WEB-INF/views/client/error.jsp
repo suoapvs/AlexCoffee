@@ -82,7 +82,8 @@
         <section id="error">
             <div class="row error text-shadow color-red">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        ${text_error}<br><br><span class="color-brown" style="font-size: 15px">${message_error}</span>
+                        ${text_error}<br><br>
+                    <span class="color-brown" style="font-size: 15px">${message_error}</span>
                 </div>
             </div>
         </section>
@@ -98,4 +99,4 @@
     </html>
 </compress:html>
 
-<%-- Yurii Salimov (yurii.alex.salimov@gmail.com) --%>
+<%-- Yurii Salimov (yuriy.alex.salimov@gmail.com) --%>

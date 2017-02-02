@@ -17,7 +17,7 @@ import ua.com.alexcoffee.model.SalePosition;
  * Это позволяет Spring автоматически зарегестрировать компонент в своём контексте
  * для последующей инъекции.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see DataDAOImpl
  * @see SalePositionDAO

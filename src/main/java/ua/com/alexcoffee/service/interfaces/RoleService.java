@@ -11,7 +11,7 @@ import java.util.List;
  * с объектами класса {@link Role}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Role
  * @see MainService

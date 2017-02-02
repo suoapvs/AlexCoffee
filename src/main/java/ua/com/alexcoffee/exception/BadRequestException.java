@@ -4,7 +4,7 @@ package ua.com.alexcoffee.exception;
  * Исключение генерируется,
  * если данные не найдены в базе данных.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 public final class BadRequestException

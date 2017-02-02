@@ -7,7 +7,7 @@ import ua.com.alexcoffee.model.Category;
  * с объектами класса {@link Category}.
  * Расширяет интерфейс {@link MainService}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Category
  * @see MainService

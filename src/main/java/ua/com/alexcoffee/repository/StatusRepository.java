@@ -7,7 +7,7 @@ import ua.com.alexcoffee.enums.StatusEnum;
  * Репозиторий для объектов класса {@link Status}, предоставляющий
  * набор методов JPA для работы с БД. Наследует интерфейс {@link MainRepository}.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see MainRepository
  * @see Status

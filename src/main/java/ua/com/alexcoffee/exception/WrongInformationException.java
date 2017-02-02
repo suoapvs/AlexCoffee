@@ -7,7 +7,7 @@ package ua.com.alexcoffee.exception;
  * не верна, равна запрещенному значению
  * и т.д.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 public final class WrongInformationException

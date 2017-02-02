@@ -5,7 +5,7 @@ package ua.com.alexcoffee.exception;
  * если пользователь не имеет достаточных
  * прав для доступа к странице.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
 public final class ForbiddenException

@@ -10,7 +10,7 @@ import javax.persistence.*;
  * Аннотация @Table(name = "sales") указывает на таблицу "sales",
  * в которой будут храниться объекты.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see Product
  * @see Order

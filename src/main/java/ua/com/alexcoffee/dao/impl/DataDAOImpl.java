@@ -21,7 +21,7 @@ import java.util.List;
  * которого каждый наследник берет на себя.
  *
  * @param <T> Класс-наследник класса {@link Model}.
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see CategoryDAOImpl
  * @see PhotoDAOImpl

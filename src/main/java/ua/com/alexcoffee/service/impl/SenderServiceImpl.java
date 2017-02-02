@@ -24,7 +24,7 @@ import java.util.Properties;
  * для работы с электронной почтой. Также реализует интерфейс {@link Runnable},
  * то есть можно отправлять сообщения в отдельном потоке.
  *
- * @author Yurii Salimov (yurii.alex.salimov@gmail.com)
+ * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see SenderService
  * @see User
