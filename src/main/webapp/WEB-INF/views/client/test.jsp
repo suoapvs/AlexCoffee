@@ -22,7 +22,7 @@
     </head>
     <body>
     <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="checkout">
             <div class="row checkout">
                 <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">

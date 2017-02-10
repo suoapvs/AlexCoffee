@@ -37,7 +37,7 @@
             </div>
         </nav>
     </div>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="login">
             <div class="row login">
                 <div class="col-xs-6 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 col-xl-4 col-xl-offset-4 text-center">

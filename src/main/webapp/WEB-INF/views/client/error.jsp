@@ -21,7 +21,7 @@
               rel="stylesheet" type="text/css">
     </head>
     <body>
-    <div class="width">
+    <div>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -74,7 +74,7 @@
             </div>
         </nav>
     </div>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="error">
             <div class="row error text-shadow color-red">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

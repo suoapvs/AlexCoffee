@@ -28,7 +28,7 @@
     </head>
     <body>
     <jsp:include page="/WEB-INF/views/client/template/home_navbar.jsp"/>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="main">
             <div class="row main text-shadow">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -50,7 +50,7 @@
             </div>
         </section>
     </div>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="categories">
             <div class="row categories">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -92,7 +92,7 @@
         </section>
     </div>
     <jsp:include page="/WEB-INF/views/client/template/some_products.jsp"/>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="delivery">
             <div class="row delivery">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -124,7 +124,7 @@
             </div>
         </section>
     </div>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="payments">
             <div class="row payments">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -156,7 +156,7 @@
             </div>
         </section>
     </div>
-    <div class="container-fluid width">
+    <div class="container-fluid">
         <section id="contacts">
             <div class="row contacts intro-text">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

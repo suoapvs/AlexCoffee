@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="container-fluid width">
+<div class="container-fluid">
     <section id="products">
         <div class="row products">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

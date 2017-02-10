@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container-fluid width">
+<div class="container-fluid">
     <footer>
         <div class="row footer text-shadow text-center">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
