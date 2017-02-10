@@ -131,6 +131,7 @@ public class RootConfig {
         dataSource.setMaxActive(MAX_ACTIVE);
         dataSource.setTestOnBorrow(TEST_ON_BORROW);
         dataSource.setValidationQuery(VALIDATION_QUERY);
+        dataSource.setMaxWait(1000);
         return dataSource;
     }
 

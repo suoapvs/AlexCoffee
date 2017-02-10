@@ -18,20 +18,16 @@
               content="alexcoffee, alex coffee, интернет, магазин, вкусный, аромтный, кофе, купить, куплю, в Киеве, в Украине, Киев, Украина"/>
         <meta name="title" content="Alex Coffee || Лучший магазин кофе">
         <title>Alex Coffee || Лучший магазин кофе</title>
-            <%-- Favicon --%>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-            <%-- Styles --%>
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
         <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
               type="text/css">
     </head>
     <body>
-        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/home_navbar.jsp"/>
-        <%-- Main logo --%>
     <div class="container-fluid width">
         <section id="main">
             <div class="row main text-shadow">
@@ -54,7 +50,6 @@
             </div>
         </section>
     </div>
-        <%-- Categories --%>
     <div class="container-fluid width">
         <section id="categories">
             <div class="row categories">
@@ -96,9 +91,7 @@
             </div>
         </section>
     </div>
-        <%-- SOME PRODUCTS --%>
     <jsp:include page="/WEB-INF/views/client/template/some_products.jsp"/>
-        <%-- Delivery --%>
     <div class="container-fluid width">
         <section id="delivery">
             <div class="row delivery">
@@ -131,7 +124,6 @@
             </div>
         </section>
     </div>
-        <%-- Payments --%>
     <div class="container-fluid width">
         <section id="payments">
             <div class="row payments">
@@ -164,7 +156,6 @@
             </div>
         </section>
     </div>
-        <%-- Contacts --%>
     <div class="container-fluid width">
         <section id="contacts">
             <div class="row contacts intro-text">
@@ -213,9 +204,7 @@
             </div>
         </section>
     </div>
-        <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-        <%-- Scripts --%>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

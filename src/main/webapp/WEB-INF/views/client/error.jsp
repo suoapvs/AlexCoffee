@@ -12,18 +12,15 @@
         <meta name="robots" content="noindex,nofollow">
         <meta name="title" content="Ошибка || Alex Coffee">
         <title>Ошибка || Alex Coffee</title>
-            <%-- Favicon --%>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-            <%-- Styles --%>
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
         <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
               rel="stylesheet" type="text/css">
     </head>
     <body>
-        <%-- NAVBAR --%>
     <div class="width">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -77,7 +74,6 @@
             </div>
         </nav>
     </div>
-        <%-- Error information --%>
     <div class="container-fluid width">
         <section id="error">
             <div class="row error text-shadow color-red">
@@ -88,9 +84,7 @@
             </div>
         </section>
     </div>
-        <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-        <%-- Scripts --%>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

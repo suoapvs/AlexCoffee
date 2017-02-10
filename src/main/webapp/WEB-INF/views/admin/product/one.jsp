@@ -6,15 +6,22 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-            <%-- HEAD --%>
-        <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
+        <meta name="robots" content="noindex,nofollow">
         <meta name="title" content="${product.title} || Alex Coffee">
         <title>${product.title} || Alex Coffee</title>
+        <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+              type="text/css">
     </head>
     <body>
-        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-        <%-- Product --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
@@ -32,7 +39,7 @@
                             <td>
                                 <a href="<c:url value="/product/${product.url}"/>"
                                    title="Перейти к товару ${product.title}">
-                                   ${product.title}
+                                        ${product.title}
                                 </a>
                             </td>
                         </tr>
@@ -41,7 +48,7 @@
                             <td>
                                 <a href="<c:url value="/admin/category/view/${product.id}"/>"
                                    title="Смотреть категорию ${product.category.title}">
-                                   ${product.category.title}
+                                        ${product.category.title}
                                 </a>
                             </td>
                         </tr>
@@ -90,6 +97,10 @@
             </div>
         </section>
     </div>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
     </body>
     </html>
 </compress:html>

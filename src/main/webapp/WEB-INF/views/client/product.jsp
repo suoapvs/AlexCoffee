@@ -16,20 +16,16 @@
         <meta name="keywords" content="${product.title}"/>
         <meta name="title" content="${product.title} || Alex Coffee">
         <title>${product.title} || Alex Coffee</title>
-            <%-- Favicon --%>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-            <%-- Styles --%>
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
         <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
               rel="stylesheet" type="text/css">
     </head>
     <body>
-        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-        <%-- Product --%>
     <div class="container-fluid width">
         <section id="one-product">
             <div class="row one-product">
@@ -70,7 +66,6 @@
                         <br>
                     </div>
                 </div>
-                    <%-- Featured_products --%>
                 <c:if test="${fn:length(featured_products) gt 0}">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 featured-products text-center">
                         <c:forEach items="${featured_products}" var="featured_product">
@@ -101,9 +96,7 @@
             </div>
         </section>
     </div>
-        <%-- FOOTER --%>
     <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
-        <%-- Scripts --%>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

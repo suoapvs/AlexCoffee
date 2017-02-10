@@ -6,15 +6,22 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-            <%-- HEAD --%>
-        <jsp:include page="/WEB-INF/views/admin/template/head.jsp"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
+        <meta name="robots" content="noindex,nofollow">
         <meta name="title" content="${user.name} | ${user.role.description} || Alex Coffee">
         <title>${user.name} | ${user.role.description} || Alex Coffee</title>
+        <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
+        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
+              type="text/css">
     </head>
     <body>
-        <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
-        <%-- User --%>
     <div class="container-fluid width">
         <section id="product">
             <div class="row admin-page">
@@ -61,9 +68,8 @@
                             <tr>
                                 <th>ВКонтакте:</th>
                                 <td>
-                                    <a href="https://${user.vkontakte}" title="ВКонтакте" target="_blank">
-                                            ${user.vkontakte}
-                                    </a>
+                                    <a href="https://${user.vkontakte}" title="ВКонтакте"
+                                       target="_blank">${user.vkontakte}</a>
                                 </td>
                             </tr>
                         </c:if>
@@ -71,9 +77,8 @@
                             <tr>
                                 <th>Facebook:</th>
                                 <td>
-                                    <a href="https://${user.facebook}" title="Facebook" target="_blank">
-                                            ${user.facebook}
-                                    </a>
+                                    <a href="https://${user.facebook}" title="Facebook"
+                                       target="_blank">${user.facebook}</a>
                                 </td>
                             </tr>
                         </c:if>
@@ -81,9 +86,8 @@
                             <tr>
                                 <th>Skype:</th>
                                 <td>
-                                    <a href="skype:${user.skype}?call" title="Skype" target="_blank">
-                                            ${user.skype}
-                                    </a>
+                                    <a href="skype:${user.skype}?call" title="Skype"
+                                       target="_blank">${user.skype}</a>
                                 </td>
                             </tr>
                         </c:if>
@@ -114,6 +118,10 @@
             </div>
         </section>
     </div>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
     </body>
     </html>
 </compress:html>
