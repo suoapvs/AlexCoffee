@@ -39,7 +39,7 @@ section .main {
     text-align: center;
     height: 600px;
     background-size: cover;
-    background: url(../img/main_promo.jpg) no-repeat center top
+    background: url(../img/main_promo.jpg) center top
 }
 
 section .main-mob {
@@ -48,7 +48,7 @@ section .main-mob {
     text-align: center;
     height: 600px;
     background-size: cover;
-    background: url(../img/main_promo_xs.jpg) no-repeat center top
+    background: url(../img/main_promo_xs.jpg) center top
 }
 
 .main-text-label {
@@ -177,7 +177,7 @@ section .contacts {
 
 .footer {
     background-size: cover;
-    background: url(../img/footer_promo.jpg) no-repeat center top;
+    background: url(../img/footer_promo.jpg) center top;
     padding-bottom: 0
 }
 
