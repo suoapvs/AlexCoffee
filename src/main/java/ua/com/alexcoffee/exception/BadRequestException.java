@@ -1,14 +1,12 @@
 package ua.com.alexcoffee.exception;
 
 /**
- * Исключение генерируется,
- * если данные не найдены в базе данных.
+ * Исключение генерируется, если данные не найдены в базе данных.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public final class BadRequestException
-        extends RuntimeException {
+public final class BadRequestException extends RuntimeException {
     /**
      * Конструктр без параметров.
      */

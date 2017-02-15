@@ -77,18 +77,13 @@ public final class UserServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public User getByName(final String name)
-            throws WrongInformationException, BadRequestException {
+    public User getByName(final String name) throws WrongInformationException, BadRequestException {
         if (isBlank(name)) {
-            throw new WrongInformationException(
-                    "No user name!"
-            );
+            throw new WrongInformationException("No user name!");
         }
         final User user = this.dao.getByName(name);
         if (user == null) {
-            throw new BadRequestException(
-                    "Can't find user by name " + name + "!"
-            );
+            throw new BadRequestException("Can't find user by name " + name + "!");
         }
         return user;
     }
@@ -113,9 +108,7 @@ public final class UserServiceImpl
         }
         final User user = this.dao.getByUsername(username);
         if (user == null) {
-            throw new BadRequestException(
-                    "Can't find user by username " + username + "!"
-            );
+            throw new BadRequestException("Can't find user by username " + username + "!");
         }
         return user;
     }
@@ -124,20 +117,16 @@ public final class UserServiceImpl
      * Возвращает главного администратора сайта.
      * Режим только для чтения.
      *
-     * @return Объект класса {@link User} -
-     * главный администратор.
+     * @return Объект класса {@link User} - главный администратор.
      * @throws BadRequestException Бросает исключение,
      *                             если не найден пользователь-админ.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getMainAdministrator()
-            throws BadRequestException {
+    public User getMainAdministrator() throws BadRequestException {
         final User user = this.dao.getMainAdministrator();
         if (user == null) {
-            throw new BadRequestException(
-                    "Can't find administrator!"
-            );
+            throw new BadRequestException("Can't find administrator!");
         }
         return user;
     }
@@ -146,8 +135,7 @@ public final class UserServiceImpl
      * Возвращает список всех администраторов сайта.
      * Режим только для чтения.
      *
-     * @return Объект типа {@link List} -
-     * список администраторов.
+     * @return Объект типа {@link List} - список администраторов.
      */
     @Override
     @Transactional(readOnly = true)
@@ -159,8 +147,7 @@ public final class UserServiceImpl
      * Возвращает список всех менеджеров сайта.
      * Режим только для чтения.
      *
-     * @return Объект типа {@link List} -
-     * список менеджеров.
+     * @return Объект типа {@link List} - список менеджеров.
      */
     @Override
     @Transactional(readOnly = true)
@@ -172,8 +159,7 @@ public final class UserServiceImpl
      * Возвращает список всех клиентов сайта.
      * Режим только для чтения.
      *
-     * @return Объект типа {@link List} -
-     * список клиентов.
+     * @return Объект типа {@link List} - список клиентов.
      */
     @Override
     @Transactional(readOnly = true)
@@ -192,12 +178,8 @@ public final class UserServiceImpl
     @Transactional(readOnly = true)
     public List<User> getPersonnel() {
         final List<User> users = new ArrayList<>();
-        users.addAll(
-                getAdministrators()
-        );
-        users.addAll(
-                getManagers()
-        );
+        users.addAll(getAdministrators());
+        users.addAll(getManagers());
         return users;
     }
 
@@ -205,8 +187,7 @@ public final class UserServiceImpl
      * Возвращает авторизированого пользователя.
      * Режим только для чтения.
      *
-     * @return Объект класса {@link User} -
-     * авторизированый пользователь.
+     * @return Объект класса {@link User} - авторизированый пользователь.
      */
     @Override
     @Transactional(readOnly = true)
@@ -215,8 +196,7 @@ public final class UserServiceImpl
     }
 
     /**
-     * Удаляет пользователя, у которого совпадает
-     * имя с значением входящего параметра.
+     * Удаляет пользователя, у которого совпадает имя с значением входящего параметра.
      *
      * @param name Имя пользователя для удаления.
      * @throws WrongInformationException Бросает исключение,
@@ -224,8 +204,7 @@ public final class UserServiceImpl
      */
     @Override
     @Transactional
-    public void removeByName(final String name)
-            throws WrongInformationException {
+    public void removeByName(final String name) throws WrongInformationException {
         if (isBlank(name)) {
             throw new WrongInformationException("No username!");
         }
@@ -242,8 +221,7 @@ public final class UserServiceImpl
      */
     @Override
     @Transactional
-    public void removeByRole(final Role role)
-            throws WrongInformationException {
+    public void removeByRole(final Role role) throws WrongInformationException {
         if (role == null) {
             throw new WrongInformationException("No user role!");
         }
@@ -260,9 +238,7 @@ public final class UserServiceImpl
         if (personnel.isEmpty()) {
             return;
         }
-        personnel.remove(
-                getMainAdministrator()
-        );
+        personnel.remove(getMainAdministrator());
         this.dao.remove(personnel);
     }
 
@@ -278,8 +254,7 @@ public final class UserServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(final String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         return getByUsername(username);
     }
 }

@@ -32,12 +32,9 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class CategoryServiceImpl
-        extends MainServiceImpl<Category>
-        implements CategoryService {
+public final class CategoryServiceImpl extends MainServiceImpl<Category> implements CategoryService {
     /**
-     * Реализация интерфейса {@link CategoryDAO}
-     * для работы категорий с базой данных.
+     * Реализация интерфейса {@link CategoryDAO} для работы категорий с базой данных.
      */
     private final CategoryDAO dao;
 
@@ -57,45 +54,39 @@ public final class CategoryServiceImpl
     }
 
     /**
-     * Возвращает категорию из базы данных,
-     * у которой совпадает параметр url.
+     * Возвращает категорию из базы данных, у которой совпадает параметр url.
      * Режим только для чтения.
      *
      * @param url URL категории для возврата.
      * @return Объект класса {@link Category} - категория с уникальным url полем.
-     * @throws WrongInformationException Бросает исключение,
-     * если пустой входной параметр url.
-     * @throws BadRequestException       Бросает исключение,
-     * если не найдена категория с входящим параметром url.
+     * @throws WrongInformationException Бросает исключение, если пустой входной
+     *                                   параметр url.
+     * @throws BadRequestException       Бросает исключение, если не найдена категория
+     *                                   с входящим параметром url.
      */
     @Override
     @Transactional(readOnly = true)
-    public Category get(final String url)
-            throws WrongInformationException, BadRequestException {
+    public Category get(final String url) throws WrongInformationException, BadRequestException {
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
         final Category category = this.dao.get(url);
         if (category == null) {
-            throw new BadRequestException(
-                    "Can't find category by url " + url + "!"
-            );
+            throw new BadRequestException("Can't find category by url " + url + "!");
         }
         return category;
     }
 
     /**
-     * Удаляет категрию из базы даных,
-     * у которого совпадает поле url.
+     * Удаляет категрию из базы даных, у которого совпадает поле url.
      *
      * @param url URL категории для удаления.
      * @throws WrongInformationException Бросает исключение,
-     * если пустой входной параметр url.
+     *                                   если пустой входной параметр url.
      */
     @Override
     @Transactional
-    public void remove(final String url)
-            throws WrongInformationException {
+    public void remove(final String url) throws WrongInformationException {
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }

@@ -27,6 +27,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see UserRepository
  * @see Model
  */
-public interface MainRepository<T extends Model, E extends Number>
-        extends JpaRepository<T, E> {
+public interface MainRepository<T extends Model, E extends Number> extends JpaRepository<T, E> {
 }

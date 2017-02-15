@@ -15,25 +15,16 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 /**
- * Класс-контроллер страниц, предназначеных
- * для управления пользователей менеджерами.
- * К даному контроллеру и соответствующим
- * страницам могут обращатсья пользователи,
+ * Класс-контроллер страниц, предназначеных для управления пользователей менеджерами.
+ * К даному контроллеру и соответствующим страницам могут обращатсья пользователи,
  * имеющие роль-админстратор и -менеджер.
- * Аннотация @Controller служит для сообщения
- * Spring'у о том, что данный класс является
- * bean'ом и его необходимо подгрузить при
- * старте приложения.
- * Аннотацией @RequestMapping(value = "/manager")
- * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/manager".
- * Методы класса работают с объектом,
- * возвращенным handleRequest методом,
- * является типом {@link ModelAndView},
- * который агрегирует все параметры модели
- * и имя отображения.
- * Этот тип представляет Model и View
- * в MVC шаблоне.
+ * Аннотация @Controller служит для сообщения Spring'у о том, что данный класс является
+ * bean'ом и его необходимо подгрузить при старте приложения.
+ * Аннотацией @RequestMapping(value = "/manager") сообщаем, что данный контроллер будет
+ * обрабатывать запрос, URI которого "/manager". Методы класса работают с объектом,
+ * возвращенным handleRequest методом, является типом {@link ModelAndView},
+ * который агрегирует все параметры модели и имя отображения.
+ * Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -47,29 +38,22 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class ManagerUsersController {
     /**
-     * Объект сервиса для работы
-     * с пользователями.
+     * Объект сервиса для работы с пользователями.
      */
     private final UserService userService;
 
     /**
-     * Объект сервиса для работы
-     * с ролями пользователей.
+     * Объект сервиса для работы с ролями пользователей.
      */
     private final RoleService roleService;
 
     /**
-     * Конструктор для инициализации основных
-     * переменных контроллера страниц для
-     * менеджеров.
-     * Помечен аннотацией @Autowired,
-     * которая позволит Spring автоматически
-     * инициализировать объекты.
+     * Конструктор для инициализации основных переменных контроллера страниц для менеджеров.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически инициализировать
+     * объекты.
      *
-     * @param userService Объект сервиса для работы
-     *                    с пользователями.
-     * @param roleService Объект сервиса для работы
-     *                    с ролями пользователей.
+     * @param userService Объект сервиса для работы с пользователями.
+     * @param roleService Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
     public ManagerUsersController(
@@ -82,10 +66,8 @@ public class ManagerUsersController {
     }
 
     /**
-     * Возвращает всех пользователей
-     * на страницу "manager/user/all".
-     * URL запроса {"/managers/user",
-     * "/managers/user/", "/managers/user/all"},
+     * Возвращает всех пользователей на страницу "manager/user/all".
+     * URL запроса {"/managers/user", "/managers/user/", "/managers/user/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -98,35 +80,19 @@ public class ManagerUsersController {
     public ModelAndView viewAllPersonnel(
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "users",
-                this.userService.getPersonnel()
-        );
-        modelAndView.addObject(
-                "admin_role",
-                this.roleService.getAdministrator()
-        );
-        modelAndView.addObject(
-                "manager_role",
-                this.roleService.getManager()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("users", this.userService.getPersonnel());
+        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
+        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("manager/user/all");
         return modelAndView;
     }
 
     /**
-     * Возвращает пользователя с
-     * уникальным кодом id на
-     * страницу "manager/user/one".
-     * URL запроса "/managers/user/view/{id}",
-     * метод GET.
+     * Возвращает пользователя с уникальным кодом id на страницу "manager/user/one".
+     * URL запроса "/managers/user/view/{id}", метод GET.
      *
-     * @param id           Код пользователя, которого
-     *                     нужно вернуть.
+     * @param id           Код пользователя, которого нужно вернуть.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -138,22 +104,10 @@ public class ManagerUsersController {
             @PathVariable(value = "id") final long id,
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "user",
-                this.userService.get(id)
-        );
-        modelAndView.addObject(
-                "admin_role",
-                this.roleService.getAdministrator()
-        );
-        modelAndView.addObject(
-                "manager_role",
-                this.roleService.getManager()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("user", this.userService.get(id));
+        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
+        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("manager/user/one");
         return modelAndView;
     }

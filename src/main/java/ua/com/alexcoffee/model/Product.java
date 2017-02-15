@@ -23,21 +23,17 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Table(name = "products")
 public final class Product extends Model {
     /**
-     * Номер версии класса необходимый
-     * для десериализации и сериализации.
+     * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Набор вожможных для использованния
-     * символов по-умолчанию.
+     * Набор вожможных для использованния символов по-умолчанию.
      */
-    private static final char[] CODE_PATTERN
-            = "1234567890".toCharArray();
+    private static final char[] CODE_PATTERN = "1234567890".toCharArray();
 
     /**
-     * Длина возвращаемой строки
-     * по-умолчанию 5.
+     * Длина возвращаемой строки по-умолчанию 5.
      */
     private static final int CODE_LENGTH = 5;
 
@@ -90,11 +86,10 @@ public final class Product extends Model {
 
     /**
      * Категория товара.
-     * Значение поля (id объекта category) сохраняется в колонке "category_id". Не может быть null.
-     * Между объектами классов {@link Product} и
-     * {@link Category} связь многие-к-одному, а именно каждая
-     * много заказов могут иметь одинаковый статус выполнения.
-     * Выборка объекта category до первого доступа нему, при первом доступе к текущему объекту.
+     * Значение поля (id объекта category) сохраняется в колонке "category_id".
+     * Не может быть null. Между объектами классов {@link Product} и {@link Category}
+     * связь многие-к-одному, а именно каждая много заказов могут иметь одинаковый статус
+     * выполнения. Выборка объекта category до первого доступа нему, при первом доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -106,11 +101,10 @@ public final class Product extends Model {
     /**
      * Изображение товара.
      * Значение поля (id объекта photo) сохраняется в колонке "photo_id".
-     * Между объектами классов {@link Category} и
-     * {@link Photo} связь один-к-одному, а именно каждая
-     * запись в одной таблице напрямую связана с отдельной записью в другой таблице.
-     * Выборка объекта photo до первого доступа нему, при первом доступе к текущему объекту.
-     * Сущности связаны полностью каскадным обновлением записей в базе данных.
+     * Между объектами классов {@link Category} и {@link Photo} связь один-к-одному,
+     * а именно каждая запись в одной таблице напрямую связана с отдельной записью в
+     * другой таблице. Выборка объекта photo до первого доступа нему, при первом доступе
+     * к текущему объекту. Сущности связаны полностью каскадным обновлением записей в базе данных.
      */
     @OneToOne(
             fetch = FetchType.EAGER,
@@ -123,8 +117,7 @@ public final class Product extends Model {
     private Photo photo;
 
     /**
-     * Цена товара. Значение поля сохраняется
-     * в колонке "description". Не может быть null.
+     * Цена товара. Значение поля сохраняется в колонке "description". Не может быть null.
      */
     @Column(
             name = "price",
@@ -134,10 +127,9 @@ public final class Product extends Model {
 
     /**
      * Изображение товара.
-     * К текущему товару можно добраться через поле "product"
-     * в объекте класса {@link SalePosition}.
-     * Выборка объекта salePosition при первом доступе к нему.
-     * Сущность salePosition автоматически удаляется
+     * К текущему товару можно добраться через поле "product" в объекте
+     * класса {@link SalePosition}. Выборка объекта salePosition при первом
+     * доступе к нему. Сущность salePosition автоматически удаляется
      * при удалении текущей.
      */
     @OneToMany(
@@ -156,10 +148,8 @@ public final class Product extends Model {
     }
 
     /**
-     * Конструктор для инициализации основных
-     * переменных товара.
-     * Автоматически инициализируются
-     * поля article.
+     * Конструктор для инициализации основных переменных товара.
+     * Автоматически инициализируются поля article.
      *
      * @param title    Название товара.
      * @param url      URL товара.
@@ -187,13 +177,10 @@ public final class Product extends Model {
 
     /**
      * Возвращает описание товара.
-     * Переопределенный метод
-     * родительского класса {@link Object}.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} -
-     * строка описание товара
-     * (название, параметры, описание,
-     * название категории, цена).
+     * @return Значение типа {@link String} - строка описание товара
+     * (название, параметры, описание, название категории, цена).
      */
     @Override
     public String toString() {
@@ -214,20 +201,15 @@ public final class Product extends Model {
     }
 
     /**
-     * Генерирует строку для конечного сравнения
-     * товаров в методе equals() родительского класса.
-     * Переопределенный метод родительского
+     * Генерирует строку для конечного сравнения товаров в методе equals()
+     * родительского класса. Переопределенный метод родительского
      * класса {@link Model}.
      *
-     * @return Значение типа {@link String}
-     * - название + URL + цена товара.
+     * @return Значение типа {@link String} - название + URL + цена товара.
      */
     @Override
     public String toEquals() {
-        return getArticle()
-                + getTitle()
-                + getUrl()
-                + getPrice();
+        return getArticle() + getTitle() + getUrl() + getPrice();
     }
 
     /**
@@ -264,18 +246,14 @@ public final class Product extends Model {
      */
     public void newArticle() {
         this.article = Integer.parseInt(
-                createRandomString(
-                        CODE_PATTERN,
-                        CODE_LENGTH
-                )
+                createRandomString(CODE_PATTERN, CODE_LENGTH)
         );
     }
 
     /**
      * Возвращает артикль товара.
      *
-     * @return Значение типа int -
-     * артикль товара.
+     * @return Значение типа int - артикль товара.
      */
     public int getArticle() {
         return this.article;
@@ -293,8 +271,7 @@ public final class Product extends Model {
     /**
      * Возвращает название товара.
      *
-     * @return Значение типа {@link String} -
-     * название товара.
+     * @return Значение типа {@link String} - название товара.
      */
     public String getTitle() {
         return this.title;
@@ -312,8 +289,7 @@ public final class Product extends Model {
     /**
      * Возвращает URL товара.
      *
-     * @return Значение типа {@link String} -
-     * URL товара.
+     * @return Значение типа {@link String} - URL товара.
      */
     public String getUrl() {
         return this.url;
@@ -331,8 +307,7 @@ public final class Product extends Model {
     /**
      * Возвращает параметры товара.
      *
-     * @return Значение типа {@link String} -
-     * параметры товара.
+     * @return Значение типа {@link String} - параметры товара.
      */
     public String getParameters() {
         return this.parameters;
@@ -350,8 +325,7 @@ public final class Product extends Model {
     /**
      * Возвращает описание товара.
      *
-     * @return Значение типа {@link String} -
-     * описание товара.
+     * @return Значение типа {@link String} - описание товара.
      */
     public String getDescription() {
         return this.description;
@@ -369,8 +343,7 @@ public final class Product extends Model {
     /**
      * Возвращает изображение товара.
      *
-     * @return Объект класса {@link Photo} -
-     * изображение товара.
+     * @return Объект класса {@link Photo} - изображение товара.
      */
     public Photo getPhoto() {
         return this.photo;
@@ -388,8 +361,7 @@ public final class Product extends Model {
     /**
      * Возвращает категорию товара.
      *
-     * @return Объект класса {@link Category} -
-     * категория товара.
+     * @return Объект класса {@link Category} - категория товара.
      */
     public Category getCategory() {
         return this.category;
@@ -407,8 +379,7 @@ public final class Product extends Model {
     /**
      * Возвращает цену товара.
      *
-     * @return Значение типа double -
-     * цена товара.
+     * @return Значение типа double - цена товара.
      */
     public double getPrice() {
         return this.price;
@@ -424,19 +395,16 @@ public final class Product extends Model {
     }
 
     /**
-     * Возвращает список торговых позиций,
-     * для которых пренадлежит текущий товара.
+     * Возвращает список торговых позиций, для которых пренадлежит текущий товара.
      *
-     * @return Объект класса {@link SalePosition} -
-     * торговая позиция.
+     * @return Объект класса {@link SalePosition} - торговая позиция.
      */
     public List<SalePosition> getSalePositions() {
         return this.salePositions;
     }
 
     /**
-     * Устанавливает список торговых позиций,
-     * для которых пренадлежит текущий товара.
+     * Устанавливает список торговых позиций, для которых пренадлежит текущий товара.
      *
      * @param salePositions Торговая позиция.
      */

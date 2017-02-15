@@ -11,23 +11,19 @@ import ua.com.alexcoffee.model.Order;
  * @see MainRepository
  * @see Order
  */
-public interface OrderRepository
-        extends MainRepository<Order, Long> {
+public interface OrderRepository extends MainRepository<Order, Long> {
     /**
-     * Возвращает заказ из базы даных,
-     * у которого совпадает уникальный номером
-     * с значением входящего параметра.
+     * Возвращает заказ из базы даных, у которого совпадает
+     * уникальный номером с значением входящего параметра.
      *
      * @param number Номер заказа для возврата.
-     * @return Объект класса {@link Order} -
-     * заказ с уникальным номером
+     * @return Объект класса {@link Order} - заказ с уникальным номером
      * для возвращения.
      */
     Order findByNumber(String number);
 
     /**
-     * Удаляет заказ из базы даных,
-     * у которого совпадает уникальный номером
+     * Удаляет заказ из базы даных, у которого совпадает уникальный номером
      * с значением входящего параметра.
      *
      * @param number Номер заказа для удаление.

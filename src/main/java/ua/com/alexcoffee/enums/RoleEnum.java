@@ -1,8 +1,7 @@
 package ua.com.alexcoffee.enums;
 
 /**
- * Перечесление вожможных ролей
- * пользователей.
+ * Перечесление вожможных ролей пользователей.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2

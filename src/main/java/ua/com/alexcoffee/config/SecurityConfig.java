@@ -13,13 +13,10 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
 /**
  * Класс настройки безопасности Spring Security.
  * Класс расширяет класс WebSecurityConfigurerAdapter.
- * Аннотация @EnableWebSecurity в связке с
- * WebSecurityConfigurerAdapter классом работает
- * над обеспечением
- * аутентификации. Помечен аннотацией @ComponentScan
- * - указываем фреймворку Spring, что компоненты надо
- * искать внутри пакетов "ua.com.alexcoffee.service"
- * и "ua.com.alexcoffee.dao".
+ * Аннотация @EnableWebSecurity в связке с WebSecurityConfigurerAdapter классом
+ * работает над обеспечением аутентификации.
+ * Помечен аннотацией @ComponentScan - указываем фреймворку Spring, что компоненты надо
+ * искать внутри пакетов "ua.com.alexcoffee.service" и "ua.com.alexcoffee.dao".
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -83,19 +80,13 @@ public class SecurityConfig
     private RoleService roleService;
 
     /**
-     * Настройка правил доступа пользователей к
-     * страницам сайта. Указываем адреса ресурсов с
-     * ограниченным доступом, ограничение задано по
-     * ролям. К страницам, URL которых начинается
-     * на "{@value ADMIN_REQUEST_URl}", имеют доступ
-     * только пользователи с ролью - администратор.
-     * К страницам, URL которых начинается на
-     * "{@value MANAGER_REQUEST_URl}", имеют доступ
-     * администраторы и менеджера. Чтобы попасть на
-     * эти страницы, нужно пройти этам авторизации.
+     * Настройка правил доступа пользователей к страницам сайта. Указываем адреса ресурсов с
+     * ограниченным доступом, ограничение задано по ролям. К страницам, URL которых начинается
+     * на "{@value ADMIN_REQUEST_URl}", имеют доступ только пользователи с ролью - администратор.
+     * К страницам, URL которых начинается на "{@value MANAGER_REQUEST_URl}", имеют доступ
+     * администраторы и менеджера. Чтобы попасть на эти страницы, нужно пройти этам авторизации.
      *
-     * @param httpSecurity Объект класса HttpSecurity
-     *                     для настройки прав доступа к страницам.
+     * @param httpSecurity Объект класса HttpSecurity для настройки прав доступа к страницам.
      * @throws Exception Исключение методов класса HttpSecurity.
      */
     @Override
@@ -107,19 +98,11 @@ public class SecurityConfig
                 .and()
                 .authorizeRequests()
                 .antMatchers(ADMIN_REQUEST_URl)
-                .hasRole(
-                        this.roleService.getAdministrator()
-                                .getTitle()
-                                .name()
-                )
+                .hasRole(this.roleService.getAdministrator().getTitle().name())
                 .antMatchers(MANAGER_REQUEST_URl)
                 .hasAnyRole(
-                        this.roleService.getAdministrator()
-                                .getTitle()
-                                .name(),
-                        this.roleService.getManager()
-                                .getTitle()
-                                .name()
+                        this.roleService.getAdministrator().getTitle().name(),
+                        this.roleService.getManager().getTitle().name()
                 )
                 .anyRequest().permitAll()
                 .and()
@@ -134,17 +117,12 @@ public class SecurityConfig
     }
 
     /**
-     * Настройка пользователей с их ролями.
-     * Пользователи будут подгружатся с базы данных,
-     * используя реализацию методов интерфейса
-     * UserDetailsService. Также в памяти сохраняется
-     * запись об резервном пользоватети с правами
-     * администратора.
+     * Настройка пользователей с их ролями. Пользователи будут подгружатся с базы данных,
+     * используя реализацию методов интерфейса UserDetailsService. Также в памяти сохраняется
+     * запись об резервном пользоватети с правами администратора.
      *
-     * @param builder Объект класса
-     *                AuthenticationManagerBuilder.
-     * @throws Exception Исключение методов класса
-     *                   AuthenticationManagerBuilder.
+     * @param builder Объект класса AuthenticationManagerBuilder.
+     * @throws Exception Исключение методов класса  AuthenticationManagerBuilder.
      */
     @Override
     protected void configure(final AuthenticationManagerBuilder builder)

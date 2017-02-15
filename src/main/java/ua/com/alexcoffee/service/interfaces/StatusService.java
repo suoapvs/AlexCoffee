@@ -29,16 +29,14 @@ public interface StatusService extends MainService<Status> {
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса для возвращения.
-     * @return Объект класса {@link Status} -
-     * статус с названием title.
+     * @return Объект класса {@link Status} - статус с названием title.
      */
     Status get(StatusEnum title);
 
     /**
      * Возвращает статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} -
-     * статус по-умолчание.
+     * @return Объект класса {@link Status} - статус по-умолчание.
      */
     Status getDefault();
 

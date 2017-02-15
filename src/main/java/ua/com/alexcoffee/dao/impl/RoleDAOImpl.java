@@ -9,18 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * Класс реализует методы доступа объектов
- * класса {@link Role} в базе данных интерфейса
- * {@link RoleDAO}, наследует родительский
- * абстрактній класс {@link DataDAOImpl}, в
- * котором реализованы основные методы.
- * Для работы методы используют
- * объект-репозиторий интерфейса
- * {@link RoleRepository}. Класс помечена
- * аннотацией @Repository (наследник
- * Spring'овой аннотации @Component).
- * Это позволяет Spring автоматически
- * зарегестрировать компонент в своём
+ * Класс реализует методы доступа объектов класса {@link Role} в базе данных интерфейса
+ * {@link RoleDAO}, наследует родительский абстрактній класс {@link DataDAOImpl}, в
+ * котором реализованы основные методы. Для работы методы используют
+ * объект-репозиторий интерфейса {@link RoleRepository}. Класс помечена
+ * аннотацией @Repository (наследник Spring'овой аннотации @Component).
+ * Это позволяет Spring автоматически зарегестрировать компонент в своём
  * контексте для последующей инъекции.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
@@ -32,28 +26,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class RoleDAOImpl
-        extends DataDAOImpl<Role>
-        implements RoleDAO {
+public final class RoleDAOImpl extends DataDAOImpl<Role> implements RoleDAO {
     /**
      * Реализация репозитория {@link RoleRepository}
-     * для работы ролей пользователей
-     * с базой данных.
+     * для работы ролей пользователей с базой данных.
      */
     private final RoleRepository repository;
 
     /**
-     * Конструктор для инициализации основных
-     * переменных. Помечаный
-     * аннотацией @Autowired, которая
-     * позволит Spring автоматически
+     * Конструктор для инициализации основных переменных. Помечаный
+     * аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объект.
      *
-     * @param repository Реализация репозитория
-     *                   {@link RoleRepository}
-     *                   для работы ролей
-     *                   пользователей
-     *                   с базой данных.
+     * @param repository Реализация репозитория {@link RoleRepository}
+     *                   для работы ролей пользователей с базой данных.
      */
     @Autowired
     public RoleDAOImpl(final RoleRepository repository) {
@@ -62,8 +48,7 @@ public final class RoleDAOImpl
     }
 
     /**
-     * Добавляет роль в базу даных
-     * по названию, которое может принимать
+     * Добавляет роль в базу даных по названию, которое может принимать
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
@@ -73,22 +58,15 @@ public final class RoleDAOImpl
             final RoleEnum title,
             final String description
     ) {
-        this.repository.save(
-                new Role(
-                        title,
-                        description
-                )
-        );
+        this.repository.save(new Role(title, description));
     }
 
     /**
-     * Возвращает роль из базы даных
-     * по названию, которое может принимать
+     * Возвращает роль из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
-     * @return Объект класса {@link Role} -
-     * роль с уникальным названием.
+     * @return Объект класса {@link Role} - роль с уникальным названием.
      */
     @Override
     public Role get(final RoleEnum title) {
@@ -96,11 +74,9 @@ public final class RoleDAOImpl
     }
 
     /**
-     * Возвращает из базы даных роль
-     * по-умолчанию.
+     * Возвращает из базы даных роль по-умолчанию.
      *
-     * @return Объект класса {@link Role} -
-     * роль по-умолчание.
+     * @return Объект класса {@link Role} - роль по-умолчание.
      */
     @Override
     public Role getDefault() {
@@ -108,8 +84,7 @@ public final class RoleDAOImpl
     }
 
     /**
-     * Удаляет роль из базы даных по названию,
-     * которое может принимать одно
+     * Удаляет роль из базы даных по названию, которое может принимать одно
      * из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.

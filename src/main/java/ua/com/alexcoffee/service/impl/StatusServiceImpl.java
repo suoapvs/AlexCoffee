@@ -73,14 +73,10 @@ public final class StatusServiceImpl
             final String description
     ) throws WrongInformationException, DuplicateException {
         if (title == null) {
-            throw new WrongInformationException(
-                    "No status title!"
-            );
+            throw new WrongInformationException("No status title!");
         }
         if (this.dao.get(title) != null) {
-            throw new DuplicateException(
-                    "Duplicate status with title  " + title + "!"
-            );
+            throw new DuplicateException("Duplicate status with title  " + title + "!");
         }
         this.dao.add(new Status(title, description));
     }
@@ -90,8 +86,7 @@ public final class StatusServiceImpl
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @return Объект класса {@link Status} -
-     * статус с названием title.
+     * @return Объект класса {@link Status} - статус с названием title.
      * @throws WrongInformationException Бросает исключение,
      *                                   если пустой входной параметр title.
      * @throws BadRequestException       Бросает исключение,
@@ -102,15 +97,11 @@ public final class StatusServiceImpl
     public Status get(final StatusEnum title)
             throws WrongInformationException, BadRequestException {
         if (title == null) {
-            throw new WrongInformationException(
-                    "No status title!"
-            );
+            throw new WrongInformationException("No status title!");
         }
         final Status status = this.dao.get(title);
         if (status == null) {
-            throw new BadRequestException(
-                    "Can't find status by title " + title + "!"
-            );
+            throw new BadRequestException("Can't find status by title " + title + "!");
         }
         return status;
     }
@@ -118,8 +109,7 @@ public final class StatusServiceImpl
     /**
      * Возвращает статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} -
-     * статус по-умолчание.
+     * @return Объект класса {@link Status} - статус по-умолчание.
      * @throws BadRequestException Бросает исключение,
      *                             если не найден статус по-умолчание.
      */
@@ -128,9 +118,7 @@ public final class StatusServiceImpl
     public Status getDefault() throws BadRequestException {
         final Status status = this.dao.getDefault();
         if (status == null) {
-            throw new BadRequestException(
-                    "Can't find default status!"
-            );
+            throw new BadRequestException("Can't find default status!");
         }
         return status;
     }
@@ -148,9 +136,7 @@ public final class StatusServiceImpl
     public void remove(final StatusEnum title)
             throws WrongInformationException {
         if (title == null) {
-            throw new WrongInformationException(
-                    "No status title!"
-            );
+            throw new WrongInformationException("No status title!");
         }
         this.dao.remove(title);
     }

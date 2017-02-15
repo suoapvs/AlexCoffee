@@ -13,19 +13,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Класс реализует методы доступа объектов
- * класса {@link User} в базе данных интерфейса
- * {@link UserDAO}, наследует родительский
- * абстрактній класс {@link DataDAOImpl},
- * в котором реализованы основные методы.
- * Для работы методы используют
- * объект-репозиторий интерфейса
- * {@link UserRepository}. Класс помечена
- * аннотацией @Repository (наследник Spring'овой
- * аннотации @Component). Это позволяет Spring
- * автоматически зарегестрировать
- * компонент в своём контексте для
- * последующей инъекции.
+ * Класс реализует методы доступа объектов класса {@link User} в базе данных интерфейса
+ * {@link UserDAO}, наследует родительский абстрактній класс {@link DataDAOImpl},
+ * в котором реализованы основные методы. Для работы методы используют объект-репозиторий
+ * интерфейса {@link UserRepository}. Класс помечена аннотацией @Repository
+ * (наследник Spring'овой аннотации @Component). Это позволяет Spring автоматически
+ * зарегестрировать компонент в своём контексте для последующей инъекции.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -36,9 +29,7 @@ import java.util.List;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class UserDAOImpl
-        extends DataDAOImpl<User>
-        implements UserDAO {
+public final class UserDAOImpl extends DataDAOImpl<User> implements UserDAO {
 
     /**
      * ID роли клиента в базе данных.
@@ -55,34 +46,26 @@ public final class UserDAOImpl
      */
     private final static Long MANAGER_ROLE_ID = 3L;
     /**
-     * Реализация репозитория {@link UserRepository}
-     * для работы пользователей
+     * Реализация репозитория {@link UserRepository} для работы пользователей
      * с базой данных.
      */
     private final UserRepository userRepository;
 
     /**
-     * Реализация репозитория {@link RoleRepository}
-     * для работы  ролями пользователей
-     * с базой данных.
+     * Реализация репозитория {@link RoleRepository} для работы
+     * ролями пользователей с базой данных.
      */
     private final RoleRepository roleRepository;
 
     /**
-     * Конструктор для инициализации основных
-     * переменных. Помечаный аннотацией @Autowired,
-     * которая позволит Spring автоматически
+     * Конструктор для инициализации основных переменных.
+     * Помечаный аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объект.
      *
-     * @param userRepository Реализация репозитория
-     *                       {@link UserRepository}
-     *                       для работы пользователей
-     *                       с базой данных.
-     * @param roleRepository Реализация репозитория
-     *                       {@link RoleRepository}
-     *                       для работы ролями
-     *                       пользователей
-     *                       с базой данных.
+     * @param userRepository Реализация репозитория {@link UserRepository}
+     *                       для работы пользователей с базой данных.
+     * @param roleRepository Реализация репозитория {@link RoleRepository}
+     *                       для работы ролями пользователей с базой данных.
      */
     @Autowired
     public UserDAOImpl(
@@ -95,13 +78,11 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает пользователя из базы даных,
-     * у которого совпадает имя с значением
-     * входящего параметра.
+     * Возвращает пользователя из базы даных, у которого совпадает
+     * имя с значением входящего параметра.
      *
      * @param name Имя пользователя для возврата.
-     * @return Объект класса {@link User} -
-     * пользователь.
+     * @return Объект класса {@link User} - пользователь.
      */
     @Override
     public User getByName(final String name) {
@@ -109,14 +90,11 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает пользователя из базы даных,
-     * у которого совпадает уникальный
+     * Возвращает пользователя из базы даных, у которого совпадает уникальный
      * логин с значением входящего параметра.
      *
-     * @param username Логин пользователя для
-     *                 возврата.
-     * @return Объект класса {@link User} -
-     * пользователь с уникальным логином.
+     * @param username Логин пользователя для возврата.
+     * @return Объект класса {@link User} - пользователь с уникальным логином.
      */
     @Override
     public User getByUsername(final String username) {
@@ -124,11 +102,9 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает главного администратора
-     * сайта.
+     * Возвращает главного администратора сайта.
      *
-     * @return Объект класса {@link User} -
-     * главный администратор.
+     * @return Объект класса {@link User} - главный администратор.
      */
     @Override
     public User getMainAdministrator() {
@@ -138,11 +114,9 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает список всех администраторов
-     * сайта.
+     * Возвращает список всех администраторов сайта.
      *
-     * @return Объект типа {@link List} -
-     * список администраторов.
+     * @return Объект типа {@link List} - список администраторов.
      */
     @Override
     public List<User> getAdministrators() {
@@ -152,11 +126,9 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает список всех менеджеров
-     * сайта.
+     * Возвращает список всех менеджеров сайта.
      *
-     * @return Объект типа {@link List} -
-     * список менеджеров.
+     * @return Объект типа {@link List} - список менеджеров.
      */
     @Override
     public List<User> getManagers() {
@@ -168,8 +140,7 @@ public final class UserDAOImpl
     /**
      * Возвращает список всех клиентов сайта.
      *
-     * @return Объект типа {@link List} -
-     * список клиентов.
+     * @return Объект типа {@link List} - список клиентов.
      */
     @Override
     public List<User> getClients() {
@@ -179,11 +150,9 @@ public final class UserDAOImpl
     }
 
     /**
-     * Возвращает авторизированого
-     * пользователя.
+     * Возвращает авторизированого пользователя.
      *
-     * @return Объект класса {@link User} -
-     * авторизированый пользователь.
+     * @return Объект класса {@link User} - авторизированый пользователь.
      */
     @Override
     public User getAuthenticatedUser() {
@@ -201,9 +170,8 @@ public final class UserDAOImpl
     }
 
     /**
-     * Удаляет пользователя из базы даных,
-     * у которого совпадает имя с значением
-     * входящего параметра.
+     * Удаляет пользователя из базы даных, у которого совпадает имя
+     * с значением входящего параметра.
      *
      * @param name Имя пользователя для удаления.
      */
@@ -213,8 +181,7 @@ public final class UserDAOImpl
     }
 
     /**
-     * Удаляет пользователя из базы даных,
-     * у которого совпадает роль с
+     * Удаляет пользователя из базы даных, у которого совпадает роль с
      * значением входящего параметра.
      *
      * @param role Роль пользователя для удаления.

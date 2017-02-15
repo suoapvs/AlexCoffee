@@ -38,10 +38,7 @@ public final class SenderServiceImpl
     /**
      * Объект для логирования информации.
      */
-    private static final Logger LOGGER =
-            Logger.getLogger(
-                    SenderServiceImpl.class
-            );
+    private static final Logger LOGGER = Logger.getLogger(SenderServiceImpl.class);
 
     /**
      * Стандартная кодировка сообщений.
@@ -59,28 +56,25 @@ public final class SenderServiceImpl
     private final UserService userService;
 
     /**
-     * Администратор сайта, от имени
-     * которого будут отправлятся
+     * Администратор сайта, от имени которого будут отправлятся
      * сообщения менеджерам.
      */
     private User admin;
 
     /**
-     * Список менеджеров, которым будет
-     * приходить сообщение о заказе.
+     * Список менеджеров, которым будет приходить сообщение о заказе.
      */
     private List<User> managers;
 
     /**
-     * Заказ, информация о котором будет
-     * приходить на почту менеджерам.
+     * Заказ, информация о котором будет приходить на почту менеджерам.
      */
     private Order order;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
-     * Помечаный аннотацией @Autowired,
-     * которая позволит Spring автоматически инициализировать объект.
+     * Помечаный аннотацией @Autowired, которая позволит Spring
+     * автоматически инициализировать объект.
      *
      * @param userService Реализация интерфейса для работы з пользователями.
      */
@@ -91,8 +85,7 @@ public final class SenderServiceImpl
     }
 
     /**
-     * Отсылает информацию о заказе менеджерам
-     * на электронную почту.
+     * Отсылает информацию о заказе менеджерам на электронную почту.
      * Запускает отдельный поток.
      *
      * @param order Заказ для отправке менеджерам.
@@ -133,8 +126,7 @@ public final class SenderServiceImpl
                     sendMessage(
                             properties,
                             manager.getEmail(),
-                            subject,
-                            text
+                            subject, text
                     );
                 } catch (MessagingException ex) {
                     ex.printStackTrace();
@@ -143,8 +135,7 @@ public final class SenderServiceImpl
                     sendMessage(
                             properties,
                             manager.getEmail(),
-                            subject,
-                            text
+                            subject, text
                     );
                 }
             } catch (Exception ex) {
@@ -171,8 +162,8 @@ public final class SenderServiceImpl
     }
 
     /**
-     * Возвращает настройки протокола SSL
-     * (Secure Sockets Layer) для отправки сообщения.
+     * Возвращает настройки протокола SSL (Secure Sockets Layer)
+     * для отправки сообщения.
      *
      * @return Объект класса {@link Properties} - SSL настройки.
      */
@@ -181,10 +172,7 @@ public final class SenderServiceImpl
         final Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.socketFactory.port", "465");
-        properties.put(
-                "mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory"
-        );
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
         return properties;
@@ -213,42 +201,24 @@ public final class SenderServiceImpl
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(
-                                admin.getEmail(),
-                                admin.getPassword()
+                                admin.getEmail(), admin.getPassword()
                         );
                     }
                 }
         );
         final Message message = new MimeMessage(session);
-        message.setFrom(
-                new InternetAddress("support@alexcoffee.com.ua")
-        );
-        message.setRecipients(
-                Message.RecipientType.TO,
-                InternetAddress.parse(toEmail)
-        );
-        message.setSubject(
-                MimeUtility.encodeText(
-                        subject,
-                        CHARSET,
-                        ENCODING
-                )
-        );
-        message.setContent(
-                text,
-                "text/plain;charset=" + CHARSET
-        );
-        message.setSentDate(
-                new Date()
-        );
+        message.setFrom(new InternetAddress("support@alexcoffee.com.ua"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+        message.setSubject(MimeUtility.encodeText(subject, CHARSET, ENCODING));
+        message.setContent(text, "text/plain;charset=" + CHARSET);
+        message.setSentDate(new Date());
         Transport.send(message);
     }
 
     /**
      * Возвращает заказ для отправки менеджерам.
      *
-     * @return Объект класса {@link Order} -
-     * заказ для обработки.
+     * @return Объект класса {@link Order} - заказ для обработки.
      */
     public Order getOrder() {
         return this.order;
@@ -264,19 +234,16 @@ public final class SenderServiceImpl
     }
 
     /**
-     * Возвращает администратора,
-     * от имени которого отсылаются сообщения.
+     * Возвращает администратора, от имени которого отсылаются сообщения.
      *
-     * @return Объект класса {@link User} -
-     * администратор сайта.
+     * @return Объект класса {@link User} - администратор сайта.
      */
     public User getAdmin() {
         return this.admin;
     }
 
     /**
-     * Устанавливает администратора,
-     * от имени которого отсылаются сообщения.
+     * Устанавливает администратора, от имени которого отсылаются сообщения.
      *
      * @param admin Администратор сайта.
      */
@@ -285,19 +252,16 @@ public final class SenderServiceImpl
     }
 
     /**
-     * Возвращает список менеджеров,
-     * которым будет отправлятся сообщения.
+     * Возвращает список менеджеров, которым будет отправлятся сообщения.
      *
-     * @return Объект класса {@link List} -
-     * список менеджеров.
+     * @return Объект класса {@link List} - список менеджеров.
      */
     public List<User> getManagers() {
         return this.managers;
     }
 
     /**
-     * Устанавливает список менеджеров,
-     * которым будет отправлятся сообщения.
+     * Устанавливает список менеджеров, которым будет отправлятся сообщения.
      *
      * @param managers список менеджеров.
      */

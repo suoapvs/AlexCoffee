@@ -8,19 +8,13 @@ import ua.com.alexcoffee.model.Photo;
 import ua.com.alexcoffee.repository.PhotoRepository;
 
 /**
- * Класс реализует методы доступа объектов
- * класса {@link Photo} в базе данных интерфейса
- * {@link PhotoDAO}, наследует родительский
- * абстрактній класс {@link DataDAOImpl},
- * в котором реализованы основные методы.
- * Для работы методы используют
- * объект-репозиторий интерфейса
- * {@link PhotoRepository}.
- * Класс помечена аннотацией @Repository
- * (наследник Spring'овой аннотации @Component).
- * Это позволяет Spring автоматически
- * зарегестрировать компонент в своём
- * контексте для последующей инъекции.
+ * Класс реализует методы доступа объектов класса {@link Photo} в базе данных интерфейса
+ * {@link PhotoDAO}, наследует родительский абстрактній класс {@link DataDAOImpl},
+ * в котором реализованы основные методы. Для работы методы используют объект-репозиторий
+ * интерфейса {@link PhotoRepository}.
+ * Класс помечена аннотацией @Repository (наследник Spring'овой аннотации @Component).
+ * Это позволяет Spring автоматически зарегестрировать компонент в своём контексте
+ * для последующей инъекции.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -31,9 +25,7 @@ import ua.com.alexcoffee.repository.PhotoRepository;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class PhotoDAOImpl
-        extends DataDAOImpl<Photo>
-        implements PhotoDAO {
+public final class PhotoDAOImpl extends DataDAOImpl<Photo> implements PhotoDAO {
     /**
      * Реализация репозитория {@link PhotoRepository}
      * для работы изображений с базой данных.
@@ -41,16 +33,12 @@ public final class PhotoDAOImpl
     private final PhotoRepository repository;
 
     /**
-     * Конструктор для инициализации основных
-     * переменных.
-     * Помечаный аннотацией @Autowired,
-     * которая позволит Spring автоматически
+     * Конструктор для инициализации основных переменных.
+     * Помечаный аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объект.
      *
-     * @param repository Реализация репозитория
-     *                   {@link PhotoRepository}
-     *                   для работы изображений
-     *                   с базой данных.
+     * @param repository Реализация репозитория {@link PhotoRepository}
+     *                   для работы изображений с базой данных.
      */
     @Autowired
     public PhotoDAOImpl(final PhotoRepository repository) {
@@ -59,15 +47,11 @@ public final class PhotoDAOImpl
     }
 
     /**
-     * Возвращает объект-изображение
-     * из базы даных, у которого
-     * совпадает уникальное название
-     * с значением входящего параметра.
+     * Возвращает объект-изображение из базы даных, у которого
+     * совпадает уникальное название с значением входящего параметра.
      *
-     * @param title Название объекта-изображения
-     *              для возврата.
-     * @return Объект класса {@link Photo} -
-     * объекта-изображение.
+     * @param title Название объекта-изображения для возврата.
+     * @return Объект класса {@link Photo} - объекта-изображение.
      */
     @Override
     public Photo get(final String title) {
@@ -75,13 +59,10 @@ public final class PhotoDAOImpl
     }
 
     /**
-     * Удаляет объект-изображение
-     * из базы даных, у которого
-     * совпадает уникальное название
-     * с значением входящего параметра.
+     * Удаляет объект-изображение из базы даных, у которого
+     * совпадает уникальное название с значением входящего параметра.
      *
-     * @param title Название объекта-изображения
-     *              для удаления.
+     * @param title Название объекта-изображения для удаления.
      */
     @Override
     public void remove(final String title) {

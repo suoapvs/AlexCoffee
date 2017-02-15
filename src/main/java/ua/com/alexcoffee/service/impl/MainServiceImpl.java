@@ -98,8 +98,7 @@ public abstract class MainServiceImpl<T extends Model>
      * Режим только для чтения.
      *
      * @param id Уникальный код модели.
-     * @return Объект класса {@link Model} -  м
-     * одель с кодом id.
+     * @return Объект класса {@link Model} -  модель с кодом id.
      * @throws WrongInformationException Бросает исключение,
      *                                   если пустой входной параметр id.
      * @throws BadRequestException       Бросает исключение,
@@ -107,16 +106,13 @@ public abstract class MainServiceImpl<T extends Model>
      */
     @Override
     @Transactional(readOnly = true)
-    public T get(final Long id)
-            throws WrongInformationException, BadRequestException {
+    public T get(final Long id) throws WrongInformationException, BadRequestException {
         if (id == null) {
             throw new WrongInformationException("No model id!");
         }
         final T model = this.dao.get(id);
         if (model == null) {
-            throw new BadRequestException(
-                    "Can't find model by id " + id + "!"
-            );
+            throw new BadRequestException("Can't find model by id " + id + "!");
         }
         return this.dao.get(id);
     }
@@ -125,8 +121,7 @@ public abstract class MainServiceImpl<T extends Model>
      * Получение всех моделей из базы данных.
      * Режим только для чтения.
      *
-     * @return Объект типа {@link List} -
-     * список всех моделей.
+     * @return Объект типа {@link List} - список всех моделей.
      */
     @Override
     @Transactional(readOnly = true)
@@ -156,8 +151,7 @@ public abstract class MainServiceImpl<T extends Model>
      */
     @Override
     @Transactional
-    public void remove(final Long id)
-            throws WrongInformationException {
+    public void remove(final Long id) throws WrongInformationException {
         if (id == null) {
             throw new WrongInformationException("No model id!");
         }

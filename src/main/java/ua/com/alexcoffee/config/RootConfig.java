@@ -145,8 +145,7 @@ public class RootConfig {
      */
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
-        final HibernateJpaVendorAdapter adapter =
-                new HibernateJpaVendorAdapter();
+        final HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(false);
         adapter.setGenerateDdl(true);
         adapter.setDatabasePlatform(DATABASE_DIALECT);

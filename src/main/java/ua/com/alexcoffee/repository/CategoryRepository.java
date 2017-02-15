@@ -11,21 +11,17 @@ import ua.com.alexcoffee.model.Category;
  * @see MainRepository
  * @see Category
  */
-public interface CategoryRepository
-        extends MainRepository<Category, Long> {
+public interface CategoryRepository extends MainRepository<Category, Long> {
     /**
-     * Возвращает категорию из базы данных,
-     * у которой совпадает параметр url.
+     * Возвращает категорию из базы данных, у которой совпадает параметр url.
      *
      * @param url URL категории для возврата.
-     * @return Объект класса {@link Category} -
-     * категория с уникальным url полем.
+     * @return Объект класса {@link Category} - категория с уникальным url полем.
      */
     Category findByUrl(String url);
 
     /**
-     * Удаляет категрию из базы даных,
-     * у которой совпадает поле url.
+     * Удаляет категрию из базы даных, у которой совпадает поле url.
      *
      * @param url URL категории для удаления.
      */

@@ -19,16 +19,10 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Класс для перехвата исключений.
- * Он будет перехватывать исключения,
- * которые не указаны в контроллере.
- * Методы класса работают с объектом,
- * возвращенным handleRequest методом,
- * является типом {@link ModelAndView},
- * который агрегирует все параметры модели
- * и имя отображения.
- * Этот тип представляет Model и View
- * в MVC шаблоне.
+ * Класс для перехвата исключений. Он будет перехватывать исключения, которые не указаны
+ * в контроллере. Методы класса работают с объектом, возвращенным handleRequest методом,
+ * является типом {@link ModelAndView}, который агрегирует все параметры модели
+ * и имя отображения. Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -44,10 +38,7 @@ public class AdviceController {
     /**
      * Объект для логирования информации.
      */
-    private static final Logger LOGGER =
-            Logger.getLogger(
-                    AdviceController.class
-            );
+    private static final Logger LOGGER = Logger.getLogger(AdviceController.class);
 
     /**
      * Сообщение исключения NoHandlerFoundException.
@@ -91,24 +82,17 @@ public class AdviceController {
     private final ShoppingCartService shoppingCartService;
 
     /**
-     * Объект сервиса для работы
-     * с пользователями.
+     * Объект сервиса для работы с пользователями.
      */
     private final UserService userService;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных перехватчика
-     * исключений.
-     * Помечен аннотацией @Autowired,
-     * которая позволит Spring
-     * автоматически инициализировать
-     * объекты.
+     * Конструктор для инициализации основных переменных перехватчика исключений.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически
+     * инициализировать объекты.
      *
-     * @param shoppingCartService Объект сервиса для
-     *                            работы с корзиной.
-     * @param userService         Объект сервиса для
-     *                            работы с пользователями.
+     * @param shoppingCartService Объект сервиса для работы с корзиной.
+     * @param userService         Объект сервиса для работы с пользователями.
      */
     @Autowired
     public AdviceController(
@@ -120,11 +104,9 @@ public class AdviceController {
     }
 
     /**
-     * Перехват NoHandlerFoundException
-     * исключения (http статус 404).
+     * Перехват NoHandlerFoundException исключения (http статус 404).
      *
-     * @param exception Объект исключения
-     *                  NoHandlerFoundException.
+     * @param exception Объект исключения NoHandlerFoundException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -134,16 +116,11 @@ public class AdviceController {
             final NoHandlerFoundException exception,
             final HttpServletRequest request
     ) {
-        return handleException(
-                exception,
-                request,
-                NO_HANDLER_FOUND_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, NO_HANDLER_FOUND_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват BadRequestException
-     * исключения (http статус 400).
+     * Перехват BadRequestException исключения (http статус 400).
      *
      * @param exception Объект исключения BadRequestException.
      * @param request   Объект интерфейса HttpServletRequest.
@@ -155,19 +132,13 @@ public class AdviceController {
             final BadRequestException exception,
             final HttpServletRequest request
     ) {
-        return handleException(
-                exception,
-                request,
-                BAD_REQUEST_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, BAD_REQUEST_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват WrongInformationException
-     * исключения (http статус 400).
+     * Перехват WrongInformationException исключения (http статус 400).
      *
-     * @param exception Объект исключения
-     * WrongInformationException.
+     * @param exception Объект исключения WrongInformationException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -177,19 +148,13 @@ public class AdviceController {
             final WrongInformationException exception,
             final HttpServletRequest request
     ) {
-        return handleException(
-                exception,
-                request,
-                WRONG_INFORMATION_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, WRONG_INFORMATION_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват ForbiddenException
-     * исключения (http статус 403).
+     * Перехват ForbiddenException исключения (http статус 403).
      *
-     * @param exception Объект исключения
-     *                  ForbiddenException.
+     * @param exception Объект исключения ForbiddenException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -199,19 +164,13 @@ public class AdviceController {
             final ForbiddenException exception,
             final HttpServletRequest request
     ) {
-        return handleException(
-                exception,
-                request,
-                FORBIDDEN_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, FORBIDDEN_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват DuplicateException
-     * исключения (http статус 409).
+     * Перехват DuplicateException исключения (http статус 409).
      *
-     * @param exception Объект исключения
-     *                  DuplicateException.
+     * @param exception Объект исключения DuplicateException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -221,16 +180,11 @@ public class AdviceController {
             final DuplicateException exception,
             final HttpServletRequest request
     ) {
-        return handleException(
-                exception,
-                request,
-                DUPLICATE_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, DUPLICATE_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват всех остальных
-     * исключения (http статус 500).
+     * Перехват всех остальных исключения (http статус 500).
      *
      * @param exception Объект исключения Exception.
      * @param request   Объект интерфейса HttpServletRequest.
@@ -241,24 +195,16 @@ public class AdviceController {
     public ModelAndView otherException(
             final Exception exception,
             final HttpServletRequest request) {
-        return handleException(
-                exception,
-                request,
-                OTHER_EXCEPTION_MESSAGE
-        );
+        return handleException(exception, request, OTHER_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Обработака всех входящих исключений:
-     * логирование, печать стека,
+     * Обработака всех входящих исключений: логирование, печать стека,
      * возврат модели с информациею.
      *
-     * @param ex        Объект исключения
-     *                  наследника Exception.
-     * @param request   Объект интерфейса
-     *                  HttpServletRequest.
-     * @param textError Текст исключения, который
-     *                  нужно вывести на страницу.
+     * @param ex        Объект исключения наследника Exception.
+     * @param request   Объект интерфейса HttpServletRequest.
+     * @param textError Текст исключения, который нужно вывести на страницу.
      * @return Объект класса {@link ModelAndView}.
      */
     private ModelAndView handleException(
@@ -269,10 +215,7 @@ public class AdviceController {
         logError(ex, request);
         final ModelAndView modelAndView = new ModelAndView();
         try {
-            modelAndView.addObject(
-                    "cart_size",
-                    this.shoppingCartService.getSize()
-            );
+            modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
             addAuthenticatedUser(request, modelAndView);
         } catch (Exception exp) {
             exp.printStackTrace();
@@ -280,10 +223,7 @@ public class AdviceController {
         modelAndView.addObject("text_error", textError);
         modelAndView.addObject(
                 "message_error",
-                ex.getClass()
-                        .getSimpleName()
-                        + " : "
-                        + ex.getMessage()
+                ex.getClass().getSimpleName() + " : " + ex.getMessage()
         );
         modelAndView.setViewName("client/error");
         return modelAndView;
@@ -292,33 +232,22 @@ public class AdviceController {
     /**
      * огирует информацию об ошибке.
      *
-     * @param ex      Объект исключения
-     *                наследника Exception.
-     * @param request Объект интерфейса
-     *                HttpServletRequest.
+     * @param ex      Объект исключения наследника Exception.
+     * @param request Объект интерфейса HttpServletRequest.
      */
     private void logError(
             final Exception ex,
             final HttpServletRequest request
     ) {
-        LOGGER.error(
-                request.getRemoteAddr()
-                        + " : "
-                        + request.getRequestURL()
-        );
-        LOGGER.error(
-                ex.getMessage(),
-                ex
-        );
+        LOGGER.error(request.getRemoteAddr() + " : " + request.getRequestURL());
+        LOGGER.error(ex.getMessage(), ex);
         ex.printStackTrace();
     }
 
     /**
-     * Добавляет авторизированого
-     * пользователя.
+     * Добавляет авторизированого пользователя.
      *
-     * @param request      Объект интерфейса
-     *                     HttpServletRequest.
+     * @param request      Объект интерфейса HttpServletRequest.
      * @param modelAndView Объект класса {@link ModelAndView}.
      */
     private void addAuthenticatedUser(
@@ -326,15 +255,9 @@ public class AdviceController {
             final ModelAndView modelAndView
     ) {
         final String servletPath = request.getServletPath();
-        if ((
-                servletPath.contains("admin")
-        ) || (
-                servletPath.contains("manager")
-        )) {
-            modelAndView.addObject(
-                    "auth_user",
-                    this.userService.getAuthenticatedUser()
-            );
+        if ((servletPath.contains("admin")) ||
+                (servletPath.contains("manager"))) {
+            modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         }
     }
 }

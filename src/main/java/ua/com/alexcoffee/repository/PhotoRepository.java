@@ -11,26 +11,21 @@ import ua.com.alexcoffee.model.Photo;
  * @see MainRepository
  * @see Photo
  */
-public interface PhotoRepository
-        extends MainRepository<Photo, Long> {
+public interface PhotoRepository extends MainRepository<Photo, Long> {
     /**
-     * Возвращает объект-изображение из базы даных,
-     * у которого совпадает уникальное
+     * Возвращает объект-изображение из базы даных, у которого совпадает уникальное
      * название с значением входящего параметра.
      *
      * @param title Название объекта-изображения для возврата.
-     * @return Объект класса {@link Photo} -
-     * объект-изображение.
+     * @return Объект класса {@link Photo} - объект-изображение.
      */
     Photo findByTitle(String title);
 
     /**
-     * Удаляет объект-изображение из базы даных,
-     * у которого совпадает уникальное
+     * Удаляет объект-изображение из базы даных, у которого совпадает уникальное
      * название с значением входящего параметра.
      *
-     * @param title Название объекта-изображения
-     *              для удаление.
+     * @param title Название объекта-изображения для удаление.
      */
     void deleteByTitle(String title);
 }

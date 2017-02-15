@@ -50,16 +50,14 @@ public interface MainService<T extends Model> {
      * Получение модели по уникальному коду id.
      *
      * @param id Уникальный код модели.
-     * @return Объект класса {@link Model} -
-     * модель с кодом id.
+     * @return Объект класса {@link Model} - модель с кодом id.
      */
     T get(Long id);
 
     /**
      * Получение всех моделей.
      *
-     * @return Объект типа {@link List} -
-     * список всех моделей.
+     * @return Объект типа {@link List} - список всех моделей.
      */
     List<T> getAll();
 

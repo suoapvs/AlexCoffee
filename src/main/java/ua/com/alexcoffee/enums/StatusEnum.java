@@ -1,8 +1,7 @@
 package ua.com.alexcoffee.enums;
 
 /**
- * Перечесление вожможных статусов
- * выполнения заказа.
+ * Перечесление вожможных статусов выполнения заказа.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2

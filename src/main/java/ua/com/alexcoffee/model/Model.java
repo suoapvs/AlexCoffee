@@ -27,34 +27,29 @@ import java.util.*;
 @MappedSuperclass
 public abstract class Model implements Serializable {
     /**
-     * Номер версии класса необходимый
-     * для десериализации и сериализации.
+     * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Набор вожможных для использованния
-     * символов по-умолчанию.
+     * Набор вожможных для использованния символов по-умолчанию.
      */
     private static final char[] CODE_PATTERN =
             "ALEXCOFFEE1234567890".toCharArray();
 
     /**
-     * Длина возвращаемой строки
-     * по-умолчанию 6.
+     * Длина возвращаемой строки по-умолчанию 6.
      */
     private static final int CODE_LENGTH = 6;
 
     /**
-     * Строка-формат для даты
-     * по-умолчанию "EEE, d MMM yyyy, HH:mm:ss".
+     * Строка-формат для даты по-умолчанию "EEE, d MMM yyyy, HH:mm:ss".
      */
     private static final String DATE_PATTERN =
             "EEE, d MMM yyyy, HH:mm:ss";
 
     /**
-     * Название (код) часового пояса
-     * по-умолчанию "GMT+3".
+     * Название (код) часового пояса по-умолчанию "GMT+3".
      */
     private static final String TIME_ZONE = "GMT+3";
 
@@ -68,14 +63,11 @@ public abstract class Model implements Serializable {
     private Long id;
 
     /**
-     * Сравнивает текущий объект с объектом
-     * переданым как параметр.
-     * Переопределенный метод
-     * родительского класса {@link Object}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
      * @param obj объект для сравнения с текущим объектом.
-     * @return Значение типа boolean -
-     * результат сравнения текущего объекта
+     * @return Значение типа boolean - результат сравнения текущего объекта
      * с переданным объектом.
      */
     @Override
@@ -95,11 +87,9 @@ public abstract class Model implements Serializable {
 
     /**
      * Возвращает хеш код объекта.
-     * Переопределенный метод родительского
-     * класса {@link Object}.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа int -
-     * уникальный номер объекта.
+     * @return Значение типа int - уникальный номер объекта.
      */
     @Override
     public int hashCode() {
@@ -107,11 +97,9 @@ public abstract class Model implements Serializable {
     }
 
     /**
-     * Генерирует строку для конечного
-     * сравнения объектов в методе equals().
-     * Что бы в дочернем классе не переопределять
-     * весь метод equals(), можно переопределить
-     * тьлько этот метод.
+     * Генерирует строку для конечного сравнения объектов в методе equals().
+     * Что бы в дочернем классе не переопределять весь метод equals(),
+     * можно переопределить тьлько этот метод.
      *
      * @return Значение типа {@link String} -
      * результат работы метода toString().
@@ -121,29 +109,21 @@ public abstract class Model implements Serializable {
     }
 
     /**
-     * Возвращает рандомную строку из набор
-     * символов и длинны по-умолчанию.
+     * Возвращает рандомную строку из набор символов и длинны по-умолчанию.
      *
-     * @return Значение типа {@link String} -
-     * рандомная строка из набора
+     * @return Значение типа {@link String} - рандомная строка из набора
      * символов CODE_PATTERN длиной {@value CODE_LENGTH}.
      */
     static String createRandomString() {
-        return createRandomString(
-                CODE_PATTERN,
-                CODE_LENGTH
-        );
+        return createRandomString(CODE_PATTERN, CODE_LENGTH);
     }
 
     /**
-     * Возвращает рандомную строку используя
-     * набор символов pattern длиной length.
+     * Возвращает рандомную строку используя набор символов pattern длиной length.
      *
-     * @param pattern Набор вожможных для
-     *                использованния символов.
+     * @param pattern Набор вожможных для использованния символов.
      * @param length  Длина возвращаемой строки.
-     * @return Значение типа {@link String} -
-     * рандомная строка из набора символов
+     * @return Значение типа {@link String} - рандомная строка из набора символов
      * pattern длиной length.
      */
     static String createRandomString(
@@ -153,25 +133,17 @@ public abstract class Model implements Serializable {
         final StringBuilder sb = new StringBuilder();
         final Random random = new Random();
         for (int i = 0; i < length; i++) {
-            sb.append(
-                    pattern[random.nextInt(
-                            pattern.length
-                    )]
-            );
+            sb.append(pattern[random.nextInt(pattern.length)]);
         }
         return sb.toString();
     }
 
     /**
-     * Конвертирует дату типа Date в строку
-     * используя для работы входящими параметрами
-     * формат даты {@value DATE_PATTERN}
-     * и часовой пояс (@value TIME_ZONE} по-умолчанию.
+     * Конвертирует дату типа Date в строку используя для работы входящими параметрами
+     * формат даты {@value DATE_PATTERN} и часовой пояс (@value TIME_ZONE} по-умолчанию.
      *
-     * @param date Значение даты типа Date
-     *             для обработки.
-     * @return Значение типа {@link String} -
-     * дата в виде строки.
+     * @param date Значение даты типа Date для обработки.
+     * @return Значение типа {@link String} - дата в виде строки.
      */
     static String dateToString(final Date date) {
         return dateToStringWithFormat(date,
@@ -181,17 +153,13 @@ public abstract class Model implements Serializable {
     }
 
     /**
-     * Конвертирует дату типа Date в строку
-     * используя для работы входящими параметрами
-     * формат даты и часовой пояс.
+     * Конвертирует дату типа Date в строку используя для работы входящими
+     * параметрами формат даты и часовой пояс.
      *
      * @param date       Значение даты типа Date для обработки.
-     * @param dateFormat Формат даты для обработки
-     *                   входного параметра date.
-     * @param timeZone   Часовой пояс для обработки
-     *                   входного параметра date.
-     * @return Значение типа {@link String} -
-     * дата в виде строки.
+     * @param dateFormat Формат даты для обработки входного параметра date.
+     * @param timeZone   Часовой пояс для обработки входного параметра date.
+     * @return Значение типа {@link String} - дата в виде строки.
      */
     private static String dateToStringWithFormat(
             final Date date,
@@ -203,23 +171,20 @@ public abstract class Model implements Serializable {
     }
 
     /**
-     * Возвращает номер версии класса
-     * необходимый для десериализации
+     * Возвращает номер версии класса необходимый для десериализации
      * и сериализации.
      *
-     * @return Значение типа {@link Long} -
-     * значение поля serialVersionUID.
+     * @return Значение типа {@link Long} - значение поля serialVersionUID.
      */
     public Long getId() {
         return this.id;
     }
 
     /**
-     * Устанавливает номер версии класса
-     * необходимый для десериализации и сериализации.
+     * Устанавливает номер версии класса необходимый
+     * для десериализации и сериализации.
      *
-     * @param id Значение параметра будет
-     *           записано в поле id объекта.
+     * @param id Значение параметра будет записано в поле id объекта.
      */
     public void setId(final Long id) {
         this.id = id;
@@ -232,17 +197,13 @@ public abstract class Model implements Serializable {
      *
      * @param list Входной объект коллекции для обработки.
      * @param <T>  Возможный тип объектов в списке.
-     * @return Значение типа {@link List} -
-     * список только для чтения или пустой список.
+     * @return Значение типа {@link List} - список только для чтения или пустой список.
      */
     public static <T extends Model> List<T> getUnmodifiableList(
             final List<T> list
     ) {
-        return (
-                list != null
-        ) && (
-                !list.isEmpty()
-        ) ? Collections.unmodifiableList(list)
-                : Collections.EMPTY_LIST;
+        return ((list != null) && !list.isEmpty()) ?
+                Collections.unmodifiableList(list) :
+                Collections.EMPTY_LIST;
     }
 }

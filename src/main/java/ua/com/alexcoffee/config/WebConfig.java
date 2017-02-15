@@ -13,18 +13,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 /**
- * Класс конфигурации Spring компонентов
- * представления , настройка MVC.
- * Указывает Spring где находятся компоненты
- * представления, и как их отображать.
- * Помечен аннотацией @Configuration -
- * класс является источником определения
- * бинов; аннотацией @EnableWebMvc -
- * разрешает проекту использовать MVC;
- * аннотацией @ComponentScan - указываем
- * фреймворку Spring, что компоненты надо
- * искать внутри пакетах "ua.com.alexcoffee.controller"
- * и "ua.com.alexcoffee.config".
+ * Класс конфигурации Spring компонентов представления , настройка MVC.
+ * Указывает Spring где находятся компоненты представления, и как их отображать.
+ * Помечен аннотацией @Configuration - класс является источником определения бинов;
+ * аннотацией @EnableWebMvc - разрешает проекту использовать MVC;
+ * аннотацией @ComponentScan - указываем реймворку Spring, что компоненты надо
+ * искать внутри пакетах "ua.com.alexcoffee.controller" и "ua.com.alexcoffee.config".
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -72,19 +66,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private static final String LOGIN_VIEW_NAME = "client/login";
 
     /**
-     * Указывает Spring'у где находятся
-     * компоненты
-     * представления, и как их отображать.
-     * Вьюшкибудут лежать в директории
-     * /WEB-INF/views/ и иметь разширение *.jsp.
+     * Указывает Spring'у где находятся компоненты представления, и как их отображать.
+     * Вьюшкибудут лежать в директории /WEB-INF/views/ и иметь разширение *.jsp.
      *
-     * @return Реализация интерфейса ViewResolver
-     * с настройками для вьюшек.
+     * @return Реализация интерфейса ViewResolver с настройками для вьюшек.
      */
     @Bean
     public ViewResolver viewResolver() {
-        final InternalResourceViewResolver viewResolver =
-                new InternalResourceViewResolver();
+        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setContentType(CONTENT_TYPE);
         viewResolver.setPrefix(PREFIX);
         viewResolver.setSuffix(SUFFIX);
@@ -96,8 +85,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     /**
      * Указывает где будут хранится ресурсы.
      *
-     * @param resource Объект класса ResourceHandlerRegistry
-     *                 с настройками для ресурсов.
+     * @param resource Объект класса ResourceHandlerRegistry с настройками для ресурсов.
      */
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry resource) {
@@ -107,10 +95,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     /**
      * Настройка логин-контроллера.
-     * Оказывает помощь в регистрации
-     * простого автоматизированного
-     * логин-контроллера предварительно
-     * сконфигурированных с кодом
+     * Оказывает помощь в регистрации простого автоматизированного
+     * логин-контроллера предварительно сконфигурированных с кодом
      * состояния и вьюшкой.
      *
      * @param viewController Объект класса ViewControllerRegistry.

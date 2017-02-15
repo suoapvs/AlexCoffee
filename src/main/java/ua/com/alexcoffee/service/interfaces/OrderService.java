@@ -13,16 +13,13 @@ import ua.com.alexcoffee.model.Order;
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.OrderServiceImpl
  */
-public interface OrderService
-        extends MainService<Order> {
+public interface OrderService extends MainService<Order> {
     /**
-     * Возвращает заказ, у которого совпадает
-     * уникальный номером с значением входящего
-     * параметра.
+     * Возвращает заказ, у которого совпадает уникальный номером
+     * с значением входящего  параметра.
      *
      * @param number Номер заказа для возврата.
-     * @return Объект класса {@link Order} -
-     * заказ с уникальным номером.
+     * @return Объект класса {@link Order} - заказ с уникальным номером.
      */
     Order get(String number);
 

@@ -10,10 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * Диспетчер Сервлета, который отвечает
- * за инициализацию Spring MVC и меппинг URL.
- * Класс расширяет класс
- * AbstractAnnotationConfigDispatcherServletInitializer.
+ * Диспетчер Сервлета, который отвечает за инициализацию Spring MVC и меппинг URL.
+ * Класс расширяет класс AbstractAnnotationConfigDispatcherServletInitializer.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -25,11 +23,9 @@ import javax.servlet.ServletException;
 public class AppInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
     /**
-     * Возвращает конфигурацию, в которой
-     * инициализируем ViewResolver.
+     * Возвращает конфигурацию, в которой инициализируем ViewResolver.
      *
-     * @return Массив объектов класса Class
-     * - класс с настройками {@link WebConfig}.
+     * @return Массив объектов класса Class - класс с настройками {@link WebConfig}.
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {
@@ -37,12 +33,10 @@ public class AppInitializer
     }
 
     /**
-     * Возвращает конфигурации,
-     * которые инициализируют Beans.
+     * Возвращает конфигурации, которые инициализируют Beans.
      *
-     * @return Массив объектов класса Class
-     * - класс с настройками {@link RootConfig}
-     * и {@link SecurityConfig}.
+     * @return Массив объектов класса Class - класс с настройками
+     * {@link RootConfig} и {@link SecurityConfig}.
      */
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -53,9 +47,8 @@ public class AppInitializer
     }
 
     /**
-     * Настроили мэпинг сервлета на "/"
-     * и поэтому все запросы будут перехвачены
-     * Диспетчером Сервлета Spring.
+     * Настроили мэпинг сервлета на "/" и поэтому все запросы будут
+     * перехвачены Диспетчером Сервлета Spring.
      *
      * @return Массив типа String.
      */
@@ -75,10 +68,7 @@ public class AppInitializer
     public void onStartup(final ServletContext servletContext) throws ServletException {
         super.onStartup(servletContext);
         final FilterRegistration.Dynamic encodingFilter = servletContext
-                .addFilter(
-                        "encodingFilter",
-                        new CharacterEncodingFilter()
-                );
+                .addFilter("encodingFilter", new CharacterEncodingFilter());
         encodingFilter.setInitParameter("encoding", "UTF-8");
         encodingFilter.setInitParameter("forceEncoding", "true");
         encodingFilter.addMappingForUrlPatterns(null, true, "/*");

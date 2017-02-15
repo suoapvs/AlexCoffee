@@ -14,27 +14,21 @@ import org.springframework.web.multipart.MultipartFile;
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.PhotoServiceImpl
  */
-public interface PhotoService
-        extends MainService<Photo> {
+public interface PhotoService extends MainService<Photo> {
     /**
-     * Возвращает объект-изображение,
-     * у которого совпадает уникальное
+     * Возвращает объект-изображение, у которого совпадает уникальное
      * название с значением входящего параметра.
      *
-     * @param title Название объекта-изображения
-     *              для возврата.
-     * @return Объект класса {@link Photo} -
-     * объекта-изображение.
+     * @param title Название объекта-изображения для возврата.
+     * @return Объект класса {@link Photo} - объекта-изображение.
      */
     Photo get(String title);
 
     /**
-     * Удаляет объект-изображение,
-     * у которого совпадает уникальное
+     * Удаляет объект-изображение, у которого совпадает уникальное
      * название с значением входящего параметра.
      *
-     * @param title Название объекта-изображения
-     *              для удаления.
+     * @param title Название объекта-изображения для удаления.
      */
     void remove(String title);
 

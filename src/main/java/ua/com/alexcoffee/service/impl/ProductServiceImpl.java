@@ -88,16 +88,13 @@ public final class ProductServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public Product getByUrl(final String url)
-            throws WrongInformationException, BadRequestException {
+    public Product getByUrl(final String url) throws WrongInformationException, BadRequestException {
         if (isBlank(url)) {
             throw new WrongInformationException("No product URL!");
         }
         final Product product = this.productDAO.getByUrl(url);
         if (product == null) {
-            throw new BadRequestException(
-                    "Can't find product by url " + url + "!"
-            );
+            throw new BadRequestException("Can't find product by url " + url + "!");
         }
         return product;
     }
@@ -117,9 +114,7 @@ public final class ProductServiceImpl
             throws BadRequestException {
         final Product product = this.productDAO.getByArticle(article);
         if (product == null) {
-            throw new BadRequestException(
-                    "Can't find product by article " + article + "!"
-            );
+            throw new BadRequestException("Can't find product by article " + article + "!");
         }
         return product;
     }
@@ -145,13 +140,9 @@ public final class ProductServiceImpl
         }
         final Category category = this.categoryDAO.get(url);
         if (category == null) {
-            throw new BadRequestException(
-                    "Can't find category by url " + url + "!"
-            );
+            throw new BadRequestException("Can't find category by url " + url + "!");
         }
-        return this.productDAO.getListByCategoryId(
-                category.getId()
-        );
+        return this.productDAO.getListByCategoryId(category.getId());
     }
 
     /**
@@ -166,8 +157,7 @@ public final class ProductServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getByCategoryId(final Long id)
-            throws WrongInformationException {
+    public List<Product> getByCategoryId(final Long id) throws WrongInformationException {
         if (id == null) {
             throw new WrongInformationException("No category id!");
         }
@@ -175,14 +165,12 @@ public final class ProductServiceImpl
     }
 
     /**
-     * Возвращает список рандомных товаров,
-     * которые относятся к категории
+     * Возвращает список рандомных товаров, которые относятся к категории
      * с уникальным кодом id - входным параметром.
      *
      * @param size Количество товаров в списке.
      * @param id   Код категории, товары которой будут возвращены.
-     * @return Объект типа {@link List} -
-     * список товаров.
+     * @return Объект типа {@link List} - список товаров.
      */
     @Override
     @Transactional(readOnly = true)
@@ -228,8 +216,7 @@ public final class ProductServiceImpl
      * Режим только для чтения.
      *
      * @param size Количество товаров в списке.
-     * @return Объект типа {@link List} -
-     * список товаров.
+     * @return Объект типа {@link List} - список товаров.
      */
     @Override
     @Transactional(readOnly = true)
@@ -250,8 +237,7 @@ public final class ProductServiceImpl
      */
     @Override
     @Transactional
-    public void removeByUrl(final String url)
-            throws WrongInformationException {
+    public void removeByUrl(final String url) throws WrongInformationException {
         if (isBlank(url)) {
             throw new WrongInformationException("No product URL!");
         }
@@ -288,9 +274,7 @@ public final class ProductServiceImpl
         }
         final Category category = this.categoryDAO.get(url);
         if (category == null) {
-            throw new BadRequestException(
-                    "Can't find category by url " + url + "!"
-            );
+            throw new BadRequestException("Can't find category by url " + url + "!");
         }
         this.productDAO.removeByCategoryId(category.getId());
     }
@@ -313,9 +297,7 @@ public final class ProductServiceImpl
             throw new WrongInformationException("No model id!");
         }
         if (this.categoryDAO.get(id) == null) {
-            throw new BadRequestException(
-                    "Can't find category by id " + id + "!"
-            );
+            throw new BadRequestException("Can't find category by id " + id + "!");
         }
         this.productDAO.removeByCategoryId(id);
     }
@@ -327,27 +309,17 @@ public final class ProductServiceImpl
      * @param products Список товаров для обработки.
      * @param start    Начальная позиция выборки товаров из списка.
      * @param end      Конечная позиция выборки товаров из списка.
-     * @return Объект типа {@link List} -
-     * список перемешаных товаров или пустой лист.
+     * @return Объект типа {@link List} -список перемешаных товаров
+     * или пустой лист.
      */
     private static List<Product> getShuffleSubList(
             final List<Product> products,
             final int start,
             final int end
     ) {
-        if ((
-                products == null
-        ) || (
-                products.isEmpty()
-        ) || (
-                start > products.size()
-        ) || (
-                start > end
-        ) || (
-                start < 0
-        ) || (
-                end < 0
-        )) {
+        if ((products == null) || (products.isEmpty()) ||
+                (start > products.size()) ||
+                (start > end) || (start < 0) || (end < 0)) {
             return new ArrayList<>();
         }
         Collections.shuffle(products);

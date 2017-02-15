@@ -15,26 +15,15 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 /**
- * Класс-контроллер страниц управления
- * персоналом сайта. К даному контроллеру
- * и соответствующим страницам могут
- * обращатсья пользователи, имеющие
- * роль-админстратор. Аннотация @Controller
- * служит для сообщения Spring'у о том,
- * что данный класс является bean'ом и
- * его необходимо подгрузить при старте
- * приложения.
- * Аннотацией @RequestMapping(value = "/admin/user")
- * сообщаем, что данный контроллер будет
- * обрабатывать запросы, URI которых начинается
- * с "/admin/user".
- * Методы класса работают с объектом,
- * возвращенным handleRequest методом,
- * является типом {@link ModelAndView},
- * который агрегирует все параметры модели
- * и имя отображения.
- * Этот тип представляет Model и View
- * в MVC шаблоне.
+ * Класс-контроллер страниц управления персоналом сайта. К даному контроллеру
+ * и соответствующим страницам могут обращатсья пользователи, имеющие роль-админстратор.
+ * Аннотация @Controller служит для сообщения Spring'у о том, что данный класс является bean'ом
+ * и его необходимо подгрузить при старте приложения.
+ * Аннотацией @RequestMapping(value = "/admin/user") сообщаем, что данный контроллер будет
+ * обрабатывать запросы, URI которых начинается с "/admin/user".
+ * Методы класса работают с объектом, возвращенным handleRequest методом,
+ * является типом {@link ModelAndView}, который агрегирует все параметры модели и имя отображения.
+ * Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -46,29 +35,22 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminUsersController {
     /**
-     * Объект сервиса для работы
-     * с пользователями.
+     * Объект сервиса для работы с пользователями.
      */
     private final UserService userService;
 
     /**
-     * Объект сервиса для работы
-     * с ролями пользователей.
+     * Объект сервиса для работы с ролями пользователей.
      */
     private final RoleService roleService;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных контроллера
-     * пользователями.
-     * Помечен аннотацией @Autowired,
-     * которая позволит Spring автоматически
+     * Конструктор для инициализации основных переменных контроллера пользователями.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объекты.
      *
-     * @param userService Объект сервиса для работы
-     *                    с пользователями.
-     * @param roleService Объект сервиса для работы
-     *                    с ролями пользователей.
+     * @param userService Объект сервиса для работы с пользователями.
+     * @param roleService Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
     public AdminUsersController(
@@ -80,10 +62,8 @@ public class AdminUsersController {
     }
 
     /**
-     * Возвращает всех пользователей
-     * на страницу "admin/user/all".
-     * URL запроса {"/admin/user",
-     * "/admin/user/", "/admin/user/all"},
+     * Возвращает всех пользователей на страницу "admin/user/all".
+     * URL запроса {"/admin/user", "/admin/user/", "/admin/user/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -93,33 +73,20 @@ public class AdminUsersController {
             value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllPersonnel(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.addObject(
-                "users", this.userService.getPersonnel());
-        modelAndView.addObject(
-                "admin_role", this.roleService.getAdministrator()
-        );
-        modelAndView.addObject(
-                "manager_role", this.roleService.getManager()
-        );
-        modelAndView.addObject(
-                "auth_user", this.userService.getAuthenticatedUser()
-        );
+    public ModelAndView viewAllPersonnel(final ModelAndView modelAndView) {
+        modelAndView.addObject("users", this.userService.getPersonnel());
+        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
+        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("admin/user/all");
         return modelAndView;
     }
 
     /**
-     * Возвращает пользователя
-     * с уникальным кодом id
-     * на страницу "admin/user/one".
-     * URL запроса "/admin/user/view/{id}",
-     * метод GET.
+     * Возвращает пользователя с уникальным кодом id на страницу "admin/user/one".
+     * URL запроса "/admin/user/view/{id}", метод GET.
      *
-     * @param id           Код категории,
-     *                     которою нужно вернуть.
+     * @param id           Код категории, которою нужно вернуть.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -131,30 +98,17 @@ public class AdminUsersController {
             @PathVariable(value = "id") final long id,
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "user",
-                this.userService.get(id));
-        modelAndView.addObject(
-                "admin_role",
-                this.roleService.getAdministrator()
-        );
-        modelAndView.addObject(
-                "manager_role",
-                this.roleService.getManager()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("user", this.userService.get(id));
+        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
+        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/admin/user/one");
         return modelAndView;
     }
 
     /**
-     * Возвращает страницу "admin/user/add"
-     * для добавления нового пользователе,
-     * члена персонала (администратора
-     * или менеджера).
+     * Возвращает страницу "admin/user/add" для добавления нового пользователе,
+     * члена персонала (администратора или менеджера).
      * URL запроса "/admin/user/add", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -167,39 +121,26 @@ public class AdminUsersController {
     public ModelAndView getAddUserPage(
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "roles",
-                this.roleService.getPersonnel()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("roles", this.roleService.getPersonnel());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/admin/user/add");
         return modelAndView;
     }
 
     /**
-     * Сохраняет нового пользователя
-     * по входящим параметрам и
+     * Сохраняет нового пользователя по входящим параметрам и
      * перенаправляет по запросу "/admin/user/all".
-     * URL запроса "/admin/user/save",
-     * метод POST.
+     * URL запроса "/admin/user/save", метод POST.
      *
      * @param name         Имя нового пользователя.
      * @param roleId       Код роли пользователя.
-     * @param username     Логин пользователя
-     *                     для входа в аккаунт на сайте.
-     * @param password     Пароль пользователя
-     *                     для входа в аккаунт на сайте.
+     * @param username     Логин пользователя для входа в аккаунт на сайте.
+     * @param password     Пароль пользователя для входа в аккаунт на сайте.
      * @param email        Электронная почта пользователя.
      * @param phone        Номер телефона пользователя.
-     * @param vkontakte    Ссылка на страничку в соц.
-     *                     сети "ВКонтакте" пользователя.
-     * @param facebook     Ссылка на страничку в соц.
-     *                     сети "Facebook" пользователя.
-     * @param skype        Логин пользователя
-     *                     в месенджере "Skype".
+     * @param vkontakte    Ссылка на страничку в соц. сети "ВКонтакте" пользователя.
+     * @param facebook     Ссылка на страничку в соц. сети "Facebook" пользователя.
+     * @param skype        Логин пользователя в месенджере "Skype".
      * @param description  Описание пользователя.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -224,16 +165,10 @@ public class AdminUsersController {
         final User user = new User();
         final Role role = this.roleService.get(roleId);
         user.initialize(
-                name,
-                username,
-                password,
-                email,
-                phone,
-                vkontakte,
-                facebook,
-                skype,
-                description,
-                role
+                name, username, password,
+                email, phone,
+                vkontakte, facebook, skype,
+                description, role
         );
         this.userService.add(user);
         modelAndView.setViewName("redirect:/admin/user/all");
@@ -241,36 +176,28 @@ public class AdminUsersController {
     }
 
     /**
-     * Возвращает исключение
-     * WrongInformationException, если
-     * обратится по запросу "/admin/user/save"
-     * методом GET.
+     * Возвращает исключение WrongInformationException, если
+     * обратится по запросу "/admin/user/save" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если обратится к
+     * @throws WrongInformationException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.GET
     )
-    public void saveUser()
-            throws WrongInformationException {
+    public void saveUser() throws WrongInformationException {
         throw new WrongInformationException(
                 "GET method in \"/admin/user/save\" is not supported!"
         );
     }
 
     /**
-     * Возвращает страницу "admin/user/edit"
-     * для редактирование пользователя
-     * с уникальным кодом, который совпадает
-     * с параметром id.
-     * URL запроса "/admin/user/edit/{id}",
-     * метод GET.
+     * Возвращает страницу "admin/user/edit" для редактирование пользователя
+     * с уникальным кодом, который совпадает с параметром id.
+     * URL запроса "/admin/user/edit/{id}", метод GET.
      *
-     * @param id           Код пользователя,
-     *                     информацию о котором
+     * @param id           Код пользователя, информацию о котором
      *                     нужно отредактировать.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -283,45 +210,28 @@ public class AdminUsersController {
             @PathVariable(value = "id") final long id,
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "user",
-                this.userService.get(id)
-        );
-        modelAndView.addObject(
-                "roles",
-                this.roleService.getPersonnel()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("user", this.userService.get(id));
+        modelAndView.addObject("roles", this.roleService.getPersonnel());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/admin/user/edit");
         return modelAndView;
     }
 
     /**
-     * Обновляет пользователя по входящим
-     * параметрам и перенаправляет
+     * Обновляет пользователя по входящим параметрам и перенаправляет
      * по запросу "/admin/user/view/{id}".
-     * URL запроса "/admin/user/update",
-     * метод POST.
+     * URL запроса "/admin/user/update", метод POST.
      *
-     * @param id           Код пользователя
-     *                     для обновления.
+     * @param id           Код пользователя для обновления.
      * @param name         Имя пользователя.
      * @param roleId       Код роли пользователя.
-     * @param username     Логин пользователя
-     *                     для входа в аккаунт на сайте.
-     * @param password     Пароль пользователя
-     *                     для входа в аккаунт на сайте.
+     * @param username     Логин пользователя для входа в аккаунт на сайте.
+     * @param password     Пароль пользователя для входа в аккаунт на сайте.
      * @param email        Электронная почта пользователя.
      * @param phone        Номер телефона пользователя.
-     * @param vkontakte    Ссылка на страничку в соц.
-     *                     сети "ВКонтакте" пользователя.
-     * @param facebook     Ссылка на страничку в соц.
-     *                     сети "Facebook" пользователя.
-     * @param skype        Логин пользователя
-     *                     в месенджере "Skype".
+     * @param vkontakte    Ссылка на страничку в соц. сети "ВКонтакте" пользователя.
+     * @param facebook     Ссылка на страничку в соц. сети "Facebook" пользователя.
+     * @param skype        Логин пользователя в месенджере "Skype".
      * @param description  Описание пользователя.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -347,16 +257,10 @@ public class AdminUsersController {
         final User user = this.userService.get(id);
         final Role role = this.roleService.get(roleId);
         user.initialize(
-                name,
-                username,
-                password,
-                email,
-                phone,
-                vkontakte,
-                facebook,
-                skype,
-                description,
-                role
+                name, username, password,
+                email, phone,
+                vkontakte, facebook, skype,
+                description, role
         );
         this.userService.update(user);
         modelAndView.setViewName("redirect:/admin/user/view" + id);
@@ -364,12 +268,10 @@ public class AdminUsersController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/admin/user/update"
-     * методом GET.
+     * Возвращает исключение WrongInformationException, если обратится
+     * по запросу "/admin/user/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если обратится к
+     * @throws WrongInformationException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
@@ -383,16 +285,11 @@ public class AdminUsersController {
     }
 
     /**
-     * Удаляет пользователя с уникальным
-     * кодом, который совпадает с
-     * входящим параметром id, и
-     * перенаправляет по запросу
-     * "/admin/user/all".
-     * URL запроса "/admin/user/delete/{id}",
-     * метод GET.
+     * Удаляет пользователя с уникальным кодом, который совпадает с входящим параметром id,
+     * и перенаправляет по запросу "/admin/user/all".
+     * URL запроса "/admin/user/delete/{id}", метод GET.
      *
-     * @param id           Код пользвателя,
-     *                     которого нужно удалить.
+     * @param id           Код пользвателя, которого нужно удалить.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -412,10 +309,8 @@ public class AdminUsersController {
     }
 
     /**
-     * Удаляет всех пользователей и
-     * перенаправляет по запросу "/admin/user/all".
-     * URL запроса "/admin/user/delete_all",
-     * метод GET.
+     * Удаляет всех пользователей и перенаправляет по запросу "/admin/user/all".
+     * URL запроса "/admin/user/delete_all", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.

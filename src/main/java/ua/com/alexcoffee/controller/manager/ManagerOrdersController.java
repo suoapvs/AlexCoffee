@@ -20,22 +20,15 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 import java.util.Date;
 
 /**
- * Класс-контроллер страниц, предназначеных
- * для управления заказами менеджерами.
- * К даному контроллеру и соответствующим
- * страницам могут обращатсья пользователи,
+ * Класс-контроллер страниц, предназначеных для управления заказами менеджерами.
+ * К даному контроллеру и соответствующим страницам могут обращатсья пользователи,
  * имеющие роль-админстратор и -менеджер.
- * Аннотация @Controller служит для сообщения
- * Spring'у о том, что данный класс является
- * bean'ом и его необходимо подгрузить при
- * старте приложения.
- * Аннотацией @RequestMapping(value = "/manager")
- * сообщаем, что данный контроллер будет
- * обрабатывать запрос, URI которого "/manager".
- * Методы класса работают с объектом,
- * возвращенным handleRequest методом, является
- * типом {@link ModelAndView}, который агрегирует
- * все параметры модели и имя отображения.
+ * Аннотация @Controller служит для сообщения Spring'у о том, что данный класс является
+ * bean'ом и его необходимо подгрузить при старте приложения.
+ * Аннотацией @RequestMapping(value = "/manager") сообщаем, что данный контроллер будет
+ * обрабатывать запрос, URI которого "/manager". Методы класса работают с объектом,
+ * возвращенным handleRequest методом, является типом {@link ModelAndView},
+ * который агрегирует все параметры модели и имя отображения.
  * Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
@@ -50,47 +43,34 @@ import java.util.Date;
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class ManagerOrdersController {
     /**
-     * Объект сервиса для работы
-     * с пользователями.
+     * Объект сервиса для работы с пользователями.
      */
     private final UserService userService;
 
     /**
-     * Объект сервиса для работы
-     * с заказами клиентов.
+     * Объект сервиса для работы с заказами клиентов.
      */
     private final OrderService orderService;
 
     /**
-     * Объект сервиса для работы
-     * с статусами виполнения заказов.
+     * Объект сервиса для работы с статусами виполнения заказов.
      */
     private final StatusService statusService;
 
     /**
-     * Объект сервиса для работы
-     * с ролями пользователей.
+     * Объект сервиса для работы с ролями пользователей.
      */
     private final RoleService roleService;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных контроллера
-     * страниц для менеджеров.
-     * Помечен аннотацией @Autowired,
-     * которая позволит Spring
-     * автоматически инициализировать
+     * Конструктор для инициализации основных переменных контроллера страниц для менеджеров.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически инициализировать
      * объекты.
      *
-     * @param userService   Объект сервиса для работы
-     *                      с пользователями.
-     * @param orderService  Объект сервиса для работы
-     *                      с заказами клиентов.
-     * @param statusService Объект сервиса для работы
-     *                      с статусами виполнения
-     *                      заказов.
-     * @param roleService   Объект сервиса для работы
-     *                      с ролями пользователей.
+     * @param userService   Объект сервиса для работы с пользователями.
+     * @param orderService  Объект сервиса для работы с заказами клиентов.
+     * @param statusService Объект сервиса для работы с статусами виполнения заказов.
+     * @param roleService   Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
     public ManagerOrdersController(
@@ -107,11 +87,8 @@ public class ManagerOrdersController {
     }
 
     /**
-     * Возвращает все заказы,
-     * сделаные клиентами,
-     * на страницу "manager/order/all".
-     * URL запроса {"/managers/order",
-     * "/managers/order/", "/managers/order/all"},
+     * Возвращает все заказы, сделаные клиентами, на страницу "manager/order/all".
+     * URL запроса {"/managers/order", "/managers/order/", "/managers/order/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -124,31 +101,18 @@ public class ManagerOrdersController {
     public ModelAndView viewAllOrders(
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "orders",
-                this.orderService.getAll()
-        );
-        modelAndView.addObject(
-                "status_new",
-                this.statusService.getDefault()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("orders", this.orderService.getAll());
+        modelAndView.addObject("status_new", this.statusService.getDefault());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("manager/order/all");
         return modelAndView;
     }
 
     /**
-     * Возвращает заказ с уникальным
-     * кодом id на страницу
-     * "manager/order/one".
-     * URL запроса "/managers/order/view/{id}",
-     * метод GET.
+     * Возвращает заказ с уникальным кодом id на страницу "manager/order/one".
+     * URL запроса "/managers/order/view/{id}",  метод GET.
      *
-     * @param id           Код заказа, который
-     *                     нужно вернуть.
+     * @param id           Код заказа, который нужно вернуть.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -162,46 +126,23 @@ public class ManagerOrdersController {
     ) {
         final Order order = this.orderService.get(id);
         modelAndView.addObject("order", order);
-        modelAndView.addObject(
-                "sale_positions",
-                order.getSalePositions()
-        );
-        modelAndView.addObject(
-                "order_price",
-                order.getPrice()
-        );
-        modelAndView.addObject(
-                "status_new",
-                this.statusService.getDefault()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
-        modelAndView.addObject(
-                "manager_role",
-                this.roleService.getManager()
-        );
-        modelAndView.addObject(
-                "admin_role",
-                this.roleService.getAdministrator()
-        );
+        modelAndView.addObject("sale_positions", order.getSalePositions());
+        modelAndView.addObject("order_price", order.getPrice());
+        modelAndView.addObject("status_new", this.statusService.getDefault());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
+        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
         modelAndView.setViewName("manager/order/one");
         return modelAndView;
     }
 
     /**
-     * Возвращает страницу "admin/order/edit"
-     * для редактирование заказа с уникальным
-     * кодом,который совпадает с параметром
-     * id, или перенаправляет по запросу
-     * "/managers/orders", если этот заказ
-     * уже обработал другой менеджер.
-     * URL запроса "/admin/order/edit/{id}",
-     * метод GET.
+     * Возвращает страницу "admin/order/edit" для редактирование заказа с уникальным
+     * кодом,который совпадает с параметром id, или перенаправляет по запросу
+     * "/managers/orders", если этот заказ уже обработал другой менеджер.
+     * URL запроса "/admin/order/edit/{id}", метод GET.
      *
-     * @param id           Код заказа, который
-     *                     нужно отредактировать.
+     * @param id           Код заказа, который нужно отредактировать.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -214,32 +155,13 @@ public class ManagerOrdersController {
             final ModelAndView modelAndView
     ) {
         final Order order = this.orderService.get(id);
-        if ((
-                order.getManager() == null
-        ) || (
-                order.getManager()
-                        .equals(
-                                this.userService.getAuthenticatedUser()
-                        )
-        )) {
-            modelAndView.addObject(
-                    "order", order);
-            modelAndView.addObject(
-                    "sale_positions",
-                    order.getSalePositions()
-            );
-            modelAndView.addObject(
-                    "order_price",
-                    order.getPrice()
-            );
-            modelAndView.addObject(
-                    "statuses",
-                    this.statusService.getAll()
-            );
-            modelAndView.addObject(
-                    "auth_user",
-                    this.userService.getAuthenticatedUser()
-            );
+        if ((order.getManager() == null) ||
+                (order.getManager().equals(this.userService.getAuthenticatedUser()))) {
+            modelAndView.addObject("order", order);
+            modelAndView.addObject("sale_positions", order.getSalePositions());
+            modelAndView.addObject("order_price", order.getPrice());
+            modelAndView.addObject("statuses", this.statusService.getAll());
+            modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
             modelAndView.setViewName("manager/order/edit");
         } else {
             modelAndView.setViewName("redirect:/managers/order/all");
@@ -248,22 +170,14 @@ public class ManagerOrdersController {
     }
 
     /**
-     * Обновляет заказ по входящим параметрам
-     * и перенаправляет по запросу
-     * "/admin/order/view/{id}".
-     * URL запроса "/admin/order/update",
-     * метод POST.
+     * Обновляет заказ по входящим параметрам и перенаправляет по запросу "/admin/order/view/{id}".
+     * URL запроса "/admin/order/update", метод POST.
      *
      * @param id           Код заказа для обновления.
-     * @param managerId    Код менеджера
-     *                     или администратора,
-     *                     который обработал
-     *                     заказ в последний раз.
+     * @param managerId    Код менеджера или администратора, который обработал заказ в последний раз.
      * @param number       Номер заказа.
-     * @param statusId     Код статуса выполнения
-     *                     заказа.
-     * @param name         Имя клиента,
-     *                     оформивший заказ.
+     * @param statusId     Код статуса выполнения заказа.
+     * @param name         Имя клиента, оформивший заказ.
      * @param email        Электронная почта клиента.
      * @param phone        Номер телефона клиента.
      * @param address      Адрес доставки заказа.
@@ -290,34 +204,22 @@ public class ManagerOrdersController {
             final ModelAndView modelAndView
     ) {
         final Order order = this.orderService.get(id);
-        if ((
-                order.getManager() == null
-        ) || (
-                order.getManager() == this.userService
-                        .getAuthenticatedUser()
-        )) {
+        if ((order.getManager() == null) ||
+                (order.getManager() == this.userService.getAuthenticatedUser())) {
             final User client = order.getClient();
             client.setName(name);
             client.setEmail(email);
             client.setPhone(phone);
             final Status status = this.statusService.get(statusId);
             User manager = null;
-            if (
-                    !status.equals(
-                            this.statusService.getDefault()
-                    )
-                    ) {
+            if (!status.equals(this.statusService.getDefault())) {
                 manager = this.userService.get(managerId);
             }
             order.initialize(
-                    number,
-                    new Date(),
-                    address,
-                    details,
-                    description,
-                    status,
-                    client,
-                    manager
+                    number, new Date(),
+                    address, details,
+                    description, status,
+                    client, manager
             );
             this.orderService.update(order);
         }
@@ -326,21 +228,17 @@ public class ManagerOrdersController {
     }
 
     /**
-     * Возвращает исключение
-     * WrongInformationException, если
-     * обратится по запросу
-     * "/admin/order/update" методом GET.
+     * Возвращает исключение WrongInformationException, если обратится
+     * по запросу "/admin/order/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если обратится к
+     * @throws WrongInformationException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/admin/order/update",
             method = RequestMethod.GET
     )
-    public void updateOrder()
-            throws WrongInformationException {
+    public void updateOrder() throws WrongInformationException {
         throw new WrongInformationException(
                 "GET method in \"/admin/order/update\" is not supported!"
         );

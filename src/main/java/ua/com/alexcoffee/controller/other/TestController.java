@@ -9,19 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 
 /**
- * Класс-контроллер тестовых страниц.
- * К даному контроллеру и соответствующим
- * страницам могут обращатсья все
- * пользователи, независимо от ихних ролей.
- * Аннотация @Controller служит для сообщения
- * Spring'у о том, что данный класс является
- * bean'ом и его необходимо подгрузить при
- * старте приложения. Методы класса работают
- * с объектом, возвращенным handleRequest
- * методом, является типом {@link ModelAndView},
- * который агрегирует все параметры модели и
- * имя отображения. Этот тип представляет Model
- * и View в MVC шаблоне.
+ * Класс-контроллер тестовых страниц. К даному контроллеру и соответствующим
+ * страницам могут обращатсья все пользователи, независимо от ихних ролей.
+ * Аннотация @Controller служит для сообщения Spring'у о том, что данный класс
+ * является bean'ом и его необходимо подгрузить при старте приложения.
+ * Методы класса работают с объектом, возвращенным handleRequest методом,
+ * является типом {@link ModelAndView}, который агрегирует все параметры модели и
+ * имя отображения. Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -31,33 +25,24 @@ import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 public class TestController {
 
     /**
-     * Объект сервиса для работы с
-     * торговой корзиной.
+     * Объект сервиса для работы с торговой корзиной.
      */
     private final ShoppingCartService shoppingCartService;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных контроллера
-     * главных страниц сайта.
-     * Помечен аннотацией @Autowired, которая
-     * позволит Spring автоматически
-     * инициализировать объекты.
+     * Конструктор для инициализации основных переменных контроллера главных страниц сайта.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически инициализировать
+     * объекты.
      *
-     * @param shoppingCartService Объект сервиса для
-     *                            работы с торговой
-     *                            корзиной.
+     * @param shoppingCartService Объект сервиса для работы с торговой корзиной.
      */
     @Autowired
-    public TestController(
-            final ShoppingCartService shoppingCartService
-    ) {
+    public TestController(final ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
     }
 
     /**
-     * Возвращает страцницу "client/test"
-     * с тестовым описанием сайта.
+     * Возвращает страцницу "client/test" с тестовым описанием сайта.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -66,13 +51,8 @@ public class TestController {
             value = "/test",
             method = RequestMethod.GET
     )
-    public ModelAndView getTestPage(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.addObject(
-                "cart_size",
-                this.shoppingCartService.getSize()
-        );
+    public ModelAndView getTestPage(final ModelAndView modelAndView) {
+        modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
         modelAndView.setViewName("client/test");
         return modelAndView;
     }

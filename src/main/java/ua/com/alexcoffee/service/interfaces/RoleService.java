@@ -17,8 +17,7 @@ import java.util.List;
  * @see MainService
  * @see MainServiceImpl
  */
-public interface RoleService
-        extends MainService<Role> {
+public interface RoleService extends MainService<Role> {
     /**
      * Добавляет роль по названию, которое может принимать
      * одно из значений перечисления {@link RoleEnum}.
@@ -33,40 +32,35 @@ public interface RoleService
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли для возврата.
-     * @return Объект класса {@link Role} -
-     * роль с уникальным названием.
+     * @return Объект класса {@link Role} - роль с уникальным названием.
      */
     Role get(RoleEnum title);
 
     /**
      * Возвращает роль администратора.
      *
-     * @return Объект класса {@link Role} -
-     * роль администратора.
+     * @return Объект класса {@link Role} - роль администратора.
      */
     Role getAdministrator();
 
     /**
      * Возвращает роль менеджера.
      *
-     * @return Объект класса {@link Role} -
-     * роль менеджера.
+     * @return Объект класса {@link Role} - роль менеджера.
      */
     Role getManager();
 
     /**
      * Возвращает роль по-умолчанию.
      *
-     * @return Объект класса {@link Role} -
-     * роль по-умолчание.
+     * @return Объект класса {@link Role} - роль по-умолчание.
      */
     Role getDefault();
 
     /**
      * Возвращает список ролей персонала сайта.
      *
-     * @return Объект типа {@link List} -
-     * список ролей персонала.
+     * @return Объект типа {@link List} - список ролей персонала.
      */
     List<Role> getPersonnel();
 

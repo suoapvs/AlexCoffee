@@ -39,8 +39,8 @@ public final class ShoppingCartServiceImpl
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
-     * Помечаный аннотацией @Autowired,
-     * которая позволит Spring автоматически инициализировать объект.
+     * Помечаный аннотацией @Autowired, которая позволит Spring
+     * автоматически инициализировать объект.
      *
      * @param shoppingCartDAO Реализация интерфейса для работы з торговой корзиной.
      */
@@ -54,10 +54,8 @@ public final class ShoppingCartServiceImpl
      * Возвращает объект корзину.
      * Режим только для чтения.
      *
-     * @return Объект класса {@link ShoppingCart} -
-     * торговая корзина.
-     * @throws BadRequestException Бросает исключение,
-     *                             если корзина отсутствует.
+     * @return Объект класса {@link ShoppingCart} - торговая корзина.
+     * @throws BadRequestException Бросает исключение, если корзина отсутствует.
      */
     @Override
     @Transactional(readOnly = true)
@@ -87,8 +85,7 @@ public final class ShoppingCartServiceImpl
      * Возвращает список всех торговых позиций в корзине.
      * Режим только для чтения.
      *
-     * @return Объект типа {@link List} -
-     * список торговых позиций.
+     * @return Объект типа {@link List} - список торговых позиций.
      */
     @Override
     @Transactional(readOnly = true)
@@ -99,8 +96,7 @@ public final class ShoppingCartServiceImpl
     /**
      * Удаляет торговую позицию из корзины.
      *
-     * @param salePosition Торговая позиция для
-     *                     удаления из корзины.
+     * @param salePosition Торговая позиция для удаления из корзины.
      */
     @Override
     @Transactional
@@ -121,12 +117,10 @@ public final class ShoppingCartServiceImpl
     }
 
     /**
-     * Возвращает цену корзины -
-     * цена всех продаж.
+     * Возвращает цену корзины - цена всех продаж.
      * Режим только для чтения.
      *
-     * @return Значение типа double -
-     * цена корзины.
+     * @return Значение типа double - цена корзины.
      */
     @Override
     @Transactional(readOnly = true)
@@ -135,12 +129,10 @@ public final class ShoppingCartServiceImpl
     }
 
     /**
-     * Возвращает размер корзины,
-     * то есть количество товаров в корзине.
+     * Возвращает размер корзины, то есть количество товаров в корзине.
      * Режим только для чтения.
      *
-     * @return Значение типа int -
-     * количество товаров в корзине.
+     * @return Значение типа int - количество товаров в корзине.
      */
     @Override
     @Transactional(readOnly = true)

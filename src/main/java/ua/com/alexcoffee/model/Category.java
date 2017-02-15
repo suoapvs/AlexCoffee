@@ -8,16 +8,11 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
- * Класс описывает сущность
- * "Категория товаров", наследует
- * класс {@link Model}.
- * Категория описывает набор товаров,
- * которые имеют общие характеристики.
- * Аннотация @Entity говорит о том что
- * объекты этого класса будет
+ * Класс описывает сущность "Категория товаров", наследует класс {@link Model}.
+ * Категория описывает набор товаров, которые имеют общие характеристики.
+ * Аннотация @Entity говорит о том что объекты этого класса будет
  * обрабатываться hibernate.
- * Аннотация @Table(name = "categories")
- * указывает на таблицу "categories",
+ * Аннотация @Table(name = "categories") указывает на таблицу "categories",
  * в которой будут храниться объекты.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
@@ -29,23 +24,19 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Table(name = "categories")
 public final class Category extends Model {
     /**
-     * Номер версии класса необходимый
-     * для десериализации и сериализации.
+     * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
     /**
-     * Название категории.
-     * Значение поля сохраняется
-     * в колонке "title".
-     * Не может быть null.
+     * Название категории. Значение поля сохраняется
+     * в колонке "title". Не может быть null.
      */
     @Column(name = "title", nullable = false)
     private String title;
 
     /**
-     * URL категории.
-     * Значение поля сохраняется
+     * URL категории. Значение поля сохраняется
      * в колонке "url". Не может быть null.
      */
     @Column(name = "url", nullable = false)
@@ -59,16 +50,11 @@ public final class Category extends Model {
     private String description;
 
     /**
-     * Изображение категории.
-     * Значение поля (id объекта photo) сохраняется
-     * в колонке "photo_id". Между объектами
-     * классов {@link Category} и {@link Photo}
-     * связь один-к-одному, а именно каждая запись
-     * в одной таблице напрямую связана с отдельной
-     * записью в другой таблице.
-     * Выборка объекта photo до первого доступа нему,
-     * при первом доступе к текущему объекту.
-     * Сущности связаны полностью каскадным обновлением
+     * Изображение категории. Значение поля (id объекта photo) сохраняется
+     * в колонке "photo_id". Между объектами классов {@link Category} и {@link Photo}
+     * связь один-к-одному, а именно каждая запись в одной таблице напрямую связана
+     * с отдельной записью в другой таблице. Выборка объекта photo до первого доступа нему,
+     * при первом доступе к текущему объекту. Сущности связаны полностью каскадным обновлением
      * записей в базе данных.
      */
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -76,14 +62,10 @@ public final class Category extends Model {
     private Photo photo;
 
     /**
-     * Список товаров, которые относятся
-     * к данной категории. К текущей категории
-     * можно добраться через поле "category"
-     * в объекте класса {@link Category}.
-     * Выборка объектов products при первом
-     * доступе к нему.
-     * Сущности связаны полностью каскадным
-     * обновлением записей в базе данных.
+     * Список товаров, которые относятся к данной категории. К текущей категории
+     * можно добраться через поле "category" в объекте класса {@link Category}.
+     * Выборка объектов products при первом доступе к нему.
+     * Сущности связаны полностью каскадным обновлением записей в базе данных.
      */
     @OneToMany(
             fetch = FetchType.LAZY,
@@ -100,8 +82,7 @@ public final class Category extends Model {
     }
 
     /**
-     * Конструктор для инициализации
-     * основных переменных категории.
+     * Конструктор для инициализации основных переменных категории.
      *
      * @param title       Название категории.
      * @param url         URL категории.
@@ -123,8 +104,7 @@ public final class Category extends Model {
 
     /**
      * Возвращает описание категории.
-     * Переопределенный метод
-     * родительского класса {@link Object}.
+     * Переопределенный метод родительского класса {@link Object}.
      *
      * @return Значение типа {@link String} -
      * строка описание категории (название, URL, описание).
@@ -137,14 +117,10 @@ public final class Category extends Model {
     }
 
     /**
-     * Генерирует строку для конечного сравнения
-     * категорий в методе equals() родительского
-     * класса.
-     * Переопределенный метод родительского
-     * класса {@link Model}.
+     * Генерирует строку для конечного сравнения категорий в методе equals() родительского
+     * класса. Переопределенный метод родительского класса {@link Model}.
      *
-     * @return Значение типа {@link String}
-     * - название + URL категории.
+     * @return Значение типа {@link String} - название + URL категории.
      */
     @Override
     public String toEquals() {
@@ -178,19 +154,16 @@ public final class Category extends Model {
     /**
      * Добавляет товар в список текущей категории.
      *
-     * @param product Товар, который будет добавлен
-     *                в текущую категорию.
+     * @param product Товар, который будет добавлен в текущую категорию.
      */
     public void addProduct(final Product product) {
         this.products.add(product);
     }
 
     /**
-     * Добавляет список товаров в список
-     * текущей категории.
+     * Добавляет список товаров в список текущей категории.
      *
-     * @param products Список товаров,
-     *                 которые будут добавлены
+     * @param products Список товаров, которые будут добавлены
      *                 в текущую категорию.
      */
     public void addProducts(final List<Product> products) {
@@ -200,19 +173,16 @@ public final class Category extends Model {
     /**
      * Удаляет товар из списка текущей категории.
      *
-     * @param product Товар, который будет
-     *                удален из данной категории.
+     * @param product Товар, который будет удален из данной категории.
      */
     public void removeProduct(final Product product) {
         this.products.remove(product);
     }
 
     /**
-     * Удаляет список товаров из списка
-     * текущей категории.
+     * Удаляет список товаров из списка текущей категории.
      *
-     * @param products Список товаров,
-     *                 которые будут удалены из текущей категории.
+     * @param products Список товаров, которые будут удалены из текущей категории.
      */
     public void removeProducts(final List<Product> products) {
         this.products.removeAll(products);
@@ -226,12 +196,10 @@ public final class Category extends Model {
     }
 
     /**
-     * Конвертирует список товаров products
-     * данной категории  в список только
+     * Конвертирует список товаров products данной категории  в список только
      * для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} -
-     * список товаров только для чтения
+     * @return Объект типа {@link List} - список товаров только для чтения
      * или пустой список.
      */
     public List<Product> getProducts() {
@@ -239,8 +207,7 @@ public final class Category extends Model {
     }
 
     /**
-     * Устанавливает список товаров products,
-     * которые будут относиться к данной категории.
+     * Устанавливает список товаров products, которые будут относиться к данной категории.
      *
      * @param products Список товаров .
      */
@@ -251,8 +218,7 @@ public final class Category extends Model {
     /**
      * Возвращает название категории.
      *
-     * @return Значение типа {@link String} -
-     * название категории.
+     * @return Значение типа {@link String} - название категории.
      */
     public String getTitle() {
         return this.title;
@@ -270,8 +236,7 @@ public final class Category extends Model {
     /**
      * Возвращает URL категории.
      *
-     * @return Значение типа {@link String} -
-     * URL категории.
+     * @return Значение типа {@link String} - URL категории.
      */
     public String getUrl() {
         return this.url;
@@ -289,8 +254,7 @@ public final class Category extends Model {
     /**
      * Возвращает описание категории.
      *
-     * @return Значение типа {@link String} -
-     * описание категории.
+     * @return Значение типа {@link String} - описание категории.
      */
     public String getDescription() {
         return this.description;
@@ -308,8 +272,7 @@ public final class Category extends Model {
     /**
      * Возвращает изображение категории.
      *
-     * @return Объект класса {@link Photo} -
-     * изображение категории.
+     * @return Объект класса {@link Photo} - изображение категории.
      */
     public Photo getPhoto() {
         return this.photo;

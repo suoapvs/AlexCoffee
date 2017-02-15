@@ -12,22 +12,18 @@ import ua.com.alexcoffee.enums.StatusEnum;
  * @see MainRepository
  * @see Status
  */
-public interface StatusRepository
-        extends MainRepository<Status, Long> {
+public interface StatusRepository extends MainRepository<Status, Long> {
     /**
-     * Возвращает статус из базы даных по названию,
-     * которое может принимать
+     * Возвращает статус из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @return Объект класса {@link Status} -
-     * статус с уникальным названием.
+     * @return Объект класса {@link Status} - статус с уникальным названием.
      */
     Status findByTitle(StatusEnum title);
 
     /**
-     * Удаляет статус из базы даных по названию,
-     * которое может принимать
+     * Удаляет статус из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.

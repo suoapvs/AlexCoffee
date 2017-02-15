@@ -8,16 +8,11 @@ import java.util.List;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
- * Класс описывает сущность "Заказы",
- * наследует класс {@link Model}.
- * Заказ описывает торговые позиции,
- * клиента, сделавшего заказ, и менеджера,
- * который обработал заказ.
- * Аннотация @Entity говорит о том что объекты
- * этого класса будет обрабатываться hibernate.
- * Аннотация @Table(name = "orders") указывает
- * на таблицу "orders", в которой будут храниться
- * объекты.
+ * Класс описывает сущность "Заказы", наследует класс {@link Model}.
+ * Заказ описывает торговые позиции, клиента, сделавшего заказ, и менеджера,
+ * который обработал заказ. Аннотация @Entity говорит о том что объекты
+ * этого класса будет обрабатываться hibernate. Аннотация @Table(name = "orders")
+ * указывает на таблицу "orders", в которой будут храниться объекты.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -29,8 +24,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
 @Table(name = "orders")
 public final class Order extends Model {
     /**
-     * Номер версии класса необходимый
-     * для десериализации и сериализации.
+     * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
 
@@ -76,14 +70,10 @@ public final class Order extends Model {
     private String description;
 
     /**
-     * Статус заказа. Значение поля (id объекта status)
-     * сохраняется в колонке "status_id".
-     * Между объектами классов {@link Order} и
-     * {@link Status} связь многие-к-одному, а
-     * именно много разных заказов могут иметь
-     * одинаковый статус выполнения. Выборка объекта
-     * status до первого доступа нему, при первом
-     * доступе к текущему объекту.
+     * Статус заказа. Значение поля (id объекта status) сохраняется в колонке "status_id".
+     * Между объектами классов {@link Order} и {@link Status} связь многие-к-одному, а
+     * именно много разных заказов могут иметь одинаковый статус выполнения. Выборка объекта
+     * status до первого доступа нему, при первом доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -94,15 +84,12 @@ public final class Order extends Model {
 
     /**
      * Клиент, оформивший заказ.
-     * Значение поля (id объекта client) сохраняется
-     * в колонке "client_id". Между объектами
-     * классов {@link Order} и {@link User} связь
-     * один-к-одному, а именно каждая запись в одной
-     * таблице напрямую связана с отдельной записью
-     * в другой таблице. Выборка объекта client до
-     * первого доступа нему, при первом доступе к
-     * текущему объекту. Сущности связаны полностью
-     * каскадным обновлением записей в базе данных.
+     * Значение поля (id объекта client) сохраняется в колонке "client_id".
+     * Между объектами классов {@link Order} и {@link User} связь
+     * один-к-одному, а именно каждая запись в одной таблице напрямую связана
+     * с отдельной записью в другой таблице. Выборка объекта client до первого
+     * доступа нему, при первом доступе к текущему объекту. Сущности связаны
+     * полностью каскадным обновлением записей в базе данных.
      */
     @OneToOne(
             fetch = FetchType.EAGER,
@@ -115,16 +102,11 @@ public final class Order extends Model {
     private User client;
 
     /**
-     * Менеджер, обработавший заказ.
-     * Значение поля (id объекта manager)
-     * сохраняется в колонке "manager_id".
-     * Между объектами классов {@link Order}
-     * и {@link User} связь много-к-одному,
-     * а именно каждая запись в одной таблице
-     * напрямую связана с отдельной записью
-     * в другой таблице. Выборка объекта manager
-     * до первого доступа нему, при первом
-     * доступе к текущему объекту.
+     * Менеджер, обработавший заказ. Значение поля (id объекта manager)
+     * сохраняется в колонке "manager_id". Между объектами классов {@link Order}
+     * и {@link User} связь много-к-одному, а именно каждая запись в одной таблице
+     * напрямую связана с отдельной записью в другой таблице. Выборка объекта manager
+     * до первого доступа нему, при первом доступе к текущему объекту.
      */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
@@ -134,11 +116,9 @@ public final class Order extends Model {
     private User manager;
 
     /**
-     * Список торговых позиция текущего заказу.
-     * К текущему заказу можно добраться через
-     * поле "order" в объекте класса {@link SalePosition}.
-     * Выборка продаж при первом доступе к текущему
-     * объекту. Сущности связаны полностью каскадным
+     * Список торговых позиция текущего заказу. К текущему заказу можно добраться через
+     * поле "order" в объекте класса {@link SalePosition}. Выборка продаж при первом
+     * доступе к текущему объекту. Сущности связаны полностью каскадным
      * обновлением записей в базе данных.
      */
     @OneToMany(
@@ -149,8 +129,7 @@ public final class Order extends Model {
     private List<SalePosition> salePositions = new ArrayList<>();
 
     /**
-     * Конструктр без параметров.
-     * Автоматически инициализируются
+     * Конструктр без параметров. Автоматически инициализируются
      * поля номер и дата модификации заказа.
      */
     public Order() {
@@ -163,8 +142,7 @@ public final class Order extends Model {
     }
 
     /**
-     * Конструктор для инициализации
-     * основных переменных заказа.
+     * Конструктор для инициализации основных переменных заказа.
      *
      * @param status        Статус заказа.
      * @param client        Клиент, оформивший заказ.
@@ -182,22 +160,18 @@ public final class Order extends Model {
     }
 
     /**
-     * Возвращает описание заказа.
-     * Переопределенный метод
-     * родительского класса {@link Object}.
+     * Возвращает описание заказа. Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} -
-     * строка описание заказа (номер, статус,
-     * дата, информация о клиенте,
-     * информация о менеджере, адрес и
-     * детали доставкиб описание, торговые позиции).
+     * @return Значение типа {@link String} - строка описание заказа (номер, статус,
+     * дата, информация о клиенте, информация о менеджере, адрес и детали доставкиб
+     * описание, торговые позиции).
      */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append(this.number).append(", ")
-                .append(this.status.getDescription()).append(",\n").append(this.date);
-
+                .append(this.status.getDescription())
+                .append(",\n").append(this.date);
         if (this.client != null) {
             sb.append("\n\nClient: ")
                     .append(this.client.getName())
@@ -253,14 +227,10 @@ public final class Order extends Model {
     }
 
     /**
-     * Генерирует строку для конечного
-     * сравнения заказа в методе equals()
-     * родительского класса.
-     * Переопределенный метод
-     * родительского класса {@link Model}.
+     * Генерирует строку для конечного сравнения заказа в методе equals()
+     * родительского класса. Переопределенный метод родительского класса {@link Model}.
      *
-     * @return Значение типа {@link String} -
-     * номер заказа.
+     * @return Значение типа {@link String} - номер заказа.
      */
     @Override
     public String toEquals() {
@@ -299,11 +269,9 @@ public final class Order extends Model {
     }
 
     /**
-     * Добавляет торговую
-     * позицию в текущий заказа.
+     * Добавляет торговую позицию в текущий заказа.
      *
-     * @param salePosition Торговая позиция,
-     *                     которая будет добавлена в заказ.
+     * @param salePosition Торговая позиция, которая будет добавлена в заказ.
      */
     public void addSalePosition(final SalePosition salePosition) {
         this.salePositions.add(salePosition);
@@ -313,64 +281,48 @@ public final class Order extends Model {
     }
 
     /**
-     * Добавляет список торговых
-     * позиций в текущий заказ.
+     * Добавляет список торговых позиций в текущий заказ.
      *
      * @param salePositions Список торговых позиций,
      *                      которые будут дабавлены в заказ.
      */
-    public void addSalePositions(
-            final List<SalePosition> salePositions
-    ) {
+    public void addSalePositions(final List<SalePosition> salePositions) {
         this.salePositions.addAll(salePositions);
         salePositions.stream()
-                .filter(
-                        salePosition -> salePosition.getOrder() != this
-                )
-                .forEach(
-                        salePosition -> salePosition.setOrder(this)
-                );
+                .filter(salePosition -> salePosition.getOrder() != this)
+                .forEach(salePosition -> salePosition.setOrder(this));
     }
 
     /**
-     * Удаляет торговую позицию
-     * из текущего заказа.
+     * Удаляет торговую позицию из текущего заказа.
      *
-     * @param salePosition Торговая позиция,
-     *                     которая будет удалена из заказу.
+     * @param salePosition Торговая позиция, которая будет удалена из заказу.
      */
     public void removeSalePosition(final SalePosition salePosition) {
         this.salePositions.remove(salePosition);
     }
 
     /**
-     * Удаляет список торговых
-     * позиция из текущего заказа.
+     * Удаляет список торговых позиция из текущего заказа.
      *
-     * @param salePositions Список торговых позиция,
-     *                      которые будут удалены из заказа.
+     * @param salePositions Список торговых позиция, которые будут удалены из заказа.
      */
-    public void removeSalePositions(
-            final List<SalePosition> salePositions
-    ) {
+    public void removeSalePositions(final List<SalePosition> salePositions) {
         this.salePositions.removeAll(salePositions);
     }
 
     /**
-     * Очищает список торговых
-     * позиция текущего заказа.
+     * Очищает список торговых позиция текущего заказа.
      */
     public void clearSalePositions() {
         this.salePositions.clear();
     }
 
     /**
-     * Конвертирует список торговых
-     * позиций текущего заказа в список
+     * Конвертирует список торговых позиций текущего заказа в список
      * только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} -
-     * список торговых позиция только
+     * @return Объект типа {@link List} - список торговых позиция только
      * для чтения или пустой список.
      */
     public List<SalePosition> getSalePositions() {
@@ -378,29 +330,21 @@ public final class Order extends Model {
     }
 
     /**
-     * Устанавливает список торговых
-     * позицияй текущему заказу.
+     * Устанавливает список торговых позицияй текущему заказу.
      *
      * @param salePositions Список торговых позиция.
      */
-    public void setSalePositions(
-            final List<SalePosition> salePositions
-    ) {
+    public void setSalePositions(final List<SalePosition> salePositions) {
         this.salePositions = salePositions;
         this.salePositions.stream()
-                .filter(
-                        salePosition -> salePosition.getOrder() != this
-                )
-                .forEach(
-                        salePosition -> salePosition.setOrder(this)
-                );
+                .filter(salePosition -> salePosition.getOrder() != this)
+                .forEach(salePosition -> salePosition.setOrder(this));
     }
 
     /**
      * Возвращает номер заказа.
      *
-     * @return Значение типа {@link String} -
-     * номер заказа.
+     * @return Значение типа {@link String} - номер заказа.
      */
     public String getNumber() {
         return this.number;
@@ -411,9 +355,7 @@ public final class Order extends Model {
      *
      * @param number Номер заказа.
      */
-    public void setNumber(
-            final String number
-    ) {
+    public void setNumber(final String number) {
         this.number = isNotBlank(number) ? number : "";
     }
 
@@ -427,8 +369,7 @@ public final class Order extends Model {
     /**
      * Возвращает дату последней модификации заказа.
      *
-     * @return Значение типа {@link String} -
-     * дата модификации заказа.
+     * @return Значение типа {@link String} - дата модификации заказа.
      */
     public String getDate() {
         return this.date;
@@ -446,8 +387,7 @@ public final class Order extends Model {
     /**
      * Возвращает статус работы заказа.
      *
-     * @return Объект класса {@link Status} -
-     * статус заказа.
+     * @return Объект класса {@link Status} - статус заказа.
      */
     public Status getStatus() {
         return this.status;
@@ -463,19 +403,16 @@ public final class Order extends Model {
     }
 
     /**
-     * Возвращает клиента,
-     * оформивший заказ.
+     * Возвращает клиента, оформивший заказ.
      *
-     * @return Объект класса {@link User} -
-     * клиент, оформивший заказ.
+     * @return Объект класса {@link User} - клиент, оформивший заказ.
      */
     public User getClient() {
         return this.client;
     }
 
     /**
-     * Устанавливает клиента,
-     * оформившего заказ.
+     * Устанавливает клиента, оформившего заказ.
      *
      * @param client Клиент, оформивший заказ.
      */
@@ -484,19 +421,16 @@ public final class Order extends Model {
     }
 
     /**
-     * Возвращает менеджера,
-     * обработавший заказ.
+     * Возвращает менеджера, обработавший заказ.
      *
-     * @return Объект класса {@link User} -
-     * менеджер, обработавший заказ.
+     * @return Объект класса {@link User} - менеджер, обработавший заказ.
      */
     public User getManager() {
         return this.manager;
     }
 
     /**
-     * Устанавливает менеджера,
-     * обработавший заказ.
+     * Устанавливает менеджера, обработавший заказ.
      *
      * @param manager Менеджер, обработавший заказ.
      */
@@ -507,8 +441,7 @@ public final class Order extends Model {
     /**
      * Возвращает адрес доставки заказа.
      *
-     * @return Значение типа {@link String} -
-     * адресс доставки заказа.
+     * @return Значение типа {@link String} - адресс доставки заказа.
      */
     public String getShippingAddress() {
         return this.shippingAddress;
@@ -526,8 +459,7 @@ public final class Order extends Model {
     /**
      * Возвращает детали доставки заказа.
      *
-     * @return Значение типа {@link String} -
-     * детали доставки заказа.
+     * @return Значение типа {@link String} - детали доставки заказа.
      */
     public String getShippingDetails() {
         return this.shippingDetails;
@@ -545,8 +477,7 @@ public final class Order extends Model {
     /**
      * Возвращает описание заказа.
      *
-     * @return Значение типа {@link String} -
-     * описание заказа.
+     * @return Значение типа {@link String} - описание заказа.
      */
     public String getDescription() {
         return this.description;
@@ -562,11 +493,9 @@ public final class Order extends Model {
     }
 
     /**
-     * Возвращает цену заказа -
-     * общую стоимость всех торговых позиция.
+     * Возвращает цену заказа - общую стоимость всех торговых позиция.
      *
-     * @return Значение типа double -
-     * цена заказа.
+     * @return Значение типа double - цена заказа.
      */
     public double getPrice() {
         double price = 0;

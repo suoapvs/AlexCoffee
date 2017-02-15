@@ -64,9 +64,8 @@ public final class PhotoServiceImpl
     }
 
     /**
-     * Возвращает объект-изображение из базы даных,
-     * у которого совпадает уникальное
-     * название с значением входящего параметра.
+     * Возвращает объект-изображение из базы даных, у которого совпадает
+     * уникальное название с значением входящего параметра.
      * Режим только для чтения.
      *
      * @param title Название объекта-изображения для возврата.
@@ -78,24 +77,20 @@ public final class PhotoServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public Photo get(final String title)
-            throws WrongInformationException, BadRequestException {
+    public Photo get(final String title) throws WrongInformationException, BadRequestException {
         if (isBlank(title)) {
             throw new WrongInformationException("No photo title!");
         }
         final Photo photo = this.dao.get(title);
         if (photo == null) {
-            throw new BadRequestException(
-                    "Can't find photo by title " + title + "!"
-            );
+            throw new BadRequestException("Can't find photo by title " + title + "!");
         }
         return photo;
     }
 
     /**
-     * Удаляет объект-изображение из базы даных,
-     * у которого совпадает уникальное
-     * название с значением входящего параметра.
+     * Удаляет объект-изображение из базы даных, у которого совпадает
+     * уникальное название с значением входящего параметра.
      *
      * @param title Название объекта-изображения для удаления.
      * @throws WrongInformationException Бросает исключение,
@@ -103,8 +98,7 @@ public final class PhotoServiceImpl
      */
     @Override
     @Transactional
-    public void remove(final String title)
-            throws WrongInformationException {
+    public void remove(final String title) throws WrongInformationException {
         if (isBlank(title)) {
             throw new WrongInformationException("No photo title!");
         }
@@ -120,14 +114,9 @@ public final class PhotoServiceImpl
     @Transactional
     public void saveFile(final MultipartFile photo) {
         if (photo != null && !photo.isEmpty()) {
-            try (
-                    OutputStream stream = new FileOutputStream(
-                            Photo.PATH + photo.getOriginalFilename()
-                    )
-            ) {
-                stream.write(
-                        photo.getBytes()
-                );
+            final String filePath = Photo.PATH + photo.getOriginalFilename();
+            try (OutputStream stream = new FileOutputStream(filePath)) {
+                stream.write(photo.getBytes());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

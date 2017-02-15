@@ -1,14 +1,12 @@
 package ua.com.alexcoffee.exception;
 
 /**
- * Исключение генерируется,
- * если данные в базе данных дублируются.
+ * Исключение генерируется, если данные в базе данных дублируются.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public final class DuplicateException
-        extends RuntimeException {
+public final class DuplicateException extends RuntimeException {
     /**
      * Конструктр без параметров.
      */

@@ -57,14 +57,12 @@ public final class OrderServiceImpl
     }
 
     /**
-     * Возвращает заказ из базы даных,
-     * у которого совпадает уникальный номером
-     * с значением входящего параметра.
+     * Возвращает заказ из базы даных, у которого совпадает
+     * уникальный номером с значением входящего параметра.
      * Режим только для чтения.
      *
      * @param number Номер заказа для возврата.
-     * @return Объект класса {@link Order} -
-     * заказ с уникальным номером.
+     * @return Объект класса {@link Order} - заказ с уникальным номером.
      * @throws WrongInformationException Бросает исключение,
      *                                   если пустой входной параметр number.
      * @throws BadRequestException       Бросает исключение,
@@ -72,25 +70,21 @@ public final class OrderServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public Order get(final String number)
-            throws WrongInformationException, BadRequestException {
+    public Order get(final String number) throws WrongInformationException, BadRequestException {
         if (isBlank(number)) {
             throw new WrongInformationException("No order number!");
         }
         final Order order = this.dao.get(number);
         if (order == null) {
-            throw new BadRequestException(
-                    "Can't find order by number " + number + "!"
-            );
+            throw new BadRequestException("Can't find order by number " + number + "!");
         }
 
         return order;
     }
 
     /**
-     * Удаляет заказ из базы даных,
-     * у которого совпадает уникальный номером
-     * с значением входящего параметра.
+     * Удаляет заказ из базы даных, у которого совпадает
+     * уникальный номером с значением входящего параметра.
      *
      * @param number Номер заказа для удаление.
      * @throws WrongInformationException Бросает исключение,
@@ -98,12 +92,9 @@ public final class OrderServiceImpl
      */
     @Override
     @Transactional
-    public void remove(final String number)
-            throws WrongInformationException {
+    public void remove(final String number) throws WrongInformationException {
         if (isBlank(number)) {
-            throw new WrongInformationException(
-                    "No order number!"
-            );
+            throw new WrongInformationException("No order number!");
         }
         this.dao.remove(number);
     }

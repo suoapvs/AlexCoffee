@@ -79,16 +79,9 @@ public final class RoleServiceImpl
             throw new WrongInformationException("No role enum (title)!");
         }
         if (this.dao.get(title) != null) {
-            throw new DuplicateException(
-                    "Duplicate role with title  " + title + "!"
-            );
+            throw new DuplicateException("Duplicate role with title  " + title + "!");
         }
-        dao.add(
-                new Role(
-                        title,
-                        description
-                )
-        );
+        dao.add(new Role(title, description));
     }
 
     /**
@@ -105,16 +98,13 @@ public final class RoleServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public Role get(final RoleEnum title)
-            throws WrongInformationException, BadRequestException {
+    public Role get(final RoleEnum title) throws WrongInformationException, BadRequestException {
         if (title == null) {
             throw new WrongInformationException("No role enum (title)!");
         }
         final Role role = this.dao.get(title);
         if (role == null) {
-            throw new BadRequestException(
-                    "Can't find role by title " + title + "!"
-            );
+            throw new BadRequestException("Can't find role by title " + title + "!");
         }
         return role;
     }
@@ -132,9 +122,7 @@ public final class RoleServiceImpl
     public Role getAdministrator() throws BadRequestException {
         final Role role = this.dao.get(RoleEnum.ADMIN);
         if (role == null) {
-            throw new BadRequestException(
-                    "Can't find role \"administrator\"!"
-            );
+            throw new BadRequestException("Can't find role \"administrator\"!");
         }
         return role;
     }
@@ -203,8 +191,7 @@ public final class RoleServiceImpl
      */
     @Override
     @Transactional
-    public void remove(final RoleEnum title)
-            throws WrongInformationException {
+    public void remove(final RoleEnum title) throws WrongInformationException {
         if (title == null) {
             throw new WrongInformationException("No role enum (title)!");
         }

@@ -20,8 +20,7 @@ public interface ProductService extends MainService<Product> {
      * Возвращает товар, у которого совпадает параметр url.
      *
      * @param url URL товара для возврата.
-     * @return Объект класса {@link Product} -
-     * товара с уникальным url полем.
+     * @return Объект класса {@link Product} - товара с уникальным url полем.
      */
     Product getByUrl(String url);
 
@@ -30,8 +29,7 @@ public interface ProductService extends MainService<Product> {
      * артикль с значением входящего параметра.
      *
      * @param article Артикль товара для возврата.
-     * @return Объект класса {@link Product} -
-     * товара с уникальным артиклем.
+     * @return Объект класса {@link Product} - товара с уникальным артиклем.
      */
     Product getByArticle(int article);
 
@@ -39,10 +37,8 @@ public interface ProductService extends MainService<Product> {
      * Возвращает список товаров, которые относятся к категории
      * с уникальным URL - входным параметром.
      *
-     * @param url Уникальный URL категории,
-     *            товары которой будут возвращены.
-     * @return Объект типа {@link List} -
-     * список товаров.
+     * @param url Уникальный URL категории, товары которой будут возвращены.
+     * @return Объект типа {@link List} - список товаров.
      */
     List<Product> getByCategoryUrl(String url);
 
@@ -50,10 +46,8 @@ public interface ProductService extends MainService<Product> {
      * Возвращает список товаров, которые относятся к категории
      * с уникальным кодом id - входным параметром.
      *
-     * @param id Уникальный код категории,
-     *           товары которой будут возвращены.
-     * @return Объект типа {@link List} -
-     * список товаров.
+     * @param id Уникальный код категории, товары которой будут возвращены.
+     * @return Объект типа {@link List} - список товаров.
      */
     List<Product> getByCategoryId(Long id);
 
@@ -62,10 +56,8 @@ public interface ProductService extends MainService<Product> {
      * с уникальным кодом id - входным параметром.
      *
      * @param size               Количество товаров в списке.
-     * @param categoryId         Код категории, товары
-     *                           которой будут возвращены.
-     * @param differentProductId Код товара, который
-     *                           точно не будет включен в список.
+     * @param categoryId         Код категории, товары которой будут возвращены.
+     * @param differentProductId Код товара, который точно не будет включен в список.
      * @return Объект типа {@link List} - список товаров.
      */
     List<Product> getRandomByCategoryId(
@@ -84,8 +76,7 @@ public interface ProductService extends MainService<Product> {
      * @return Объект типа {@link List} - список товаров.
      */
     List<Product> getRandomByCategoryId(
-            int size,
-            Long id
+            int size, Long id
     );
 
     /**

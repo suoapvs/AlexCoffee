@@ -13,6 +13,5 @@ import ua.com.alexcoffee.model.SalePosition;
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.SalePositionServiceImpl
  */
-public interface SalePositionService
-        extends MainService<SalePosition> {
+public interface SalePositionService extends MainService<SalePosition> {
 }

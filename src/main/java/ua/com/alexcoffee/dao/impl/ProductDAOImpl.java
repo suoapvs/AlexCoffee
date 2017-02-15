@@ -10,18 +10,12 @@ import ua.com.alexcoffee.repository.ProductRepository;
 import java.util.List;
 
 /**
- * Класс реализует методы доступа объектов
- * класса {@link Product} в базе данных
- * интерфейса {@link ProductDAO}, наследует
- * родительский абстрактній класс
- * {@link DataDAOImpl}, в котором реализованы
- * основные методы. Для работы методы
- * используют объект-репозиторий интерфейса
- * {@link ProductRepository}.
- * Класс помечена аннотацией @Repository
- * (наследник Spring'овой аннотации @Component).
- * Это позволяет Spring автоматически
- * зарегестрировать компонент в своём
+ * Класс реализует методы доступа объектов класса {@link Product} в базе данных
+ * интерфейса {@link ProductDAO}, наследует родительский абстрактній класс
+ * {@link DataDAOImpl}, в котором реализованы основные методы. Для работы методы
+ * используют объект-репозиторий интерфейса {@link ProductRepository}.
+ * Класс помечена аннотацией @Repository (наследник Spring'овой аннотации @Component).
+ * Это позволяет Spring автоматически зарегестрировать компонент в своём
  * контексте для последующей инъекции.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
@@ -33,9 +27,7 @@ import java.util.List;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class ProductDAOImpl
-        extends DataDAOImpl<Product>
-        implements ProductDAO {
+public final class ProductDAOImpl extends DataDAOImpl<Product> implements ProductDAO {
     /**
      * Реализация репозитория {@link ProductRepository}
      * для работы с товаров базой данных.
@@ -43,16 +35,12 @@ public final class ProductDAOImpl
     private final ProductRepository repository;
 
     /**
-     * Конструктор для инициализации основных
-     * переменных. Помечаный
-     * аннотацией @Autowired, которая
-     * позволит Spring автоматически
+     * Конструктор для инициализации основных переменных. Помечаный
+     * аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объект.
      *
-     * @param repository Реализация репозитория
-     *                   {@link ProductRepository}
-     *                   для работы с товаров
-     *                   базой данных.
+     * @param repository Реализация репозитория {@link ProductRepository}
+     *                   для работы с товаров базой данных.
      */
     @Autowired
     public ProductDAOImpl(final ProductRepository repository) {
@@ -61,12 +49,10 @@ public final class ProductDAOImpl
     }
 
     /**
-     * Возвращает товар из базы данных,
-     * у которого совпадает параметр url.
+     * Возвращает товар из базы данных, у которого совпадает параметр url.
      *
      * @param url URL товара для возврата.
-     * @return Объект класса {@link Product} -
-     * товара с уникальным url полем.
+     * @return Объект класса {@link Product} - товара с уникальным url полем.
      */
     @Override
     public Product getByUrl(final String url) {
@@ -74,14 +60,11 @@ public final class ProductDAOImpl
     }
 
     /**
-     * Возвращает товар из базы даных,
-     * у которого совпадает уникальный
-     * артикль с значением входящего
-     * параметра.
+     * Возвращает товар из базы даных, у которого совпадает уникальный
+     * артикль с значением входящего параметра.
      *
      * @param article Артикль товара для возврата.
-     * @return Объект класса {@link Product} -
-     * товара с уникальным артиклем.
+     * @return Объект класса {@link Product} - товара с уникальным артиклем.
      */
     @Override
     public Product getByArticle(final int article) {
@@ -89,8 +72,7 @@ public final class ProductDAOImpl
     }
 
     /**
-     * Удаляет товар из базы данных,
-     * у которого совпадает параметр url.
+     * Удаляет товар из базы данных, у которого совпадает параметр url.
      *
      * @param url URL товара для удаления.
      */
@@ -100,8 +82,7 @@ public final class ProductDAOImpl
     }
 
     /**
-     * Удаляет товар из базы данных,
-     * у которого совпадает параметр article.
+     * Удаляет товар из базы данных, у которого совпадает параметр article.
      *
      * @param article Артикль товара для удаления.
      */
@@ -111,29 +92,24 @@ public final class ProductDAOImpl
     }
 
     /**
-     * Удаляет товары из базы даных,
-     * которые пренадлежат категории
-     * с уникальным кодом -
-     * входным параметром.
+     * Удаляет товары из базы даных, которые пренадлежат категории
+     * с уникальным кодом - входным параметром.
      *
-     * @param id Уникальный код категории,
-     *           товары котрой будут удалены.
+     * @param id Уникальный код категории, товары котрой будут удалены.
      */
     @Override
     public void removeByCategoryId(final long id) {
-        List<Product> productList = this.repository.findByCategoryId(id);
-        this.repository.delete(productList);
+        this.repository.delete(
+                this.repository.findByCategoryId(id)
+        );
     }
 
     /**
-     * Возвращает список товаров,
-     * которые пренадлежат категории
-     * с уникальным кодом -
-     * входным параметром.
+     * Возвращает список товаров, которые пренадлежат категории
+     * с уникальным кодом - входным параметром.
      *
      * @param id Уникальный код категории.
-     * @return Объект типа List -
-     * список товаров.
+     * @return Объект типа List - список товаров.
      */
     @Override
     public List<Product> getListByCategoryId(final long id) {

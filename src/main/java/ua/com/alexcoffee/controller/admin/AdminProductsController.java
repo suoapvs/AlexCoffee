@@ -21,26 +21,15 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
- * Класс-контроллер страниц управления
- * товарами. К даному контроллеру и
- * соответствующим страницам могут
- * обращатсья пользователи, имеющие
- * роль-админстратор.
- * Аннотация @Controller служит для
- * сообщения Spring'у о том, что данный
- * класс является bean'ом и его необходимо
- * подгрузить при старте приложения.
- * Аннотацией @RequestMapping(value = "/admin/product")
- * сообщаем, что данный контроллер будет
- * обрабатывать запросы, URI которых начинается
- * с "/admin/product".
- * Методы класса работают с объектом,
- * возвращенным handleRequest методом,
- * является типом {@link ModelAndView},
- * который агрегирует все параметры модели
- * и имя отображения.
- * Этот тип представляет Model и View
- * в MVC шаблоне.
+ * Класс-контроллер страниц управления товарами. К даному контроллеру и соответствующим
+ * страницам могут обращатсья пользователи, имеющие роль-админстратор.
+ * Аннотация @Controller служит для сообщения Spring'у о том, что данный класс
+ * является bean'ом и его необходимо подгрузить при старте приложения.
+ * Аннотацией @RequestMapping(value = "/admin/product") сообщаем, что данный контроллер
+ * будет обрабатывать запросы, URI которых начинается с "/admin/product".
+ * Методы класса работают с объектом, возвращенным handleRequest методом, является
+ * типом {@link ModelAndView}, который агрегирует все параметры модели и имя отображения.
+ * Этот тип представляет Model и View в MVC шаблоне.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -52,45 +41,34 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
 public class AdminProductsController {
     /**
-     * Объект сервиса для работы
-     * с товаров.
+     * Объект сервиса для работы с товаров.
      */
     private final ProductService productService;
 
     /**
-     * Объект сервиса для работы
-     * с категориями товаров.
+     * Объект сервиса для работы с категориями товаров.
      */
     private final CategoryService categoryService;
 
     /**
-     * Объект сервиса для работы
-     * с изображенями товаров.
+     * Объект сервиса для работы с изображенями товаров.
      */
     private final PhotoService photoService;
 
     /**
-     * Объект сервиса для работы
-     * с пользователями.
+     * Объект сервиса для работы с пользователями.
      */
     private final UserService userService;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных контроллера
-     * товаров.
-     * Помечен аннотацией @Autowired,
-     * которая позволит Spring автоматически
+     * Конструктор для инициализации основных переменных контроллера товаров.
+     * Помечен аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объекты.
      *
-     * @param productService  Объект сервисадля работы
-     *                        с товаров.
-     * @param categoryService Объект сервиса для работы
-     *                        с категориями товаров.
-     * @param photoService    Объект сервиса для работы
-     *                        с изображенями товаров.
-     * @param userService     Объект сервиса для работы
-     *                        с пользователями.
+     * @param productService  Объект сервисадля работы с товаров.
+     * @param categoryService Объект сервиса для работы с категориями товаров.
+     * @param photoService    Объект сервиса для работы с изображенями товаров.
+     * @param userService     Объект сервиса для работы с пользователями.
      */
     @Autowired
     public AdminProductsController(
@@ -106,11 +84,8 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает все товары
-     * на страницу "admin/product/all".
-     * URL запроса {"/admin/product",
-     * "/admin/product/",
-     * "/admin/product/all"},
+     * Возвращает все товары на страницу "admin/product/all".
+     * URL запроса {"/admin/product", "/admin/product/", "/admin/product/all"},
      * метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
@@ -120,29 +95,18 @@ public class AdminProductsController {
             value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllProducts(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.addObject(
-                "products",
-                this.productService.getAll()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+    public ModelAndView viewAllProducts(final ModelAndView modelAndView) {
+        modelAndView.addObject("products", this.productService.getAll());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("admin/product/all");
         return modelAndView;
     }
 
     /**
-     * Возвращает товар с уникальным
-     * кодом id на страницу "admin/product/one".
-     * URL запроса "/admin/view/{id}",
-     * метод GET.
+     * Возвращает товар с уникальным кодом id на страницу "admin/product/one".
+     * URL запроса "/admin/view/{id}", метод GET.
      *
-     * @param id           Код товара,
-     *                     который нужно вернуть.
+     * @param id           Код товара, который нужно вернуть.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -154,23 +118,15 @@ public class AdminProductsController {
             @PathVariable(value = "id") final long id,
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "product",
-                this.productService.get(id)
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("product", this.productService.get(id));
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("admin/product/one");
         return modelAndView;
     }
 
     /**
-     * Возвращает страницу "admin/product/add"
-     * для добавления нового товара.
-     * URL запроса "/admin/product/add",
-     * метод GET.
+     * Возвращает страницу "admin/product/add" для добавления нового товара.
+     * URL запроса "/admin/product/add", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -179,43 +135,29 @@ public class AdminProductsController {
             value = "/add",
             method = RequestMethod.GET
     )
-    public ModelAndView getAddProductPage(
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.addObject(
-                "categories",
-                this.categoryService.getAll()
-        );
-        modelAndView.addObject(
-                "photos",
-                this.photoService.getAll()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+    public ModelAndView getAddProductPage(final ModelAndView modelAndView) {
+        modelAndView.addObject("categories", this.categoryService.getAll());
+        modelAndView.addObject("photos", this.photoService.getAll());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("admin/product/add");
         return modelAndView;
     }
 
     /**
-     * Сохраняет новый товар по входящим
-     * параметрам и перенаправляет
+     * Сохраняет новый товар по входящим параметрам и перенаправляет
      * по запросу "/admin/product/all".
-     * URL запроса "/admin/product/save",
-     * метод POST.
+     * URL запроса "/admin/product/save", метод POST.
      *
      * @param title          Название товара
      * @param url            URL товара.
      * @param parameters     Параметры товара.
      * @param description    Описание товара.
-     * @param categoryId     Код категории,
-     *                       к которой пренадлежит товар.
+     * @param categoryId     Код категории, к которой пренадлежит товар.
      * @param photoTitle     Название изображения товара.
-     * @param smallPhotoFile Файл меленького изображения
-     *                       для сохранения в файловой системе.
-     * @param bigPhotoFile   Файл большго изображения
-     *                       для сохранения в файловой системе.
+     * @param smallPhotoFile Файл меленького изображения для сохранения
+     *                       в файловой системе.
+     * @param bigPhotoFile   Файл большго изображения для сохранения
+     *                       в файловой системе.
      * @param price          Цена товара.
      * @param modelAndView   Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -239,19 +181,15 @@ public class AdminProductsController {
         final Category category = this.categoryService.get(categoryId);
         final Photo photo = new Photo(
                 photoTitle,
-                (smallPhotoFile != null)
-                        ? smallPhotoFile.getOriginalFilename() : null,
-                (bigPhotoFile != null)
-                        ? bigPhotoFile.getOriginalFilename() : null);
+                (smallPhotoFile != null) ?
+                        smallPhotoFile.getOriginalFilename() : null,
+                (bigPhotoFile != null) ?
+                        bigPhotoFile.getOriginalFilename() : null);
         final Product product = new Product();
         product.initialize(
-                title,
-                url,
-                parameters,
-                description,
-                category,
-                photo,
-                price
+                title, url, parameters,
+                description, category,
+                photo, price
         );
         this.productService.add(product);
         this.photoService.saveFile(smallPhotoFile);
@@ -261,12 +199,10 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/admin/product/save"
-     * методом GET.
+     * Возвращает исключение WrongInformationException, если обратится
+     * по запросу "/admin/product/save" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если обратится к
+     * @throws WrongInformationException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
@@ -280,14 +216,11 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает страницу "admin/product/edit"
-     * для редактирование товара с уникальным
+     * Возвращает страницу "admin/product/edit" для редактирование товара с уникальным
      * кодом, который совпадает с параметром id.
-     * URL запроса "/admin/product/edit/{id}",
-     * метод GET.
+     * URL запроса "/admin/product/edit/{id}", метод GET.
      *
-     * @param id           Код товара, который
-     *                     нужно отредактировать.
+     * @param id           Код товара, который нужно отредактировать.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -299,48 +232,31 @@ public class AdminProductsController {
             @PathVariable(value = "id") final long id,
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject(
-                "product",
-                this.productService.get(id)
-        );
-        modelAndView.addObject(
-                "categories",
-                this.categoryService.getAll()
-        );
-        modelAndView.addObject(
-                "photos",
-                this.photoService.getAll()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+        modelAndView.addObject("product", this.productService.get(id));
+        modelAndView.addObject("categories", this.categoryService.getAll());
+        modelAndView.addObject("photos", this.photoService.getAll());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("admin/product/edit");
         return modelAndView;
     }
 
     /**
-     * Обновляет товар по входящим параметрам
-     * и перенаправляет по запросу
-     * "/admin/product/view/{id}".
-     * URL запроса "/admin/product/update",
-     * метод POST.
+     * Обновляет товар по входящим параметрам и перенаправляет
+     * по запросу "/admin/product/view/{id}".
+     * URL запроса "/admin/product/update", метод POST.
      *
      * @param id             Код товара для обновления.
      * @param title          Название товара.
      * @param url            URL товара.
      * @param parameters     Параметры товара.
      * @param description    Описание товара.
-     * @param categoryId     Код категории,
-     *                       к которой пренадлежит товар.
+     * @param categoryId     Код категории, к которой пренадлежит товар.
      * @param photoId        Код изображения товара.
      * @param photoTitle     Название изображения товара.
-     * @param smallPhotoFile Файл меленького изображения
-     *                       для сохранения в файловой
-     *                       системе.
-     * @param bigPhotoFile   Файл большго изображения
-     *                       для сохранения в файловой
-     *                       системе.
+     * @param smallPhotoFile Файл меленького изображения для сохранения
+     *                       в файловой системе.
+     * @param bigPhotoFile   Файл большго изображения для сохранения
+     *                       в файловой системе.
      * @param price          Цена товара.
      * @param modelAndView   Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -366,27 +282,15 @@ public class AdminProductsController {
         final Product product = this.productService.get(id);
         final Category category = this.categoryService.get(categoryId);
         final Photo photo = this.photoService.get(photoId);
-        final String photoLinkShort = (
-                smallPhotoFile == null
-        ) || (
-                isBlank(
-                        smallPhotoFile.getOriginalFilename()
-                )
-        ) ? photo.getPhotoLinkShort()
-                : smallPhotoFile.getOriginalFilename();
-        final String photoLinkLong = (
-                bigPhotoFile == null
-        ) || (
-                isBlank(
-                        bigPhotoFile.getOriginalFilename()
-                )
-        ) ? photo.getPhotoLinkLong()
-                : bigPhotoFile.getOriginalFilename();
-        photo.initialize(
-                photoTitle,
-                photoLinkShort,
-                photoLinkLong
-        );
+        final String photoLinkShort = (smallPhotoFile == null) ||
+                (isBlank(smallPhotoFile.getOriginalFilename())) ?
+                photo.getPhotoLinkShort() :
+                smallPhotoFile.getOriginalFilename();
+        final String photoLinkLong = (bigPhotoFile == null) ||
+                (isBlank(bigPhotoFile.getOriginalFilename())) ?
+                photo.getPhotoLinkLong() :
+                bigPhotoFile.getOriginalFilename();
+        photo.initialize(photoTitle, photoLinkShort, photoLinkLong);
         product.initialize(
                 title, url,
                 parameters, description,
@@ -400,12 +304,10 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException,
-     * если обратится по запросу "/admin/product/update"
-     * методом GET.
+     * Возвращает исключение WrongInformationException, если обратится
+     * по запросу "/admin/product/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если обратится
+     * @throws WrongInformationException Бросает исключение, если обратится
      *                                   к этому методу GET.
      */
     @RequestMapping(
@@ -419,15 +321,11 @@ public class AdminProductsController {
     }
 
     /**
-     * Удаляет товар с уникальным кодом,
-     * который совпадает с входящим
-     * параметром id, и перенаправляет
-     * по запросу "/admin/products".
-     * URL запроса "/admin/product/delete/{id}",
-     * метод GET.
+     * Удаляет товар с уникальным кодом, который совпадает с входящим параметром id,
+     * и перенаправляет по запросу "/admin/products".
+     * URL запроса "/admin/product/delete/{id}", метод GET.
      *
-     * @param id           Код товара,
-     *                     который нужно удалить.
+     * @param id           Код товара, который нужно удалить.
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
@@ -445,10 +343,8 @@ public class AdminProductsController {
     }
 
     /**
-     * Удаляет все товары и перенаправляет
-     * по запросу "/admin/product/all".
-     * URL запроса "/admin/product/delete_all",
-     * метод GET.
+     * Удаляет все товары и перенаправляет по запросу "/admin/product/all".
+     * URL запроса "/admin/product/delete_all", метод GET.
      *
      * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
@@ -457,9 +353,7 @@ public class AdminProductsController {
             value = "/delete_all",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteAllProducts(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView deleteAllProducts(final ModelAndView modelAndView) {
         this.productService.removeAll();
         modelAndView.setViewName("redirect:/admin/product/all");
         return modelAndView;

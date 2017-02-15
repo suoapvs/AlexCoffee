@@ -71,8 +71,7 @@ public final class Status extends Model {
     /**
      * Конструктор для инициализации основных переменных заказа.
      *
-     * @param title       Название заказа, может принимать
-     *                    одно из значений
+     * @param title       Название заказа, может принимать одно из значений
      *                    перечисления {@link StatusEnum}.
      * @param description Описание статуса.
      */
@@ -87,8 +86,7 @@ public final class Status extends Model {
 
     /**
      * Возвращает описание статуса.
-     * Переопределенный метод родительского
-     * класса {@link Object}.
+     * Переопределенный метод родительского класса {@link Object}.
      *
      * @return Значение типа {@link String} -
      * строка описание статуса (имя, описание).
@@ -102,8 +100,7 @@ public final class Status extends Model {
     /**
      * Добавляет заказы в список текущего статуса.
      *
-     * @param order Заказ, который
-     *              имеет текущий статус.
+     * @param order Заказ, который имеет текущий статус.
      */
     public void addOrder(final Order order) {
         this.orders.add(order);
@@ -112,8 +109,7 @@ public final class Status extends Model {
     /**
      * Добавляет список заказов в список заказов orders.
      *
-     * @param orders Список заказов, которые
-     *               будут иметь текущий статус.
+     * @param orders Список заказов, которые будут иметь текущий статус.
      */
     public void addOrders(final List<Order> orders) {
         this.orders.addAll(orders);
@@ -122,8 +118,7 @@ public final class Status extends Model {
     /**
      * Удаляет заказ из списка текущего статуса.
      *
-     * @param order Заказ, у которого
-     *              будет удаленен текущий статус.
+     * @param order Заказ, у которого будет удаленен текущий статус.
      */
     public void removeOrder(final Order order) {
         this.orders.remove(order);
@@ -132,8 +127,7 @@ public final class Status extends Model {
     /**
      * Метод удаляет список заказов из списка orders.
      *
-     * @param orders Список заказов, у которых
-     *               будет удаленен текущий статус.
+     * @param orders Список заказов, у которых будет удаленен текущий статус.
      */
     public void removeOrders(final List<Order> orders) {
         this.orders.removeAll(orders);
@@ -150,8 +144,7 @@ public final class Status extends Model {
      * Конвертирует список заказов текущего статуса
      * в список только для чтений и возвращает его.
      *
-     * @return Объект типа {@link List} -
-     * список заказов только для чтения
+     * @return Объект типа {@link List} - список заказов только для чтения
      * или пустой список.
      */
     public List<Order> getOrders() {
@@ -159,8 +152,7 @@ public final class Status extends Model {
     }
 
     /**
-     * Устанавливает список заказов
-     * текущего статуса.
+     * Устанавливает список заказов текущего статуса.
      *
      * @param orders Список заказов.
      */
@@ -171,16 +163,14 @@ public final class Status extends Model {
     /**
      * Возвращает название статуса.
      *
-     * @return Объект перечисление {@link StatusEnum} -
-     * название статуса.
+     * @return Объект перечисление {@link StatusEnum} - название статуса.
      */
     public StatusEnum getTitle() {
         return this.title;
     }
 
     /**
-     * Устанавливает название статуса,
-     * которое может принимать одно из
+     * Устанавливает название статуса, которое может принимать одно из
      * значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
@@ -192,8 +182,7 @@ public final class Status extends Model {
     /**
      * Возвращает описание статуса.
      *
-     * @return Значение типа {@link String} -
-     * описание статуса.
+     * @return Значение типа {@link String} - описание статуса.
      */
     public String getDescription() {
         return this.description;

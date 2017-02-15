@@ -13,14 +13,12 @@ import ua.com.alexcoffee.model.Category;
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.CategoryServiceImpl
  */
-public interface CategoryService
-        extends MainService<Category> {
+public interface CategoryService extends MainService<Category> {
     /**
      * Возвращает категорию, у которой совпадает параметр url.
      *
      * @param url URL категории для возврата.
-     * @return Объект класса {@link Category} -
-     * категория с уникальным url полем.
+     * @return Объект класса {@link Category} - категория с уникальным url полем.
      */
     Category get(String url);
 

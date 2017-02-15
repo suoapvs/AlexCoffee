@@ -28,9 +28,8 @@ public final class Photo extends Model {
     /**
      * Путь к папке с изображениями в файловой системе.
      */
-    public static final String PATH =
-            System.getenv("CATALINA_HOME")
-                    + "/webapps/ROOT/resources/img/";
+    public static final String PATH = System.getenv("CATALINA_HOME") +
+            "/webapps/ROOT/resources/img/";
 
     /**
      * Название изображения.
@@ -85,8 +84,7 @@ public final class Photo extends Model {
     }
 
     /**
-     * Конструктор для инициализации
-     * основных переменных изображения.
+     * Конструктор для инициализации основных переменных изображения.
      *
      * @param title          Название изображения.
      * @param photoLinkShort Строка-ссылка на малое изображения.
@@ -104,8 +102,7 @@ public final class Photo extends Model {
     }
 
     /**
-     * Конструктор для инициализации
-     * переменных изображения.
+     * Конструктор для инициализации переменных изображения.
      *
      * @param title          Название изображения.
      * @param photoLinkShort Строка-ссылка на малое изображения.
@@ -119,8 +116,7 @@ public final class Photo extends Model {
 
     /**
      * Возвращает описание изображения.
-     * Переопределенный метод родительского
-     * класса {@link Object}.
+     * Переопределенный метод родительского класса {@link Object}.
      *
      * @return Значение типа {@link String} -
      * строка описание изображения (название, URL,
@@ -153,8 +149,7 @@ public final class Photo extends Model {
     /**
      * Возвращает название изображения.
      *
-     * @return Значение типа {@link String} -
-     * название изображения.
+     * @return Значение типа {@link String} - название изображения.
      */
     public String getTitle() {
         return this.title;
@@ -172,8 +167,7 @@ public final class Photo extends Model {
     /**
      * Возвращает строку-ссылка на малое изображения.
      *
-     * @return Значение типа {@link String} -
-     * строка-ссылка на малое изображения.
+     * @return Значение типа {@link String} - строка-ссылка на малое изображения.
      */
     public String getPhotoLinkShort() {
         return this.photoLinkShort;
@@ -191,8 +185,7 @@ public final class Photo extends Model {
     /**
      * Возвращает строку-ссылка на большое изображения.
      *
-     * @return Значение типа {@link String} -
-     * строка-ссылка на большое изображения.
+     * @return Значение типа {@link String} - строка-ссылка на большое изображения.
      */
     public String getPhotoLinkLong() {
         return this.photoLinkLong;
@@ -208,46 +201,38 @@ public final class Photo extends Model {
     }
 
     /**
-     * Возвращает товар, к которому
-     * относится данное изображение.
+     * Возвращает товар, к которому относится данное изображение.
      *
-     * @return Объект класса {@link Photo} -
-     * товар, к которому относится данное
-     * изображение.
+     * @return Объект класса {@link Photo} - товар, к которому относится
+     * данное изображение.
      */
     public Product getProduct() {
         return this.product;
     }
 
     /**
-     * Устанавлевает товар, к которому будет
-     * относиться данное изображение.
+     * Устанавлевает товар, к которому будет относиться данное изображение.
      *
-     * @param product Товар, к которому будет
-     *                относиться данное изображение.
+     * @param product Товар, к которому будет относиться данное изображение.
      */
     public void setProduct(final Product product) {
         this.product = product;
     }
 
     /**
-     * Возвращает категорию,
-     * к которой относится данное изображение.
+     * Возвращает категорию, к которой относится данное изображение.
      *
-     * @return Объект класса {@link Category} -
-     * категория, к которой относится данное
-     * изображение.
+     * @return Объект класса {@link Category} - категория, к которой
+     * относится данное изображение.
      */
     public Category getCategory() {
         return this.category;
     }
 
     /**
-     * Устанавлевает категорию, которой
-     * будет пренадлежать данное изображение.
+     * Устанавлевает категорию, которой будет пренадлежать данное изображение.
      *
-     * @param category Категория, которой будет
-     *                 пренадлежать данное изображение.
+     * @param category Категория, которой будет пренадлежать данное изображение.
      */
     public void setCategory(final Category category) {
         this.category = category;

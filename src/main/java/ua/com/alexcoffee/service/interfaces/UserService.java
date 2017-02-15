@@ -23,8 +23,7 @@ public interface UserService
      * имя с значением входящего параметра.
      *
      * @param name Имя пользователя для возврата.
-     * @return Объект класса {@link User} -
-     * пользователь с именем name.
+     * @return Объект класса {@link User} - пользователь с именем name.
      */
     User getByName(String name);
 
@@ -33,56 +32,49 @@ public interface UserService
      * логин с значением входящего параметра.
      *
      * @param username Логин пользователя для возврата.
-     * @return Объект класса {@link User} -
-     * пользователь с логином username.
+     * @return Объект класса {@link User} - пользователь с логином username.
      */
     User getByUsername(String username);
 
     /**
      * Возвращает главного администратора сайта.
      *
-     * @return Объект класса {@link User} -
-     * главный администратор.
+     * @return Объект класса {@link User} - главный администратор.
      */
     User getMainAdministrator();
 
     /**
      * Возвращает список всех администраторов сайта.
      *
-     * @return Объект типа {@link List} -
-     * список администраторов.
+     * @return Объект типа {@link List} - список администраторов.
      */
     List<User> getAdministrators();
 
     /**
      * Возвращает список всех менеджеров сайта.
      *
-     * @return Объект типа {@link List} -
-     * список менеджеров.
+     * @return Объект типа {@link List} - список менеджеров.
      */
     List<User> getManagers();
 
     /**
      * Возвращает список всех клиентов сайта.
      *
-     * @return Объект типа {@link List} -
-     * список клиентов.
+     * @return Объект типа {@link List} - список клиентов.
      */
     List<User> getClients();
 
     /**
      * Возвращает список персонала сайта.
      *
-     * @return Объект типа {@link List} -
-     * список персонала.
+     * @return Объект типа {@link List} - список персонала.
      */
     List<User> getPersonnel();
 
     /**
      * Возвращает авторизированого пользователя.
      *
-     * @return Объект класса {@link User} -
-     * авторизированый пользователь.
+     * @return Объект класса {@link User} - авторизированый пользователь.
      */
     User getAuthenticatedUser();
 
@@ -95,9 +87,8 @@ public interface UserService
     void removeByName(String name);
 
     /**
-     * Удаляет пользователя из базы даных,
-     * у которого совпадает роль с значением
-     * входящего параметра.
+     * Удаляет пользователя из базы даных, у которого совпадает
+     * роль с значением входящего параметра.
      *
      * @param role Роль пользователя для удаления.
      */

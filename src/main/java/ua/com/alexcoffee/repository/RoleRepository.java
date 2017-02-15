@@ -12,22 +12,18 @@ import ua.com.alexcoffee.model.Role;
  * @see MainRepository
  * @see Role
  */
-public interface RoleRepository
-        extends MainRepository<Role, Long> {
+public interface RoleRepository extends MainRepository<Role, Long> {
     /**
-     * Возвращает роль из базы даных по названию,
-     * которое может принимать
+     * Возвращает роль из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
-     * @return Объект класса {@link Role} -
-     * роль с уникальным названием.
+     * @return Объект класса {@link Role} - роль с уникальным названием.
      */
     Role findByTitle(RoleEnum title);
 
     /**
-     * Удаляет роль из базы даных по названию,
-     * которое может принимать одно
+     * Удаляет роль из базы даных по названию, которое может принимать одно
      * из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.

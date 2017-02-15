@@ -26,9 +26,8 @@ import ua.com.alexcoffee.model.SalePosition;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class SalePositionDAOImpl
-        extends DataDAOImpl<SalePosition>
-        implements SalePositionDAO {
+public final class SalePositionDAOImpl extends DataDAOImpl<SalePosition> implements SalePositionDAO {
+
     /**
      * Конструктор для инициализации основных переменных.
      * Помечаный аннотацией @Autowired, которая позволит Spring

@@ -4,10 +4,8 @@ import ua.com.alexcoffee.enums.StatusEnum;
 import ua.com.alexcoffee.model.Status;
 
 /**
- * Интерфейс описывает набор методов
- * для работы объектов класса
- * {@link Status} с базой данных.
- * Расширяет интерфейс {@link DataDAO}.
+ * Интерфейс описывает набор методов для работы объектов класса
+ * {@link Status} с базой данных. Расширяет интерфейс {@link DataDAO}.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
@@ -18,10 +16,8 @@ import ua.com.alexcoffee.model.Status;
  */
 public interface StatusDAO extends DataDAO<Status> {
     /**
-     * Добавляет статус в базу даных
-     * по названию, которое может принимать
-     * одно из значений перечисления
-     * {@link StatusEnum}.
+     * Добавляет статус в базу даных по названию, которое может принимать
+     * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title       Название статуса.
      * @param description Описание роли.
@@ -29,31 +25,24 @@ public interface StatusDAO extends DataDAO<Status> {
     void add(StatusEnum title, String description);
 
     /**
-     * Возвращает статус из базы даных
-     * по названию, которое может принимать
-     * одно из значений перечисления
-     * {@link StatusEnum}.
+     * Возвращает статус из базы даных по названию, которое может принимать
+     * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @return Объект класса {@link Status} -
-     * статус с уникальным названием.
+     * @return Объект класса {@link Status} - статус с уникальным названием.
      */
     Status get(StatusEnum title);
 
     /**
-     * Возвращает из базы даных статус
-     * по-умолчанию.
+     * Возвращает из базы даных статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} -
-     * статус по-умолчание.
+     * @return Объект класса {@link Status} - статус по-умолчание.
      */
     Status getDefault();
 
     /**
-     * Удаляет статус из базы даных по
-     * названию, которое может принимать
-     * одно из значений перечисления
-     * {@link StatusEnum}.
+     * Удаляет статус из базы даных по названию, которое может принимать
+     * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
      */

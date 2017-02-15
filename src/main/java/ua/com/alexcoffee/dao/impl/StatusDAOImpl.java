@@ -9,18 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * Класс реализует методы доступа объектов
- * класса {@link Status} в базе данных
- * интерфейса {@link StatusDAO}, наследует
- * родительский абстрактній класс
- * {@link DataDAOImpl}, в котором реализованы
- * основные методы. Для работы методы
- * используют объект-репозиторий интерфейса
- * {@link StatusRepository}. Класс помечена
- * аннотацией @Repository
- * (наследник Spring'овой аннотации @Component).
- * Это позволяет Spring автоматически
- * зарегестрировать компонент в своём
+ * Класс реализует методы доступа объектов класса {@link Status} в базе данных
+ * интерфейса {@link StatusDAO}, наследует родительский абстрактній класс
+ * {@link DataDAOImpl}, в котором реализованы основные методы. Для работы методы
+ * используют объект-репозиторий интерфейса {@link StatusRepository}. Класс помечена
+ * аннотацией @Repository (наследник Spring'овой аннотации @Component).
+ * Это позволяет Spring автоматически зарегестрировать компонент в своём
  * контексте для последующей инъекции.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
@@ -32,28 +26,20 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.repository")
-public final class StatusDAOImpl
-        extends DataDAOImpl<Status>
-        implements StatusDAO {
+public final class StatusDAOImpl extends DataDAOImpl<Status> implements StatusDAO {
     /**
      * Реализация репозитория {@link StatusRepository}
-     * для работы статусов заказов
-     * с базой данных.
+     * для работы статусов заказов с базой данных.
      */
     private final StatusRepository repository;
 
     /**
-     * Конструктор для инициализации
-     * основных переменных.
-     * Помечаный аннотацией @Autowired,
-     * которая позволит Spring
-     * автоматически инициализировать
-     * объект.
+     * Конструктор для инициализации основных переменных.
+     * Помечаный аннотацией @Autowired, которая позволит Spring
+     * автоматически инициализировать объект.
      *
-     * @param repository Реализация репозитория
-     *                   {@link StatusRepository}
-     *                   для работы статусов
-     *                   заказов с базой данных.
+     * @param repository Реализация репозитория {@link StatusRepository}
+     *                   для работы статусов заказов с базой данных.
      */
     @Autowired
     public StatusDAOImpl(final StatusRepository repository) {
@@ -74,23 +60,15 @@ public final class StatusDAOImpl
             final StatusEnum title,
             final String description
     ) {
-        this.repository.save(
-                new Status(
-                        title,
-                        description
-                )
-        );
+        this.repository.save(new Status(title, description));
     }
 
     /**
-     * Возвращает статус из базы даных
-     * по названию, которое может
-     * принимать одно из значений
-     * перечисления {@link StatusEnum}.
+     * Возвращает статус из базы даных по названию, которое может
+     * принимать одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название роли.
-     * @return Объект класса {@link Status} -
-     * статус с уникальным названием.
+     * @return Объект класса {@link Status} - статус с уникальным названием.
      */
     @Override
     public Status get(final StatusEnum title) {
@@ -98,11 +76,9 @@ public final class StatusDAOImpl
     }
 
     /**
-     * Возвращает из базы даных статус
-     * по-умолчанию.
+     * Возвращает из базы даных статус по-умолчанию.
      *
-     * @return Объект класса {@link Status} -
-     * статус по-умолчание.
+     * @return Объект класса {@link Status} - статус по-умолчание.
      */
     @Override
     public Status getDefault() {
@@ -110,10 +86,8 @@ public final class StatusDAOImpl
     }
 
     /**
-     * Удаляет статус из базы даных
-     * по названию, которое может
-     * принимать одно из значений
-     * перечисления {@link StatusEnum}.
+     * Удаляет статус из базы даных по названию, которое может
+     * принимать одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
      */
