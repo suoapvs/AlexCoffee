@@ -5,9 +5,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public final class ModelAndViews {
 
@@ -19,7 +19,6 @@ public final class ModelAndViews {
         assertNotNull(modelAndView);
         assertNotNull(view);
         assertEquals(modelAndView.getViewName(), view);
-
         if (keys != null && keys.length > 0) {
             Map<String, Object> map = modelAndView.getModel();
             for (String key : keys) {

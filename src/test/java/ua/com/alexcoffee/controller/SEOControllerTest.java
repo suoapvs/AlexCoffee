@@ -6,8 +6,8 @@ import org.junit.Test;
 import ua.com.alexcoffee.controller.seo.SEOController;
 import ua.com.alexcoffee.tools.MockController;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 public class SEOControllerTest {
 
@@ -27,20 +27,16 @@ public class SEOControllerTest {
     @Test
     public void getRobotsTxtTest() throws Exception {
         System.out.print("-> getRobotsTxt() - ");
-
         assertNotNull(seoController.getRobotsTxt());
         assertFalse(seoController.getRobotsTxt().isEmpty());
-
         System.out.println("OK!");
     }
 
     @Test
     public void getSiteMapXmlTest() throws Exception {
         System.out.print("-> getSiteMapXml() - ");
-
         assertNotNull(seoController.getSiteMapXml());
         assertFalse(seoController.getSiteMapXml().isEmpty());
-
         System.out.println("OK!");
     }
 }

@@ -13,7 +13,7 @@
                 <div class="navbar-brand text-shadow">
                     <a href="<c:url value="/home"/>">
                         <span class="nav-text-label color-green">Alex</span>
-                        <span class="nav-text-label color-brown">Coffee</span>
+                        <span class="nav-text-label color-brown">Coffee</span>&nbsp;
                         <img src="<c:url value="/resources/img/main_icon.png"/>" class="nav-label" alt="AlexCoffee">
                     </a>
                 </div>
