@@ -20,8 +20,7 @@ import javax.servlet.ServletException;
  * @see SecurityConfig
  * @see SecurityInitializer
  */
-public class AppInitializer
-        extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /**
      * Возвращает конфигурацию, в которой инициализируем ViewResolver.
      *
@@ -81,9 +80,7 @@ public class AppInitializer
      * @return Объект класса DispatcherServlet.
      */
     @Override
-    protected DispatcherServlet createDispatcherServlet(
-            final WebApplicationContext context
-    ) {
+    protected DispatcherServlet createDispatcherServlet(final WebApplicationContext context) {
         final DispatcherServlet dispatcherServlet =
                 (DispatcherServlet) super.createDispatcherServlet(context);
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);

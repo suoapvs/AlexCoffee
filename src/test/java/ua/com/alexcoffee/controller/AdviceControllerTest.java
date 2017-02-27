@@ -6,7 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import ua.com.alexcoffee.controller.other.AdviceController;
+import ua.com.alexcoffee.controller.advice.AdviceController;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
 import ua.com.alexcoffee.exception.ForbiddenException;
@@ -26,7 +26,6 @@ public class AdviceControllerTest {
     @BeforeClass
     public static void setUp() {
         System.out.println("\nTesting class \"SEOController\" - START.\n");
-
         adviceController = MockController.getAdviceController();
     }
 

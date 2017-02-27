@@ -78,14 +78,12 @@ public class RootConfig {
     /**
      * Диалект Hibernate SQL для базы данных.
      */
-    private static final String DATABASE_DIALECT =
-            "org.hibernate.dialect.MySQLDialect";
+    private static final String DATABASE_DIALECT = "org.hibernate.dialect.MySQLDialect";
 
     /**
      * Пакет сканирования для фабрики EntityManager.
      */
-    private static final String PACKAGE_TO_SCAN =
-            "ua.com.alexcoffee.model";
+    private static final String PACKAGE_TO_SCAN = "ua.com.alexcoffee.model";
 
     /**
      * Начальный размер пула соединений.
@@ -187,9 +185,7 @@ public class RootConfig {
      * с входящей фабрикой ентети менеджера factory.
      */
     @Bean
-    public JpaTransactionManager transactionManager(
-            final EntityManagerFactory entityManagerFactory
-    ) {
+    public JpaTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

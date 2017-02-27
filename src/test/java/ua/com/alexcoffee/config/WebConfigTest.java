@@ -13,11 +13,11 @@ import ua.com.alexcoffee.controller.admin.AdminCategoriesController;
 import ua.com.alexcoffee.controller.admin.AdminOrdersController;
 import ua.com.alexcoffee.controller.admin.AdminProductsController;
 import ua.com.alexcoffee.controller.admin.AdminUsersController;
+import ua.com.alexcoffee.controller.advice.AdviceController;
 import ua.com.alexcoffee.controller.client.HomeController;
 import ua.com.alexcoffee.controller.manager.ManagerOrdersController;
 import ua.com.alexcoffee.controller.manager.ManagerUsersController;
-import ua.com.alexcoffee.controller.other.AdviceController;
-import ua.com.alexcoffee.controller.other.SEOController;
+import ua.com.alexcoffee.controller.seo.SEOController;
 
 import static org.junit.Assert.assertNotNull;
 

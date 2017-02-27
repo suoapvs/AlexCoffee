@@ -102,11 +102,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      * @param viewController Объект класса ViewControllerRegistry.
      */
     @Override
-    public void addViewControllers(
-            final ViewControllerRegistry viewController
-    ) {
-        viewController.addViewController(LOGIN_URL)
-                .setViewName(LOGIN_VIEW_NAME);
+    public void addViewControllers(final ViewControllerRegistry viewController) {
+        viewController.addViewController(LOGIN_URL).setViewName(LOGIN_VIEW_NAME);
         viewController.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }

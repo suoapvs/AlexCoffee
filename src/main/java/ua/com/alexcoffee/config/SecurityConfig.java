@@ -29,8 +29,7 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class SecurityConfig
-        extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Префикс URL запросов для администраторов.
      */
@@ -125,8 +124,7 @@ public class SecurityConfig
      * @throws Exception Исключение методов класса  AuthenticationManagerBuilder.
      */
     @Override
-    protected void configure(final AuthenticationManagerBuilder builder)
-            throws Exception {
+    protected void configure(final AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(this.userDetailsService);
     }
 }

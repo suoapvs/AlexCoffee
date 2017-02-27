@@ -3,7 +3,7 @@ package ua.com.alexcoffee.controller;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.controller.other.SEOController;
+import ua.com.alexcoffee.controller.seo.SEOController;
 import ua.com.alexcoffee.tools.MockController;
 
 import static junit.framework.Assert.assertFalse;
@@ -16,7 +16,6 @@ public class SEOControllerTest {
     @BeforeClass
     public static void setUp() {
         System.out.println("\nTesting class \"SEOController\" - START.\n");
-
         seoController = MockController.getSeoController();
     }
 
