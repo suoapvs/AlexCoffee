@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.controller.other;
+package ua.com.alexcoffee.controller.advice;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -255,8 +255,7 @@ public class AdviceController {
             final ModelAndView modelAndView
     ) {
         final String servletPath = request.getServletPath();
-        if ((servletPath.contains("admin")) ||
-                (servletPath.contains("manager"))) {
+        if ((servletPath.contains("admin")) || (servletPath.contains("manager"))) {
             modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         }
     }
