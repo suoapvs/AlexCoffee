@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.controller.other;
+package ua.com.alexcoffee.controller.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
