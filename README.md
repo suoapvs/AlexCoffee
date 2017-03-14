@@ -7,16 +7,19 @@
 Shop work can be divided into 3 parts: _for clients_, _for administrator_ and _for managers_.
 
 <h4>For clients</h4>
+
 Clients can only navigate on the main pages of the website, view products and make orders. 
 
 [![Alex Coffee](screenshot/categories.jpg)](http://alexcoffee.com.ua)  [![Alex Coffee](screenshot/product.jpg)](http://alexcoffee.com.ua/product_10007)
 
 <h4>For Managers</h4>
+
 Managers can navigate on the main pages of the site and the pages intended for managers ([.../manager](http://alexcoffee.com.ua/manager)). Managers have the access to edit information about the orders after consultation with the customer, view information about the site personnel to enable communication with colleagues.
 
 [![Alex Coffee](screenshot/manager_orders.jpg)](http://alexcoffee.com.ua/manager/orders)  [![Alex Coffee](screenshot/manager_order_view.jpg)](http://alexcoffee.com.ua/manager/orders)
 
 <h4>For Administrator</h4>
+
 Administrator can navigate on all the pages of the site, in particular through the pages of managers and pages intended for the administrator ([.../admin](http://alexcoffee.com.ua/admin)). Administrator can add, edit, and delete information about the products, categories and managers. All information is stored in the database.
 
 [![Alex Coffee](screenshot/admin_orders.jpg)](http://alexcoffee.com.ua/admin/orders)  [![Alex Coffee](screenshot/admin_product_view.jpg)](http://alexcoffee.com.ua/admin/products)
