@@ -112,9 +112,7 @@ public class ShoppingCart implements Serializable {
      * @param salePositions Список торговых позиций,
      *                      которые будут добавлены в корзину.
      */
-    public void addSalePositions(
-            final List<SalePosition> salePositions
-    ) {
+    public void addSalePositions(final List<SalePosition> salePositions) {
         salePositions.forEach(this::addSalePosition);
     }
 
@@ -132,9 +130,7 @@ public class ShoppingCart implements Serializable {
      *
      * @param salePositions Торговые позиции для удаления из корзины.
      */
-    public void removeSalePositions(
-            final List<SalePosition> salePositions
-    ) {
+    public void removeSalePositions(final List<SalePosition> salePositions) {
         this.salePositions.removeAll(salePositions);
     }
 
@@ -175,11 +171,11 @@ public class ShoppingCart implements Serializable {
      * @return Значение типа double - цена корзины.
      */
     public double getPrice() {
-        double sum = 0;
+        double price = 0;
         for (SalePosition salePosition : this.salePositions) {
-            sum += salePosition.getPrice();
+            price += salePosition.getPrice();
         }
-        return sum;
+        return price;
     }
 
     /**

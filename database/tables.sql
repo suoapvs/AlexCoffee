@@ -1,4 +1,6 @@
-USE AlexCoffee;
+DROP DATABASE IF EXISTS alexcoffee;
+CREATE DATABASE IF NOT EXISTS alexcoffee;
+USE alexcoffee;
 
 DROP TABLE IF EXISTS `Statuses`;
 CREATE TABLE `Statuses` (

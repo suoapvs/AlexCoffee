@@ -1,3 +1,5 @@
+USE alexcoffee;
+
 INSERT INTO `Statuses` (title, description) VALUES
   ('NEW', 'Новый'),
   ('WORK', 'В работе'),
