@@ -30,8 +30,8 @@ public final class ModelAndViews {
 
     @Ignore
     public static void checkModelAndViewWithException(ModelAndView modelAndView) {
-        String[] keys = {"cart_size", "text_error"};
-        String viewName = "client/error";
+        String[] keys = { "cart_size", "text_error" };
+        String viewName = "error/error";
         ModelAndViews.checkModelAndView(modelAndView, viewName, keys);
     }
 }

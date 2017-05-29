@@ -263,7 +263,7 @@ public class AdminUsersController {
                 description, role
         );
         this.userService.update(user);
-        modelAndView.setViewName("redirect:/admin/user/view" + id);
+        modelAndView.setViewName("redirect:/admin/user/view/" + id);
         return modelAndView;
     }
 

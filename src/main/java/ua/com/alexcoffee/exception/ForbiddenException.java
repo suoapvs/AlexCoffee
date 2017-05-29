@@ -7,7 +7,7 @@ package ua.com.alexcoffee.exception;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public final class ForbiddenException extends RuntimeException {
+public class ForbiddenException extends RuntimeException {
     /**
      * Конструктр без параметров.
      */

@@ -31,7 +31,7 @@ public class ManagerUsersControllerTest {
 
         ModelAndView modelAndView = managerUsersController.viewAllPersonnel(new ModelAndView());
         String[] keys = {"users", "admin_role", "manager_role", "auth_user"};
-        String viewName = "manager/user/all";
+        String viewName = "user/manager/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -43,7 +43,7 @@ public class ManagerUsersControllerTest {
 
         ModelAndView modelAndView = managerUsersController.viewUser(ID, new ModelAndView());
         String[] keys = {"user", "admin_role", "manager_role", "auth_user"};
-        String viewName = "manager/user/one";
+        String viewName = "user/manager/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");

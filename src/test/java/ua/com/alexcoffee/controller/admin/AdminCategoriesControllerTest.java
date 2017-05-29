@@ -32,7 +32,7 @@ public class AdminCategoriesControllerTest {
 
         ModelAndView modelAndView = adminCategoriesController.viewAllCategories(new ModelAndView());
         String[] keys = {"categories", "auth_user"};
-        checkModelAndView(modelAndView, "admin/category/all", keys);
+        checkModelAndView(modelAndView, "category/admin/all", keys);
 
         System.out.println("OK!");
     }
@@ -43,7 +43,7 @@ public class AdminCategoriesControllerTest {
 
         ModelAndView modelAndView = adminCategoriesController.viewCategory(ID, new ModelAndView());
         String[] keys = {"category", "auth_user"};
-        String viewName = "admin/category/one";
+        String viewName = "category/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -55,7 +55,7 @@ public class AdminCategoriesControllerTest {
 
         ModelAndView modelAndView = adminCategoriesController.getAddCategoryPage(new ModelAndView());
         String[] keys = {"photos", "auth_user"};
-        String viewName = "admin/category/add";
+        String viewName = "category/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -65,9 +65,10 @@ public class AdminCategoriesControllerTest {
     public void saveCategoryTest() throws Exception {
         System.out.print("-> saveCategory() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.saveCategory("Title", "url", "Description", "Photo", null,
-                new ModelAndView());
-        String viewName = "redirect:/admin/categories";
+        ModelAndView modelAndView = adminCategoriesController.saveCategory(
+                "Title", "url", "Description", "Photo", null, new ModelAndView()
+        );
+        String viewName = "redirect:/admin/category/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -88,7 +89,7 @@ public class AdminCategoriesControllerTest {
 
         ModelAndView modelAndView = adminCategoriesController.getEditCategoryPage(ID, new ModelAndView());
         String[] keys = {"category", "photos", "auth_user"};
-        String viewName = "admin/category/edit";
+        String viewName = "category/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -100,7 +101,7 @@ public class AdminCategoriesControllerTest {
 
         ModelAndView modelAndView = adminCategoriesController.updateCategory(ID, "Title", "url", "Description",
                 ID, "Photo", null, new ModelAndView());
-        String viewName = "redirect:/admin/view_category_1";
+        String viewName = "redirect:/admin/view/1";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -120,7 +121,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> deleteCategory() - ");
 
         ModelAndView modelAndView = adminCategoriesController.deleteCategory(ID, new ModelAndView());
-        String viewName = "redirect:/admin/categories";
+        String viewName = "redirect:/admin/category/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -131,7 +132,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> deleteAllCategories() - ");
 
         ModelAndView modelAndView = adminCategoriesController.deleteAllCategories(new ModelAndView());
-        String viewName = "redirect:/admin/categories";
+        String viewName = "redirect:/admin/category/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");

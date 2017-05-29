@@ -27,7 +27,7 @@ public class SalePositionTest {
         SalePosition salePosition = new SalePosition(product, 5);
         salePosition.setId((long) 2);
 
-        String line = "SalePosition #" + salePosition.getId() + ": "
+        String line = "SalePosition #" + salePosition.getId() + ":"
                 + "\n" + product.getTitle() + "\n№ " + product.getId()
                 + ", " + product.getPrice() + " UAH"
                 + "\nNumber = " + salePosition.getNumber()

@@ -27,16 +27,15 @@ public class ShoppingCartTest {
         System.out.print("-> toString() - ");
 
         ShoppingCart cart = new ShoppingCart();
-        String line = "Shoping Cart: is empty!";
+        String line = "Shopping Cart: is empty!";
         assertTrue(cart.toString().equals(line));
 
         Product product = new Product("Title", "URL", null, null, 10.0);
         product.setId((long) 5);
         SalePosition position = new SalePosition(product, 10);
         cart.addSalePosition(position);
-        line = "Shoping Cart: \n1) " + product.getTitle() + "\n№ " + product.getId() + ", " + position.getPrice() + " UAH"
+        line = "Shopping Cart: \n1) " + product.getTitle() + "\n№ " + product.getId() + ", " + position.getPrice() + " UAH"
                 +"\nPrice: "+cart.getPrice()+" UAH";
-
         assertEquals(cart.toString(),line);
 
         System.out.println("OK!");

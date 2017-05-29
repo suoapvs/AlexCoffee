@@ -32,7 +32,7 @@ public class AdminOrdersControllerTest {
 
         ModelAndView modelAndView = adminOrdersController.viewAllOrders(new ModelAndView());
         String[] keys = {"orders", "status_new", "auth_user"};
-        String viewName = "admin/order/all";
+        String viewName = "order/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -44,7 +44,7 @@ public class AdminOrdersControllerTest {
 
         ModelAndView modelAndView = adminOrdersController.viewOrder(ID, new ModelAndView());
         String[] keys = {"order", "sale_positions", "order_price", "status_new", "admin_role", "manager_role", "auth_user"};
-        String viewName = "admin/order/one";
+        String viewName = "order/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -56,7 +56,7 @@ public class AdminOrdersControllerTest {
 
         ModelAndView modelAndView = adminOrdersController.getEditOrderPage(ID, new ModelAndView());
         String[] keys = {"order", "sale_positions", "order_price", "statuses", "auth_user"};
-        String viewName = "admin/order/edit";
+        String viewName = "order/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -68,7 +68,7 @@ public class AdminOrdersControllerTest {
 
         ModelAndView modelAndView = adminOrdersController.updateOrder(ID, ID, "number", ID, "name", "email", "phone",
                 "shippingAddress", "shippingDetails", "description", new ModelAndView());
-        String viewName = "redirect:/admin/view_order_1";
+        String viewName = "redirect:/admin/order/view/1";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -88,7 +88,7 @@ public class AdminOrdersControllerTest {
         System.out.print("-> deleteOrder() - ");
 
         ModelAndView modelAndView = adminOrdersController.deleteOrder(ID, new ModelAndView());
-        String viewName = "redirect:/admin/orders";
+        String viewName = "redirect:/admin/order/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -99,7 +99,7 @@ public class AdminOrdersControllerTest {
         System.out.print("-> deleteAllOrders() - ");
 
         ModelAndView modelAndView = adminOrdersController.deleteAllOrders(new ModelAndView());
-        String viewName = "redirect:/admin/orders";
+        String viewName = "redirect:/admin/order/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");

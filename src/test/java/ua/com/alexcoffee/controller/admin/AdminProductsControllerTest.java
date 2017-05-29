@@ -32,7 +32,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.viewAllProducts(new ModelAndView());
         String[] keys = {"products", "auth_user"};
-        String viewName = "admin/product/all";
+        String viewName = "product/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -44,7 +44,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.viewProduct(ID, new ModelAndView());
         String[] keys = {"product", "auth_user"};
-        String viewName = "admin/product/one";
+        String viewName = "product/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -56,7 +56,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.getAddProductPage(new ModelAndView());
         String[] keys = {"categories", "photos", "auth_user"};
-        String viewName = "admin/product/add";
+        String viewName = "product/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -68,7 +68,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.saveProduct("title", "url", "parameters", "description",
                 ID, "photoTitle", null, null, 1.0, new ModelAndView());
-        String viewName = "redirect:/admin/products";
+        String viewName = "redirect:/admin/product/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -89,7 +89,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.getEditProductPage(ID, new ModelAndView());
         String[] keys = {"product", "categories", "photos", "auth_user"};
-        String viewName = "admin/product/edit";
+        String viewName = "product/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -101,7 +101,7 @@ public class AdminProductsControllerTest {
 
         ModelAndView modelAndView = adminProductsController.updateProduct(ID, "title", "url", "parameters",
                 "description", ID, ID, "photoTitle", null, null, 1.0, new ModelAndView());
-        String viewName = "redirect:/admin/view_product_" + ID;
+        String viewName = "redirect:/admin/product/view/" + ID;
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -132,7 +132,7 @@ public class AdminProductsControllerTest {
         System.out.print("-> deleteAllProducts() - ");
 
         ModelAndView modelAndView = adminProductsController.deleteAllProducts(new ModelAndView());
-        String viewName = "redirect:/admin/products";
+        String viewName = "redirect:/admin/product/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");

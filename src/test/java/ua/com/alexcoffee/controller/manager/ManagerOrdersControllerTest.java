@@ -32,8 +32,8 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> viewAllOrders() - ");
 
         ModelAndView modelAndView = managerOrdersController.viewAllOrders(new ModelAndView());
-        String[] keys = {"orders", "status_new", "auth_user"};
-        String viewName = "manager/order/all";
+        String[] keys = { "orders", "status_new", "auth_user" };
+        String viewName = "order/manager/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -44,7 +44,7 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> viewOrder() - ");
 
         ModelAndView modelAndView = managerOrdersController.viewOrder(ID, new ModelAndView());
-        String[] keys = {"order", "sales", "order_price", "status_new", "auth_user", "manager_role", "admin_role"};
+        String[] keys = { "order", "sales", "order_price", "status_new", "auth_user", "manager_role", "admin_role" };
         String viewName = "manager/order/one";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -56,8 +56,8 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> getEditOrderPage() - ");
 
         ModelAndView modelAndView = managerOrdersController.getEditOrderPage(ID, new ModelAndView());
-        String[] keys = {"order", "sales", "order_price", "statuses", "auth_user"};
-        String viewName = "manager/order/edit";
+        String[] keys = { "order", "sale_positions", "order_price", "statuses", "auth_user" };
+        String viewName = "order/manager/edit";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -69,7 +69,7 @@ public class ManagerOrdersControllerTest {
 
         ModelAndView modelAndView = managerOrdersController.updateOrder(ID, ID, "number", ID,
                 "name", "email", "phone", "shippingAddress", "shippingDetails", "description", new ModelAndView());
-        String viewName = "redirect:/manager/view_order_1";
+        String viewName = "redirect:/manager/order/view/1";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");

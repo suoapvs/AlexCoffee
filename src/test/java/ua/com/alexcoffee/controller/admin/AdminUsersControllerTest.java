@@ -33,7 +33,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.viewAllPersonnel(new ModelAndView());
         String[] keys = {"users", "admin_role", "manager_role", "auth_user"};
-        String viewName = "admin/user/all";
+        String viewName = "user/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -45,7 +45,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.viewUser(ID, new ModelAndView());
         String[] keys = {"user", "admin_role", "manager_role", "auth_user"};
-        String viewName = "/admin/user/one";
+        String viewName = "/user/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -57,7 +57,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.getAddUserPage(new ModelAndView());
         String[] keys = {"roles", "auth_user"};
-        String viewName = "/admin/user/add";
+        String viewName = "/user/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -69,7 +69,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.saveUser("name", ID, "username", "password", "email",
                 "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
-        String viewName = "redirect:/admin/users";
+        String viewName = "redirect:/admin/user/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -90,7 +90,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.getEditUserPage(ID, new ModelAndView());
         String[] keys = {"user", "roles", "auth_user"};
-        String viewName = "/admin/user/edit";
+        String viewName = "/user/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -102,7 +102,7 @@ public class AdminUsersControllerTest {
 
         ModelAndView modelAndView = adminUsersController.updateUser(ID, "name", ID, "username", "password",
                 "email", "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
-        String viewName = "redirect:/admin/view_user_" + ID;
+        String viewName = "redirect:/admin/user/view/" + ID;
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -122,7 +122,7 @@ public class AdminUsersControllerTest {
         System.out.print("-> deleteUser() - ");
 
         ModelAndView modelAndView = adminUsersController.deleteUser(ID, new ModelAndView());
-        String viewName = "redirect:/admin/users";
+        String viewName = "redirect:/admin/user/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");
@@ -133,7 +133,7 @@ public class AdminUsersControllerTest {
         System.out.print("-> deleteAll() - ");
 
         ModelAndView modelAndView = adminUsersController.deleteAll(new ModelAndView());
-        String viewName = "redirect:/admin/users";
+        String viewName = "redirect:/admin/user/all";
         checkModelAndView(modelAndView, viewName);
 
         System.out.println("OK!");

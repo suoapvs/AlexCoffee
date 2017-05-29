@@ -6,7 +6,7 @@ package ua.com.alexcoffee.exception;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public final class BadRequestException extends RuntimeException {
+public class BadRequestException extends RuntimeException {
     /**
      * Конструктр без параметров.
      */

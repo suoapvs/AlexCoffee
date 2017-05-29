@@ -28,11 +28,8 @@ public class CategoryTest {
         String title = "New Category";
         String url = "url";
         String description = "Some new category";
-
         Category category = new Category(title, url, description, null);
-
-        String line = "\nTitle: " + title + "\nUrl: " + url + "\nDiscription: " + description;
-
+        String line = "Title: " + title + "\nUrl: " + url + "\nDescription: " + description;
         assertEquals(category.toString(), line);
 
         System.out.println("OK!");

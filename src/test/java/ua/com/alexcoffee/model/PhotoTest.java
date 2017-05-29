@@ -47,7 +47,7 @@ public class PhotoTest {
         String pll = "pll";
 
         Photo photo = new Photo(title, pls, pll);
-        String line = "\nTitle: " + title + "\nphoto short link: " + pls + "\nphoto long link: " + pll;
+        String line = "Title: " + title + "\nphoto short link: " + pls + "\nphoto long link: " + pll;
 
         assertEquals(photo.toString(), line);
 

@@ -35,7 +35,7 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView = homeController.home(new ModelAndView());
         String[] keys = {"categories", "products", "cart_size"};
-        String viewName = "client/home";
+        String viewName = "home/home";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -48,7 +48,7 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView = homeController.viewProductsInCategory(URL, new ModelAndView());
         String[] keys = {"category", "products", "cart_size"};
-        String viewName = "client/category";
+        String viewName = "category/one";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -61,7 +61,7 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView = homeController.viewAllProducts(new ModelAndView());
         String[] keys = {"products", "cart_size"};
-        String viewName = "client/products";
+        String viewName = "product/all";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");
@@ -74,7 +74,7 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView1 = homeController.viewProduct(URL, new ModelAndView());
         String[] keys = {"product", "cart_size", "featured_products"};
-        String viewName = "client/product";
+        String viewName = "product/one";
         checkModelAndView(modelAndView1, viewName, keys);
 
         ModelAndView modelAndView2 = homeController.viewProduct(Integer.toString(ARTICLE), new ModelAndView());
@@ -90,7 +90,7 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView = homeController.viewCart(new ModelAndView());
         String[] keys = {"sale_positions", "price_of_cart", "cart_size"};
-        String viewName = "client/cart";
+        String viewName = "cart/cart";
         checkModelAndView(modelAndView, viewName, keys);
 
         System.out.println("OK!");

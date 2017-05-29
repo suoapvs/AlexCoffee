@@ -123,7 +123,7 @@ public class UserDAOImplTest {
         System.out.print("-> getAuthenticatedUser() - ");
 
         User user = userDAO.getAuthenticatedUser();
-        assertNotNull(user);
+        assertNull(user);
 
         System.out.println("OK!");
     }
