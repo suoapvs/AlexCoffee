@@ -14,7 +14,8 @@
                     <a href="<c:url value="/home"/>">
                         <span class="nav-text-label color-green">Alex</span>
                         <span class="nav-text-label color-brown">Coffee</span>
-                    </a>&nbsp;&nbsp;
+                    </a>
+                    &nbsp;
                     <a href="<c:url value="/admin/"/>">
                         <span class="nav-text-label color-red">A</span>
                     </a>

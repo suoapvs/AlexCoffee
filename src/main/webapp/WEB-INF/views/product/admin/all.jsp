@@ -7,12 +7,12 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="title" content="Заказы || Alex Coffee">
-        <title>Заказы || Alex Coffee</title>
+        <meta name="title" content="Кофе || Alex Coffee">
+        <title>Кофе || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
@@ -22,55 +22,61 @@
               type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
     <div class="container-fluid">
-        <section id="orders">
+        <section id="products admin-page">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
-                            <span class="color-brown">Заказы</span>
-                            <c:if test="${fn:length(orders) eq 0}"><span class="color-red"> - список пуст!</span></c:if>
+                            <span class="color-brown">Товары</span>
+                            <c:if test="${fn:length(products) eq 0}">
+                                <span class="color-red"> - список пуст!</span><br>
+                                <a href="<c:url value="/admin/product/add"/>" title="Добавить новый товар">
+                                    <button class="btn btn-success" type="submit">Добавить</button>
+                                </a>
+                            </c:if>
                         </b>
                     </div>
                 </div>
-                <c:if test="${fn:length(orders) gt 0}">
+                <c:if test="${fn:length(products) gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
                             <tr>
-                                <th>Номер</th>
-                                <th>Статус</th>
-                                <th class="hidden-xs">Дата</th>
-                                <th>
+                                <th width="40%">Название</th>
+                                <th class="hidden-xs" width="15%">Категория</th>
+                                <th width="35%">
                                     Действие
-                                    <a href="<c:url value="/admin/order/delete_all"/>" title="Удалить все заказы">
+                                    <a href="<c:url value="/admin/product/add"/>" title="Добавить новый товар">
+                                        <button class="btn btn-success" type="submit">Добавить</button>
+                                    </a>
+                                    <a href="<c:url value="/admin/product/delete_all"/>" title="Удалить все товары">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
                             </tr>
-                            <c:forEach items="${orders}" var="order">
+                            <c:forEach items="${products}" var="product">
                                 <tr>
-                                    <td>${order.number}</td>
                                     <td>
-                                        <c:choose>
-                                            <c:when test="${order.status eq status_new}">
-                                                <span class="color-green">${order.status.description}</span>
-                                            </c:when>
-                                            <c:otherwise>${order.status.description}</c:otherwise>
-                                        </c:choose>
+                                        <a href="<c:url value="/product/${product.url}"/>"
+                                           title="Перейти к товару ${product.title}">${product.title}</a>
                                     </td>
-                                    <td class="hidden-xs">${order.date}</td>
+                                    <td class="hidden-xs">
+                                        <a href="<c:url value="/admin/category/view/${product.category.id}"/>"
+                                           title="Смотреть категорию ${product.category.title}">
+                                                ${product.category.title}</a>
+                                    </td>
                                     <td>
-                                        <a href="<c:url value="/admin/order/view/${order.id}"/>"
-                                           title="Смотреть заказ ${order.number}">
+                                        <a href="<c:url value="/admin/product/view/${product.id}"/>"
+                                           title="Смотреть товар ${product.title}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/order/edit/${order.id}"/>"
-                                           title="Редактировать заказ ${order.number}">
+                                        <a href="<c:url value="/admin/product/edit/{product.id}"/>"
+                                           title="Редактировать товар ${product.title}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/order/delete/${order.id}"/>"
-                                           title="Удалить заказ ${order.number}">
+                                        <a href="<c:url value="/admin/product/delete/${product.id}"/>"
+                                           title="Удалить товар ${product.title}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>
                                     </td>

@@ -1,18 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="compress" uri="http://htmlcompressor.googlecode.com/taglib/compressor" %>
 
 <compress:html removeIntertagSpaces="true">
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="title" content="Новый продукт || Alex Coffee">
-        <title>Новый продукт || Alex Coffee</title>
+        <meta name="title" content="Редактирование категории ${category.title} || Alex Coffee">
+        <title>Редактирование категории ${category.title} || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
@@ -22,81 +21,59 @@
               type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/admin/template/admin_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
     <div class="container-fluid">
-        <section id="product">
+        <section id="category">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
-                            <span class="color-green">Новый </span>
-                            <span class="color-brown">товар</span>
+                            <span class="color-brown">Редактирование категории </span>
+                            <span class="color-green">"${category.title}"</span>
                         </b>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="<c:url value="/admin/product/save"/>" enctype="multipart/form-data" method="post">
+                    <form action="<c:url value="/admin/category/update"/>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="${category.id}">
                         <table class="table">
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="100"
-                                           placeholder="Введите название товара" required>
+                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="50"
+                                           placeholder=" Введите название категории" value="${category.title}" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>URL:</th>
                                 <td>
                                     <input class="input-order" type="text" name="url" pattern="[a-z0-9_]{5,50}"
-                                           placeholder=" Введите URL, формат (a-z, 0-9, _)"
+                                           placeholder=" Введите URL, формат (a-z, 0-9, _)" value="${category.url}"
                                            minlength="5" maxlength="50" required>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Категория:</th>
-                                <td>
-                                    <select class="input-order" name="category" title="Категория товара">
-                                        <c:forEach items="${categories}" var="category">
-                                            <option value="${category.id}">${category.title}</option>
-                                        </c:forEach>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Параметры:</th>
-                                <td>
-                                    <textarea class="input-order textarea" name="parameters" maxlength="500"
-                                              placeholder="Введите параметры товара" required></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                    <textarea class="input-order textarea" name="description" maxlength="500"
-                                              placeholder="Введите описание товара"></textarea>
+                                <textarea class="input-order textarea" name="description" maxlength="500"
+                                          placeholder=" Введите описание категории">${category.description}</textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Изображение:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="photo_title" required
-                                           placeholder="Введите название фото" minlength="5" maxlength="100">
-                                    <br>Малое: <input type="file" name="small_photo" accept="image/*">
-                                    <br>Большое: <input type="file" name="big_photo" accept="image/*">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Цена:</th>
-                                <td>
-                                    <input class="input-order" type="number" name="price" required
-                                           placeholder="Введите цену товара" min="0" max="99999" step="0.01">
+                                    <input type="hidden" name="photo_id" value="${category.photo.id}">
+                                    <input class="input-order" type="text" name="photo_title"
+                                           placeholder="Введите название фото" value="${category.photo.title}"
+                                           minlength="5" maxlength="100">
+                                    <br><input type="file" name="photo" accept="image/*">
                                 </td>
                             </tr>
                             <tr>
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Добавить новый товар">Добавить товар</button>
+                                            title="Обновить информацию о категории">Сохранить</button>
                                     <button class="btn btn-info" type="reset"
                                             title="Сбросить введенные даные">Сброс</button>
                                 </td>
