@@ -8,13 +8,15 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
                 <div class="navbar-brand text-shadow">
                     <a href="<c:url value="/home"/>">
                         <span class="nav-text-label color-green">Alex</span>
                         <span class="nav-text-label color-brown">Coffee</span>
-                        <img src="<c:url value="/resources/img/main_icon.png"/>" class="nav-label" alt="AlexCoffee">
+                        <img src="<c:url value="/resources/img/favicon.png"/>" class="nav-label" alt="AlexCoffee">
                     </a>
                 </div>
             </div>
@@ -35,11 +37,12 @@
                             <c:choose>
                                 <c:when test="${cart_size gt 0}">
                                     <span class="glyphicon glyphicon-shopping-cart color-green"
-                                          aria-hidden="true"></span> Корзина (<span class="color-green">${cart_size}</span>)
+                                          aria-hidden="true"></span>
+                                    Корзина (<span class="color-green"><c:out value="${cart_size}"/></span>)
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="glyphicon glyphicon-shopping-cart"
-                                          aria-hidden="true"></span> Корзина (${cart_size})
+                                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                                    Корзина (<c:out value="${cart_size}"/>)
                                 </c:otherwise>
                             </c:choose>
                         </a>

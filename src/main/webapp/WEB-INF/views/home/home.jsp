@@ -7,7 +7,7 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="index,follow">
@@ -27,7 +27,7 @@
               type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/client/template/home_navbar.jsp"/>
+    <%@include file="/WEB-INF/views/home/navbar.jsp" %>
     <div class="container-fluid">
         <section id="main">
             <div class="row main text-shadow">
@@ -57,7 +57,8 @@
                     <h3 class="intro-text text-shadow">
                         <img src="<c:url value="/resources/img/section_icon_1.png"/>"
                              id="label-category" width="90px" height="90px" alt="Alex Coffee">
-                        <br><span class="home-block-name color-green">Категории</span>
+                        <br>
+                        <span class="home-block-name color-green">Категории</span>
                         <span class="home-block-name color-brown"> Кофе</span>
                         <c:if test="${fn:length(categories) eq 0}">
                             <span class="color-red"> - список пуст!</span>
@@ -70,11 +71,13 @@
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
                                 <div class="category">
                                     <a href="<c:url value="/category/${category.url}"/>"
-                                       title="Перейти к категории ${category.title}">
+                                       title="Перейти к категории <c:out value="${category.title}"/>">
                                         <img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
                                              class="img-thumbnail blink" width="150px" height="150px"
-                                             alt="${category.title}">
-                                        <div class="text-shadow">${category.title}</div>
+                                             alt="<c:out value="${category.title}"/>">
+                                        <div class="text-shadow">
+                                            <c:out value="${category.title}"/>
+                                        </div>
                                     </a>
                                 </div>
                             </div>
@@ -91,7 +94,7 @@
             </div>
         </section>
     </div>
-    <jsp:include page="/WEB-INF/views/client/template/some_products.jsp"/>
+    <jsp:include page="/WEB-INF/views/product/some_list.jsp"/>
     <div class="container-fluid">
         <section id="delivery">
             <div class="row delivery">
@@ -99,21 +102,31 @@
                     <h3 class="intro-text text-shadow">
                         <img src="<c:url value="/resources/img/section_icon_3.png"/>"
                              id="label-delivery" width="90px" height="90px" alt="Alex Coffee">
-                        <br><span class="home-block-name color-green">Доставка</span>
+                        <br>
+                        <span class="home-block-name color-green">Доставка</span>
                         <span class="home-block-name color-brown"> Кофе</span>
                     </h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-car fa-5x color-green" id="icon1"></i>
-                    <p class="icon-text">Курьер по адресу<br>Киев</p>
+                    <p class="icon-text">
+                        Курьер по адресу<br>
+                        Киев
+                    </p>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-truck fa-5x color-green" id="icon2"></i>
-                    <p class="icon-text">Новая Почта<br>Украина</p>
+                    <p class="icon-text">
+                        Новая Почта<br>
+                        Украина
+                    </p>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-shopping-cart fa-5x color-green" id="icon3"></i>
-                    <p class="icon-text">Самовывоз<br>Киев</p>
+                    <p class="icon-text">
+                        Самовывоз<br>
+                        Киев
+                    </p>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h4 class="text-delivery">
@@ -131,7 +144,8 @@
                     <h3 class="intro-text text-shadow">
                         <img src="<c:url value="/resources/img/section_icon_4.png"/>"
                              id="label-payments" width="90px" height="90px" alt="Alex Coffee">
-                        <br><span class="home-block-name color-green">Оплата</span>
+                        <br>
+                        <span class="home-block-name color-green">Оплата</span>
                         <span class="home-block-name color-brown"> Кофе</span>
                     </h3>
                 </div>
@@ -141,16 +155,21 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-truck fa-5x color-green" id="icon5"></i>
-                    <p class="icon-text">При получении на <br>Новой Почте</p>
+                    <p class="icon-text">
+                        При получении на <br>
+                        Новой Почте
+                    </p>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 icon-block-payment-delivery">
                     <i class="fa fa-cc-visa fa-5x color-green" id="icon6"></i>
-                    <p class="icon-text">Карта ПриватБанка</p>
+                    <p class="icon-text">
+                        Карта ПриватБанка
+                    </p>
                 </div>
                 <div class="col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 col-xl-8 col-xl-offset-2">
                     <h4 class="text-payments">
-                        Возврат приобретенных товаров осуществляется в случаях и согласно условиям, регламентированным
-                        «Законом Украины о защите прав потребителей»
+                        Возврат приобретенных товаров осуществляется в случаях и согласно условиям,
+                        регламентированным «Законом Украины о защите прав потребителей»
                     </h4>
                 </div>
             </div>
@@ -163,7 +182,8 @@
                     <h3 class="text-shadow">
                         <img src="<c:url value="/resources/img/section_icon_5.png"/>"
                              id="label-cantacts" width="90px" height="90px" alt="Alex Coffee">
-                        <br><span class="home-block-name color-green">Контакты</span>
+                        <br>
+                        <span class="home-block-name color-green">Контакты</span>
                     </h3>
                     <br>
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5">
@@ -171,28 +191,35 @@
                             <br>
                             <p>
                                 <span class="glyphicon glyphicon-map-marker social color-green"
-                                      aria-hidden="true"></span>&nbsp;Украина, г. Киев, ул. Михаила Ломоносова, 55
-                                <br>(5 мин ходьбы от метро Выставочный центр)
-                            </p><br>
+                                      aria-hidden="true"></span>
+                                &nbsp;Украина, г. Киев, ул. Михаила Ломоносова, 55<br>
+                                (5 мин ходьбы от метро Выставочный центр)
+                            </p>
+                            <br>
                             <p>
                                 <a href="tel:+380637399290" title="Позвонить на телефон">
                                     <span class="glyphicon glyphicon-phone social color-green"
-                                          aria-hidden="true"></span>&nbsp;+38(063)73-99-290
+                                          aria-hidden="true"></span>
+                                    &nbsp;+38(063)73-99-290
                                 </a>
                             </p><br>
                             <p>
                                 <a href="mailto:info@alexcoffee.com.ua" title="Написать письмо" target="_blank">
                                     <span class="glyphicon glyphicon-envelope social color-green"
-                                          aria-hidden="true"></span>&nbsp;info@alexcoffee.com.ua
+                                          aria-hidden="true"></span>
+                                    &nbsp;info@alexcoffee.com.ua
                                 </a>
                             </p><br>
                             <p>
                                 <a href="https://www.facebook.com/yurii.alex.salimov" title="Facebook" target="_blank">
-                                    <i class="fa fa-facebook-official fa-2x social color-green"></i></a>
+                                    <i class="fa fa-facebook-official fa-2x social color-green"></i>
+                                </a>
                                 <a href="https://vk.com/yurii.alex.salimov" title="ВКонтакте" target="_blank">
-                                    <i class="fa fa-vk fa-2x social color-brown"></i></a>
+                                    <i class="fa fa-vk fa-2x social color-brown"></i>
+                                </a>
                                 <a href="skype:yurii.salimov?call" title="Skype" target="_blank">
-                                    <i class="fa fa-skype fa-2x social color-green"></i></a>
+                                    <i class="fa fa-skype fa-2x social color-green"></i>
+                                </a>
                             </p><br>
                         </div>
                     </div>
@@ -204,7 +231,7 @@
             </div>
         </section>
     </div>
-    <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/footer.jsp"/>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

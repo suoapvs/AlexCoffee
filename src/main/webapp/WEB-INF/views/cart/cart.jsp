@@ -8,7 +8,7 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="description" content="Корзина - выбраные товары."/>
@@ -25,7 +25,7 @@
               rel="stylesheet" type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/client_navbar.jsp"/>
     <div class="container-fluid">
         <section id="cart">
             <div class="row cart">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <c:if test="${fn:length(sale_positions) gt 0}">
-                    <jsp:include page="/WEB-INF/views/client/template/products_in_the_cart.jsp"/>
+                    <jsp:include page="/WEB-INF/views/product/in_cart.jsp"/>
                     <div class="row">
                         <form action="checkout" method="post">
                             <div class="col-xs-12 col-sm-2 col-sm-offset-2 col-md-2 col-md-offset-2 col-lg-2 col-lg-offset-2 col-xl-2 col-xl-offset-2 input-padding text-center">
@@ -64,7 +64,8 @@
                         <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 text-center">
                             <a href="<c:url value="/product/all"/>">
                                 <button class="btn btn-success">Продолжить покупки</button>
-                            </a>&nbsp;&nbsp;&nbsp;
+                            </a>
+                            &nbsp;&nbsp;&nbsp;
                             <a href="<c:url value="/cart/clear"/>">
                                 <button class="btn btn-success">Очистить корзину</button>
                             </a>
@@ -74,7 +75,7 @@
             </div>
         </section>
     </div>
-    <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/footer.jsp"/>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

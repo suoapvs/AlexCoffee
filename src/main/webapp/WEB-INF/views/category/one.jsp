@@ -7,14 +7,14 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
-        <meta name="description" content="${category.title} - ${category.description}"/>
-        <meta name="keywords" content="${category.title}"/>
+        <meta name="description" content="<c:out value="${category.title}"/> - ${category.description}"/>
+        <meta name="keywords" content="<c:out value="${category.title}"/>"/>
         <meta name="robots" content="index,follow">
-        <meta name="title" content="${category.title} || Alex Coffee">
-        <title>${category.title} || Alex Coffee</title>
+        <meta name="title" content="<c:out value="${category.title}"/> || Alex Coffee">
+        <title><c:out value="${category.title}"/> || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
@@ -24,27 +24,28 @@
               rel="stylesheet" type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/client_navbar.jsp"/>
     <div class="container-fluid">
         <section id="products_${category.url}">
             <div class="row products">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="intro-text label-categories">
-                        <img id="label-category" width="150px" height="150px" alt="${category.title}"
+                        <img id="label-category" width="150px" height="150px" alt="<c:out value="${category.title}"/>"
                              src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>">
                         <div class="text-shadow">
-                            <span class="home-block-name color-green">${category.title}</span>
+                            <span class="home-block-name color-green"><c:out value="${category.title}"/></span>
                             <c:if test="${fn:length(products) eq 0}">
                                 <span class="home-block-name color-red"> - список пуст!</span>
                             </c:if>
                         </div>
                     </h3>
                 </div>
-                <jsp:include page="/WEB-INF/views/client/template/products_list.jsp"/>
+                <jsp:include page="/WEB-INF/views/product/list.jsp"/>
                 <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <h4 class="text-all-products text-shadow">
-                        <a href="<c:url value="/product/all"/>"
-                           title="Перейти ко всем товарам">Весь ассортимент кофе</a>
+                        <a href="<c:url value="/product/all"/>" title="Перейти ко всем товарам">
+                            Весь ассортимент кофе
+                        </a>
                     </h4>
                 </div>
             </div>
@@ -55,14 +56,14 @@
             <section id="category-description">
                 <div class="row category-description color-black">
                     <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
-                        <p><b>${category.title}</b></p>
+                        <p><b><c:out value="${category.title}"/></b></p>
                         <p>${category.description}</p>
                     </div>
                 </div>
             </section>
         </div>
     </c:if>
-    <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/footer.jsp"/>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>

@@ -6,7 +6,7 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="description" content="Весь ассортимент товаров интернет магазина кофе Alex Coffee"/>
@@ -23,15 +23,13 @@
               type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/client/template/navbar.jsp"/>
-    <jsp:include page="/WEB-INF/views/client/template/some_products.jsp"/>
-    <jsp:include page="/WEB-INF/views/client/template/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/client_navbar.jsp"/>
+    <%@include file="/WEB-INF/views/product/some_list.jsp" %>
+    <jsp:include page="/WEB-INF/views/other/footer.jsp"/>
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/main.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     </body>
     </html>
 </compress:html>

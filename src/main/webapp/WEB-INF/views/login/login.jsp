@@ -6,7 +6,7 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
@@ -21,32 +21,23 @@
               type="text/css">
     </head>
     <body>
-    <div class="nav-bar">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <div class="navbar-brand text-shadow">
-                        <a href="<c:url value="/home"/>">
-                            <span class="nav-text-label color-green">Alex</span>
-                            <span class="nav-text-label color-brown">Coffee</span>
-                            <img src="<c:url value="/resources/img/main_icon.png"/>"
-                                 class="nav-label" alt="Alex Coffee">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <%@include file="/WEB-INF/views/login/navbar.jsp" %>
     <div class="container-fluid">
         <section id="login">
             <div class="row login">
                 <div class="col-xs-6 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4 col-xl-4 col-xl-offset-4 text-center">
-                    <div class="text-shadow"><span class="authorization">Авторизация</span></div>
+                    <div class="text-shadow">
+                        <span class="authorization">Авторизация</span>
+                    </div>
                     <c:if test="${param.error ne null}">
-                        <div class="alert alert-info" role="alert">Ошибка авторизации</div>
+                        <div class="alert alert-info" role="alert">
+                            Ошибка авторизации
+                        </div>
                     </c:if>
                     <c:if test="${param.logout ne null}">
-                        <div class="alert alert-info" role="alert">Вы вышли из системы</div>
+                        <div class="alert alert-info" role="alert">
+                            Вы вышли из системы
+                        </div>
                     </c:if>
                     <form class="form-signin" action="<c:url value="/login"/>" method="post">
                         <input id="username" class="form-control" type="text" name="username" autofocus required

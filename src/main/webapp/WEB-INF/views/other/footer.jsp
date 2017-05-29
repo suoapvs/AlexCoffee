@@ -9,7 +9,9 @@
                     <span class="footer-text-label color-green">Alex</span>
                     <span class="footer-text-label color-brown">Coffee</span>
                 </h3>
-                <h3><img src="<c:url value="/resources/img/main_icon.png"/>" alt="Alex Coffee"></h3>
+                <h3>
+                    <img src="<c:url value="/resources/img/favicon.png"/>" alt="Alex Coffee">
+                </h3>
                 <h3>
                     <span class="footer-text-label color-green">Лучший магазин </span>
                     <span class="footer-text-label color-brown">кофе</span>
@@ -19,8 +21,7 @@
                         alexcoffee.com.ua
                     </a>
                     &nbsp;&copy;&nbsp;2016&nbsp;
-                    <a href="https://www.linkedin.com/in/yurii-salimov"
-                       title="Linkedin" target="_blank">
+                    <a href="https://www.linkedin.com/in/yurii-salimov" title="Linkedin" target="_blank">
                         Yurii Salimov&nbsp;
                         <img src="<c:url value="/resources/img/mr_alex.png"/>" alt="Mr. Alex" title="Mr. Alex">
                     </a>
