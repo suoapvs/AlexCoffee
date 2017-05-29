@@ -15,8 +15,11 @@
                     <a href="<c:url value="/home"/>">
                         <span class="nav-text-label color-green">Alex</span>
                         <span class="nav-text-label color-brown">Coffee</span>
-                    </a>&nbsp;&nbsp;
-                    <a href="<c:url value="/managers/"/>"><span class="nav-text-label color-green">M</span></a>
+                    </a>
+                    &nbsp;
+                    <a href="<c:url value="/managers/"/>">
+                        <span class="nav-text-label color-green">M</span>
+                    </a>
                 </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse">

@@ -7,7 +7,7 @@
     <!DOCTYPE HTML>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
@@ -22,7 +22,7 @@
               type="text/css">
     </head>
     <body>
-    <jsp:include page="/WEB-INF/views/manager/template/manager_navbar.jsp"/>
+    <jsp:include page="/WEB-INF/views/other/manager_navbar.jsp"/>
     <div class="container-fluid">
         <section id="product">
             <div class="row admin-page">
