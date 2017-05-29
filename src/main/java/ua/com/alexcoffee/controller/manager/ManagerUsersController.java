@@ -84,7 +84,7 @@ public class ManagerUsersController {
         modelAndView.addObject("admin_role", this.roleService.getAdministrator());
         modelAndView.addObject("manager_role", this.roleService.getManager());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("manager/user/all");
+        modelAndView.setViewName("user/manager/all");
         return modelAndView;
     }
 
@@ -108,7 +108,7 @@ public class ManagerUsersController {
         modelAndView.addObject("admin_role", this.roleService.getAdministrator());
         modelAndView.addObject("manager_role", this.roleService.getManager());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("manager/user/one");
+        modelAndView.setViewName("user/manager/one");
         return modelAndView;
     }
 }

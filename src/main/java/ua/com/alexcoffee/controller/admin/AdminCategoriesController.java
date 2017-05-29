@@ -94,7 +94,7 @@ public class AdminCategoriesController {
                 "auth_user",
                 this.userService.getAuthenticatedUser()
         );
-        modelAndView.setViewName("admin/category/all");
+        modelAndView.setViewName("category/admin/all");
         return modelAndView;
     }
 
@@ -116,7 +116,7 @@ public class AdminCategoriesController {
     ) {
         modelAndView.addObject("category", this.categoryService.get(id));
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/category/one");
+        modelAndView.setViewName("category/admin/one");
         return modelAndView;
     }
 
@@ -136,7 +136,7 @@ public class AdminCategoriesController {
     public ModelAndView getAddCategoryPage(final ModelAndView modelAndView) {
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/category/add");
+        modelAndView.setViewName("category/admin/add");
         return modelAndView;
     }
 
@@ -215,7 +215,7 @@ public class AdminCategoriesController {
         modelAndView.addObject("category", this.categoryService.get(id));
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/category/edit");
+        modelAndView.setViewName("category/admin/edit");
         return modelAndView;
     }
 

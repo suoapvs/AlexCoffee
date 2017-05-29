@@ -98,7 +98,7 @@ public class AdminProductsController {
     public ModelAndView viewAllProducts(final ModelAndView modelAndView) {
         modelAndView.addObject("products", this.productService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/product/all");
+        modelAndView.setViewName("product/admin/all");
         return modelAndView;
     }
 
@@ -120,7 +120,7 @@ public class AdminProductsController {
     ) {
         modelAndView.addObject("product", this.productService.get(id));
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/product/one");
+        modelAndView.setViewName("product/admin/one");
         return modelAndView;
     }
 
@@ -139,7 +139,7 @@ public class AdminProductsController {
         modelAndView.addObject("categories", this.categoryService.getAll());
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/product/add");
+        modelAndView.setViewName("product/admin/add");
         return modelAndView;
     }
 
@@ -236,7 +236,7 @@ public class AdminProductsController {
         modelAndView.addObject("categories", this.categoryService.getAll());
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/product/edit");
+        modelAndView.setViewName("product/admin/edit");
         return modelAndView;
     }
 

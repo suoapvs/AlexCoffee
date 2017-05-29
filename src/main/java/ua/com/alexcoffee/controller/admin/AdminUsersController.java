@@ -78,7 +78,7 @@ public class AdminUsersController {
         modelAndView.addObject("admin_role", this.roleService.getAdministrator());
         modelAndView.addObject("manager_role", this.roleService.getManager());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("admin/user/all");
+        modelAndView.setViewName("user/admin/all");
         return modelAndView;
     }
 
@@ -102,7 +102,7 @@ public class AdminUsersController {
         modelAndView.addObject("admin_role", this.roleService.getAdministrator());
         modelAndView.addObject("manager_role", this.roleService.getManager());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("/admin/user/one");
+        modelAndView.setViewName("/user/admin/one");
         return modelAndView;
     }
 
@@ -123,7 +123,7 @@ public class AdminUsersController {
     ) {
         modelAndView.addObject("roles", this.roleService.getPersonnel());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("/admin/user/add");
+        modelAndView.setViewName("/user/admin/add");
         return modelAndView;
     }
 
@@ -213,7 +213,7 @@ public class AdminUsersController {
         modelAndView.addObject("user", this.userService.get(id));
         modelAndView.addObject("roles", this.roleService.getPersonnel());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("/admin/user/edit");
+        modelAndView.setViewName("/user/admin/edit");
         return modelAndView;
     }
 

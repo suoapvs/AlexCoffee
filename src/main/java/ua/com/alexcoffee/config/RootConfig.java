@@ -53,12 +53,12 @@ public class RootConfig {
      * Путь к базе данных.
      */
     private static final String DATABASE_URL =
-            "jdbc:mysql://127.0.0.1:3306/alexcoffee?"
-                    + "autoReconnect=true"
-                    + "&useSSL=false&useUnicode=true"
-                    + "&useJDBCCompliantTimezoneShift=true"
-                    + "&useLegacyDatetimeCode=false"
-                    + "&serverTimezone=GMT";
+            "jdbc:mysql://127.0.0.1:3306/alexcoffee?" +
+                    "autoReconnect=true" +
+                    "&useSSL=false&useUnicode=true" +
+                    "&useJDBCCompliantTimezoneShift=true" +
+                    "&useLegacyDatetimeCode=false" +
+                    "&serverTimezone=GMT";
 
     /**
      * Драйвер для подключение к базе данных.

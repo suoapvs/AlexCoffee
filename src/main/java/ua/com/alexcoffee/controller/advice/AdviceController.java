@@ -225,7 +225,7 @@ public class AdviceController {
                 "message_error",
                 ex.getClass().getSimpleName() + " : " + ex.getMessage()
         );
-        modelAndView.setViewName("client/error");
+        modelAndView.setViewName("error/error");
         return modelAndView;
     }
 

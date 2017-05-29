@@ -104,7 +104,7 @@ public class ManagerOrdersController {
         modelAndView.addObject("orders", this.orderService.getAll());
         modelAndView.addObject("status_new", this.statusService.getDefault());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.setViewName("manager/order/all");
+        modelAndView.setViewName("order/manager/all");
         return modelAndView;
     }
 
@@ -132,7 +132,7 @@ public class ManagerOrdersController {
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.addObject("manager_role", this.roleService.getManager());
         modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.setViewName("manager/order/one");
+        modelAndView.setViewName("order/manager/one");
         return modelAndView;
     }
 
@@ -162,7 +162,7 @@ public class ManagerOrdersController {
             modelAndView.addObject("order_price", order.getPrice());
             modelAndView.addObject("statuses", this.statusService.getAll());
             modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-            modelAndView.setViewName("manager/order/edit");
+            modelAndView.setViewName("order/manager/edit");
         } else {
             modelAndView.setViewName("redirect:/managers/order/all");
         }

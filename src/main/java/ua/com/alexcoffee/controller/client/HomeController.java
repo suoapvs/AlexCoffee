@@ -124,7 +124,7 @@ public class HomeController {
         final int productNumber = 12;
         modelAndView.addObject("products", this.productService.getRandom(productNumber));
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-        modelAndView.setViewName("client/home");
+        modelAndView.setViewName("home/home");
         return modelAndView;
     }
 
@@ -151,7 +151,7 @@ public class HomeController {
         );
         modelAndView.addObject("products", this.productService.getByCategoryUrl(url));
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-        modelAndView.setViewName("client/category");
+        modelAndView.setViewName("category/one");
         return modelAndView;
     }
 
@@ -171,7 +171,7 @@ public class HomeController {
     ) {
         modelAndView.addObject("products", this.productService.getAll());
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-        modelAndView.setViewName("client/products");
+        modelAndView.setViewName("product/all");
         return modelAndView;
     }
 
@@ -213,7 +213,7 @@ public class HomeController {
                         product.getId()
                 )
         );
-        modelAndView.setViewName("client/product");
+        modelAndView.setViewName("product/one");
         return modelAndView;
     }
 
@@ -233,7 +233,7 @@ public class HomeController {
         modelAndView.addObject("sale_positions", this.shoppingCartService.getSalePositions());
         modelAndView.addObject("price_of_cart", this.shoppingCartService.getPrice());
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-        modelAndView.setViewName("client/cart");
+        modelAndView.setViewName("cart/cart");
         return modelAndView;
     }
 
@@ -378,7 +378,7 @@ public class HomeController {
             modelAndView.addObject("price_of_cart", this.shoppingCartService.getPrice());
             this.shoppingCartService.clear();
             modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-            modelAndView.setViewName("client/checkout");
+            modelAndView.setViewName("cart/checkout");
         } else {
             modelAndView.setViewName("redirect:/");
         }
