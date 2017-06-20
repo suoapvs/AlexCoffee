@@ -31,7 +31,7 @@ public class AdminProductsControllerTest {
         System.out.print("-> viewAllOrders() - ");
 
         ModelAndView modelAndView = adminProductsController.viewAllProducts(new ModelAndView());
-        String[] keys = {"products", "auth_user"};
+        String[] keys = { "products" };
         String viewName = "product/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -43,7 +43,7 @@ public class AdminProductsControllerTest {
         System.out.print("-> viewProduct() - ");
 
         ModelAndView modelAndView = adminProductsController.viewProduct(ID, new ModelAndView());
-        String[] keys = {"product", "auth_user"};
+        String[] keys = { "product" };
         String viewName = "product/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -55,7 +55,7 @@ public class AdminProductsControllerTest {
         System.out.print("-> getAddProductPage() - ");
 
         ModelAndView modelAndView = adminProductsController.getAddProductPage(new ModelAndView());
-        String[] keys = {"categories", "photos", "auth_user"};
+        String[] keys = { "categories", "photos" };
         String viewName = "product/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -88,7 +88,7 @@ public class AdminProductsControllerTest {
         System.out.print("-> getEditProductPage() - ");
 
         ModelAndView modelAndView = adminProductsController.getEditProductPage(ID, new ModelAndView());
-        String[] keys = {"product", "categories", "photos", "auth_user"};
+        String[] keys = { "product", "categories", "photos" };
         String viewName = "product/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 

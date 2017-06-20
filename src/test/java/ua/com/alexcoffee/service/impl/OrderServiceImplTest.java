@@ -42,14 +42,6 @@ public class OrderServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullIdTest() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Order order = orderService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
@@ -88,14 +80,6 @@ public class OrderServiceImplTest {
         System.out.println("-> getByUnknownNumber() - OK!");
 
         Order order = orderService.get(ANY_STRING);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void removeByNullIdTest() throws Exception {
-        System.out.println("-> removeByNullId() - OK!");
-
-        Long id = null;
-        orderService.remove(id);
     }
 
     @Test

@@ -42,18 +42,9 @@ public class CategoryServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullIdTest() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Category category = categoryService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
-
         Category category = categoryService.get(UNKNOWN_ID);
     }
 
@@ -70,7 +61,6 @@ public class CategoryServiceImplTest {
     @Test(expected = WrongInformationException.class)
     public void getByNullUrlTest() throws Exception {
         System.out.println("-> getByNullUrl() - OK!");
-
         String url = null;
         Category category = categoryService.get(url);
     }
@@ -78,7 +68,6 @@ public class CategoryServiceImplTest {
     @Test(expected = WrongInformationException.class)
     public void getByEmptyUrlTest() throws Exception {
         System.out.println("-> getByEmptyUrl() - OK!");
-
         String url = "";
         Category category = categoryService.get(url);
     }
@@ -88,14 +77,6 @@ public class CategoryServiceImplTest {
         System.out.println("-> getByUnknownURL() - OK!");
 
         Category category = categoryService.get(ANY_STRING);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void removeByNullIdTest() throws Exception {
-        System.out.println("-> removeByNullId() - OK!");
-
-        Long id = null;
-        categoryService.remove(id);
     }
 
     @Test

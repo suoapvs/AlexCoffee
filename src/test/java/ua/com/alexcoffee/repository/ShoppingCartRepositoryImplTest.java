@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.dao.impl;
+package ua.com.alexcoffee.repository;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ua.com.alexcoffee.config.RootConfig;
 import ua.com.alexcoffee.config.WebConfig;
-import ua.com.alexcoffee.dao.interfaces.ShoppingCartDAO;
+import ua.com.alexcoffee.repository.ShoppingCartRepository;
 import ua.com.alexcoffee.model.Product;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
@@ -30,29 +30,29 @@ import static org.junit.Assert.assertFalse;
         @ContextConfiguration(classes = RootConfig.class),
         @ContextConfiguration(classes = WebConfig.class)
 })
-public class ShoppingCartDAOImplTest {
+public class ShoppingCartRepositoryImplTest {
 
     @Autowired
-    private ShoppingCartDAO shoppingCartDAO;
+    private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
     private ShoppingCart shoppingCart;
 
     @BeforeClass
     public static void setUp() {
-        System.out.println("\nTesting class \"ShoppingCartDAOImpl\" - START.\n");
+        System.out.println("\nTesting class \"ShoppingCartRepositoryImpl\" - START.\n");
     }
 
     @AfterClass
     public static void tearDown() {
-        System.out.println("Testing class \"ShoppingCartDAOImpl\" - FINISH.\n");
+        System.out.println("Testing class \"ShoppingCartRepositoryImpl\" - FINISH.\n");
     }
 
     @Test
     public void shoppingCartDAONotNull() throws Exception {
-        System.out.print("-> shoppingCartDAO Not Null - ");
+        System.out.print("-> shoppingCartRepository Not Null - ");
 
-        assertNotNull(shoppingCartDAO);
+        assertNotNull(shoppingCartRepository);
 
         System.out.println("OK!");
     }
@@ -75,14 +75,14 @@ public class ShoppingCartDAOImplTest {
         SalePosition position = new SalePosition(product, 1);
         positions1.add(position);
 
-        shoppingCartDAO.addSalePosition(position);
+        shoppingCartRepository.addSalePosition(position);
 
-        List<SalePosition> positions2 = shoppingCartDAO.getSalePositions();
+        List<SalePosition> positions2 = shoppingCartRepository.getSalePositions();
         assertNotNull(positions2);
         assertEquals(positions1, positions2);
 
-        shoppingCartDAO.removeSalePosition(position);
-        assertFalse(shoppingCartDAO.getSalePositions().contains(position));
+        shoppingCartRepository.removeSalePosition(position);
+        assertFalse(shoppingCartRepository.getSalePositions().contains(position));
 
         System.out.println("OK!");
     }
@@ -93,11 +93,11 @@ public class ShoppingCartDAOImplTest {
 
         Product product = new Product("Title", "URL", null, null, 10.0);
         SalePosition position = new SalePosition(product, 1);
-        shoppingCartDAO.addSalePosition(position);
-        shoppingCartDAO.clearSalePositions();
+        shoppingCartRepository.addSalePosition(position);
+        shoppingCartRepository.clearSalePositions();
 
-        assertNotNull(shoppingCartDAO.getSalePositions());
-        assertTrue(shoppingCartDAO.getSize() == 0);
+        assertNotNull(shoppingCartRepository.getSalePositions());
+        assertTrue(shoppingCartRepository.getSize() == 0);
 
         System.out.println("OK!");
     }
@@ -106,7 +106,7 @@ public class ShoppingCartDAOImplTest {
     public void getTest() throws Exception {
         System.out.print("-> get() - ");
 
-        assertNotNull(shoppingCartDAO.get());
+        assertNotNull(shoppingCartRepository.get());
 
         System.out.println("OK!");
     }
@@ -115,13 +115,13 @@ public class ShoppingCartDAOImplTest {
     public void getSizeTest() throws Exception {
         System.out.print("-> getSize() - ");
 
-        assertTrue(shoppingCartDAO.getSize() == 0);
+        assertTrue(shoppingCartRepository.getSize() == 0);
 
         Product product = new Product("Title", "URL", null, null, 10.0);
         SalePosition position = new SalePosition(product, 2);
-        shoppingCartDAO.addSalePosition(position);
+        shoppingCartRepository.addSalePosition(position);
 
-        assertTrue(shoppingCartDAO.getSize() == 2);
+        assertTrue(shoppingCartRepository.getSize() == 2);
 
         System.out.println("OK!");
     }
@@ -130,13 +130,13 @@ public class ShoppingCartDAOImplTest {
     public void getPriceTest() throws Exception {
         System.out.print("-> getPrice() - ");
 
-        assertTrue(shoppingCartDAO.getPrice() == 0);
+        assertTrue(shoppingCartRepository.getPrice() == 0);
 
         Product product = new Product("Title", "URL", null, null, 10.0);
         SalePosition position = new SalePosition(product, 2);
-        shoppingCartDAO.addSalePosition(position);
+        shoppingCartRepository.addSalePosition(position);
 
-        assertTrue(shoppingCartDAO.getPrice() == position.getPrice());
+        assertTrue(shoppingCartRepository.getPrice() == position.getPrice());
 
         System.out.println("OK!");
     }

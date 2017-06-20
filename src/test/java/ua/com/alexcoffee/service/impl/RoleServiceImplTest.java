@@ -51,19 +51,10 @@ public class RoleServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullIdTest() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Role role = roleService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
-
-        Role role = roleService.get(UNKNOWN_ID);
+        roleService.get(UNKNOWN_ID);
     }
 
     @Test

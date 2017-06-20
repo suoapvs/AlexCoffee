@@ -31,7 +31,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> viewAllCategories() - ");
 
         ModelAndView modelAndView = adminCategoriesController.viewAllCategories(new ModelAndView());
-        String[] keys = {"categories", "auth_user"};
+        String[] keys = { "categories" };
         checkModelAndView(modelAndView, "category/admin/all", keys);
 
         System.out.println("OK!");
@@ -42,7 +42,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> viewCategory() - ");
 
         ModelAndView modelAndView = adminCategoriesController.viewCategory(ID, new ModelAndView());
-        String[] keys = {"category", "auth_user"};
+        String[] keys = { "category" };
         String viewName = "category/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -54,7 +54,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> getAddCategoryPage() - ");
 
         ModelAndView modelAndView = adminCategoriesController.getAddCategoryPage(new ModelAndView());
-        String[] keys = {"photos", "auth_user"};
+        String[] keys = { "photos" };
         String viewName = "category/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -88,7 +88,7 @@ public class AdminCategoriesControllerTest {
         System.out.print("-> getEditCategoryPage() - ");
 
         ModelAndView modelAndView = adminCategoriesController.getEditCategoryPage(ID, new ModelAndView());
-        String[] keys = {"category", "photos", "auth_user"};
+        String[] keys = { "category", "photos" };
         String viewName = "category/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
 

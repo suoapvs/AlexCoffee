@@ -50,19 +50,10 @@ public class StatusServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullIdTest() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Status status = statusService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
-
-        Status status = statusService.get(UNKNOWN_ID);
+        statusService.get(UNKNOWN_ID);
     }
 
     @Test

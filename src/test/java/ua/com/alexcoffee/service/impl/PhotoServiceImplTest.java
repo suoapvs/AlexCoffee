@@ -43,14 +43,6 @@ public class PhotoServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullId() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Photo photo = photoService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownId() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
@@ -89,14 +81,6 @@ public class PhotoServiceImplTest {
         System.out.println("-> getByUnknownTitle() - OK!");
 
         Photo photo = photoService.get(ANY_STRING);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void removeByNullIdTest() throws Exception {
-        System.out.println("-> removeByNullId() - OK!");
-
-        Long id = null;
-        photoService.remove(id);
     }
 
     @Test

@@ -32,7 +32,7 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> viewAllOrders() - ");
 
         ModelAndView modelAndView = managerOrdersController.viewAllOrders(new ModelAndView());
-        String[] keys = { "orders", "status_new", "auth_user" };
+        String[] keys = { "orders", "status_new" };
         String viewName = "order/manager/all";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -44,7 +44,7 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> viewOrder() - ");
 
         ModelAndView modelAndView = managerOrdersController.viewOrder(ID, new ModelAndView());
-        String[] keys = { "order", "sales", "order_price", "status_new", "auth_user", "manager_role", "admin_role" };
+        String[] keys = { "order", "sales", "order_price", "status_new", "manager_role", "admin_role" };
         String viewName = "manager/order/one";
         checkModelAndView(modelAndView, viewName, keys);
 
@@ -56,7 +56,7 @@ public class ManagerOrdersControllerTest {
         System.out.print("-> getEditOrderPage() - ");
 
         ModelAndView modelAndView = managerOrdersController.getEditOrderPage(ID, new ModelAndView());
-        String[] keys = { "order", "sale_positions", "order_price", "statuses", "auth_user" };
+        String[] keys = { "order", "sale_positions", "order_price", "statuses" };
         String viewName = "order/manager/edit";
         checkModelAndView(modelAndView, viewName, keys);
 

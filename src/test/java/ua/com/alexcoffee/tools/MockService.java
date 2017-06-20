@@ -1,10 +1,10 @@
 package ua.com.alexcoffee.tools;
 
-import ua.com.alexcoffee.dao.interfaces.*;
+import ua.com.alexcoffee.repository.*;
 import ua.com.alexcoffee.service.impl.*;
 import ua.com.alexcoffee.service.interfaces.*;
 
-import static ua.com.alexcoffee.tools.MockDAO.*;
+import static ua.com.alexcoffee.tools.MockRepository.*;
 
 public final class MockService {
 
@@ -90,34 +90,33 @@ public final class MockService {
     }
 
     private static CategoryService initCategoryService() {
-        CategoryDAO categoryDAO = getCategoryDAO();
-        return new CategoryServiceImpl(categoryDAO);
+        CategoryRepository categoryRepository = getCategoryRepository();
+        return new CategoryServiceImpl(categoryRepository);
     }
 
     private static OrderService initOrderService() {
-        OrderDAO orderDAO = getOrderDAO();
-        return new OrderServiceImpl(orderDAO);
+        OrderRepository orderRepository = getOrderRepository();
+        return new OrderServiceImpl(orderRepository);
     }
 
     private static PhotoService initPhotoService() {
-        PhotoDAO photoDAO = getPhotoDAO();
-        return new PhotoServiceImpl(photoDAO);
+        PhotoRepository photoRepository = getPhotoRepository();
+        return new PhotoServiceImpl(photoRepository);
     }
 
     private static ProductService initProductService() {
-        ProductDAO productDAO = getProductDAO();
-        CategoryDAO categoryDAO = getCategoryDAO();
-        return new ProductServiceImpl(productDAO, categoryDAO);
+        ProductRepository productRepository = getProductRepository();
+        return new ProductServiceImpl(productRepository);
     }
 
     private static RoleService initRoleService() {
-        RoleDAO roleDAO = getRoleDAO();
-        return new RoleServiceImpl(roleDAO);
+        RoleRepository roleRepository = getRoleRepository();
+        return new RoleServiceImpl(roleRepository);
     }
 
     private static SalePositionService initSalePositionService() {
-        SalePositionDAO salePositionDAO = getSalePositionDAO();
-        return new SalePositionServiceImpl(salePositionDAO);
+        SalePositionRepository salePositionRepository = getSalePositionRepository();
+        return new SalePositionServiceImpl(salePositionRepository);
     }
 
     private static SenderService initSenderService() {
@@ -126,17 +125,18 @@ public final class MockService {
     }
 
     private static ShoppingCartService initShoppingCartService() {
-        ShoppingCartDAO shoppingCartDAO = getShoppingCartDAO();
-        return new ShoppingCartServiceImpl(shoppingCartDAO);
+        ShoppingCartRepository shoppingCartRepository = getShoppingCartRepository();
+        return new ShoppingCartServiceImpl(shoppingCartRepository);
     }
 
     private static StatusService initStatusService() {
-        StatusDAO statusDAO = getStatusDAO();
-        return new StatusServiceImpl(statusDAO);
+        StatusRepository statusRepository = getStatusRepository();
+        return new StatusServiceImpl(statusRepository);
     }
 
     private static UserService initUserService() {
-        UserDAO userDAO = getUserDAO();
-        return new UserServiceImpl(userDAO);
+        UserRepository userRepository = getUserRepository();
+        RoleRepository roleRepository = getRoleRepository();
+        return new UserServiceImpl(userRepository, roleRepository);
     }
 }

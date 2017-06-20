@@ -42,19 +42,10 @@ public class ProductServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
-    public void getByNullIdTest() throws Exception {
-        System.out.println("-> getByNullId() - OK!");
-
-        Long id = null;
-        Product product = productService.get(id);
-    }
-
     @Test(expected = BadRequestException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
-
-        Product product = productService.get(UNKNOWN_ID);
+        productService.get(UNKNOWN_ID);
     }
 
     @Test
@@ -134,13 +125,6 @@ public class ProductServiceImplTest {
         List<Product> products = productService.getByCategoryUrl(url);
     }
 
-    @Test(expected = BadRequestException.class)
-    public void getByUnknownCategoryURLTest() throws Exception {
-        System.out.println("-> getByUnknownCategoryURL() - OK!");
-
-        List<Product> products = productService.getByCategoryUrl(ANY_STRING);
-    }
-
     @Test
     public void getByCategoryIdTest() throws Exception {
         System.out.print("-> getByCategoryId() - ");
@@ -150,14 +134,6 @@ public class ProductServiceImplTest {
         assertTrue(products.size() >= 0);
 
         System.out.println("OK!");
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void getByNullCategoryIdTest() throws Exception {
-        System.out.println("-> getByNullCategoryId() - OK!");
-
-        Long id = null;
-        List<Product> products = productService.getByCategoryId(id);
     }
 
     @Test
@@ -182,30 +158,6 @@ public class ProductServiceImplTest {
         assertTrue(products2.size() >= 0);
 
         System.out.println("OK!");
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void getRandomByNullCategoryIdTest() throws Exception {
-        System.out.println("-> getRandomByNullCategoryId() - OK!");
-
-        Long id = null;
-        List<Product> products1 = productService.getRandomByCategoryId(SIZE, id, ID);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void getRandomByNullCategoryIdTest2() throws Exception {
-        System.out.println("-> getRandomByNullCategoryId2() - OK!");
-
-        Long id = null;
-        List<Product> products2 = productService.getRandomByCategoryId(SIZE, id);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void getRandomByCategoryIdNullProductIdTest() throws Exception {
-        System.out.println("-> getRandomByCategoryIdNullProductId() - OK!");
-
-        Long id = null;
-        List<Product> products = productService.getRandomByCategoryId(SIZE, ID, id);
     }
 
     @Test
@@ -249,27 +201,6 @@ public class ProductServiceImplTest {
         System.out.print("-> removeByEmptyCategoryUrl() - ");
 
         productService.removeByCategoryUrl("");
-    }
-
-    @Test(expected = BadRequestException.class)
-    public void removeByUnknownCategoryUrl() throws Exception {
-        System.out.print("-> removeByUnknownCategoryUrl() - ");
-
-        productService.removeByCategoryUrl(ANY_STRING);
-    }
-
-    @Test(expected = WrongInformationException.class)
-    public void removeByNullCategoryId() throws Exception {
-        System.out.print("-> removeByNullCategoryId() - ");
-
-        productService.removeByCategoryId(null);
-    }
-
-    @Test(expected = BadRequestException.class)
-    public void removeByUnknownCategoryId() throws Exception {
-        System.out.print("-> removeByUnknownCategoryId() - ");
-
-        productService.removeByCategoryId(UNKNOWN_ID);
     }
 
     @Test
