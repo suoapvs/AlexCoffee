@@ -11,7 +11,7 @@ import ua.com.alexcoffee.model.Order;
  * @see MainRepository
  * @see Order
  */
-public interface OrderRepository extends MainRepository<Order, Long> {
+public interface OrderRepository extends MainRepository<Order> {
     /**
      * Возвращает заказ из базы даных, у которого совпадает
      * уникальный номером с значением входящего параметра.

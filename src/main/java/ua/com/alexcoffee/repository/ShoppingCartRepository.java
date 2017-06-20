@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.dao.interfaces;
+package ua.com.alexcoffee.repository;
 
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
@@ -10,10 +10,10 @@ import java.util.List;
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
- * @see ua.com.alexcoffee.dao.impl.ShoppingCartDAOImpl
+ * @see ShoppingCartRepositoryImpl
  * @see SalePosition
  */
-public interface ShoppingCartDAO {
+public interface ShoppingCartRepository {
     /**
      * Возвращает список всех торговых позиций в корзине.
      *

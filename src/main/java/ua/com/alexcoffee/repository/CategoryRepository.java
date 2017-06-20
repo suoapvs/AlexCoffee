@@ -11,7 +11,7 @@ import ua.com.alexcoffee.model.Category;
  * @see MainRepository
  * @see Category
  */
-public interface CategoryRepository extends MainRepository<Category, Long> {
+public interface CategoryRepository extends MainRepository<Category> {
     /**
      * Возвращает категорию из базы данных, у которой совпадает параметр url.
      *

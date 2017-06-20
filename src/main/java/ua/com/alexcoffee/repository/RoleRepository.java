@@ -12,7 +12,7 @@ import ua.com.alexcoffee.model.Role;
  * @see MainRepository
  * @see Role
  */
-public interface RoleRepository extends MainRepository<Role, Long> {
+public interface RoleRepository extends MainRepository<Role> {
     /**
      * Возвращает роль из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link RoleEnum}.

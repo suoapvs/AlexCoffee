@@ -11,7 +11,7 @@ import ua.com.alexcoffee.model.Photo;
  * @see MainRepository
  * @see Photo
  */
-public interface PhotoRepository extends MainRepository<Photo, Long> {
+public interface PhotoRepository extends MainRepository<Photo> {
     /**
      * Возвращает объект-изображение из базы даных, у которого совпадает уникальное
      * название с значением входящего параметра.

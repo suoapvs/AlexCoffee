@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.interfaces.ShoppingCartDAO;
+import ua.com.alexcoffee.repository.ShoppingCartRepository;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
@@ -26,28 +26,27 @@ import java.util.List;
  * @version 1.2
  * @see ShoppingCart
  * @see ShoppingCartService
- * @see ShoppingCartDAO
+ * @see ShoppingCartRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class ShoppingCartServiceImpl
-        implements ShoppingCartService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class ShoppingCartServiceImpl implements ShoppingCartService {
     /**
      * Реализация интерфейса для работы з торговой корзиной.
      */
-    private final ShoppingCartDAO shoppingCartDAO;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param shoppingCartDAO Реализация интерфейса для работы з торговой корзиной.
+     * @param shoppingCartRepository Реализация интерфейса для работы з торговой корзиной.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public ShoppingCartServiceImpl(final ShoppingCartDAO shoppingCartDAO) {
-        this.shoppingCartDAO = shoppingCartDAO;
+    public ShoppingCartServiceImpl(final ShoppingCartRepository shoppingCartRepository) {
+        this.shoppingCartRepository = shoppingCartRepository;
     }
 
     /**
@@ -60,7 +59,7 @@ public final class ShoppingCartServiceImpl
     @Override
     @Transactional(readOnly = true)
     public ShoppingCart getShoppingCart() throws BadRequestException {
-        final ShoppingCart shoppingCart = this.shoppingCartDAO.get();
+        final ShoppingCart shoppingCart = this.shoppingCartRepository.get();
         if (shoppingCart == null) {
             throw new BadRequestException("Can't find shopping cart!");
         }
@@ -77,7 +76,7 @@ public final class ShoppingCartServiceImpl
     @Transactional
     public void add(final SalePosition salePosition) {
         if (salePosition != null) {
-            this.shoppingCartDAO.addSalePosition(salePosition);
+            this.shoppingCartRepository.addSalePosition(salePosition);
         }
     }
 
@@ -90,7 +89,7 @@ public final class ShoppingCartServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<SalePosition> getSalePositions() {
-        return this.shoppingCartDAO.getSalePositions();
+        return this.shoppingCartRepository.getSalePositions();
     }
 
     /**
@@ -102,7 +101,7 @@ public final class ShoppingCartServiceImpl
     @Transactional
     public void remove(final SalePosition salePosition) {
         if (salePosition != null) {
-            this.shoppingCartDAO.removeSalePosition(salePosition);
+            this.shoppingCartRepository.removeSalePosition(salePosition);
         }
     }
 
@@ -113,7 +112,7 @@ public final class ShoppingCartServiceImpl
     @Override
     @Transactional
     public void clear() {
-        this.shoppingCartDAO.clearSalePositions();
+        this.shoppingCartRepository.clearSalePositions();
     }
 
     /**
@@ -125,7 +124,7 @@ public final class ShoppingCartServiceImpl
     @Override
     @Transactional(readOnly = true)
     public double getPrice() {
-        return this.shoppingCartDAO.getPrice();
+        return this.shoppingCartRepository.getPrice();
     }
 
     /**
@@ -137,6 +136,6 @@ public final class ShoppingCartServiceImpl
     @Override
     @Transactional(readOnly = true)
     public int getSize() {
-        return this.shoppingCartDAO.getSize();
+        return this.shoppingCartRepository.getSize();
     }
 }

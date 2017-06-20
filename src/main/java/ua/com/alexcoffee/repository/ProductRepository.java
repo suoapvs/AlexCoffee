@@ -13,7 +13,7 @@ import java.util.List;
  * @see MainRepository
  * @see Product
  */
-public interface ProductRepository extends MainRepository<Product, Long> {
+public interface ProductRepository extends MainRepository<Product> {
     /**
      * Возвращает товар из базы данных, у которого совпадает параметр url.
      *
@@ -46,6 +46,22 @@ public interface ProductRepository extends MainRepository<Product, Long> {
     void deleteByArticle(int article);
 
     /**
+     * Удаляет товар из базы данных, которые пренадлежат категории
+     * с уникальным URL - входным параметром.
+     *
+     * @param url URL категории.
+     */
+    void deleteByCategoryUrl(String url);
+
+    /**
+     * Удаляет товар из базы данных, которые пренадлежат категории
+     * с уникальным кодом - входным параметром.
+     *
+     * @param id Код категории.
+     */
+    void deleteByCategoryId(long id);
+
+    /**
      * Возвращает список товаров, которые пренадлежат категории
      * с уникальным кодом - входным параметром.
      *
@@ -53,4 +69,13 @@ public interface ProductRepository extends MainRepository<Product, Long> {
      * @return Объект типа {@link List} - список товаров.
      */
     List<Product> findByCategoryId(long id);
+
+    /**
+     * Возвращает список товаров, которые пренадлежат категории
+     * с уникальным URL - входным параметром.
+     *
+     * @param url URL категории.
+     * @return Объект типа {@link List} - список товаров.
+     */
+    List<Product> findByCategoryUrl(String url);
 }

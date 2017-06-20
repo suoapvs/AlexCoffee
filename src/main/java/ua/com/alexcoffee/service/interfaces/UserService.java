@@ -16,8 +16,7 @@ import java.util.List;
  * @see MainService
  * @see ua.com.alexcoffee.service.impl.UserServiceImpl
  */
-public interface UserService
-        extends MainService<User> {
+public interface UserService extends MainService<User> {
     /**
      * Возвращает пользователя, у которого совпадает
      * имя с значением входящего параметра.

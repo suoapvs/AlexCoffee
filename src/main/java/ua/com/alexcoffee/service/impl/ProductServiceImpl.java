@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.interfaces.CategoryDAO;
-import ua.com.alexcoffee.dao.interfaces.ProductDAO;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.model.Product;
+import ua.com.alexcoffee.repository.ProductRepository;
 import ua.com.alexcoffee.service.interfaces.ProductService;
 
 import java.util.ArrayList;
@@ -33,47 +31,31 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @version 1.2
  * @see MainServiceImpl
  * @see ProductService
- * @see ProductDAO
+ * @see ProductRepository
  * @see Product
- * @see Category
- * @see CategoryDAO
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class ProductServiceImpl
-        extends MainServiceImpl<Product>
-        implements ProductService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class ProductServiceImpl extends MainServiceImpl<Product> implements ProductService {
     /**
-     * Реализация интерфейса {@link ProductDAO}
+     * Реализация интерфейса {@link ProductRepository}
      * для работы с товаров базой данных.
      */
-    private final ProductDAO productDAO;
-
-    /**
-     * Реализация интерфейса {@link CategoryDAO}
-     * для работы с категорий базой данных.
-     */
-    private final CategoryDAO categoryDAO;
+    private final ProductRepository repository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param productDAO  Реализация интерфейса {@link ProductDAO}
-     *                    для работы с товаров базой данных.
-     * @param categoryDAO Реализация интерфейса {@link CategoryDAO}
-     *                    для работы с категорий базой данных.
+     * @param repository Реализация интерфейса {@link ProductRepository}
+     *                          для работы с товаров базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public ProductServiceImpl(
-            final ProductDAO productDAO,
-            final CategoryDAO categoryDAO
-    ) {
-        super(productDAO);
-        this.productDAO = productDAO;
-        this.categoryDAO = categoryDAO;
+    public ProductServiceImpl(final ProductRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 
     /**
@@ -92,7 +74,7 @@ public final class ProductServiceImpl
         if (isBlank(url)) {
             throw new WrongInformationException("No product URL!");
         }
-        final Product product = this.productDAO.getByUrl(url);
+        final Product product = this.repository.findByUrl(url);
         if (product == null) {
             throw new BadRequestException("Can't find product by url " + url + "!");
         }
@@ -112,7 +94,7 @@ public final class ProductServiceImpl
     @Transactional(readOnly = true)
     public Product getByArticle(final int article)
             throws BadRequestException {
-        final Product product = this.productDAO.getByArticle(article);
+        final Product product = this.repository.findByArticle(article);
         if (product == null) {
             throw new BadRequestException("Can't find product by article " + article + "!");
         }
@@ -138,11 +120,7 @@ public final class ProductServiceImpl
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
-        final Category category = this.categoryDAO.get(url);
-        if (category == null) {
-            throw new BadRequestException("Can't find category by url " + url + "!");
-        }
-        return this.productDAO.getListByCategoryId(category.getId());
+        return this.repository.findByCategoryUrl(url);
     }
 
     /**
@@ -157,11 +135,8 @@ public final class ProductServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getByCategoryId(final Long id) throws WrongInformationException {
-        if (id == null) {
-            throw new WrongInformationException("No category id!");
-        }
-        return this.productDAO.getListByCategoryId(id);
+    public List<Product> getByCategoryId(final long id) throws WrongInformationException {
+        return this.repository.findByCategoryId(id);
     }
 
     /**
@@ -174,10 +149,7 @@ public final class ProductServiceImpl
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getRandomByCategoryId(
-            final int size,
-            final Long id
-    ) {
+    public List<Product> getRandomByCategoryId(final int size, final long id) {
         return getRandomByCategoryId(size, id, -1L);
     }
 
@@ -197,17 +169,14 @@ public final class ProductServiceImpl
     @Transactional(readOnly = true)
     public List<Product> getRandomByCategoryId(
             final int size,
-            final Long categoryId,
-            final Long differentProductId
+            final long categoryId,
+            final long differentProductId
     ) throws WrongInformationException {
-        if (categoryId == null || differentProductId == null) {
-            throw new WrongInformationException("No category or product id!");
-        }
-        final List<Product> products = this.productDAO.getListByCategoryId(categoryId);
+        final List<Product> products = this.repository.findByCategoryId(categoryId);
         if (products.isEmpty()) {
             return new ArrayList<>();
         }
-        products.remove(this.productDAO.get(differentProductId));
+        products.remove(this.repository.findOne(differentProductId));
         return getShuffleSubList(products, 0, size);
     }
 
@@ -221,7 +190,7 @@ public final class ProductServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<Product> getRandom(final int size) {
-        final List<Product> products = this.productDAO.getAll();
+        final List<Product> products = this.repository.findAll();
         if (products.isEmpty()) {
             return new ArrayList<>();
         }
@@ -241,7 +210,7 @@ public final class ProductServiceImpl
         if (isBlank(url)) {
             throw new WrongInformationException("No product URL!");
         }
-        this.productDAO.removeByUrl(url);
+        this.repository.deleteByUrl(url);
     }
 
     /**
@@ -252,7 +221,7 @@ public final class ProductServiceImpl
     @Override
     @Transactional
     public void removeByArticle(final int article) {
-        this.productDAO.removeByArticle(article);
+        this.repository.deleteByArticle(article);
     }
 
     /**
@@ -272,11 +241,7 @@ public final class ProductServiceImpl
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
-        final Category category = this.categoryDAO.get(url);
-        if (category == null) {
-            throw new BadRequestException("Can't find category by url " + url + "!");
-        }
-        this.productDAO.removeByCategoryId(category.getId());
+        this.repository.deleteByCategoryUrl(url);
     }
 
     /**
@@ -284,22 +249,13 @@ public final class ProductServiceImpl
      * с уникальным кодом - входным параметром.
      *
      * @param id Код категории, товары котрой будут удалены.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр id.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найдена категория с входящим параметром id.
+     * @throws BadRequestException Бросает исключение,
+     *                             если не найдена категория с входящим параметром id.
      */
     @Override
     @Transactional
-    public void removeByCategoryId(final Long id)
-            throws WrongInformationException, BadRequestException {
-        if (id == null) {
-            throw new WrongInformationException("No model id!");
-        }
-        if (this.categoryDAO.get(id) == null) {
-            throw new BadRequestException("Can't find category by id " + id + "!");
-        }
-        this.productDAO.removeByCategoryId(id);
+    public void removeByCategoryId(final long id) throws BadRequestException {
+        this.repository.deleteByCategoryId(id);
     }
 
     /**

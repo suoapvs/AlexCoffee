@@ -1,12 +1,12 @@
 package ua.com.alexcoffee.service.impl;
 
 import org.springframework.context.annotation.ComponentScan;
-import ua.com.alexcoffee.dao.interfaces.RoleDAO;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.enums.RoleEnum;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
 import ua.com.alexcoffee.exception.WrongInformationException;
+import ua.com.alexcoffee.repository.RoleRepository;
 import ua.com.alexcoffee.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,32 +31,30 @@ import java.util.List;
  * @see MainServiceImpl
  * @see RoleService
  * @see Role
- * @see RoleDAO
+ * @see RoleRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class RoleServiceImpl
-        extends MainServiceImpl<Role>
-        implements RoleService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class RoleServiceImpl extends MainServiceImpl<Role> implements RoleService {
     /**
-     * Реализация интерфейса {@link RoleDAO}
+     * Реализация интерфейса {@link RoleRepository}
      * для работы ролей пользователей с базой данных.
      */
-    private final RoleDAO dao;
+    private final RoleRepository repository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link RoleDAO}
-     *            для работы ролей пользователей с базой данных.
+     * @param repository Реализация интерфейса {@link RoleRepository}
+     *                   для работы ролей пользователей с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public RoleServiceImpl(final RoleDAO dao) {
-        super(dao);
-        this.dao = dao;
+    public RoleServiceImpl(final RoleRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 
     /**
@@ -78,10 +76,10 @@ public final class RoleServiceImpl
         if (title == null) {
             throw new WrongInformationException("No role enum (title)!");
         }
-        if (this.dao.get(title) != null) {
+        if (this.repository.findByTitle(title) != null) {
             throw new DuplicateException("Duplicate role with title  " + title + "!");
         }
-        dao.add(new Role(title, description));
+        add(new Role(title, description));
     }
 
     /**
@@ -102,7 +100,7 @@ public final class RoleServiceImpl
         if (title == null) {
             throw new WrongInformationException("No role enum (title)!");
         }
-        final Role role = this.dao.get(title);
+        final Role role = this.repository.findByTitle(title);
         if (role == null) {
             throw new BadRequestException("Can't find role by title " + title + "!");
         }
@@ -120,7 +118,7 @@ public final class RoleServiceImpl
     @Override
     @Transactional(readOnly = true)
     public Role getAdministrator() throws BadRequestException {
-        final Role role = this.dao.get(RoleEnum.ADMIN);
+        final Role role = this.repository.findByTitle(RoleEnum.ADMIN);
         if (role == null) {
             throw new BadRequestException("Can't find role \"administrator\"!");
         }
@@ -138,7 +136,7 @@ public final class RoleServiceImpl
     @Override
     @Transactional(readOnly = true)
     public Role getManager() throws BadRequestException {
-        final Role role = this.dao.get(RoleEnum.MANAGER);
+        final Role role = this.repository.findByTitle(RoleEnum.MANAGER);
         if (role == null) {
             throw new BadRequestException("Can't find role \"manager\"!");
         }
@@ -156,7 +154,7 @@ public final class RoleServiceImpl
     @Override
     @Transactional(readOnly = true)
     public Role getDefault() throws BadRequestException {
-        final Role role = this.dao.getDefault();
+        final Role role = this.repository.findOne((long) 1);
         if (role == null) {
             throw new BadRequestException("Can't find default role!");
         }
@@ -173,7 +171,7 @@ public final class RoleServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<Role> getPersonnel() {
-        final List<Role> roles = this.dao.getAll();
+        final List<Role> roles = this.repository.findAll();
         if (roles.isEmpty()) {
             return Collections.emptyList();
         }
@@ -195,6 +193,6 @@ public final class RoleServiceImpl
         if (title == null) {
             throw new WrongInformationException("No role enum (title)!");
         }
-        this.dao.remove(title);
+        this.repository.deleteByTitle(title);
     }
 }

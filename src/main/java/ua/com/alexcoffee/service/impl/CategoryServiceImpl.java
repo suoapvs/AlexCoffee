@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.interfaces.CategoryDAO;
-import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
+import ua.com.alexcoffee.model.Category;
+import ua.com.alexcoffee.repository.CategoryRepository;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -28,29 +28,30 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @see MainServiceImpl
  * @see CategoryService
  * @see Category
- * @see CategoryDAO
+ * @see CategoryRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
 public final class CategoryServiceImpl extends MainServiceImpl<Category> implements CategoryService {
     /**
-     * Реализация интерфейса {@link CategoryDAO} для работы категорий с базой данных.
+     * Реализация интерфейса {@link CategoryRepository}
+     * для работы категорий с базой данных.
      */
-    private final CategoryDAO dao;
+    private final CategoryRepository repository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link CategoryDAO}
-     *            для работы категорий с базой данных.
+     * @param repository Реализация интерфейса {@link CategoryRepository}
+     *                   для работы категорий с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public CategoryServiceImpl(final CategoryDAO dao) {
-        super(dao);
-        this.dao = dao;
+    public CategoryServiceImpl(final CategoryRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 
     /**
@@ -70,7 +71,7 @@ public final class CategoryServiceImpl extends MainServiceImpl<Category> impleme
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
-        final Category category = this.dao.get(url);
+        final Category category = this.repository.findByUrl(url);
         if (category == null) {
             throw new BadRequestException("Can't find category by url " + url + "!");
         }
@@ -90,6 +91,6 @@ public final class CategoryServiceImpl extends MainServiceImpl<Category> impleme
         if (isBlank(url)) {
             throw new WrongInformationException("No category URL!");
         }
-        this.dao.remove(url);
+        this.repository.deleteByUrl(url);
     }
 }

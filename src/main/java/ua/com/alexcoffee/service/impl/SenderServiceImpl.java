@@ -32,8 +32,7 @@ import java.util.Properties;
  */
 @Service
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public final class SenderServiceImpl
-        implements SenderService, Runnable {
+public final class SenderServiceImpl implements SenderService, Runnable {
 
     /**
      * Объект для логирования информации.

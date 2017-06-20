@@ -1,5 +1,6 @@
 package ua.com.alexcoffee.repository;
 
+import org.springframework.data.repository.NoRepositoryBean;
 import ua.com.alexcoffee.model.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,7 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * того типа которым есть id нашей сущности (обязательно).
  *
  * @param <T> Тип (класс) сущности.
- * @param <E> Тип id сущности.
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see CategoryRepository
@@ -27,5 +27,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see UserRepository
  * @see Model
  */
-public interface MainRepository<T extends Model, E extends Number> extends JpaRepository<T, E> {
+@NoRepositoryBean
+public interface MainRepository<T extends Model> extends JpaRepository<T, Long> {
 }

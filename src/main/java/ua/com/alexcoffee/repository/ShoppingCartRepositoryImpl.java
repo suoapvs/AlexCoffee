@@ -1,25 +1,24 @@
-package ua.com.alexcoffee.dao.impl;
+package ua.com.alexcoffee.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
-import ua.com.alexcoffee.dao.interfaces.ShoppingCartDAO;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 
 import java.util.List;
 
 /**
- * Класс реализует методы интерфейса {@link ShoppingCartDAO} для работы с корзиной.
+ * Класс реализует методы интерфейса {@link ShoppingCartRepository} для работы с корзиной.
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
- * @see ShoppingCartDAO
+ * @see ShoppingCartRepository
  * @see ShoppingCart
  */
 @Repository
 @ComponentScan(basePackages = "ua.com.alexcoffee.model")
-public final class ShoppingCartDAOImpl implements ShoppingCartDAO {
+public final class ShoppingCartRepositoryImpl implements ShoppingCartRepository {
     /**
      * Объект корзина, в которой
      * хранятся торговые позиции клиента.
@@ -35,7 +34,7 @@ public final class ShoppingCartDAOImpl implements ShoppingCartDAO {
      *                     корзиной.
      */
     @Autowired
-    public ShoppingCartDAOImpl(final ShoppingCart shoppingCart) {
+    public ShoppingCartRepositoryImpl(final ShoppingCart shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
 

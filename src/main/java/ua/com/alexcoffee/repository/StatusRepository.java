@@ -12,7 +12,7 @@ import ua.com.alexcoffee.enums.StatusEnum;
  * @see MainRepository
  * @see Status
  */
-public interface StatusRepository extends MainRepository<Status, Long> {
+public interface StatusRepository extends MainRepository<Status> {
     /**
      * Возвращает статус из базы даных по названию, которое может принимать
      * одно из значений перечисления {@link StatusEnum}.

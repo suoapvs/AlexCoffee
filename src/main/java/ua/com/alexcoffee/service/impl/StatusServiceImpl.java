@@ -1,16 +1,16 @@
 package ua.com.alexcoffee.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import ua.com.alexcoffee.dao.interfaces.StatusDAO;
-import ua.com.alexcoffee.model.Status;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alexcoffee.enums.StatusEnum;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
 import ua.com.alexcoffee.exception.WrongInformationException;
+import ua.com.alexcoffee.model.Status;
+import ua.com.alexcoffee.repository.StatusRepository;
 import ua.com.alexcoffee.service.interfaces.StatusService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Status}
@@ -28,32 +28,30 @@ import org.springframework.transaction.annotation.Transactional;
  * @see MainServiceImpl
  * @see StatusService
  * @see Status
- * @see StatusDAO
+ * @see StatusRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class StatusServiceImpl
-        extends MainServiceImpl<Status>
-        implements StatusService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class StatusServiceImpl extends MainServiceImpl<Status> implements StatusService {
     /**
-     * Реализация интерфейса {@link StatusDAO}
+     * Реализация интерфейса {@link StatusRepository}
      * для работы статусов заказов с базой данных.
      */
-    private final StatusDAO dao;
+    private final StatusRepository repository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link StatusDAO}
-     *            для работы статусов заказов с базой данных.
+     * @param repository Реализация интерфейса {@link StatusRepository}
+     *                   для работы статусов заказов с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public StatusServiceImpl(final StatusDAO dao) {
-        super(dao);
-        this.dao = dao;
+    public StatusServiceImpl(final StatusRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 
     /**
@@ -75,10 +73,10 @@ public final class StatusServiceImpl
         if (title == null) {
             throw new WrongInformationException("No status title!");
         }
-        if (this.dao.get(title) != null) {
+        if (this.repository.findByTitle(title) != null) {
             throw new DuplicateException("Duplicate status with title  " + title + "!");
         }
-        this.dao.add(new Status(title, description));
+        add(new Status(title, description));
     }
 
     /**
@@ -99,7 +97,7 @@ public final class StatusServiceImpl
         if (title == null) {
             throw new WrongInformationException("No status title!");
         }
-        final Status status = this.dao.get(title);
+        final Status status = this.repository.findByTitle(title);
         if (status == null) {
             throw new BadRequestException("Can't find status by title " + title + "!");
         }
@@ -116,7 +114,7 @@ public final class StatusServiceImpl
     @Override
     @Transactional(readOnly = true)
     public Status getDefault() throws BadRequestException {
-        final Status status = this.dao.getDefault();
+        final Status status = this.repository.findOne((long) 1);
         if (status == null) {
             throw new BadRequestException("Can't find default status!");
         }
@@ -138,6 +136,6 @@ public final class StatusServiceImpl
         if (title == null) {
             throw new WrongInformationException("No status title!");
         }
-        this.dao.remove(title);
+        this.repository.deleteByTitle(title);
     }
 }

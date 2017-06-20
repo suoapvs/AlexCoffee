@@ -49,7 +49,7 @@ public interface ProductService extends MainService<Product> {
      * @param id Уникальный код категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getByCategoryId(Long id);
+    List<Product> getByCategoryId(long id);
 
     /**
      * Возвращает список рандомных товаров, которые относятся к категории
@@ -62,8 +62,8 @@ public interface ProductService extends MainService<Product> {
      */
     List<Product> getRandomByCategoryId(
             int size,
-            Long categoryId,
-            Long differentProductId
+            long categoryId,
+            long differentProductId
     );
 
     /**
@@ -75,9 +75,7 @@ public interface ProductService extends MainService<Product> {
      * @param id   Код категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getRandomByCategoryId(
-            int size, Long id
-    );
+    List<Product> getRandomByCategoryId(int size, long id);
 
     /**
      * Возвращает список рандомных товаров.
@@ -115,5 +113,5 @@ public interface ProductService extends MainService<Product> {
      *
      * @param id Код категории, товары котрой будут удалены.
      */
-    void removeByCategoryId(Long id);
+    void removeByCategoryId(long id);
 }

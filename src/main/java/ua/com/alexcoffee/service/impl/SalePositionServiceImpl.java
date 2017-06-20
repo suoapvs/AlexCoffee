@@ -3,8 +3,8 @@ package ua.com.alexcoffee.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import ua.com.alexcoffee.dao.interfaces.SalePositionDAO;
 import ua.com.alexcoffee.model.SalePosition;
+import ua.com.alexcoffee.repository.SalePositionRepository;
 import ua.com.alexcoffee.service.interfaces.SalePositionService;
 
 /**
@@ -23,25 +23,23 @@ import ua.com.alexcoffee.service.interfaces.SalePositionService;
  * @see MainServiceImpl
  * @see SalePositionService
  * @see SalePosition
- * @see SalePositionDAO
+ * @see SalePositionRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class SalePositionServiceImpl
-        extends MainServiceImpl<SalePosition>
-        implements SalePositionService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class SalePositionServiceImpl extends MainServiceImpl<SalePosition> implements SalePositionService {
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link SalePositionDAO}
-     *            для работы торговых позиций с базой данных.
+     * @param repository Реализация интерфейса {@link SalePositionRepository}
+     *                   для работы торговых позиций с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public SalePositionServiceImpl(final SalePositionDAO dao) {
-        super(dao);
+    public SalePositionServiceImpl(final SalePositionRepository repository) {
+        super(repository);
     }
 }

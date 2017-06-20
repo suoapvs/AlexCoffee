@@ -15,8 +15,7 @@ import java.util.List;
  * @see MainRepository
  * @see User
  */
-public interface UserRepository
-        extends MainRepository<User, Long> {
+public interface UserRepository extends MainRepository<User> {
     /**
      * Возвращает пользователя из базы даных, у которого совпадает
      * имя с значением входящего параметра.

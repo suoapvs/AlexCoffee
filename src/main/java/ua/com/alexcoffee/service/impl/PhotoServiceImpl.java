@@ -5,10 +5,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.alexcoffee.dao.interfaces.PhotoDAO;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.repository.PhotoRepository;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 
 import java.io.File;
@@ -34,33 +34,31 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @see MainServiceImpl
  * @see PhotoService
  * @see Photo
- * @see PhotoDAO
+ * @see PhotoRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class PhotoServiceImpl
-        extends MainServiceImpl<Photo>
-        implements PhotoService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class PhotoServiceImpl extends MainServiceImpl<Photo> implements PhotoService {
 
     /**
-     * Реализация интерфейса {@link PhotoDAO}
+     * Реализация интерфейса {@link PhotoRepository}
      * для работы изображений с базой данных.
      */
-    private final PhotoDAO dao;
+    private final PhotoRepository repository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link PhotoDAO}
-     *            для работы изображений с базой данных.
+     * @param repository Реализация интерфейса {@link PhotoRepository}
+     *                   для работы изображений с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public PhotoServiceImpl(final PhotoDAO dao) {
-        super(dao);
-        this.dao = dao;
+    public PhotoServiceImpl(final PhotoRepository repository) {
+        super(repository);
+        this.repository = repository;
     }
 
     /**
@@ -81,7 +79,7 @@ public final class PhotoServiceImpl
         if (isBlank(title)) {
             throw new WrongInformationException("No photo title!");
         }
-        final Photo photo = this.dao.get(title);
+        final Photo photo = this.repository.findByTitle(title);
         if (photo == null) {
             throw new BadRequestException("Can't find photo by title " + title + "!");
         }
@@ -102,7 +100,7 @@ public final class PhotoServiceImpl
         if (isBlank(title)) {
             throw new WrongInformationException("No photo title!");
         }
-        dao.remove(title);
+        this.repository.deleteByTitle(title);
     }
 
     /**

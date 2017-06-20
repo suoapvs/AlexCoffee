@@ -11,5 +11,5 @@ import ua.com.alexcoffee.model.SalePosition;
  * @see MainRepository
  * @see SalePosition
  */
-public interface SalePositionRepository extends MainRepository<SalePosition, Long> {
+public interface SalePositionRepository extends MainRepository<SalePosition> {
 }

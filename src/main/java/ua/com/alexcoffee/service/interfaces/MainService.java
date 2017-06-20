@@ -52,7 +52,7 @@ public interface MainService<T extends Model> {
      * @param id Уникальный код модели.
      * @return Объект класса {@link Model} - модель с кодом id.
      */
-    T get(Long id);
+    T get(long id);
 
     /**
      * Получение всех моделей.
@@ -73,7 +73,7 @@ public interface MainService<T extends Model> {
      *
      * @param id Код модели.
      */
-    void remove(Long id);
+    void remove(long id);
 
     /**
      * Удаление коллекции моделей.

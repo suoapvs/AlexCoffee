@@ -2,16 +2,18 @@ package ua.com.alexcoffee.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.dao.interfaces.UserDAO;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
 import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.WrongInformationException;
+import ua.com.alexcoffee.model.Role;
+import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.repository.RoleRepository;
+import ua.com.alexcoffee.repository.UserRepository;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 import java.util.ArrayList;
@@ -36,32 +38,58 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @see MainServiceImpl
  * @see UserService
  * @see User
- * @see UserDAO
+ * @see UserRepository
  */
 @Service
-@ComponentScan(basePackages = "ua.com.alexcoffee.dao")
-public final class UserServiceImpl
-        extends MainServiceImpl<User>
-        implements UserService, UserDetailsService {
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
+public final class UserServiceImpl extends MainServiceImpl<User> implements UserService, UserDetailsService {
+
     /**
-     * Реализация интерфейса {@link UserDAO}
+     * ID роли клиента в базе данных.
+     */
+    private final static Long CLIENT_ROLE_ID = 1L;
+
+    /**
+     * ID роли адмиистратора в базе данных.
+     */
+    private final static Long ADMIN_ROLE_ID = 2L;
+
+    /**
+     * ID роли менеджера в базе данных.
+     */
+    private final static Long MANAGER_ROLE_ID = 3L;
+
+    /**
+     * Реализация интерфейса {@link UserRepository}
      * для работы пользователей с базой данных.
      */
-    private final UserDAO dao;
+    private final UserRepository repository;
+
+    /**
+     * Реализация репозитория {@link RoleRepository} для работы
+     * ролями пользователей с базой данных.
+     */
+    private final RoleRepository roleRepository;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
-     * @param dao Реализация интерфейса {@link UserDAO}
-     *            для работы пользователей с базой данных.
+     * @param repository     Реализация интерфейса {@link UserRepository}
+     *                       для работы пользователей с базой данных.
+     * @param roleRepository Реализация репозитория {@link RoleRepository}
+     *                       для работы ролями пользователей с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public UserServiceImpl(final UserDAO dao) {
-        super(dao);
-        this.dao = dao;
+    public UserServiceImpl(
+            final UserRepository repository,
+            final RoleRepository roleRepository
+    ) {
+        super(repository);
+        this.repository = repository;
+        this.roleRepository = roleRepository;
     }
 
     /**
@@ -81,7 +109,7 @@ public final class UserServiceImpl
         if (isBlank(name)) {
             throw new WrongInformationException("No user name!");
         }
-        final User user = this.dao.getByName(name);
+        final User user = this.repository.findByName(name);
         if (user == null) {
             throw new BadRequestException("Can't find user by name " + name + "!");
         }
@@ -106,7 +134,7 @@ public final class UserServiceImpl
         if (isBlank(username)) {
             throw new WrongInformationException("No username!");
         }
-        final User user = this.dao.getByUsername(username);
+        final User user = this.repository.findByUsername(username);
         if (user == null) {
             throw new BadRequestException("Can't find user by username " + username + "!");
         }
@@ -124,7 +152,8 @@ public final class UserServiceImpl
     @Override
     @Transactional(readOnly = true)
     public User getMainAdministrator() throws BadRequestException {
-        final User user = this.dao.getMainAdministrator();
+        final Role adminRole = this.roleRepository.findOne(ADMIN_ROLE_ID);
+        final User user = this.repository.findAllByRole(adminRole).get(0);
         if (user == null) {
             throw new BadRequestException("Can't find administrator!");
         }
@@ -140,7 +169,8 @@ public final class UserServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<User> getAdministrators() {
-        return this.dao.getAdministrators();
+        final Role adminRole = this.roleRepository.findOne(ADMIN_ROLE_ID);
+        return this.repository.findAllByRole(adminRole);
     }
 
     /**
@@ -152,7 +182,8 @@ public final class UserServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<User> getManagers() {
-        return this.dao.getManagers();
+        final Role managerRole = this.roleRepository.findOne(MANAGER_ROLE_ID);
+        return this.repository.findAllByRole(managerRole);
     }
 
     /**
@@ -164,7 +195,8 @@ public final class UserServiceImpl
     @Override
     @Transactional(readOnly = true)
     public List<User> getClients() {
-        return this.dao.getClients();
+        final Role clientRole = this.roleRepository.findOne(CLIENT_ROLE_ID);
+        return this.repository.findAllByRole(clientRole);
     }
 
     /**
@@ -192,7 +224,17 @@ public final class UserServiceImpl
     @Override
     @Transactional(readOnly = true)
     public User getAuthenticatedUser() {
-        return this.dao.getAuthenticatedUser();
+        User user;
+        try {
+            user = (User) SecurityContextHolder
+                    .getContext()
+                    .getAuthentication()
+                    .getPrincipal();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            user = null;
+        }
+        return user;
     }
 
     /**
@@ -208,7 +250,7 @@ public final class UserServiceImpl
         if (isBlank(name)) {
             throw new WrongInformationException("No username!");
         }
-        this.dao.remove(name);
+        this.repository.deleteByName(name);
     }
 
     /**
@@ -225,7 +267,7 @@ public final class UserServiceImpl
         if (role == null) {
             throw new WrongInformationException("No user role!");
         }
-        this.dao.remove(role);
+        this.repository.deleteAllByRole(role);
     }
 
     /**
@@ -239,7 +281,7 @@ public final class UserServiceImpl
             return;
         }
         personnel.remove(getMainAdministrator());
-        this.dao.remove(personnel);
+        this.repository.delete(personnel);
     }
 
     /**
