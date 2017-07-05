@@ -3,8 +3,6 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Order;
 import ua.com.alexcoffee.service.interfaces.OrderService;
 import ua.com.alexcoffee.tools.MockService;
@@ -43,7 +41,7 @@ public class OrderServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
 
@@ -60,7 +58,7 @@ public class OrderServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByNullNumberTest() throws Exception {
         System.out.println("-> getByNullNumber() - OK!");
 
@@ -68,7 +66,7 @@ public class OrderServiceImplTest {
         Order order = orderService.get(number);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByEmptyNumberTest() throws Exception {
         System.out.println("-> getByEmptyNumber() - OK!");
 
@@ -76,7 +74,7 @@ public class OrderServiceImplTest {
         Order order = orderService.get(number);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownNumberTest() throws Exception {
         System.out.println("-> getByUnknownNumber() - OK!");
 
@@ -92,7 +90,7 @@ public class OrderServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByNullNumberTest() throws Exception {
         System.out.println("-> removeByNullUrl() - OK!");
 
@@ -100,7 +98,7 @@ public class OrderServiceImplTest {
         orderService.remove(number);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByEmptyNumberTest() throws Exception {
         System.out.println("-> removeByEmptyUrl() - OK!");
 

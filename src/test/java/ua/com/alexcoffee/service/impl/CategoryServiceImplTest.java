@@ -3,8 +3,6 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.tools.MockService;
@@ -43,7 +41,7 @@ public class CategoryServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
         Category category = categoryService.get(UNKNOWN_ID);
@@ -59,21 +57,21 @@ public class CategoryServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = NullPointerException.class)
     public void getByNullUrlTest() throws Exception {
         System.out.println("-> getByNullUrl() - OK!");
         String url = null;
         Category category = categoryService.get(url);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = NullPointerException.class)
     public void getByEmptyUrlTest() throws Exception {
         System.out.println("-> getByEmptyUrl() - OK!");
         String url = "";
         Category category = categoryService.get(url);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownURLTest() throws Exception {
         System.out.println("-> getByUnknownURL() - OK!");
 
@@ -89,7 +87,7 @@ public class CategoryServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = NullPointerException.class)
     public void removeByNullUrlTest() throws Exception {
         System.out.println("-> removeByNullUrl() - OK!");
 
@@ -97,7 +95,7 @@ public class CategoryServiceImplTest {
         categoryService.remove(url);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = NullPointerException.class)
     public void removeByEmptyUrlTest() throws Exception {
         System.out.println("-> removeByEmptyUrl() - OK!");
 

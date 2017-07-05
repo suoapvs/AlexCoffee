@@ -4,13 +4,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import ua.com.alexcoffee.controller.advice.AdviceController;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
-import ua.com.alexcoffee.exception.ForbiddenException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.tools.MockController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,39 +46,39 @@ public class AdviceControllerTest {
     }
 
     @Test
-    public void badRequestExceptionTest() throws Exception {
-        System.out.print("-> badRequestException() - ");
+    public void nullPointerException() throws Exception {
+        System.out.print("-> nullPointerException() - ");
 
-        BadRequestException ex = (BadRequestException) exceptionMock(BadRequestException.class);
+        NullPointerException ex = new NullPointerException();
         HttpServletRequest request = requestMock();
 
-        ModelAndView modelAndView = adviceController.badRequestException(ex, request);
+        ModelAndView modelAndView = adviceController.nullPointerException(ex, request);
         checkModelAndViewWithException(modelAndView);
 
         System.out.println("OK!");
     }
 
     @Test
-    public void wrongInformationExceptionTest() throws Exception {
-        System.out.print("-> wrongInformationException() - ");
+    public void illegalArgumentExceptionTest() throws Exception {
+        System.out.print("-> illegalArgumentException() - ");
 
-        WrongInformationException ex = (WrongInformationException) exceptionMock(WrongInformationException.class);
+        IllegalArgumentException ex = new IllegalArgumentException();
         HttpServletRequest request = requestMock();
 
-        ModelAndView modelAndView = adviceController.wrongInformationException(ex, request);
+        ModelAndView modelAndView = adviceController.illegalArgumentException(ex, request);
         checkModelAndViewWithException(modelAndView);
 
         System.out.println("OK!");
     }
 
     @Test
-    public void forbiddenExceptionTest() throws Exception {
-        System.out.print("-> forbiddenException() - ");
+    public void illegalMappingExceptionTest() throws Exception {
+        System.out.print("-> illegalMappingException() - ");
 
-        ForbiddenException ex = (ForbiddenException) exceptionMock(ForbiddenException.class);
+        IllegalMappingException ex = new IllegalMappingException("");
         HttpServletRequest request = requestMock();
 
-        ModelAndView modelAndView = adviceController.forbiddenException(ex, request);
+        ModelAndView modelAndView = adviceController.illegalMappingException(ex, request);
         checkModelAndViewWithException(modelAndView);
 
         System.out.println("OK!");

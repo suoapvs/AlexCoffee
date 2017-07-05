@@ -3,7 +3,6 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
@@ -29,7 +28,7 @@ public class ShoppingCartServiceImplTest {
         System.out.println("Testing class \"OrderServiceImpl\" - FINISH.\n");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getShoppingCartTest() throws Exception {
         System.out.print("-> getShoppingCart() - ");
 

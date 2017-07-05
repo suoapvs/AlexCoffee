@@ -4,8 +4,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Photo;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 import ua.com.alexcoffee.tools.MockService;
@@ -44,11 +42,10 @@ public class PhotoServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownId() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
-
-        Photo photo = photoService.get(UNKNOWN_ID);
+        photoService.get(UNKNOWN_ID);
     }
 
     @Test
@@ -61,15 +58,15 @@ public class PhotoServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByNullTitleTest() throws Exception {
         System.out.println("-> getByNullTitle() - OK!");
 
         String title = null;
-        Photo photo = photoService.get(title);
+        photoService.get(title);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByEmptyTitleTest() throws Exception {
         System.out.println("-> getByEmptyTitle() - OK!");
 
@@ -77,7 +74,7 @@ public class PhotoServiceImplTest {
         Photo photo = photoService.get(title);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownTitleTest() throws Exception {
         System.out.println("-> getByUnknownTitle() - OK!");
 
@@ -93,7 +90,7 @@ public class PhotoServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByNullTitleTest() throws Exception {
         System.out.println("-> removeByNullTitle() - OK!");
 
@@ -101,7 +98,7 @@ public class PhotoServiceImplTest {
         photoService.remove(title);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByEmptyTitleTest() throws Exception {
         System.out.println("-> removeByEmptyTitle() - OK!");
 

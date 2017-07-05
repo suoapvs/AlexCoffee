@@ -4,9 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.alexcoffee.enums.StatusEnum;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.service.interfaces.StatusService;
 import ua.com.alexcoffee.tools.MockService;
@@ -33,7 +31,7 @@ public class StatusServiceImplTest {
         System.out.println("Testing class \"StatusServiceImpl\" - FINISH.\n");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addNullTitleTest() throws Exception {
         System.out.print("-> getById() - ");
 
@@ -50,7 +48,7 @@ public class StatusServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
         statusService.get(UNKNOWN_ID);
@@ -66,7 +64,7 @@ public class StatusServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByNullTitleTest() throws Exception {
         System.out.println("-> getByNullTitle() - OK!");
 
@@ -74,7 +72,7 @@ public class StatusServiceImplTest {
         Status status = statusService.get(title);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownTitleTest() throws Exception {
         System.out.println("-> getByUnknownTitle() - OK!");
 
@@ -102,7 +100,7 @@ public class StatusServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByNullTitleTest() throws Exception {
         System.out.println("-> removeByNullTitle() - ");
 

@@ -4,8 +4,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.tools.MockController;
 
 import static ua.com.alexcoffee.tools.MockModel.ID;
@@ -74,7 +74,7 @@ public class AdminUsersControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     public void saveUserGetTest() throws Exception {
         System.out.print("-> saveUser() RequestMethod.GET - ");
 
@@ -107,7 +107,7 @@ public class AdminUsersControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     public void updateUserGet() throws Exception {
         System.out.print("-> updateUser() RequestMethod.GET - ");
 

@@ -3,10 +3,9 @@ package ua.com.alexcoffee.controller.client;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.ForbiddenException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.tools.MockController;
 
 import static ua.com.alexcoffee.tools.MockModel.*;
@@ -108,7 +107,7 @@ public class HomeControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     @Transactional
     public void addProductToCartGetTest() throws Exception {
         System.out.print("-> addProductToCart() RequestMethod.GET - ");
@@ -130,7 +129,7 @@ public class HomeControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     @Transactional
     public void addProductToCartQuicklyGetTest() throws Exception {
         System.out.print("-> addProductToCartQuickly() RequestMethod.GET - ");
@@ -176,12 +175,12 @@ public class HomeControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = ForbiddenException.class)
+    @Test(expected = IllegalMappingException.class)
     @Transactional
-    public void getForbiddenExceptionTest() throws Exception {
+    public void getIllegalMappingExceptionTest() throws Exception {
         System.out.print("-> getForbiddenException() - ");
 
-        homeController.getForbiddenException();
+        homeController.getIllegalMappingException();
 
         System.out.println("OK!");
     }

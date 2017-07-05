@@ -4,8 +4,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
 import ua.com.alexcoffee.service.interfaces.UserService;
@@ -46,7 +44,7 @@ public class UserServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
 
@@ -63,7 +61,7 @@ public class UserServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByNullNameTest() throws Exception {
         System.out.println("-> getByNullName() - OK!");
 
@@ -71,7 +69,7 @@ public class UserServiceImplTest {
         User user = userService.getByName(name);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByEmptyNameTest() throws Exception {
         System.out.println("-> getByEmptyName() - OK!");
 
@@ -79,7 +77,7 @@ public class UserServiceImplTest {
         User user = userService.getByName(name);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownNameTest() throws Exception {
         System.out.println("-> getByUnknownName() - OK!");
 
@@ -96,7 +94,7 @@ public class UserServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByNullUsernameTest() throws Exception {
         System.out.println("-> getByNullUsername() - OK!");
 
@@ -104,7 +102,7 @@ public class UserServiceImplTest {
         User user = userService.getByUsername(username);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void getByEmptyUsernameTest() throws Exception {
         System.out.println("-> getByEmptyUsername() - OK!");
 
@@ -112,7 +110,7 @@ public class UserServiceImplTest {
         User user = userService.getByUsername(username);
     }
 
-    @Test(expected = BadRequestException.class)
+    @Test(expected = NullPointerException.class)
     public void getByUnknownUsernameTest() throws Exception {
         System.out.println("-> getByUnknownUsername() - OK!");
         User user = userService.getByUsername(ANY_STRING);
@@ -155,13 +153,13 @@ public class UserServiceImplTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByNullNameTest() throws Exception {
         System.out.print("-> removeByNullName() - OK!");
         userService.removeByName(null);
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeByNullRoleTest() throws Exception {
         System.out.print("-> removeByNullRole() - ");
 

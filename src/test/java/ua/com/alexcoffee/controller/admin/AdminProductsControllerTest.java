@@ -3,8 +3,8 @@ package ua.com.alexcoffee.controller.admin;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.tools.MockController;
 
 import static ua.com.alexcoffee.tools.MockModel.ID;
@@ -74,7 +74,7 @@ public class AdminProductsControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     public void saveProductGetTest() throws Exception {
         System.out.print("-> saveProduct() RequestMethod.GET - ");
 
@@ -107,7 +107,7 @@ public class AdminProductsControllerTest {
         System.out.println("OK!");
     }
 
-    @Test(expected = WrongInformationException.class)
+    @Test(expected = IllegalMappingException.class)
     public void updateProductGetTest() throws Exception {
         System.out.print("-> updateProduct1() RequestMethod.GET - ");
 
