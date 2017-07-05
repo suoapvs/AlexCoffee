@@ -1,26 +1,6 @@
 USE `alexcoffee`;
 
 --
--- Table structure for table `statuses`
---
-
-INSERT INTO `statuses` (title, description) VALUES
-  ('NEW', 'Новый'),
-  ('WORK', 'В работе'),
-  ('DELIVERY', 'Доставка'),
-  ('CLOSED', 'Заказ закрыт'),
-  ('REJECTION', 'Отказ клиента');
-
---
--- Table structure for table `roles`
---
-
-INSERT INTO `roles` (title, description) VALUES
-  ('CLIENT', 'Клиент'),
-  ('ADMIN', 'Администратор'),
-  ('MANAGER', 'Менеджер');
-
---
 -- Table structure for table `photos`
 --
 
@@ -169,10 +149,10 @@ INSERT INTO `photos` (title, photo_link_short, photo_link_long) VALUES
 -- Table structure for table `users`
 --
 
-INSERT INTO `users` (role_id, name, username, password, email, phone, description) VALUES
-  (2, 'Yurii Salimov', 'yuriisalimov', 'yurii1993salimov', 'yuriy.alex.salimov@gmail.com', '+380637399290',
+INSERT INTO `users` (role, name, username, password, email, phone, description) VALUES
+  ('ADMIN', 'Yurii Salimov', 'login', 'password', 'yuriy.alex.salimov@gmail.com', '+380637399290',
    'Самый главный человек!'),
-  (3, 'Liudmyla Salimova', 'manager', 'salimova', 'liudmyla.salimova@gmail.com', '+380637399290', '');
+  ('MANAGER', 'Liudmyla Salimova', 'login', 'password', 'liudmyla.salimova@gmail.com', '+380637399290', '');
 
 --
 -- Table structure for table `categories`
@@ -803,3 +783,5 @@ INSERT INTO `products` (article, title, url, parameters, description, category_i
    состав входит 100% отборной Арабики. Благодаря средней степени
    обжарки кофейных зерен кофе радует своим крепким вкусом и
    ошеломительным ароматом.', 4, 36, 267.00);
+
+-- Dump completed on 2017-07-05 11:31:42

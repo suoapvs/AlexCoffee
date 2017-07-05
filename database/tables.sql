@@ -19,42 +19,6 @@ USE `alexcoffee`;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
 --
--- Table structure for table `statuses`
---
-
-DROP TABLE IF EXISTS `statuses`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `statuses` (
-  `id`          INT UNSIGNED                                            NOT NULL AUTO_INCREMENT,
-  `title`       ENUM ('NEW', 'WORK', 'DELIVERY', 'CLOSED', 'REJECTION') NOT NULL DEFAULT 'NEW',
-  `description` TEXT                                                             DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE (`title`)
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `id`          INT UNSIGNED                        NOT NULL AUTO_INCREMENT,
-  `title`       ENUM ('CLIENT', 'ADMIN', 'MANAGER') NOT NULL DEFAULT 'CLIENT',
-  `description` TEXT                                NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE (`title`)
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `photos`
 --
 
@@ -81,19 +45,18 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id`          INT UNSIGNED NOT NULL         AUTO_INCREMENT,
-  `role_id`     INT UNSIGNED                  DEFAULT NULL,
-  `name`        VARCHAR(50)  NOT NULL         DEFAULT '',
-  `username`    VARCHAR(50)  NOT NULL         DEFAULT '',
-  `password`    VARCHAR(50)  NOT NULL         DEFAULT '',
-  `email`       VARCHAR(50)  NOT NULL,
-  `phone`       VARCHAR(20)  NOT NULL,
-  `vkontakte`   VARCHAR(50)  NOT NULL         DEFAULT '',
-  `facebook`    VARCHAR(50)  NOT NULL         DEFAULT '',
-  `skype`       VARCHAR(50)  NOT NULL         DEFAULT '',
-  `description` TEXT         NOT NULL         DEFAULT '',
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+  `id`          INT UNSIGNED                        NOT NULL         AUTO_INCREMENT,
+  `role`        ENUM ('ADMIN', 'CLIENT', 'MANAGER') NOT NULL         DEFAULT 'CLIENT',
+  `name`        VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `username`    VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `password`    VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `email`       VARCHAR(50)                         NOT NULL,
+  `phone`       VARCHAR(20)                         NOT NULL,
+  `vkontakte`   VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `facebook`    VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `skype`       VARCHAR(50)                         NOT NULL         DEFAULT '',
+  `description` TEXT                                NOT NULL         DEFAULT '',
+  PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -155,17 +118,16 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-  `id`               INT UNSIGNED NOT NULL             AUTO_INCREMENT,
-  `number`           VARCHAR(10)  NOT NULL             DEFAULT '',
-  `date`             VARCHAR(30)  NOT NULL             DEFAULT '',
-  `status_id`        INT UNSIGNED                      DEFAULT NULL,
-  `client_id`        INT UNSIGNED                      DEFAULT NULL,
-  `manager_id`       INT UNSIGNED                      DEFAULT NULL,
-  `shipping_address` TEXT         NOT NULL             DEFAULT '',
-  `shipping_details` TEXT         NOT NULL             DEFAULT '',
-  `description`      TEXT         NOT NULL             DEFAULT '',
+  `id`               INT UNSIGNED                                            NOT NULL             AUTO_INCREMENT,
+  `number`           VARCHAR(10)                                             NOT NULL             DEFAULT '',
+  `date`             VARCHAR(30)                                             NOT NULL             DEFAULT '',
+  `status`           ENUM ('NEW', 'WORK', 'DELIVERY', 'CLOSED', 'REJECTION') NOT NULL             DEFAULT 'NEW',
+  `client_id`        INT UNSIGNED                                                                 DEFAULT NULL,
+  `manager_id`       INT UNSIGNED                                                                 DEFAULT NULL,
+  `shipping_address` TEXT                                                    NOT NULL             DEFAULT '',
+  `shipping_details` TEXT                                                    NOT NULL             DEFAULT '',
+  `description`      TEXT                                                    NOT NULL             DEFAULT '',
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`),
   FOREIGN KEY (`client_id`) REFERENCES `users` (`id`),
   FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`),
   UNIQUE (`number`)
