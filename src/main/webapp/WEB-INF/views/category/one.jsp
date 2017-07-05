@@ -26,7 +26,7 @@
     <body>
     <jsp:include page="/WEB-INF/views/other/client_navbar.jsp"/>
     <div class="container-fluid">
-        <section id="products_${category.url}">
+        <section id="category_${category.url}">
             <div class="row products">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="intro-text label-categories">
@@ -51,7 +51,7 @@
             </div>
         </section>
     </div>
-    <c:if test="${category.description ne ''}">
+    <c:if test="${not empty category.description}">
         <div class="container-fluid">
             <section id="category-description">
                 <div class="row category-description color-black">

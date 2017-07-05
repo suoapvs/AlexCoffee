@@ -21,7 +21,7 @@
                         alexcoffee.com.ua
                     </a>
                     &nbsp;&copy;&nbsp;2016&nbsp;
-                    <a href="https://www.linkedin.com/in/yurii-salimov" title="Linkedin" target="_blank">
+                    <a href="https://yuriisalimov.github.io" target="_blank">
                         Yurii Salimov&nbsp;
                         <img src="<c:url value="/resources/img/mr_alex.png"/>" alt="Mr. Alex" title="Mr. Alex">
                     </a>

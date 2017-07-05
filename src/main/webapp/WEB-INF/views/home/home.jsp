@@ -53,6 +53,7 @@
     <div class="container-fluid">
         <section id="categories">
             <div class="row categories">
+                <c:set var="categories_length" value="${fn:length(categories)}"/>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="intro-text text-shadow">
                         <img src="<c:url value="/resources/img/section_icon_1.png"/>"
@@ -60,12 +61,12 @@
                         <br>
                         <span class="home-block-name color-green">Категории</span>
                         <span class="home-block-name color-brown"> Кофе</span>
-                        <c:if test="${fn:length(categories) eq 0}">
+                        <c:if test="${categories_length eq 0}">
                             <span class="color-red"> - список пуст!</span>
                         </c:if>
                     </h3>
                 </div>
-                <c:if test="${fn:length(categories) gt 0}">
+                <c:if test="${categories_length gt 0}">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <c:forEach items="${categories}" var="category">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">

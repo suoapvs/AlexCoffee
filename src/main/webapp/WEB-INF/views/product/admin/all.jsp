@@ -26,11 +26,12 @@
     <div class="container-fluid">
         <section id="products admin-page">
             <div class="row admin-page">
+                <c:set var="products_length" value="${fn:length(products)}"/>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Товары</span>
-                            <c:if test="${fn:length(products) eq 0}">
+                            <c:if test="${products_length eq 0}">
                                 <span class="color-red"> - список пуст!</span><br>
                                 <a href="<c:url value="/admin/product/add"/>" title="Добавить новый товар">
                                     <button class="btn btn-success" type="submit">Добавить</button>
@@ -39,7 +40,7 @@
                         </b>
                     </div>
                 </div>
-                <c:if test="${fn:length(products) gt 0}">
+                <c:if test="${products_length gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
                             <tr>

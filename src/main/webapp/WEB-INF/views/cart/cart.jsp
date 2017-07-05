@@ -29,17 +29,18 @@
     <div class="container-fluid">
         <section id="cart">
             <div class="row cart">
+                <c:set var="sale_positions_length" value="${fn:length(sale_positions)}"/>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow color-brown">
                         <b>
                             <span class="color-brown">Корзина</span>
-                            <c:if test="${fn:length(sale_positions) eq 0}">
+                            <c:if test="${sale_positions_length eq 0}">
                                 <span class="color-green"> - список пуст!</span>
                             </c:if>
                         </b>
                     </div>
                 </div>
-                <c:if test="${fn:length(sale_positions) gt 0}">
+                <c:if test="${sale_positions_length gt 0}">
                     <jsp:include page="/WEB-INF/views/product/in_cart.jsp"/>
                     <div class="row">
                         <form action="checkout" method="post">

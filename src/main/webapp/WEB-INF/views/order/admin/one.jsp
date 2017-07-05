@@ -86,7 +86,7 @@
                             <th>Адрес доставки:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${(order.shippingAddress ne null) and (order.shippingAddress ne '')}">
+                                    <c:when test="${not empty order.shippingAddress}">
                                         ${order.shippingAddress}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
@@ -97,7 +97,7 @@
                             <th>Детали доставки:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${(order.shippingDetails ne null) and (order.shippingDetails ne '')}">
+                                    <c:when test="${not empty order.shippingDetails}">
                                         ${order.shippingDetails}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
@@ -108,7 +108,7 @@
                             <th>Коментарии:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${(order.description ne null) and (order.description ne '')}">
+                                    <c:when test="${not empty order.description}">
                                         ${order.description}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>

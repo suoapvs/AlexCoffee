@@ -26,11 +26,12 @@
     <div class="container-fluid">
         <section id="categories">
             <div class="row admin-page">
+                <c:set var="categories_length" value="${fn:length(categories)}"/>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Категории</span>
-                            <c:if test="${fn:length(categories) eq 0}">
+                            <c:if test="${categories_length eq 0}">
                                 <span class="color-red"> - список пуст!</span><br>
                                 <a href="<c:url value="/admin/category/add"/>" title="Добавить новую категорию">
                                     <button class="btn btn-success" type="submit">Добавить</button>
@@ -39,7 +40,7 @@
                         </b>
                     </div>
                 </div>
-                <c:if test="${fn:length(categories) gt 0}">
+                <c:if test="${categories_length gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
                             <tr>

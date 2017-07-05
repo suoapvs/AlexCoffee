@@ -28,13 +28,13 @@
             <url>
                 <loc>http://alexcoffee.com.ua/category/all</loc>
                 <changefreq>weekly</changefreq>
-                <priority>0.8</priority>
+                <priority>0.6</priority>
             </url>
-            <c:forEach items="${categories}" var="cactegory">
+            <c:forEach items="${categories}" var="category">
                 <url>
                     <loc>http://alexcoffee.com.ua/category/${category.url}</loc>
                     <changefreq>weekly</changefreq>
-                    <priority>0.6</priority>
+                    <priority>0.7</priority>
                 </url>
             </c:forEach>
         </c:if>
@@ -42,16 +42,21 @@
             <url>
                 <loc>http://alexcoffee.com.ua/product/all</loc>
                 <changefreq>weekly</changefreq>
-                <priority>0.8</priority>
+                <priority>0.7</priority>
             </url>
             <c:forEach items="${products}" var="product">
                 <url>
                     <loc>http://alexcoffee.com.ua/product/${product.url}</loc>
                     <changefreq>weekly</changefreq>
-                    <priority>0.5</priority>
+                    <priority>0.8</priority>
                 </url>
             </c:forEach>
         </c:if>
+        <url>
+            <loc>https://yuriisalimov.github.io</loc>
+            <changefreq>weekly</changefreq>
+            <priority>0.5</priority>
+        </url>
     </urlset>
 </compress:xml>
 

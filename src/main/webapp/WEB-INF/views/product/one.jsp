@@ -56,12 +56,12 @@
                     <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                         <p><b>Характеристики товара:</b></p>
                         <p>${product.parameters}</p>
-                        <c:if test="${(product.description ne null) and (product.description ne '')}">
+                        <c:if test="${not empty product.description}">
                             <br>
                             <p><b>Описание товара:</b></p>
                             <p><c:out value="${product.description}"/></p>
                         </c:if>
-                        <c:if test="${(product.photo.photoLinkLong ne null) and (product.photo.photoLinkLong ne '')}">
+                        <c:if test="${not empty product.photo.photoLinkLong}">
                             <p>
                                 <img src="<c:url value="/resources/img/${product.photo.photoLinkLong}"/>"
                                      class="hidden-xs hidden-sm" width="465px" height="465px"

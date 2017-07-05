@@ -101,9 +101,6 @@
                                 <th>Товары:</th>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${fn:length(sale_positions) eq 0}">
-                                            Cписок товаров пуст!
-                                        </c:when>
                                         <c:when test="${fn:length(sale_positions) gt 0}">
                                             <c:forEach items="${sale_positions}" var="position">
                                                 <a href="<c:url value="/product/${position.product.url}"/>"
@@ -114,6 +111,7 @@
                                                 <br>--------------<br>
                                             </c:forEach>
                                         </c:when>
+                                        <c:otherwise>Список товаров пуст!</c:otherwise>
                                     </c:choose>
                                 </td>
                             </tr>
