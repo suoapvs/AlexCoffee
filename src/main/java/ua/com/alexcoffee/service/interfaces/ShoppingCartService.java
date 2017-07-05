@@ -3,6 +3,7 @@ package ua.com.alexcoffee.service.interfaces;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public interface ShoppingCartService {
      *
      * @return Объект типа {@link List} - список торговых позиций.
      */
-    List<SalePosition> getSalePositions();
+    Collection<SalePosition> getSalePositions();
 
     /**
      * Удаляет торговую позицию из корзины.

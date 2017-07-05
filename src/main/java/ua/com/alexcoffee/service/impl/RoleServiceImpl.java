@@ -1,19 +1,19 @@
 package ua.com.alexcoffee.service.impl;
 
-import org.springframework.context.annotation.ComponentScan;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.enums.RoleEnum;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.DuplicateException;
-import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.repository.RoleRepository;
-import ua.com.alexcoffee.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.alexcoffee.enums.RoleEnum;
+import ua.com.alexcoffee.exception.DuplicateException;
+import ua.com.alexcoffee.model.Role;
+import ua.com.alexcoffee.repository.RoleRepository;
+import ua.com.alexcoffee.service.interfaces.RoleService;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Role}
@@ -62,24 +62,26 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      * одно из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли для добавления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
-     * @throws DuplicateException        Бросает исключение,
-     *                                   если в БД уже есть такой объект.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр title.
+     * @throws DuplicateException       Бросает исключение,
+     *                                  если в БД уже есть такой объект.
      */
     @Override
     @Transactional
     public void add(
             final RoleEnum title,
             final String description
-    ) throws WrongInformationException, DuplicateException {
-        if (title == null) {
-            throw new WrongInformationException("No role enum (title)!");
+    ) throws IllegalArgumentException, DuplicateException {
+        if (isNull(title)) {
+            throw new IllegalArgumentException("No role enum (title)!");
         }
-        if (this.repository.findByTitle(title) != null) {
+        final Role savingRole = this.repository.findByTitle(title);
+        if (isNotNull(savingRole)) {
             throw new DuplicateException("Duplicate role with title  " + title + "!");
         }
-        add(new Role(title, description));
+        final Role role = new Role(title, description);
+        add(role);
     }
 
     /**
@@ -89,20 +91,20 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      *
      * @param title Название роли для возврата.
      * @return Объект класса {@link Role} - роль с уникальным названием.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найденая рось с входящим параметром title.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр title.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найденая рось с входящим параметром title.
      */
     @Override
     @Transactional(readOnly = true)
-    public Role get(final RoleEnum title) throws WrongInformationException, BadRequestException {
-        if (title == null) {
-            throw new WrongInformationException("No role enum (title)!");
+    public Role get(final RoleEnum title) throws IllegalArgumentException, NullPointerException {
+        if (isNull(title)) {
+            throw new IllegalArgumentException("No role enum (title)!");
         }
         final Role role = this.repository.findByTitle(title);
-        if (role == null) {
-            throw new BadRequestException("Can't find role by title " + title + "!");
+        if (isNull(role)) {
+            throw new NullPointerException("Can't find role by title " + title + "!");
         }
         return role;
     }
@@ -112,17 +114,11 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      * Режим только для чтения.
      *
      * @return Объект класса {@link Role} - роль администратора.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найдена роль-админ.
      */
     @Override
     @Transactional(readOnly = true)
-    public Role getAdministrator() throws BadRequestException {
-        final Role role = this.repository.findByTitle(RoleEnum.ADMIN);
-        if (role == null) {
-            throw new BadRequestException("Can't find role \"administrator\"!");
-        }
-        return role;
+    public Role getAdministrator() {
+        return get(RoleEnum.ADMIN);
     }
 
     /**
@@ -130,17 +126,11 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      * Режим только для чтения.
      *
      * @return Объект класса {@link Role} - роль менеджера.
-     * @throws BadRequestException Бросает исключение,
-     *                             когда не найдена роль-менеджер.
      */
     @Override
     @Transactional(readOnly = true)
-    public Role getManager() throws BadRequestException {
-        final Role role = this.repository.findByTitle(RoleEnum.MANAGER);
-        if (role == null) {
-            throw new BadRequestException("Can't find role \"manager\"!");
-        }
-        return role;
+    public Role getManager() {
+        return get(RoleEnum.MANAGER);
     }
 
     /**
@@ -148,15 +138,15 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      * Режим только для чтения.
      *
      * @return Объект класса {@link Role} - роль по-умолчание.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найдена роль по-умолчание.
+     * @throws NullPointerException Бросает исключение,
+     *                              если не найдена роль по-умолчание.
      */
     @Override
     @Transactional(readOnly = true)
-    public Role getDefault() throws BadRequestException {
+    public Role getDefault() throws NullPointerException {
         final Role role = this.repository.findOne((long) 1);
-        if (role == null) {
-            throw new BadRequestException("Can't find default role!");
+        if (isNull(role)) {
+            throw new NullPointerException("Can't find default role!");
         }
         return role;
     }
@@ -170,12 +160,12 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Role> getPersonnel() {
-        final List<Role> roles = this.repository.findAll();
-        if (roles.isEmpty()) {
-            return Collections.emptyList();
+    public Collection<Role> getPersonnel() {
+        final Collection<Role> roles = this.repository.findAll();
+        if (isNotEmpty(roles)) {
+            final Role defaultRole = getDefault();
+            roles.remove(defaultRole);
         }
-        roles.remove(getDefault());
         return roles;
     }
 
@@ -184,15 +174,12 @@ public final class RoleServiceImpl extends MainServiceImpl<Role> implements Role
      * из значений перечисления {@link RoleEnum}.
      *
      * @param title Название роли.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
      */
     @Override
     @Transactional
-    public void remove(final RoleEnum title) throws WrongInformationException {
-        if (title == null) {
-            throw new WrongInformationException("No role enum (title)!");
+    public void remove(final RoleEnum title) {
+        if (isNotNull(title)) {
+            this.repository.deleteByTitle(title);
         }
-        this.repository.deleteByTitle(title);
     }
 }

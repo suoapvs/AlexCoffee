@@ -2,6 +2,7 @@ package ua.com.alexcoffee.service.interfaces;
 
 import ua.com.alexcoffee.model.Product;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public interface ProductService extends MainService<Product> {
      * @param url Уникальный URL категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getByCategoryUrl(String url);
+    Collection<Product> getByCategoryUrl(String url);
 
     /**
      * Возвращает список товаров, которые относятся к категории
@@ -49,7 +50,7 @@ public interface ProductService extends MainService<Product> {
      * @param id Уникальный код категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getByCategoryId(long id);
+    Collection<Product> getByCategoryId(long id);
 
     /**
      * Возвращает список рандомных товаров, которые относятся к категории
@@ -60,7 +61,7 @@ public interface ProductService extends MainService<Product> {
      * @param differentProductId Код товара, который точно не будет включен в список.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getRandomByCategoryId(
+    Collection<Product> getRandomByCategoryId(
             int size,
             long categoryId,
             long differentProductId
@@ -75,7 +76,7 @@ public interface ProductService extends MainService<Product> {
      * @param id   Код категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getRandomByCategoryId(int size, long id);
+    Collection<Product> getRandomByCategoryId(int size, long id);
 
     /**
      * Возвращает список рандомных товаров.
@@ -83,7 +84,7 @@ public interface ProductService extends MainService<Product> {
      * @param size Количество товаров в списке.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> getRandom(int size);
+    Collection<Product> getRandom(int size);
 
     /**
      * Удаляет товар, у которого совпадает параметр url.

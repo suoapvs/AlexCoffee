@@ -5,12 +5,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alexcoffee.enums.StatusEnum;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.repository.StatusRepository;
 import ua.com.alexcoffee.service.interfaces.StatusService;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNull;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Status}
@@ -59,24 +60,24 @@ public final class StatusServiceImpl extends MainServiceImpl<Status> implements 
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
-     * @throws DuplicateException        Бросает исключение,
-     *                                   если в БД уже есть такой объект.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр title.
+     * @throws DuplicateException       Бросает исключение,
+     *                                  если в БД уже есть такой объект.
      */
     @Override
     @Transactional
-    public void add(
-            final StatusEnum title,
-            final String description
-    ) throws WrongInformationException, DuplicateException {
-        if (title == null) {
-            throw new WrongInformationException("No status title!");
+    public void add(final StatusEnum title, final String description)
+            throws IllegalArgumentException, DuplicateException {
+        if (isNull(title)) {
+            throw new IllegalArgumentException("No status title!");
         }
-        if (this.repository.findByTitle(title) != null) {
+        final Status savingStatus = this.repository.findByTitle(title);
+        if (isNotNull(savingStatus)) {
             throw new DuplicateException("Duplicate status with title  " + title + "!");
         }
-        add(new Status(title, description));
+        final Status newStatus = new Status(title, description);
+        add(newStatus);
     }
 
     /**
@@ -85,21 +86,21 @@ public final class StatusServiceImpl extends MainServiceImpl<Status> implements 
      *
      * @param title Название статуса.
      * @return Объект класса {@link Status} - статус с названием title.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден статус с входящим параметром title.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр title.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден статус с входящим параметром title.
      */
     @Override
     @Transactional(readOnly = true)
     public Status get(final StatusEnum title)
-            throws WrongInformationException, BadRequestException {
-        if (title == null) {
-            throw new WrongInformationException("No status title!");
+            throws IllegalArgumentException, NullPointerException {
+        if (isNull(title)) {
+            throw new IllegalArgumentException("No status title!");
         }
         final Status status = this.repository.findByTitle(title);
-        if (status == null) {
-            throw new BadRequestException("Can't find status by title " + title + "!");
+        if (isNull(status)) {
+            throw new NullPointerException("Can't find status by title " + title + "!");
         }
         return status;
     }
@@ -108,15 +109,15 @@ public final class StatusServiceImpl extends MainServiceImpl<Status> implements 
      * Возвращает статус по-умолчанию.
      *
      * @return Объект класса {@link Status} - статус по-умолчание.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найден статус по-умолчание.
+     * @throws NullPointerException Бросает исключение,
+     *                              если не найден статус по-умолчание.
      */
     @Override
     @Transactional(readOnly = true)
-    public Status getDefault() throws BadRequestException {
+    public Status getDefault() throws NullPointerException {
         final Status status = this.repository.findOne((long) 1);
-        if (status == null) {
-            throw new BadRequestException("Can't find default status!");
+        if (isNull(status)) {
+            throw new NullPointerException("Can't find default status!");
         }
         return status;
     }
@@ -126,16 +127,12 @@ public final class StatusServiceImpl extends MainServiceImpl<Status> implements 
      * одно из значений перечисления {@link StatusEnum}.
      *
      * @param title Название статуса для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
      */
     @Override
     @Transactional
-    public void remove(final StatusEnum title)
-            throws WrongInformationException {
-        if (title == null) {
-            throw new WrongInformationException("No status title!");
+    public void remove(final StatusEnum title) {
+        if (isNotNull(title)) {
+            this.repository.deleteByTitle(title);
         }
-        this.repository.deleteByTitle(title);
     }
 }

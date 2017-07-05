@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.repository.CategoryRepository;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNull;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Category}
@@ -60,20 +60,20 @@ public final class CategoryServiceImpl extends MainServiceImpl<Category> impleme
      *
      * @param url URL категории для возврата.
      * @return Объект класса {@link Category} - категория с уникальным url полем.
-     * @throws WrongInformationException Бросает исключение, если пустой входной
-     *                                   параметр url.
-     * @throws BadRequestException       Бросает исключение, если не найдена категория
-     *                                   с входящим параметром url.
+     * @throws IllegalArgumentException Бросает исключение, если пустой входной
+     *                                  параметр url.
+     * @throws NullPointerException     Бросает исключение, если не найдена категория
+     *                                  с входящим параметром url.
      */
     @Override
     @Transactional(readOnly = true)
-    public Category get(final String url) throws WrongInformationException, BadRequestException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No category URL!");
+    public Category get(final String url) throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(url)) {
+            throw new IllegalArgumentException("No category URL!");
         }
         final Category category = this.repository.findByUrl(url);
-        if (category == null) {
-            throw new BadRequestException("Can't find category by url " + url + "!");
+        if (isNull(category)) {
+            throw new NullPointerException("Can't find category by url " + url + "!");
         }
         return category;
     }
@@ -82,15 +82,12 @@ public final class CategoryServiceImpl extends MainServiceImpl<Category> impleme
      * Удаляет категрию из базы даных, у которого совпадает поле url.
      *
      * @param url URL категории для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр url.
      */
     @Override
     @Transactional
-    public void remove(final String url) throws WrongInformationException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No category URL!");
+    public void remove(final String url) {
+        if (isNotEmpty(url)) {
+            this.repository.deleteByUrl(url);
         }
-        this.repository.deleteByUrl(url);
     }
 }

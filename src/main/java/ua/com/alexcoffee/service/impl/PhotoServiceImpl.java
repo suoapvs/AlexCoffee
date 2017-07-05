@@ -5,8 +5,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Photo;
 import ua.com.alexcoffee.repository.PhotoRepository;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
@@ -16,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Photo}
@@ -68,20 +66,20 @@ public final class PhotoServiceImpl extends MainServiceImpl<Photo> implements Ph
      *
      * @param title Название объекта-изображения для возврата.
      * @return Объект класса {@link Photo} - объекта-изображение.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден объект-изображеие с входящим параметром title.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр title.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден объект-изображеие с входящим параметром title.
      */
     @Override
     @Transactional(readOnly = true)
-    public Photo get(final String title) throws WrongInformationException, BadRequestException {
-        if (isBlank(title)) {
-            throw new WrongInformationException("No photo title!");
+    public Photo get(final String title) throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(title)) {
+            throw new IllegalArgumentException("No photo title!");
         }
         final Photo photo = this.repository.findByTitle(title);
-        if (photo == null) {
-            throw new BadRequestException("Can't find photo by title " + title + "!");
+        if (isNull(photo)) {
+            throw new NullPointerException("Can't find photo by title " + title + "!");
         }
         return photo;
     }
@@ -91,16 +89,13 @@ public final class PhotoServiceImpl extends MainServiceImpl<Photo> implements Ph
      * уникальное название с значением входящего параметра.
      *
      * @param title Название объекта-изображения для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр title.
      */
     @Override
     @Transactional
-    public void remove(final String title) throws WrongInformationException {
-        if (isBlank(title)) {
-            throw new WrongInformationException("No photo title!");
+    public void remove(final String title) {
+        if (isNotEmpty(title)) {
+            this.repository.deleteByTitle(title);
         }
-        this.repository.deleteByTitle(title);
     }
 
     /**
@@ -111,7 +106,7 @@ public final class PhotoServiceImpl extends MainServiceImpl<Photo> implements Ph
     @Override
     @Transactional
     public void saveFile(final MultipartFile photo) {
-        if (photo != null && !photo.isEmpty()) {
+        if (isNotEmpty(photo)) {
             final String filePath = Photo.PATH + photo.getOriginalFilename();
             try (OutputStream stream = new FileOutputStream(filePath)) {
                 stream.write(photo.getBytes());
@@ -129,7 +124,7 @@ public final class PhotoServiceImpl extends MainServiceImpl<Photo> implements Ph
     @Override
     @Transactional
     public void deleteFile(final String url) {
-        if (isBlank(url)) {
+        if (isNotEmpty(url)) {
             final File file = new File(Photo.PATH + url);
             if (file.exists() && file.isFile()) {
                 file.delete();

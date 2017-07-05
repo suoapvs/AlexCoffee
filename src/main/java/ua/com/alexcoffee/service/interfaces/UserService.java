@@ -3,6 +3,7 @@ package ua.com.alexcoffee.service.interfaces;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -47,28 +48,28 @@ public interface UserService extends MainService<User> {
      *
      * @return Объект типа {@link List} - список администраторов.
      */
-    List<User> getAdministrators();
+    Collection<User> getAdministrators();
 
     /**
      * Возвращает список всех менеджеров сайта.
      *
      * @return Объект типа {@link List} - список менеджеров.
      */
-    List<User> getManagers();
+    Collection<User> getManagers();
 
     /**
      * Возвращает список всех клиентов сайта.
      *
      * @return Объект типа {@link List} - список клиентов.
      */
-    List<User> getClients();
+    Collection<User> getClients();
 
     /**
      * Возвращает список персонала сайта.
      *
      * @return Объект типа {@link List} - список персонала.
      */
-    List<User> getPersonnel();
+    Collection<User> getPersonnel();
 
     /**
      * Возвращает авторизированого пользователя.

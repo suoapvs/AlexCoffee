@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Order;
 import ua.com.alexcoffee.repository.OrderRepository;
 import ua.com.alexcoffee.service.interfaces.OrderService;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Order}
@@ -61,20 +59,20 @@ public final class OrderServiceImpl extends MainServiceImpl<Order> implements Or
      *
      * @param number Номер заказа для возврата.
      * @return Объект класса {@link Order} - заказ с уникальным номером.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр number.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден заказ с входящим параметром number.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр number.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден заказ с входящим параметром number.
      */
     @Override
     @Transactional(readOnly = true)
-    public Order get(final String number) throws WrongInformationException, BadRequestException {
-        if (isBlank(number)) {
-            throw new WrongInformationException("No order number!");
+    public Order get(final String number) throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(number)) {
+            throw new IllegalArgumentException("No order number!");
         }
         final Order order = this.repository.findByNumber(number);
-        if (order == null) {
-            throw new BadRequestException("Can't find order by number " + number + "!");
+        if (isNull(order)) {
+            throw new NullPointerException("Can't find order by number " + number + "!");
         }
         return order;
     }
@@ -84,15 +82,12 @@ public final class OrderServiceImpl extends MainServiceImpl<Order> implements Or
      * уникальный номером с значением входящего параметра.
      *
      * @param number Номер заказа для удаление.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр number.
      */
     @Override
     @Transactional
-    public void remove(final String number) throws WrongInformationException {
-        if (isBlank(number)) {
-            throw new WrongInformationException("No order number!");
+    public void remove(final String number) {
+        if (isNotEmpty(number)) {
+            this.repository.deleteByNumber(number);
         }
-        this.repository.deleteByNumber(number);
     }
 }

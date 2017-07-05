@@ -1,9 +1,10 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.enums.RoleEnum;
+import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.service.impl.MainServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -62,7 +63,7 @@ public interface RoleService extends MainService<Role> {
      *
      * @return Объект типа {@link List} - список ролей персонала.
      */
-    List<Role> getPersonnel();
+    Collection<Role> getPersonnel();
 
     /**
      * Удаляет роль по названию, которое может принимать одно

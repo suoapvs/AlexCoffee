@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.repository.ShoppingCartRepository;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
+import ua.com.alexcoffee.repository.ShoppingCartRepository;
 import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 
+import java.util.Collection;
 import java.util.List;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNull;
 
 /**
  * Класс сервисного слоя для работы с торговой корзиной.
@@ -54,14 +57,14 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
      * Режим только для чтения.
      *
      * @return Объект класса {@link ShoppingCart} - торговая корзина.
-     * @throws BadRequestException Бросает исключение, если корзина отсутствует.
+     * @throws NullPointerException Бросает исключение, если корзина отсутствует.
      */
     @Override
     @Transactional(readOnly = true)
-    public ShoppingCart getShoppingCart() throws BadRequestException {
+    public ShoppingCart getShoppingCart() throws NullPointerException {
         final ShoppingCart shoppingCart = this.shoppingCartRepository.get();
-        if (shoppingCart == null) {
-            throw new BadRequestException("Can't find shopping cart!");
+        if (isNull(shoppingCart)) {
+            throw new NullPointerException("Can't find shopping cart!");
         }
         return shoppingCart;
     }
@@ -69,14 +72,14 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
     /**
      * Добавляет торговую позицию в список корзины.
      *
-     * @param salePosition Торговая позиция,
-     *                     которая будет добавлена в корзину.
+     * @param position Торговая позиция,
+     *                 которая будет добавлена в корзину.
      */
     @Override
     @Transactional
-    public void add(final SalePosition salePosition) {
-        if (salePosition != null) {
-            this.shoppingCartRepository.addSalePosition(salePosition);
+    public void add(final SalePosition position) {
+        if (isNotNull(position)) {
+            this.shoppingCartRepository.addSalePosition(position);
         }
     }
 
@@ -88,20 +91,20 @@ public final class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<SalePosition> getSalePositions() {
+    public Collection<SalePosition> getSalePositions() {
         return this.shoppingCartRepository.getSalePositions();
     }
 
     /**
      * Удаляет торговую позицию из корзины.
      *
-     * @param salePosition Торговая позиция для удаления из корзины.
+     * @param position Торговая позиция для удаления из корзины.
      */
     @Override
     @Transactional
-    public void remove(final SalePosition salePosition) {
-        if (salePosition != null) {
-            this.shoppingCartRepository.removeSalePosition(salePosition);
+    public void remove(final SalePosition position) {
+        if (isNotNull(position)) {
+            this.shoppingCartRepository.removeSalePosition(position);
         }
     }
 

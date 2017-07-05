@@ -3,6 +3,7 @@ package ua.com.alexcoffee.service.interfaces;
 import ua.com.alexcoffee.model.Model;
 import ua.com.alexcoffee.service.impl.MainServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public interface MainService<T extends Model> {
      *
      * @param models Список моделей для добавления.
      */
-    void add(List<T> models);
+    void add(Collection<T> models);
 
     /**
      * Обновление существующей модели.
@@ -59,7 +60,7 @@ public interface MainService<T extends Model> {
      *
      * @return Объект типа {@link List} - список всех моделей.
      */
-    List<T> getAll();
+    Collection<T> getAll();
 
     /**
      * Удаление модели.
@@ -80,7 +81,7 @@ public interface MainService<T extends Model> {
      *
      * @param models Коллекция моделей для удаления.
      */
-    void remove(List<T> models);
+    void remove(Collection<T> models);
 
     /**
      * Удаление всех моделей.

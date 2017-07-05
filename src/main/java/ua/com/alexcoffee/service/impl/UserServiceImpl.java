@@ -2,14 +2,14 @@ package ua.com.alexcoffee.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
 import ua.com.alexcoffee.repository.RoleRepository;
@@ -17,9 +17,10 @@ import ua.com.alexcoffee.repository.UserRepository;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link User}
@@ -98,20 +99,20 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      *
      * @param name Имя пользователя для возврата.
      * @return Объект класса {@link User} - пользователь с именем name.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   когда пустой входной параметр name.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден пользователь с входящим параметром name.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  когда пустой входной параметр name.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден пользователь с входящим параметром name.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getByName(final String name) throws WrongInformationException, BadRequestException {
-        if (isBlank(name)) {
-            throw new WrongInformationException("No user name!");
+    public User getByName(final String name) throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(name)) {
+            throw new IllegalArgumentException("No user name!");
         }
         final User user = this.repository.findByName(name);
-        if (user == null) {
-            throw new BadRequestException("Can't find user by name " + name + "!");
+        if (isNull(user)) {
+            throw new NullPointerException("Can't find user by name " + name + "!");
         }
         return user;
     }
@@ -122,21 +123,21 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      *
      * @param username Логин пользователя для возврата.
      * @return Объект класса {@link User} - пользователь с логином username.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр username.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден пользователь с входящим параметром username.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр username.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден пользователь с входящим параметром username.
      */
     @Override
     @Transactional(readOnly = true)
     public User getByUsername(final String username)
-            throws WrongInformationException, BadRequestException {
-        if (isBlank(username)) {
-            throw new WrongInformationException("No username!");
+            throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(username)) {
+            throw new IllegalArgumentException("No username!");
         }
         final User user = this.repository.findByUsername(username);
-        if (user == null) {
-            throw new BadRequestException("Can't find user by username " + username + "!");
+        if (isNull(user)) {
+            throw new NullPointerException("Can't find user by username " + username + "!");
         }
         return user;
     }
@@ -146,16 +147,16 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      * Режим только для чтения.
      *
      * @return Объект класса {@link User} - главный администратор.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найден пользователь-админ.
+     * @throws NullPointerException Бросает исключение,
+     *                              если не найден пользователь-админ.
      */
     @Override
     @Transactional(readOnly = true)
-    public User getMainAdministrator() throws BadRequestException {
+    public User getMainAdministrator() throws NullPointerException {
         final Role adminRole = this.roleRepository.findOne(ADMIN_ROLE_ID);
-        final User user = this.repository.findAllByRole(adminRole).get(0);
-        if (user == null) {
-            throw new BadRequestException("Can't find administrator!");
+        final User user = new ArrayList<>(getAdministrators()).get(0);
+        if (isNull(user)) {
+            throw new NullPointerException("Can't find administrator!");
         }
         return user;
     }
@@ -168,9 +169,8 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      */
     @Override
     @Transactional(readOnly = true)
-    public List<User> getAdministrators() {
-        final Role adminRole = this.roleRepository.findOne(ADMIN_ROLE_ID);
-        return this.repository.findAllByRole(adminRole);
+    public Collection<User> getAdministrators() {
+        return getByRoleId(ADMIN_ROLE_ID);
     }
 
     /**
@@ -181,9 +181,8 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      */
     @Override
     @Transactional(readOnly = true)
-    public List<User> getManagers() {
-        final Role managerRole = this.roleRepository.findOne(MANAGER_ROLE_ID);
-        return this.repository.findAllByRole(managerRole);
+    public Collection<User> getManagers() {
+        return getByRoleId(MANAGER_ROLE_ID);
     }
 
     /**
@@ -194,9 +193,8 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      */
     @Override
     @Transactional(readOnly = true)
-    public List<User> getClients() {
-        final Role clientRole = this.roleRepository.findOne(CLIENT_ROLE_ID);
-        return this.repository.findAllByRole(clientRole);
+    public Collection<User> getClients() {
+        return getByRoleId(CLIENT_ROLE_ID);
     }
 
     /**
@@ -208,7 +206,7 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      */
     @Override
     @Transactional(readOnly = true)
-    public List<User> getPersonnel() {
+    public Collection<User> getPersonnel() {
         final List<User> users = new ArrayList<>();
         users.addAll(getAdministrators());
         users.addAll(getManagers());
@@ -226,10 +224,9 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     public User getAuthenticatedUser() {
         User user;
         try {
-            user = (User) SecurityContextHolder
-                    .getContext()
-                    .getAuthentication()
-                    .getPrincipal();
+            final SecurityContext context = SecurityContextHolder.getContext();
+            final Authentication authentication = context.getAuthentication();
+            user = (User) authentication.getPrincipal();
         } catch (Exception ex) {
             ex.printStackTrace();
             user = null;
@@ -241,16 +238,13 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      * Удаляет пользователя, у которого совпадает имя с значением входящего параметра.
      *
      * @param name Имя пользователя для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр username.
      */
     @Override
     @Transactional
-    public void removeByName(final String name) throws WrongInformationException {
-        if (isBlank(name)) {
-            throw new WrongInformationException("No username!");
+    public void removeByName(final String name) {
+        if (isNotEmpty(name)) {
+            this.repository.deleteByName(name);
         }
-        this.repository.deleteByName(name);
     }
 
     /**
@@ -258,16 +252,13 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      * роль с значением входящего параметра.
      *
      * @param role Роль пользователя для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр role.
      */
     @Override
     @Transactional
-    public void removeByRole(final Role role) throws WrongInformationException {
-        if (role == null) {
-            throw new WrongInformationException("No user role!");
+    public void removeByRole(final Role role) {
+        if (isNotNull(role)) {
+            this.repository.deleteAllByRole(role);
         }
-        this.repository.deleteAllByRole(role);
     }
 
     /**
@@ -276,12 +267,12 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional
     public void removePersonnel() {
-        final List<User> personnel = getPersonnel();
-        if (personnel.isEmpty()) {
-            return;
+        final Collection<User> personnel = getPersonnel();
+        if (isNotEmpty(personnel)) {
+            final User mainAdmin = getMainAdministrator();
+            personnel.remove(mainAdmin);
+            this.repository.delete(personnel);
         }
-        personnel.remove(getMainAdministrator());
-        this.repository.delete(personnel);
     }
 
     /**
@@ -297,6 +288,15 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        return getByUsername(username);
+        try {
+            return getByUsername(username);
+        } catch (IllegalArgumentException | NullPointerException ex) {
+            throw new UsernameNotFoundException(ex.getMessage(), ex);
+        }
+    }
+
+    private Collection<User> getByRoleId(final long id) {
+        final Role role = this.roleRepository.findOne(id);
+        return this.repository.findAllByRole(role);
     }
 }

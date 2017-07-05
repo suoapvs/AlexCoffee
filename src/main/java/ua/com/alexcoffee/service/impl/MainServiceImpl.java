@@ -1,12 +1,14 @@
 package ua.com.alexcoffee.service.impl;
 
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.model.Model;
 import ua.com.alexcoffee.repository.MainRepository;
 import ua.com.alexcoffee.service.interfaces.MainService;
 
+import java.util.Collection;
 import java.util.List;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя, который реализует основные методы доступа к
@@ -61,7 +63,7 @@ public abstract class MainServiceImpl<T extends Model>
     @Override
     @Transactional
     public void add(final T model) {
-        if (model != null) {
+        if (isNotNull(model)) {
             this.repository.save(model);
         }
     }
@@ -73,8 +75,8 @@ public abstract class MainServiceImpl<T extends Model>
      */
     @Override
     @Transactional
-    public void add(final List<T> models) {
-        if (models != null && !models.isEmpty()) {
+    public void add(final Collection<T> models) {
+        if (isNotEmpty(models)) {
             this.repository.save(models);
         }
     }
@@ -96,15 +98,15 @@ public abstract class MainServiceImpl<T extends Model>
      *
      * @param id Уникальный код модели.
      * @return Объект класса {@link Model} -  модель с кодом id.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найдена модель с входящим параметром id.
+     * @throws NullPointerException Бросает исключение,
+     *                              если не найдена модель с входящим параметром id.
      */
     @Override
     @Transactional(readOnly = true)
-    public T get(final long id) throws BadRequestException {
+    public T get(final long id) throws NullPointerException {
         final T model = this.repository.findOne(id);
-        if (model == null) {
-            throw new BadRequestException("Can't find model by id " + id + "!");
+        if (isNull(model)) {
+            throw new NullPointerException("Can't find model by id " + id + "!");
         }
         return model;
     }
@@ -117,7 +119,7 @@ public abstract class MainServiceImpl<T extends Model>
      */
     @Override
     @Transactional(readOnly = true)
-    public List<T> getAll() {
+    public Collection<T> getAll() {
         return this.repository.findAll();
     }
 
@@ -129,7 +131,7 @@ public abstract class MainServiceImpl<T extends Model>
     @Override
     @Transactional
     public void remove(final T model) {
-        if (model != null) {
+        if (isNotNull(model)) {
             this.repository.delete(model);
         }
     }
@@ -152,8 +154,8 @@ public abstract class MainServiceImpl<T extends Model>
      */
     @Override
     @Transactional
-    public void remove(final List<T> models) {
-        if (models != null && !models.isEmpty()) {
+    public void remove(final Collection<T> models) {
+        if (isNotEmpty(models)) {
             this.repository.delete(models);
         }
     }

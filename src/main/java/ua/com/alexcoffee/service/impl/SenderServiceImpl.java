@@ -14,10 +14,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс сервисного слоя реализует методы интерфейса {@link SenderService}
@@ -63,7 +63,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
     /**
      * Список менеджеров, которым будет приходить сообщение о заказе.
      */
-    private List<User> managers;
+    private Collection<User> managers;
 
     /**
      * Заказ, информация о котором будет приходить на почту менеджерам.
@@ -104,8 +104,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
         if (this.order != null) {
             this.admin = this.userService.getMainAdministrator();
             this.managers = this.userService.getManagers();
-            Collections.shuffle(this.managers);
-            if (this.admin != null && !this.managers.isEmpty()) {
+            if (isNotNull(this.admin) && isNotEmpty(this.managers)) {
                 choosePropertiesAndSend();
             }
         }
@@ -255,7 +254,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      *
      * @return Объект класса {@link List} - список менеджеров.
      */
-    public List<User> getManagers() {
+    public Collection<User> getManagers() {
         return this.managers;
     }
 
@@ -264,7 +263,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      *
      * @param managers список менеджеров.
      */
-    public void setManagers(final List<User> managers) {
+    public void setManagers(final Collection<User> managers) {
         this.managers = managers;
     }
 }

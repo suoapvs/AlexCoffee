@@ -4,17 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.exception.BadRequestException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Product;
 import ua.com.alexcoffee.repository.ProductRepository;
 import ua.com.alexcoffee.service.interfaces.ProductService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.*;
 
 /**
  * Класс сервисного слоя реализует методы доступа объектов класса {@link Product}
@@ -49,7 +48,7 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      * автоматически инициализировать объект.
      *
      * @param repository Реализация интерфейса {@link ProductRepository}
-     *                          для работы с товаров базой данных.
+     *                   для работы с товаров базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
@@ -63,20 +62,20 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      *
      * @param url URL товара для возврата.
      * @return Объект класса {@link Product} - товара с уникальным url полем.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр url.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найден товар с входящим параметром url.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр url.
+     * @throws NullPointerException     Бросает исключение,
+     *                                  если не найден товар с входящим параметром url.
      */
     @Override
     @Transactional(readOnly = true)
-    public Product getByUrl(final String url) throws WrongInformationException, BadRequestException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No product URL!");
+    public Product getByUrl(final String url) throws IllegalArgumentException, NullPointerException {
+        if (isEmpty(url)) {
+            throw new IllegalArgumentException("No product URL!");
         }
         final Product product = this.repository.findByUrl(url);
-        if (product == null) {
-            throw new BadRequestException("Can't find product by url " + url + "!");
+        if (isNull(product)) {
+            throw new NullPointerException("Can't find product by url " + url + "!");
         }
         return product;
     }
@@ -87,16 +86,15 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      *
      * @param article Артикль товара для возврата.
      * @return Объект класса {@link Product} - товара с уникальным артиклем.
-     * @throws BadRequestException Бросает исключение, если не найден
-     *                             товар с входящим параметром article.
+     * @throws NullPointerException Бросает исключение, если не найден
+     *                              товар с входящим параметром article.
      */
     @Override
     @Transactional(readOnly = true)
-    public Product getByArticle(final int article)
-            throws BadRequestException {
+    public Product getByArticle(final int article) throws NullPointerException {
         final Product product = this.repository.findByArticle(article);
-        if (product == null) {
-            throw new BadRequestException("Can't find product by article " + article + "!");
+        if (isNull(product)) {
+            throw new NullPointerException("Can't find product by article " + article + "!");
         }
         return product;
     }
@@ -108,17 +106,15 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      *
      * @param url URL категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр url.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найдена категория с входящим параметром url.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если пустой входной параметр url.
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getByCategoryUrl(final String url)
-            throws WrongInformationException, BadRequestException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No category URL!");
+    public Collection<Product> getByCategoryUrl(final String url)
+            throws IllegalArgumentException {
+        if (isEmpty(url)) {
+            throw new IllegalArgumentException("No category URL!");
         }
         return this.repository.findByCategoryUrl(url);
     }
@@ -130,12 +126,10 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      *
      * @param id Код категории, товары которой будут возвращены.
      * @return Объект типа {@link List} - список товаров.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр id.
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getByCategoryId(final long id) throws WrongInformationException {
+    public Collection<Product> getByCategoryId(final long id) {
         return this.repository.findByCategoryId(id);
     }
 
@@ -162,8 +156,8 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      * @param categoryId         Код категории, товары которой будут возвращены.
      * @param differentProductId Код товара, который точно не будет включен в список.
      * @return Объект типа {@link List} - список товаров.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если несли пустой хотя бы одис с параметров.
+     * @throws IllegalArgumentException Бросает исключение,
+     *                                  если несли пустой хотя бы одис с параметров.
      */
     @Override
     @Transactional(readOnly = true)
@@ -171,13 +165,13 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
             final int size,
             final long categoryId,
             final long differentProductId
-    ) throws WrongInformationException {
-        final List<Product> products = this.repository.findByCategoryId(categoryId);
-        if (products.isEmpty()) {
+    ) throws IllegalArgumentException {
+        final Collection<Product> products = this.repository.findByCategoryId(categoryId);
+        if (isEmpty(products)) {
             return new ArrayList<>();
         }
         products.remove(this.repository.findOne(differentProductId));
-        return getShuffleSubList(products, 0, size);
+        return getShuffleSubList(new ArrayList<>(products), 0, size);
     }
 
     /**
@@ -189,28 +183,25 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      */
     @Override
     @Transactional(readOnly = true)
-    public List<Product> getRandom(final int size) {
-        final List<Product> products = this.repository.findAll();
-        if (products.isEmpty()) {
-            return new ArrayList<>();
+    public Collection<Product> getRandom(final int size) {
+        final Collection<Product> products = this.repository.findAll();
+        if (isNotEmpty(products)) {
+            return getShuffleSubList(new ArrayList<>(products), 0, size);
         }
-        return getShuffleSubList(products, 0, size);
+        return new ArrayList<>(products);
     }
 
     /**
      * Удаляет товар, у которого совпадает параметр url.
      *
      * @param url URL товара для удаления.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр url.
      */
     @Override
     @Transactional
-    public void removeByUrl(final String url) throws WrongInformationException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No product URL!");
+    public void removeByUrl(final String url) {
+        if (isNotEmpty(url)) {
+            this.repository.deleteByUrl(url);
         }
-        this.repository.deleteByUrl(url);
     }
 
     /**
@@ -229,19 +220,13 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      * с уникальным URL - входным параметром.
      *
      * @param url URL категории, товары которой будут удалены.
-     * @throws WrongInformationException Бросает исключение,
-     *                                   если пустой входной параметр url.
-     * @throws BadRequestException       Бросает исключение,
-     *                                   если не найдена категория с входящим параметром url.
      */
     @Override
     @Transactional
-    public void removeByCategoryUrl(final String url)
-            throws WrongInformationException, BadRequestException {
-        if (isBlank(url)) {
-            throw new WrongInformationException("No category URL!");
+    public void removeByCategoryUrl(final String url) {
+        if (isNotEmpty(url)) {
+            this.repository.deleteByCategoryUrl(url);
         }
-        this.repository.deleteByCategoryUrl(url);
     }
 
     /**
@@ -249,12 +234,10 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      * с уникальным кодом - входным параметром.
      *
      * @param id Код категории, товары котрой будут удалены.
-     * @throws BadRequestException Бросает исключение,
-     *                             если не найдена категория с входящим параметром id.
      */
     @Override
     @Transactional
-    public void removeByCategoryId(final long id) throws BadRequestException {
+    public void removeByCategoryId(final long id) throws NullPointerException {
         this.repository.deleteByCategoryId(id);
     }
 
@@ -269,19 +252,15 @@ public final class ProductServiceImpl extends MainServiceImpl<Product> implement
      * или пустой лист.
      */
     private static List<Product> getShuffleSubList(
-            final List<Product> products,
+            final Collection<Product> products,
             final int start,
             final int end
     ) {
-        if ((products == null) || (products.isEmpty()) ||
-                (start > products.size()) ||
-                (start > end) || (start < 0) || (end < 0)) {
+        if (isEmpty(products) || (start > products.size()) || (start > end) || (start < 0) || (end < 0)) {
             return new ArrayList<>();
         }
-        Collections.shuffle(products);
-        return products.subList(
-                start,
-                end <= products.size() ? end : products.size()
-        );
+        final List<Product> result = new ArrayList<>(products);
+        Collections.shuffle(result);
+        return result.subList(start, end <= result.size() ? end : result.size());
     }
 }
