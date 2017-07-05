@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,18 +32,6 @@ public class CategoryTest {
         Category category = new Category(title, url, description, null);
         String line = "Title: " + title + "\nUrl: " + url + "\nDescription: " + description;
         assertEquals(category.toString(), line);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        String title = "Category";
-        String url = "cat_url";
-        Category category = new Category(title, url, "", null);
-        assertEquals(category.toEquals(), title + url);
 
         System.out.println("OK!");
     }
@@ -199,7 +188,7 @@ public class CategoryTest {
         Product product = new Product();
 
         category.addProduct(product);
-        List<Product> products = category.getProducts();
+        Collection<Product> products = category.getProducts();
 
         assertTrue(products != null);
         assertFalse(products.isEmpty());

@@ -12,6 +12,7 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -116,7 +117,7 @@ public class RoleServiceImplTest {
     public void getPersonnelTest() throws Exception {
         System.out.print("-> getPersonnel() - ");
 
-        List<Role> personel = roleService.getPersonnel();
+        Collection<Role> personel = roleService.getPersonnel();
         assertNotNull(personel);
 
         System.out.println("OK!");
@@ -126,7 +127,7 @@ public class RoleServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Role> roles = roleService.getAll();
+        Collection<Role> roles = roleService.getAll();
         assertNotNull(roles);
         assertTrue(roles.size() >= 0);
 

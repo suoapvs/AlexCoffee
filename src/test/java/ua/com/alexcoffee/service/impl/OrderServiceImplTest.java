@@ -10,6 +10,7 @@ import ua.com.alexcoffee.service.interfaces.OrderService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -111,7 +112,7 @@ public class OrderServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Order> orders = orderService.getAll();
+        Collection<Order> orders = orderService.getAll();
         assertNotNull(orders);
         assertTrue(orders.size() >= 0);
 

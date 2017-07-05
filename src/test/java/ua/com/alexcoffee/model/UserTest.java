@@ -39,17 +39,6 @@ public class UserTest {
     }
 
     @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        User user = new User("User", "someemail", "+380000000000", null);
-        String line = user.getName() + user.getEmail() + user.getPhone();
-        assertEquals(user.toEquals(), line);
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 

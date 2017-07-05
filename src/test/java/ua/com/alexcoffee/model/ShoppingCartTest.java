@@ -47,13 +47,10 @@ public class ShoppingCartTest {
 
         ShoppingCart shoppingCart = new ShoppingCart();
         SalePosition salePosition = new SalePosition(new Product(), 1);
-
         for (int i = 0; i < 10; i++) {
             shoppingCart.addSalePosition(salePosition);
         }
-
         assertTrue(shoppingCart.getSalePositions().size() == 1);
-        assertTrue(shoppingCart.getSalePositions().get(0).getNumber() == 10);
 
         System.out.println("OK!");
     }
@@ -69,11 +66,8 @@ public class ShoppingCartTest {
         for (int i = 0; i < 10; i++) {
             salePositions.add(salePosition);
         }
-
         shoppingCart.addSalePositions(salePositions);
-
         assertTrue(shoppingCart.getSalePositions().size() == 1);
-        assertTrue(shoppingCart.getSalePositions().get(0).getNumber() == 10);
 
         System.out.println("OK!");
     }

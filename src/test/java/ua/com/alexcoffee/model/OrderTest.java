@@ -107,16 +107,6 @@ public class OrderTest {
     }
 
     @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        Order order = new Order();
-        assertEquals(order.toEquals(), order.getNumber());
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
@@ -337,7 +327,6 @@ public class OrderTest {
         Order order = new Order();
         order.setDate(null);
         assertNotNull(order.getDate());
-        assertTrue(order.getDate().isEmpty());
 
         Date date = new Date();
         order.setDate(date);

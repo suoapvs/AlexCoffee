@@ -11,18 +11,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ua.com.alexcoffee.config.RootConfig;
 import ua.com.alexcoffee.config.WebConfig;
-import ua.com.alexcoffee.repository.ShoppingCartRepository;
 import ua.com.alexcoffee.model.Product;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -77,7 +74,7 @@ public class ShoppingCartRepositoryImplTest {
 
         shoppingCartRepository.addSalePosition(position);
 
-        List<SalePosition> positions2 = shoppingCartRepository.getSalePositions();
+        Collection<SalePosition> positions2 = shoppingCartRepository.getSalePositions();
         assertNotNull(positions2);
         assertEquals(positions1, positions2);
 

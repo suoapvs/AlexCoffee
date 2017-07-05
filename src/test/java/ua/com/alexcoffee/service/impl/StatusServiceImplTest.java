@@ -11,7 +11,7 @@ import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.service.interfaces.StatusService;
 import ua.com.alexcoffee.tools.MockService;
 
-import java.util.List;
+import java.util.Collection;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -95,7 +95,7 @@ public class StatusServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Status> statuses = statusService.getAll();
+        Collection<Status> statuses = statusService.getAll();
         assertNotNull(statuses);
         assertTrue(statuses.size() >= 0);
 

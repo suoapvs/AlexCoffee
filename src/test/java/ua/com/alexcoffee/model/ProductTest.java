@@ -50,16 +50,6 @@ public class ProductTest {
     }
 
     @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        Product product = new Product("Title", "url", new Category(), new Photo(), 1000);
-        assertEquals(product.toEquals(), product.getArticle() + "Titleurl" + product.getPrice());
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 

@@ -12,6 +12,7 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -132,7 +133,7 @@ public class UserServiceImplTest {
     public void getAllUsersTest() throws Exception {
         System.out.print("-> getAllUsers() - ");
 
-        List<User> users = userService.getAdministrators();
+        Collection<User> users = userService.getAdministrators();
         assertNotNull(users);
 
         users = userService.getManagers();
@@ -171,7 +172,7 @@ public class UserServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<User> users = userService.getAll();
+        Collection<User> users = userService.getAll();
         assertNotNull(users);
         assertTrue(users.size() >= 0);
 

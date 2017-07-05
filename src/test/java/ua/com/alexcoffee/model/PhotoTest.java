@@ -55,16 +55,6 @@ public class PhotoTest {
     }
 
     @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        Photo photo = new Photo("Photo", "link1", "link2");
-        assertEquals(photo.toEquals(), photo.toString());
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
@@ -178,34 +168,6 @@ public class PhotoTest {
         String photoLinkLong = "Photo Link Long";
         photo.setPhotoLinkLong(photoLinkLong);
         assertEquals(photo.getPhotoLinkLong(), photoLinkLong);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void setAndGetProductTest() {
-        System.out.print("-> setAndGetProduct() - ");
-
-        Photo photo = new Photo();
-        Product product = new Product();
-        photo.setProduct(product);
-
-        assertNotNull(photo.getProduct());
-        assertEquals(photo.getProduct(), product);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void setAndGetCategoryTest() {
-        System.out.print("-> setAndGetCategory() - ");
-
-        Photo photo = new Photo();
-        Category category = new Category();
-        photo.setCategory(category);
-
-        assertNotNull(photo.getCategory());
-        assertEquals(photo.getCategory(), category);
 
         System.out.println("OK!");
     }

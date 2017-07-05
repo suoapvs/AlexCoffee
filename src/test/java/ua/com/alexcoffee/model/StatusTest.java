@@ -5,10 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.alexcoffee.enums.StatusEnum;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
-import static ua.com.alexcoffee.tools.MockModel.getTenOrders;
 
 public class StatusTest {
 
@@ -33,16 +30,6 @@ public class StatusTest {
         String line = "Title: " + title.name() + "\nDescription: " + description;
 
         assertEquals(status.toString(), line);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        Status status = new Status(StatusEnum.NEW, "NEW");
-        assertEquals(status.toString(), status.toEquals());
 
         System.out.println("OK!");
     }
@@ -98,94 +85,6 @@ public class StatusTest {
         for (int i = 0; i < 10; i++) {
             assertTrue(status1.equals(status2));
         }
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void addOrderTest() {
-        System.out.print("-> addOrder() - ");
-
-        Status status = new Status();
-        for (int i = 0; i < 10; i++) {
-            status.addOrder(new Order());
-        }
-        assertTrue(status.getOrders().size() == 10);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void addOrdersTest() {
-        System.out.print("-> addOrders() - ");
-
-        List<Order> orders = getTenOrders();
-
-        Status status = new Status();
-        status.addOrders(orders);
-
-        assertTrue(status.getOrders().size() == 10);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void removeOrderTest() {
-        System.out.print("-> removeOrder() - ");
-
-        Status status = new Status();
-
-        Order order = new Order();
-        status.addOrder(order);
-        status.addOrders(getTenOrders());
-
-        status.removeOrder(order);
-
-        assertTrue(status.getOrders().size() == 10);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void addAndRemoveOrdersTest() {
-        System.out.print("-> addAndRemoveOrders() - ");
-
-        Status status = new Status();
-
-        List<Order> orders = getTenOrders();
-        status.addOrders(orders);
-        assertTrue(status.getOrders().size() == 10);
-
-        status.removeOrders(orders);
-        assertTrue(status.getOrders().size() == 0);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void clearOrdersTest() {
-        System.out.print("-> clearOrders() - ");
-
-        Status status = new Status();
-        List<Order> orders = getTenOrders();
-        status.addOrders(orders);
-
-        status.clearOrders();
-
-        assertTrue(status.getOrders().size() == 0);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void setAndGetOrdersTest() {
-        System.out.print("-> setAndGetProducts() - ");
-
-        Status status = new Status(StatusEnum.NEW, "NEW");
-        status.setOrders(getTenOrders());
-
-        assertNotNull(status.getOrders());
-        assertTrue(status.getOrders().size() == 10);
 
         System.out.println("OK!");
     }

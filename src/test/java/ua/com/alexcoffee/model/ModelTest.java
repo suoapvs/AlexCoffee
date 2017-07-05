@@ -42,7 +42,7 @@ public class ModelTest {
         assertTrue(status.toString().hashCode() == status.hashCode());
 
         status.setId((long) 2);
-        assertTrue(status.getId().hashCode() == status.hashCode());
+        assertTrue(status.getId() == status.hashCode());
 
         System.out.println("OK!");
     }

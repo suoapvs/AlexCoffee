@@ -11,6 +11,7 @@ import ua.com.alexcoffee.service.interfaces.PhotoService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -112,7 +113,7 @@ public class PhotoServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Photo> photos = photoService.getAll();
+        Collection<Photo> photos = photoService.getAll();
         assertNotNull(photos);
         assertTrue(photos.size() >= 0);
 

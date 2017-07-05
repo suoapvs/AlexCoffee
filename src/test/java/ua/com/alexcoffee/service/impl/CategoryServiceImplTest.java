@@ -10,6 +10,7 @@ import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -108,7 +109,7 @@ public class CategoryServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Category> categories = categoryService.getAll();
+        Collection<Category> categories = categoryService.getAll();
         assertNotNull(categories);
         assertTrue(categories.size() >= 0);
 

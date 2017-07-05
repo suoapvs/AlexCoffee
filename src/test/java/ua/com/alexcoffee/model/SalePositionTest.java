@@ -39,22 +39,6 @@ public class SalePositionTest {
     }
 
     @Test
-    public void toEqualsTest() {
-        System.out.print("-> toEquals() - ");
-
-        Product product = new Product("Title", "url", null, null, 10.0);
-        product.setId(1L);
-        SalePosition salePosition = new SalePosition(product, 5);
-        salePosition.setId(2L);
-
-        String line = product.toEquals() + 2L;
-
-        assertEquals(salePosition.toEquals(), line);
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 

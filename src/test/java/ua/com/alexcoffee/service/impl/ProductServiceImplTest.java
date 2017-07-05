@@ -10,6 +10,7 @@ import ua.com.alexcoffee.service.interfaces.ProductService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -102,7 +103,7 @@ public class ProductServiceImplTest {
     public void getByCategoryUrlTest() throws Exception {
         System.out.print("-> getByCategoryUrl() - ");
 
-        List<Product> products = productService.getByCategoryUrl(URL);
+        Collection<Product> products = productService.getByCategoryUrl(URL);
         assertNotNull(products);
         assertTrue(products.size() >= 0);
 
@@ -114,22 +115,21 @@ public class ProductServiceImplTest {
         System.out.println("-> getByCategoryNullUrl() - OK!");
 
         String url = null;
-        List<Product> products = productService.getByCategoryUrl(url);
+        productService.getByCategoryUrl(url);
     }
 
     @Test(expected = WrongInformationException.class)
     public void getByEmptyCategoryUrlTest() throws Exception {
         System.out.println("-> getByEmptyCategoryUrl() - OK!");
-
         String url = "";
-        List<Product> products = productService.getByCategoryUrl(url);
+        productService.getByCategoryUrl(url);
     }
 
     @Test
     public void getByCategoryIdTest() throws Exception {
         System.out.print("-> getByCategoryId() - ");
 
-        List<Product> products = productService.getByCategoryId(ID);
+        Collection<Product> products = productService.getByCategoryId(ID);
         assertNotNull(products);
         assertTrue(products.size() >= 0);
 
@@ -140,7 +140,7 @@ public class ProductServiceImplTest {
     public void getByUnknownCategoryIdTest() throws Exception {
         System.out.println("-> getByUnknownCategoryId() - OK!");
 
-        List<Product> products = productService.getByCategoryId(UNKNOWN_ID);
+        Collection<Product> products = productService.getByCategoryId(UNKNOWN_ID);
         assertNotNull(products);
         assertTrue(products.isEmpty());
     }
@@ -149,11 +149,11 @@ public class ProductServiceImplTest {
     public void getRandomByCategoryIdTest() throws Exception {
         System.out.println("-> getRandomByCategoryId() - ");
 
-        List<Product> products1 = productService.getRandomByCategoryId(SIZE, ID, ID);
+        Collection<Product> products1 = productService.getRandomByCategoryId(SIZE, ID, ID);
         assertNotNull(products1);
         assertTrue(products1.size() >= 0);
 
-        List<Product> products2 = productService.getRandomByCategoryId(SIZE, ID);
+        Collection<Product> products2 = productService.getRandomByCategoryId(SIZE, ID);
         assertNotNull(products2);
         assertTrue(products2.size() >= 0);
 
@@ -164,7 +164,7 @@ public class ProductServiceImplTest {
     public void getRandomByUnknownCategoryIdTest() throws Exception {
         System.out.println("-> getRandomByUnknownCategoryId() - ");
 
-        List<Product> products = productService.getRandomByCategoryId(SIZE, UNKNOWN_ID, ID);
+        Collection<Product> products = productService.getRandomByCategoryId(SIZE, UNKNOWN_ID, ID);
         assertNotNull(products);
         assertTrue(products.size() >= 0);
 
@@ -175,7 +175,7 @@ public class ProductServiceImplTest {
     public void getRandomTest() throws Exception {
         System.out.println("-> getRandomByUnknownCategoryId() - ");
 
-        List<Product> products = productService.getRandom(SIZE);
+        Collection<Product> products = productService.getRandom(SIZE);
         assertNotNull(products);
         assertTrue(products.size() >= 0);
 
@@ -207,7 +207,7 @@ public class ProductServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        List<Product> products = productService.getAll();
+        Collection<Product> products = productService.getAll();
         assertNotNull(products);
         assertTrue(products.size() >= 0);
 
