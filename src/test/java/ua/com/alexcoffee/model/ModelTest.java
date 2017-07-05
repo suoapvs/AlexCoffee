@@ -51,9 +51,9 @@ public class ModelTest {
     public void getUnmodifiableListTest() {
         System.out.print("-> getUnmodifiableList() - ");
 
-        assertEquals(Model.getUnmodifiableList(null), Collections.EMPTY_LIST);
-
-        assertTrue(Model.getUnmodifiableList(MockModel.getTenProducts()).size() == 10);
+        Category category = new Category();
+        assertEquals(category.getUnmodifiableList(null), Collections.EMPTY_LIST);
+        assertTrue(category.getUnmodifiableList(MockModel.getTenProducts()).size() == 10);
 
         System.out.println("OK!");
     }

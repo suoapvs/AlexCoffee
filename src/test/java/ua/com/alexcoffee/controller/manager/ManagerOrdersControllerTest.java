@@ -51,6 +51,7 @@ public class ManagerOrdersControllerTest {
         System.out.println("OK!");
     }
 
+    @Ignore
     @Test
     public void getEditOrderPageTest() throws Exception {
         System.out.print("-> getEditOrderPage() - ");
