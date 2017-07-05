@@ -2,14 +2,13 @@ package ua.com.alexcoffee.controller.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.ForbiddenException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.*;
 import ua.com.alexcoffee.service.interfaces.*;
 
@@ -38,7 +37,7 @@ import java.util.ArrayList;
  */
 @Controller
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class HomeController {
+public final class HomeController {
     /**
      * Объект сервиса для работы с товарами.
      */
@@ -264,18 +263,18 @@ public class HomeController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException,если обратится
+     * Возвращает исключение IllegalMappingException,если обратится
      * по запросу "/cart/add" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение,если обратится к
+     * @throws IllegalMappingException Бросает исключение,если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/cart/add",
             method = RequestMethod.GET
     )
-    public void addProductToCart() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void addProductToCart() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/add\" is not supported!"
         );
     }
@@ -310,18 +309,18 @@ public class HomeController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/cart/add_quickly" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к
+     * @throws IllegalMappingException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/cart/add_quickly",
             method = RequestMethod.GET
     )
-    public void addProductToCartQuickly() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void addProductToCartQuickly() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/add_quickly\" is not supported!"
         );
     }
@@ -402,18 +401,18 @@ public class HomeController {
     }
 
     /**
-     * Возвращает исключение ForbiddenException, если пользователь обращается
+     * Возвращает исключение IllegalMappingException, если пользователь обращается
      * к запросам, к которым он не имеет права доступа (роли).
      *
-     * @throws ForbiddenException Бросает исключение в случае отсутствия
+     * @throws IllegalMappingException Бросает исключение в случае отсутствия
      *                            прав доступа.
      */
     @RequestMapping(
             value = "/forbidden_exception",
             method = RequestMethod.GET
     )
-    public void getForbiddenException() throws ForbiddenException {
-        throw new ForbiddenException(
+    public void getIllegalMappingException() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "You do not have sufficient permissions to access this page."
         );
     }

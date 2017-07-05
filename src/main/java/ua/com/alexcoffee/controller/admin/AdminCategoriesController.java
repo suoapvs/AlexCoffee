@@ -2,6 +2,7 @@ package ua.com.alexcoffee.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Category;
 import ua.com.alexcoffee.model.Photo;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
@@ -37,7 +37,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @Controller
 @RequestMapping(value = "/admin/category")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class AdminCategoriesController {
+public final class AdminCategoriesController {
     /**
      * Объект сервиса для работы с категориями товаров.
      */
@@ -180,17 +180,17 @@ public class AdminCategoriesController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится по запросу
+     * Возвращает исключение IllegalMappingException, если обратится по запросу
      * "/admin/category/save" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к этому методу GET.
+     * @throws IllegalMappingException Бросает исключение, если обратится к этому методу GET.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.GET
     )
-    public void saveCategory() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void saveCategory() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/category/save\" is not supported!"
         );
     }
@@ -264,17 +264,17 @@ public class AdminCategoriesController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/category/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к этому методу GET.
+     * @throws IllegalMappingException Бросает исключение, если обратится к этому методу GET.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.GET
     )
-    public void updateCategory() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void updateCategory() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/category/update\" is not supported!"
         );
     }

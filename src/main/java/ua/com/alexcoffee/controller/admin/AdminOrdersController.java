@@ -2,6 +2,7 @@ package ua.com.alexcoffee.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.model.Order;
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.model.User;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.service.interfaces.OrderService;
 import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.service.interfaces.StatusService;
@@ -38,7 +38,7 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/admin/order")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class AdminOrdersController {
+public final class AdminOrdersController {
     /**
      * Объект сервиса для работы с заказами клиентов.
      */
@@ -211,18 +211,18 @@ public class AdminOrdersController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/order/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится
+     * @throws IllegalMappingException Бросает исключение, если обратится
      *                                   к этому методу GET.
      */
     @RequestMapping(
             value = "/update_order",
             method = RequestMethod.GET
     )
-    public void updateOrder() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void updateOrder() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/order/update\" is not supported!"
         );
     }

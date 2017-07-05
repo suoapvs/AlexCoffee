@@ -6,13 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Category;
-import ua.com.alexcoffee.model.Model;
-import ua.com.alexcoffee.model.Product;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.service.interfaces.ProductService;
-
-import java.util.List;
 
 /**
  * Класс-контроллер для настройки поисковой оптимизации (SEO).
@@ -25,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class SEOController {
+public final class SEOController {
 
     /**
      * Объект сервиса для работы с товарами.

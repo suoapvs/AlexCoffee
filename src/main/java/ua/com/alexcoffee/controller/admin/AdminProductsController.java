@@ -1,14 +1,8 @@
 package ua.com.alexcoffee.controller.admin;
 
-import org.springframework.context.annotation.ComponentScan;
-import ua.com.alexcoffee.model.Category;
-import ua.com.alexcoffee.model.Photo;
-import ua.com.alexcoffee.model.Product;
-import ua.com.alexcoffee.exception.WrongInformationException;
-import ua.com.alexcoffee.service.interfaces.CategoryService;
-import ua.com.alexcoffee.service.interfaces.PhotoService;
-import ua.com.alexcoffee.service.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import ua.com.alexcoffee.model.Category;
+import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.Product;
+import ua.com.alexcoffee.service.interfaces.CategoryService;
+import ua.com.alexcoffee.service.interfaces.PhotoService;
+import ua.com.alexcoffee.service.interfaces.ProductService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
@@ -39,7 +39,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @Controller
 @RequestMapping(value = "/admin/product")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class AdminProductsController {
+public final class AdminProductsController {
     /**
      * Объект сервиса для работы с товаров.
      */
@@ -199,18 +199,18 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/product/save" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к
+     * @throws IllegalMappingException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.GET
     )
-    public void saveProduct() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void saveProduct() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/product/save\" is not supported!"
         );
     }
@@ -304,18 +304,18 @@ public class AdminProductsController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/product/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится
+     * @throws IllegalMappingException Бросает исключение, если обратится
      *                                   к этому методу GET.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.GET
     )
-    public void updateProduct() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void updateProduct() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/product/update\" is not supported!"
         );
     }

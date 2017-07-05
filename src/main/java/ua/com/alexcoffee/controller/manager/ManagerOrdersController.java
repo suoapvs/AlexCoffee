@@ -2,13 +2,13 @@ package ua.com.alexcoffee.controller.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.model.Order;
 import ua.com.alexcoffee.model.Status;
 import ua.com.alexcoffee.model.User;
@@ -41,7 +41,7 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/managers/order")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class ManagerOrdersController {
+public final class ManagerOrdersController {
     /**
      * Объект сервиса для работы с пользователями.
      */
@@ -228,18 +228,18 @@ public class ManagerOrdersController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/order/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к
+     * @throws IllegalMappingException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/admin/order/update",
             method = RequestMethod.GET
     )
-    public void updateOrder() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void updateOrder() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/order/update\" is not supported!"
         );
     }

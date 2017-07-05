@@ -22,7 +22,7 @@ import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
  */
 @Controller
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class TestController {
+public final class TestController {
 
     /**
      * Объект сервиса для работы с торговой корзиной.

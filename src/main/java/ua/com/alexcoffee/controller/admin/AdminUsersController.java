@@ -2,6 +2,7 @@ package ua.com.alexcoffee.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
@@ -33,7 +33,7 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 @Controller
 @RequestMapping(value = "/admin/user")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class AdminUsersController {
+public final class AdminUsersController {
     /**
      * Объект сервиса для работы с пользователями.
      */
@@ -176,18 +176,18 @@ public class AdminUsersController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если
+     * Возвращает исключение IllegalMappingException, если
      * обратится по запросу "/admin/user/save" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к
+     * @throws IllegalMappingException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.GET
     )
-    public void saveUser() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void saveUser() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/user/save\" is not supported!"
         );
     }
@@ -268,18 +268,18 @@ public class AdminUsersController {
     }
 
     /**
-     * Возвращает исключение WrongInformationException, если обратится
+     * Возвращает исключение IllegalMappingException, если обратится
      * по запросу "/admin/user/update" методом GET.
      *
-     * @throws WrongInformationException Бросает исключение, если обратится к
+     * @throws IllegalMappingException Бросает исключение, если обратится к
      *                                   этому методу GET.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.GET
     )
-    public void updateUser() throws WrongInformationException {
-        throw new WrongInformationException(
+    public void updateUser() throws IllegalMappingException {
+        throw new IllegalMappingException(
                 "GET method in \"/admin/user/update\" is not supported!"
         );
     }

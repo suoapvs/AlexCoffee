@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  */
 @Controller
-public class FaviconController {
+public final class FaviconController {
 
     /**
      * Returns a favicon.ico.

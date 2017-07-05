@@ -3,16 +3,14 @@ package ua.com.alexcoffee.controller.advice;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import ua.com.alexcoffee.exception.BadRequestException;
 import ua.com.alexcoffee.exception.DuplicateException;
-import ua.com.alexcoffee.exception.ForbiddenException;
-import ua.com.alexcoffee.exception.WrongInformationException;
 import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
@@ -26,14 +24,14 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
- * @see BadRequestException
+ * @see NullPointerException
  * @see DuplicateException
- * @see ForbiddenException
- * @see WrongInformationException
+ * @see IllegalAccessException
+ * @see IllegalArgumentException
  */
 @ControllerAdvice
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class AdviceController {
+public final class AdviceController {
 
     /**
      * Объект для логирования информации.
@@ -47,13 +45,13 @@ public class AdviceController {
             = "Ошибка 404. Не найдено!";
 
     /**
-     * Сообщение исключения BadRequestException.
+     * Сообщение исключения NullPointerException.
      */
     private final static String BAD_REQUEST_EXCEPTION_MESSAGE
             = "Ошибка в запросе!";
 
     /**
-     * Сообщение исключения WrongInformationException.
+     * Сообщение исключения IllegalArgumentException.
      */
     private final static String WRONG_INFORMATION_EXCEPTION_MESSAGE
             = "Ошибка в запросе!";
@@ -120,51 +118,67 @@ public class AdviceController {
     }
 
     /**
-     * Перехват BadRequestException исключения (http статус 400).
+     * Перехват NullPointerException исключения (http статус 400).
      *
-     * @param exception Объект исключения BadRequestException.
+     * @param exception Объект исключения NullPointerException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ModelAndView badRequestException(
-            final BadRequestException exception,
+    public ModelAndView nullPointerException(
+            final NullPointerException exception,
             final HttpServletRequest request
     ) {
         return handleException(exception, request, BAD_REQUEST_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват WrongInformationException исключения (http статус 400).
+     * Перехват IllegalArgumentException исключения (http статус 400).
      *
-     * @param exception Объект исключения WrongInformationException.
+     * @param exception Объект исключения IllegalArgumentException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
-    @ExceptionHandler(WrongInformationException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ModelAndView wrongInformationException(
-            final WrongInformationException exception,
+    public ModelAndView illegalArgumentException(
+            final IllegalArgumentException exception,
             final HttpServletRequest request
     ) {
         return handleException(exception, request, WRONG_INFORMATION_EXCEPTION_MESSAGE);
     }
 
     /**
-     * Перехват ForbiddenException исключения (http статус 403).
+     * Перехват IllegalAccessException исключения (http статус 403).
      *
-     * @param exception Объект исключения ForbiddenException.
+     * @param exception Объект исключения IllegalAccessException.
      * @param request   Объект интерфейса HttpServletRequest.
      * @return Объект класса {@link ModelAndView}.
      */
-    @ExceptionHandler(ForbiddenException.class)
+    @ExceptionHandler(IllegalAccessException.class)
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
-    public ModelAndView forbiddenException(
-            final ForbiddenException exception,
+    public ModelAndView illegalAccessException(
+            final IllegalAccessException exception,
             final HttpServletRequest request
     ) {
         return handleException(exception, request, FORBIDDEN_EXCEPTION_MESSAGE);
+    }
+
+    /**
+     * Intercepts and handles IllegalMappingException.
+     *
+     * @param ex      the intercepted exception.
+     * @param request to provide a requested information for HTTP servlets.
+     * @return The ModelAndView object with an information about exception.
+     */
+    @ExceptionHandler(IllegalMappingException.class)
+    @ResponseStatus(value = HttpStatus.METHOD_NOT_ALLOWED)
+    public ModelAndView illegalMappingException(
+            final IllegalMappingException ex,
+            final HttpServletRequest request
+    ) {
+        return handleException(ex, request, BAD_REQUEST_EXCEPTION_MESSAGE);
     }
 
     /**

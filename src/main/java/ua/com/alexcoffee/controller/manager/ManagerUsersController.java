@@ -36,7 +36,7 @@ import ua.com.alexcoffee.service.interfaces.UserService;
 @Controller
 @RequestMapping(value = "/managers/user")
 @ComponentScan(basePackages = "ua.com.alexcoffee.service")
-public class ManagerUsersController {
+public final class ManagerUsersController {
     /**
      * Объект сервиса для работы с пользователями.
      */
