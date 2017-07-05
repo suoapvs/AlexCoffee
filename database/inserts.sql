@@ -1,33 +1,41 @@
-USE alexcoffee;
+USE `alexcoffee`;
 
-INSERT INTO `Statuses` (title, description) VALUES
+--
+-- Table structure for table `statuses`
+--
+
+INSERT INTO `statuses` (title, description) VALUES
   ('NEW', 'Новый'),
   ('WORK', 'В работе'),
   ('DELIVERY', 'Доставка'),
   ('CLOSED', 'Заказ закрыт'),
   ('REJECTION', 'Отказ клиента');
 
-/*----------------------------------------------------------------------------------*/
+--
+-- Table structure for table `roles`
+--
 
-INSERT INTO `Roles` (title, description) VALUES
+INSERT INTO `roles` (title, description) VALUES
   ('CLIENT', 'Клиент'),
   ('ADMIN', 'Администратор'),
   ('MANAGER', 'Менеджер');
 
-/*----------------------------------------------------------------------------------*/
+--
+-- Table structure for table `photos`
+--
 
-INSERT INTO `Photos` (title, photo_link_short, photo_link_long) VALUES
+INSERT INTO `photos` (title, photo_link_short, photo_link_long) VALUES
   ('coffee_beans',
-   'coffeezerna/coffee_zerna_150x150.png', NULL),
+   'coffeezerna/coffee_zerna_150x150.png', ''),
 
   ('ground_coffee',
-   'coffeemolotiy/coffee_molotiy_150x150.png', NULL),
+   'coffeemolotiy/coffee_molotiy_150x150.png', ''),
 
   ('coffee_monodoses',
-   'coffeepods/coffee_pods_150x150.png', NULL),
+   'coffeepods/coffee_pods_150x150.png', ''),
 
   ('coffee_capsules',
-   'coffeecapsuls/coffee_capsuls_150x150.png', NULL),
+   'coffeecapsuls/coffee_capsuls_150x150.png', ''),
 
   ('Lavazza Pienaroma',
    'coffeezerna/lavazza_pienaroma_185x185.png',
@@ -102,8 +110,8 @@ INSERT INTO `Photos` (title, photo_link_short, photo_link_long) VALUES
    'coffeepods/lavazza_sinfonia_espresso_intenso_465x465.png'),
 
   ('DALLMAYR Prodomo',
-   'coffeepods/dallmayr_prodomo_185x185.png',
-   'coffeepods/dallmayr_prodomo_465x465.png'),
+   '/coffeepods/dallmayr_prodomo_185x185.png',
+   '/coffeepods/dallmayr_prodomo_465x465.png'),
 
   ('ILLY E.S.E. DECAF',
    'coffeepods/illy_ese_decaf_185x185.png',
@@ -157,9 +165,20 @@ INSERT INTO `Photos` (title, photo_link_short, photo_link_long) VALUES
    'coffeecapsuls/wcafe_arabica_crema_185x185.png',
    'coffeecapsuls/wcafe_arabica_crema_465x465.png');
 
-/*----------------------------------------------------------------------------------*/
+--
+-- Table structure for table `users`
+--
 
-INSERT INTO `Categories` (url, title, description, photo_id) VALUES
+INSERT INTO `users` (role_id, name, username, password, email, phone, description) VALUES
+  (2, 'Yurii Salimov', 'yuriisalimov', 'yurii1993salimov', 'yuriy.alex.salimov@gmail.com', '+380637399290',
+   'Самый главный человек!'),
+  (3, 'Liudmyla Salimova', 'manager', 'salimova', 'liudmyla.salimova@gmail.com', '+380637399290', '');
+
+--
+-- Table structure for table `categories`
+--
+
+INSERT INTO `categories` (url, title, description, photo_id) VALUES
   ('coffee_beans', 'Кофе в зернах',
    'Ценители подлинного вкуса всегда выбирают натуральный кофе в зернах.
    Именно он сохраняет все богатство ароматов, привкусов и послевкусия,
@@ -200,10 +219,12 @@ INSERT INTO `Categories` (url, title, description, photo_id) VALUES
    Готовить такой напиток – одно удовольствие!',
    4);
 
-/*----------------------------------------------------------------------------------*/
+--
+-- Table structure for table `products`
+--
 
-INSERT INTO `Products` (title, url, parameters, description, category_id, photo_id, price) VALUES
-  ('Кофе Lavazza Pienaroma зерно 1 кг', 'lavazza_pienaroma_beans',
+INSERT INTO `products` (article, title, url, parameters, description, category_id, photo_id, price) VALUES
+  (10001, 'Кофе Lavazza Pienaroma зерно 1 кг', 'lavazza_pienaroma_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -220,7 +241,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    и цветов жасмина. Отличный выбор для приготовления моккачино, эспрессо
    и американо.', 1, 5, 477.00),
 
-  ('Кофе Jurado Mas Espresso зерно 1 кг', 'jurado_mas_espresso_beans',
+  (10002, 'Кофе Jurado Mas Espresso зерно 1 кг', 'jurado_mas_espresso_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Шоколад
@@ -235,7 +256,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    подарило этому кофейку нежную пенку, сбалансированный вкус и
    незабываемый аромат. Рекомендуем!', 1, 6, 410.00),
 
-  ('Кофе Lavazza Qualita Oro зерно 1 кг', 'jurado_mas_espresso',
+  (10003, 'Кофе Lavazza Qualita Oro зерно 1 кг', 'jurado_mas_espresso',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -255,7 +276,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    аромат не может оставить равнодушным. А в сочетании с золотистой
    пенкой, Lavazza Qualita Oro становится вне конкуренции.', 1, 7, 384.00),
 
-  ('Кофе Lavazza Crema e Aroma зерно 1 кг', 'lavazza_crema_e_aroma_beans',
+  (10004, 'Кофе Lavazza Crema e Aroma зерно 1 кг', 'lavazza_crema_e_aroma_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Какао
@@ -274,7 +295,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    это Lavazza Crema e Aroma. Прекрасно подойдет для приготовления
    латте и капучино.', 1, 8, 319.00),
 
-  ('Кофе Movenpick Caffe Crema зерно 1кг', 'movenpick_caffe_cema_beans',
+  (10005, 'Кофе Movenpick Caffe Crema зерно 1кг', 'movenpick_caffe_cema_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Какао
@@ -295,7 +316,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Интенсивный аромат и мягкий великолепный вкус - что может быть
    лучше чем идеальное сочетание таких свойств в одной чашечке кофе?', 1, 9, 329.0),
 
-  ('Кофе Cafe Badilatti Jacu Bird зерно 125 г', 'cafe_badilatti_jacu_bird_beans',
+  (10006, 'Кофе Cafe Badilatti Jacu Bird зерно 125 г', 'cafe_badilatti_jacu_bird_beans',
    'Вес:	125 г.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Пряные
@@ -317,7 +338,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    технологии. По вкусу напиток отличается пряными и легкими цветочными
    оттенками с приятным долгим ароматом.', 1, 10, 1546.00),
 
-  ('Кофе Cafe Badilatti St. Moritz Cafe зерно 1 кг', 'cafe_badilatti_st_moritz Cafe_beans',
+  (10007, 'Кофе Cafe Badilatti St. Moritz Cafe зерно 1 кг', 'cafe_badilatti_st_moritz Cafe_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -336,7 +357,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    средней обжарке зерен, аромат напитка стал насыщенным и богатым
    с легкими нотками ванили, которые невозможно забыть!', 1, 11, 873.00),
 
-  ('Кофе Malongo BLUE MOUNTEIN зерно 1 кг', 'malongo_blue_mountein_beans',
+  (10008, 'Кофе Malongo BLUE MOUNTEIN зерно 1 кг', 'malongo_blue_mountein_beans',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -356,7 +377,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Смесь отлично подходит для приготовления любимых Вами напитков:
    будь то классический эспрессо или мягкий кофе с молоком.', 1, 12, 7713.00),
 
-  ('Кофе Malongo Supremo D Arabica молотый ж/б 250 г', 'malongo_supremo_d_arabica_ground',
+  (20009, 'Кофе Malongo Supremo D Arabica молотый ж/б 250 г', 'malongo_supremo_d_arabica_ground',
    'Вес:	250 г.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -375,7 +396,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    обжарка кофейных зерен наградила напиток непревзойденным кремовым
    ароматом.', 2, 13, 342.00),
 
-  ('Кофе Tchibo Privat Kaffee African Blue молотый 2*250 г', 'tchibo_privat_kaffee_african_blue_ground',
+  (20010, 'Кофе Tchibo Privat Kaffee African Blue молотый 2*250 г', 'tchibo_privat_kaffee_african_blue_ground',
    'Вес:	500 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Винные
@@ -396,7 +417,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    высокотехнологичном оборудовании, которое максимально сохраняет аромат
    и вкус кофе.', 2, 14, 228.0),
 
-  ('Кофе Malongo Bresil Sul de Minas молотый ж/б 250 г', 'malongo_bresil_sul_de_minas_ground',
+  (20011, 'Кофе Malongo Bresil Sul de Minas молотый ж/б 250 г', 'malongo_bresil_sul_de_minas_ground',
    'Вес:	250 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
@@ -413,7 +434,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Средняя степень обжарки кофейных зерен подарит Вашему напитку богатый
    аромат изысканной Арабики.', 2, 15, 410.00),
 
-  ('Кофе Malongo Jamaica Blue Mountain молотый ж/б 250 г', 'malongo_jamaica_blue_mountain_ground',
+  (20012, 'Кофе Malongo Jamaica Blue Mountain молотый ж/б 250 г', 'malongo_jamaica_blue_mountain_ground',
    'Вес:	250 г.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
@@ -432,7 +453,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    со сладким вкусом спелых фруктов. Каждый человек найдет в этом кофе
    что-то свое - некую приятную особенную нотку во вкусе.', 2, 16, 2221.00),
 
-  ('Кофе Mami''s Caffe Filter coffee молотый 1 кг', 'mamis_caffe_filter_coffee_ground',
+  (20013, 'Кофе Mami''s Caffe Filter coffee молотый 1 кг', 'mamis_caffe_filter_coffee_ground',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Шоколад
@@ -449,7 +470,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    кто предпочитает пить кофе на американский манер - большими чашками.
    Отлично подойдет для завтрака.', 2, 17, 632.00),
 
-  ('Кофе Malongo Cristal D''arom Bio молотый ж/б 250 г', 'malongo_cristal_darom_bio_ground',
+  (20014, 'Кофе Malongo Cristal D''arom Bio молотый ж/б 250 г', 'malongo_cristal_darom_bio_ground',
    'Вес:	250 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
@@ -468,7 +489,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    послевкусии. Медленная обжарка кофейных зерен дарит напитку утонченный
    аромат с нежными цветочными нотками.', 2, 18, 384.00),
 
-  ('Кофе Schirmer Kaffee Casino молотый 1 кг', 'schirmer_kaffee_casino_ground',
+  (20015, 'Кофе Schirmer Kaffee Casino молотый 1 кг', 'schirmer_kaffee_casino_ground',
    'Вес:	1 кг.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Ореховые
@@ -484,7 +505,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    ореховыми оттенками в послевкусии. Длительная обжарка кофейных зерен
    наградила напиток богатым ароматом и мягенькой пенкой.', 2, 19, 380.00),
 
-  ('Кофе Danesi Espresso gold молотый 250 г', 'danesi_espresso_gold_ground',
+  (20016, 'Кофе Danesi Espresso gold молотый 250 г', 'danesi_espresso_gold_ground',
    'Вес:	250 г.
 <br>Вкусовая характеристика:	Сладость
 <br>кусовые оттенки:	Шоколад
@@ -502,7 +523,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    вкусовые ноты напитка. Danesi Espresso Gold – это купаж зерен арабики из
    Центральной и Южной Америки, Кении и Бразилии.', 2, 20, 345.00),
 
-  ('Кофе ILLY монодозы E.S.E., нормальной обжарки 18 шт.', 'illyy_ese_monodoses',
+  (30017, 'Кофе ILLY монодозы E.S.E., нормальной обжарки 18 шт.', 'illyy_ese_monodoses',
    'Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Карамель
 <br>Обжарка:	Средняя
@@ -519,9 +540,9 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    основных преимуществ этой смеси. Отличная гармония особого вкуса и
    полного насыщенного аромата заряжает энергией и бодростью на весь день!
    Смесь идеально подходит для приготовления напитков, который любите Вы:
-   будь то крепкий эспрессо или нежный латте. ', 3, 21, 207.00),
+   будь то крепкий эспрессо или нежный латте.', 3, 21, 207.00),
 
-  ('Кофе Lavazza Sinfonia Espresso Intenso монодозы 16 шт.', 'lavazza_sinfonia_espresso_intenso_monodoses',
+  (30018, 'Кофе Lavazza Sinfonia Espresso Intenso монодозы 16 шт.', 'lavazza_sinfonia_espresso_intenso_monodoses',
    'Вес:	116 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Пряные
@@ -532,9 +553,9 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
 <br>Страна производитель:	Италия
 <br>Тип:	Монодозы
 <br>Тип зерна:	Бленд',
-   NULL, 3, 22, 154.00),
+   '', 3, 22, 154.00),
 
-  ('Кофе DALLMAYR Prodomo монодозы 116 г (16 шт.)', 'dallmayr_prodomo_monodoses',
+  (30019, 'Кофе DALLMAYR Prodomo монодозы 116 г (16 шт.)', 'dallmayr_prodomo_monodoses',
    'Вес:	116 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
@@ -551,7 +572,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    обжига из кофе аккуратно удаляются все горькие вещества, делая напиток
    привлекательным для любителей мягкого и нежного вкуса. Попробуйте!', 3, 23, 97.00),
 
-  ('Кофе ILLY монодозы E.S.E. DECAF по 6.95 г (200 шт.)', 'illyy_ese_decaf_monodoses',
+  (30020, 'Кофе ILLY монодозы E.S.E. DECAF по 6.95 г (200 шт.)', 'illyy_ese_decaf_monodoses',
    'Вес:	1,13 кг.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Шоколад
@@ -568,7 +589,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    что заботиться о здоровье своей сердечно-сосудистой системы.
    Удобный монодозы рассчитаны для приготовления замечательного эспрессо.', 3, 24, 1720.00),
 
-  ('Кофе Malongo Columbia Supremo монодозы 12 шт.', 'malongo_columbia_supremo_monodoses',
+  (30021, 'Кофе Malongo Columbia Supremo монодозы 12 шт.', 'malongo_columbia_supremo_monodoses',
    'Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Фруктовые
 <br>Обжарка:	Средняя
@@ -583,7 +604,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    выращенной на кофейных плантациях Колумбии. Средняя степень обжарки кофейных
    зерен дарит напитку приятные оттенки спелых фруктов и пронзительный богатый аромат.', 3, 25, 152.00),
 
-  ('Кофе ILLY монодозы E.S.E. без кофеина, 18 шт.', 'illyy_ese_no_caffein_monodoses',
+  (30022, 'Кофе ILLY монодозы E.S.E. без кофеина, 18 шт.', 'illyy_ese_no_caffein_monodoses',
    'Вес:	125 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Шоколад
@@ -603,7 +624,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    свежестью! Зарядите Ваш дань энергией и свежестью вместе с ILLY E.S.E.
    без кофеина.', 3, 26, 207.00),
 
-  ('Кофе Lavazza Sinfonia Espresso монодозы 16 шт.', 'lavazza_sinfonia_espresso_monodoses',
+  (30023, 'Кофе Lavazza Sinfonia Espresso монодозы 16 шт.', 'lavazza_sinfonia_espresso_monodoses',
    'Вес:	116 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Фруктовые
@@ -614,9 +635,9 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
 <br>Страна производитель:	Италия
 <br>Тип:	Монодозы
 <br>Тип зерна:	Бленд',
-   NULL, 3, 27, 164.00),
+   '', 3, 27, 164.00),
 
-  ('Кофе Danesi Espresso gold в чалдах по 7 г (25шт.)', 'danesi_espresso_gold_monodoses',
+  (30024, 'Кофе Danesi Espresso gold в чалдах по 7 г (25шт.)', 'danesi_espresso_gold_monodoses',
    'Вес:	1,05 кг.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Цитрусовые
@@ -633,7 +654,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    и шоколада. А идеальная структура тела напитка получаетя путем отбирания
    лучшей робусты по всему миру.', 3, 28, 406.00),
 
-  ('Кофе в капсулах ICS Noir Barista Espresso 10 шт.', 'ics_noir_barista_espresso_capsules',
+  (40025, 'Кофе в капсулах ICS Noir Barista Espresso 10 шт.', 'ics_noir_barista_espresso_capsules',
    'Вес:	116 г.
 <br>Вкусовая характеристика:	Сладость
 <br>Вкусовые оттенки:	Карамель
@@ -651,7 +672,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    подслащенный вкус с нежными медово-карамельными нотками. Средняя степень
    обжарки кофейных зерен дарит напитку изумительный аромат и крепость.', 4, 29, 129.00),
 
-  ('Кофе в капсулах ICS Noir Gran Cru Lungo 10 шт.', 'ics_noir_gran_cru_lungo_capsules',
+  (40026, 'Кофе в капсулах ICS Noir Gran Cru Lungo 10 шт.', 'ics_noir_gran_cru_lungo_capsules',
    'Вес:	116 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
@@ -669,7 +690,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    фруктово-цветочными оттенками в послевкусии. Светлая обжарка кофейных
    зерен дарит напитку чистый вкус и аромат первозданного кофе.', 4, 30, 129.00),
 
-  ('Кофе в капсулах Gimoka Intenso 200 шт.', 'gimoka_intenso_capsules',
+  (40027, 'Кофе в капсулах Gimoka Intenso 200 шт.', 'gimoka_intenso_capsules',
    'Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Ореховые
 <br>Обжарка:	Средняя
@@ -689,7 +710,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Вы почувствуете мягкую кислинку, а послевкусие подарит вам вкус
    миндаль и свежесть фруктов.', 4, 31, 901.00),
 
-  ('Кофе в капсулах Gimoka Vellutato 100% Arabica 200 шт.', 'gimoka_vellutato_arabica_capsules',
+  (40028, 'Кофе в капсулах Gimoka Vellutato 100% Arabica 200 шт.', 'gimoka_vellutato_arabica_capsules',
    'Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Шоколад
 <br>Обжарка:	Темная
@@ -709,7 +730,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Gimoka настоящей находкой для кофеманов, которые обладают кофемашиной
    Nespresso.', 4, 32, 901.00),
 
-  ('Кофе в капсулах Gimoka Dek Soave 200 шт.', 'gimoka_dek_soave_capsules',
+  (40029, 'Кофе в капсулах Gimoka Dek Soave 200 шт.', 'gimoka_dek_soave_capsules',
    'Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
 <br>Наличие кофеина:	Без кофеина
@@ -731,7 +752,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    Nespresso. Каждая капсула рассчитана на одну порцию великолепного
    кофе.', 4, 33, 901.00),
 
-  ('Кофе в капсулах Wcafe Italian Espresso 25 шт.', 'wcafe_italian_espresso_capsules',
+  (40030, 'Кофе в капсулах Wcafe Italian Espresso 25 шт.', 'wcafe_italian_espresso_capsules',
    'Вес:	226 г.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Какао
@@ -750,7 +771,7 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
    традиционный итальянский эспрессо - он такой же крепкий с легким
    послевкусием шоколада.', 4, 34, 267.00),
 
-  ('Кофе в капсулах Blasercafe Italia - 20 шт.', 'blasercafe_italia_capsules',
+  (40031, 'Кофе в капсулах Blasercafe Italia - 20 шт.', 'blasercafe_italia_capsules',
    'Вес:	226 г.
 <br>Вкусовая характеристика:	Горечь
 <br>Вкусовые оттенки:	Шоколад
@@ -762,9 +783,9 @@ INSERT INTO `Products` (title, url, parameters, description, category_id, photo_
 <br>Тип:	Капсулы
 <br>Тип зерна:	Бленд
 <br>Тип капсул:	Caffitaly system',
-   NULL, 4, 35, 284.00),
+   '', 4, 35, 284.00),
 
-  ('Кофе в капсулах Wcafe Arabica Crema 25 шт.', 'wcafe_arabica_crema_capsules',
+  (40032, 'Кофе в капсулах Wcafe Arabica Crema 25 шт.', 'wcafe_arabica_crema_capsules',
    'Вес:	226 г.
 <br>Вкусовая характеристика:	Кислинка
 <br>Вкусовые оттенки:	Цветочные
