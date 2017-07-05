@@ -3,6 +3,7 @@ package ua.com.alexcoffee.repository;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface ShoppingCartRepository {
      *
      * @return Объект типа {@link List} - список торговых позиций.
      */
-    List<SalePosition> getSalePositions();
+    Collection<SalePosition> getSalePositions();
 
     /**
      * Добавляет торговую позицию в список корзины.

@@ -3,6 +3,7 @@ package ua.com.alexcoffee.repository;
 import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.model.User;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public interface UserRepository extends MainRepository<User> {
      * @return Объект типа {@link List} - список пользователей,
      * которые имеют роль role.
      */
-    List<User> findAllByRole(Role role);
+    Collection<User> findAllByRole(Role role);
 
     /**
      * Удаляет всех пользователей из базы данных, у которых

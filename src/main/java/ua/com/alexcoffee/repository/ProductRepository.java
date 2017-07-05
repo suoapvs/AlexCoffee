@@ -2,6 +2,7 @@ package ua.com.alexcoffee.repository;
 
 import ua.com.alexcoffee.model.Product;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public interface ProductRepository extends MainRepository<Product> {
      * @param id Код категории.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> findByCategoryId(long id);
+    Collection<Product> findByCategoryId(long id);
 
     /**
      * Возвращает список товаров, которые пренадлежат категории
@@ -77,5 +78,5 @@ public interface ProductRepository extends MainRepository<Product> {
      * @param url URL категории.
      * @return Объект типа {@link List} - список товаров.
      */
-    List<Product> findByCategoryUrl(String url);
+    Collection<Product> findByCategoryUrl(String url);
 }

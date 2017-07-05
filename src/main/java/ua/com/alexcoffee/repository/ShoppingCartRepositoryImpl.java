@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ua.com.alexcoffee.model.SalePosition;
 import ua.com.alexcoffee.model.ShoppingCart;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public final class ShoppingCartRepositoryImpl implements ShoppingCartRepository 
      * @return Объект типа {@link List} - список торговых позиций.
      */
     @Override
-    public List<SalePosition> getSalePositions() {
+    public Collection<SalePosition> getSalePositions() {
         return this.shoppingCart.getSalePositions();
     }
 
