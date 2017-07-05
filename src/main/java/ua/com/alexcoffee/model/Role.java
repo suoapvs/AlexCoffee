@@ -3,13 +3,11 @@ package ua.com.alexcoffee.model;
 import ua.com.alexcoffee.enums.RoleEnum;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
- * Класс описывает сущность "Роль пользвателей", наследует класс {@link Model}.
+ * Класс описывает сущность "Роль пользователей", наследует класс {@link Model}.
  * Аннотация @Entity говорит о том что объекты этого класса будет
  * обрабатываться hibernate. Аннотация @Table(name = "roles") указывает
  * на таблицу "roles", в которой будут храниться объекты.
@@ -51,19 +49,6 @@ public final class Role extends Model {
     private String description;
 
     /**
-     * Список пользвателей, которые относятся к данной роли.
-     * К текущей роли можно добраться через поле "role" в объекте класса {@link User}.
-     * Выборка объектов users при первом доступе к ним.
-     * Сущности users автоматически удаляется при удалении текущей.
-     */
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "role",
-            cascade = CascadeType.REMOVE
-    )
-    private List<User> users = new ArrayList<>();
-
-    /**
      * Конструктр без параметров.
      */
     public Role() {
@@ -82,8 +67,8 @@ public final class Role extends Model {
             final String description
     ) {
         super();
-        this.title = title;
-        this.description = description;
+        setTitle(title);
+        setDescription(description);
     }
 
     /**
@@ -94,82 +79,42 @@ public final class Role extends Model {
      */
     @Override
     public String toString() {
-        return "Title: " + this.title.name()
-                + "\nDescription: " + this.description;
+        return "Role{" + super.toString() +
+                ", Title: " + this.title.name() +
+                ", Description: " + this.description +
+                '}';
     }
 
     /**
-     * Генерирует строку для конечного сравнения роли
-     * в методе equals() родительского класса.
-     * Переопределенный метод родительского класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - название роли.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
-    public String toEquals() {
-        return this.title.name();
+    @Override
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Role role = (Role) object;
+            result = this.title.equals(role.title) &&
+                    this.description.equalsIgnoreCase(role.description);
+        }
+        return result;
     }
 
     /**
-     * Добавляет пользователя в список текущей роли.
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @param user Пользователь, который имеет текущую роль.
+     * @return Значение типа int - уникальный номер объекта.
      */
-    public void addUser(final User user) {
-        this.users.add(user);
-    }
-
-    /**
-     * Добавляет список пользователей в список пользователей users.
-     *
-     * @param users Список пользователей, которые будут иметь текущую роль.
-     */
-    public void addUsers(final List<User> users) {
-        this.users.addAll(users);
-    }
-
-    /**
-     * Удаляет пользователя из списка текущей роли.
-     *
-     * @param user Пользователь, у которого будет удалена текущая роль.
-     */
-    public void removeUser(final User user) {
-        this.users.remove(user);
-    }
-
-    /**
-     * Метод удаляет список пользователей из списка users.
-     *
-     * @param users Список пользователей, у которых будет удалена текущая роль.
-     */
-    public void removeUsers(final List<User> users) {
-        this.users.removeAll(users);
-    }
-
-    /**
-     * Очищает список пользователей текущей роли.
-     */
-    public void clearUsers() {
-        this.users.clear();
-    }
-
-    /**
-     * Конвертирует список пользователей текущей роли
-     * в список только для чтений и возвращает его.
-     *
-     * @return Объект типа {@link List} - список пользователей только
-     * для чтения или пустой список.
-     */
-    public List<User> getUsers() {
-        return getUnmodifiableList(this.users);
-    }
-
-    /**
-     * Устанавливает список пользователей текущей роли.
-     *
-     * @param users Список пользователей.
-     */
-    public void setUsers(final List<User> users) {
-        this.users = users;
+    @Override
+    public int hashCode() {
+        int result = this.title.hashCode();
+        result = 31 * result + this.description.hashCode();
+        return result;
     }
 
     /**
@@ -206,6 +151,6 @@ public final class Role extends Model {
      * @param description Описание роли.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 }

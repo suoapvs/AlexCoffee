@@ -1,8 +1,10 @@
 package ua.com.alexcoffee.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Класс описывает сущность "Изображение", наследует класс {@link Model}.
@@ -54,29 +56,6 @@ public final class Photo extends Model {
     private String photoLinkLong;
 
     /**
-     * Товар, к которому относится данное изображение.
-     * К даному объекту можно добраться
-     * через поле "photo" в объекте класса {@link Product}.
-     * Выборка объекта product при первом доступе к нему.
-     */
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            mappedBy = "photo"
-    )
-    private Product product;
-
-    /**
-     * Категория, к которой относится данное изображение. К текущему изображению можно добраться
-     * через поле "photo" в объекте класса {@link Category}.
-     * Выборка объекта category при первом доступе к нему.
-     */
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            mappedBy = "photo"
-    )
-    private Category category;
-
-    /**
      * Конструктр без параметров.
      */
     public Photo() {
@@ -96,9 +75,9 @@ public final class Photo extends Model {
             final String photoLinkLong
     ) {
         super();
-        this.title = title;
-        this.photoLinkShort = photoLinkShort;
-        this.photoLinkLong = photoLinkLong;
+        setTitle(title);
+        setPhotoLinkShort(photoLinkShort);
+        setPhotoLinkLong(photoLinkLong);
     }
 
     /**
@@ -124,9 +103,45 @@ public final class Photo extends Model {
      */
     @Override
     public String toString() {
-        return "Title: " + this.title
-                + "\nphoto short link: " + this.photoLinkShort
-                + "\nphoto long link: " + this.photoLinkLong;
+        return "Photo{" + super.toString() +
+                ", title: " + this.title +
+                ", photoLinkShort: " + this.photoLinkShort +
+                ", photoLinkLong: " + this.photoLinkLong +
+                '}';
+    }
+
+    /**
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
+     */
+    @Override
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Photo photo = (Photo) object;
+            result = this.title.equals(photo.title) &&
+                    this.photoLinkShort.equals(photo.photoLinkShort) &&
+                    this.photoLinkLong.equals(photo.photoLinkLong);
+        }
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = this.title.hashCode();
+        result = 31 * result + this.photoLinkShort.hashCode();
+        result = 31 * result + this.photoLinkLong.hashCode();
+        return result;
     }
 
     /**
@@ -161,7 +176,7 @@ public final class Photo extends Model {
      * @param title Название изображения.
      */
     public void setTitle(final String title) {
-        this.title = isNotBlank(title) ? title : "";
+        this.title = isNotEmpty(title) ? title : "";
     }
 
     /**
@@ -179,7 +194,7 @@ public final class Photo extends Model {
      * @param photoLinkShort Строка-ссылка на малое изображения.
      */
     public void setPhotoLinkShort(final String photoLinkShort) {
-        this.photoLinkShort = isNotBlank(photoLinkShort) ? photoLinkShort : "";
+        this.photoLinkShort = isNotEmpty(photoLinkShort) ? photoLinkShort : "";
     }
 
     /**
@@ -197,44 +212,6 @@ public final class Photo extends Model {
      * @param photoLinkLong Строка-ссылка на большое изображения.
      */
     public void setPhotoLinkLong(final String photoLinkLong) {
-        this.photoLinkLong = isNotBlank(photoLinkLong) ? photoLinkLong : "";
-    }
-
-    /**
-     * Возвращает товар, к которому относится данное изображение.
-     *
-     * @return Объект класса {@link Photo} - товар, к которому относится
-     * данное изображение.
-     */
-    public Product getProduct() {
-        return this.product;
-    }
-
-    /**
-     * Устанавлевает товар, к которому будет относиться данное изображение.
-     *
-     * @param product Товар, к которому будет относиться данное изображение.
-     */
-    public void setProduct(final Product product) {
-        this.product = product;
-    }
-
-    /**
-     * Возвращает категорию, к которой относится данное изображение.
-     *
-     * @return Объект класса {@link Category} - категория, к которой
-     * относится данное изображение.
-     */
-    public Category getCategory() {
-        return this.category;
-    }
-
-    /**
-     * Устанавлевает категорию, которой будет пренадлежать данное изображение.
-     *
-     * @param category Категория, которой будет пренадлежать данное изображение.
-     */
-    public void setCategory(final Category category) {
-        this.category = category;
+        this.photoLinkLong = isNotEmpty(photoLinkLong) ? photoLinkLong : "";
     }
 }

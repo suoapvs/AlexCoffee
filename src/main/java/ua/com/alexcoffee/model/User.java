@@ -5,9 +5,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
 
 /**
  * Класс описывает сущность "Пользователь", наследует класс {@link Model}
@@ -198,16 +200,41 @@ public final class User extends Model implements UserDetails {
     }
 
     /**
-     * Генерирует строку для конечного сравнения пользователей
-     * в методе equals() родительского класса.
-     * Переопределенный метод родительского класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} -
-     * имя пользователя + электронная почта + номер телефона.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
-    public String toEquals() {
-        return getName() + getEmail() + getPhone();
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final User user = (User) object;
+            result = this.name.equals(user.name) &&
+                    this.username.equals(user.username) &&
+                    this.email.equals(user.email) &&
+                    this.phone.equals(user.phone) &&
+                    this.role.equals(user.role);
+        }
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = this.name.hashCode();
+        result = 31 * result + this.username.hashCode();
+        result = 31 * result + this.email.hashCode();
+        result = 31 * result + this.phone.hashCode();
+        result = 31 * result + this.role.hashCode();
+        return result;
     }
 
     /**
@@ -269,11 +296,10 @@ public final class User extends Model implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(
-                new SimpleGrantedAuthority(
-                        "ROLE_" + this.role.getTitle().name()
-                )
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(
+                "ROLE_" + this.role.getTitle().name()
         );
+        roles.add(authority);
         return roles;
     }
 
@@ -330,7 +356,7 @@ public final class User extends Model implements UserDetails {
      * @param name Имя пользователя.
      */
     public void setName(final String name) {
-        this.name = isNotBlank(name) ? name : "";
+        this.name = isNotEmpty(name) ? name : "";
     }
 
     /**
@@ -348,7 +374,7 @@ public final class User extends Model implements UserDetails {
      * @param username Логин пользователя.
      */
     public void setUsername(final String username) {
-        this.username = isNotBlank(username) ? username : "";
+        this.username = isNotEmpty(username) ? username : "";
     }
 
     /**
@@ -366,7 +392,7 @@ public final class User extends Model implements UserDetails {
      * @param password Пароль пользователя.
      */
     public void setPassword(final String password) {
-        this.password = isNotBlank(password) ? password : "";
+        this.password = isNotEmpty(password) ? password : "";
     }
 
     /**
@@ -384,7 +410,7 @@ public final class User extends Model implements UserDetails {
      * @param email Электронная почта пользователя.
      */
     public void setEmail(final String email) {
-        this.email = isNotBlank(email) ? email : "";
+        this.email = isNotEmpty(email) ? email : "";
     }
 
     /**
@@ -402,7 +428,7 @@ public final class User extends Model implements UserDetails {
      * @param phone Номер телефона пользователя.
      */
     public void setPhone(final String phone) {
-        this.phone = isNotBlank(phone) ? phone : "";
+        this.phone = isNotEmpty(phone) ? phone : "";
     }
 
     /**
@@ -420,7 +446,7 @@ public final class User extends Model implements UserDetails {
      * @param vkontakte Ссылка "ВКонтакте" пользователя.
      */
     public void setVkontakte(final String vkontakte) {
-        this.vkontakte = isNotBlank(vkontakte) ? vkontakte : "";
+        this.vkontakte = isNotEmpty(vkontakte) ? vkontakte : "";
     }
 
     /**
@@ -438,7 +464,7 @@ public final class User extends Model implements UserDetails {
      * @param facebook Ссылка "Facebook" пользователя.
      */
     public void setFacebook(final String facebook) {
-        this.facebook = isNotBlank(facebook) ? facebook : "";
+        this.facebook = isNotEmpty(facebook) ? facebook : "";
     }
 
     /**
@@ -456,7 +482,7 @@ public final class User extends Model implements UserDetails {
      * @param skype Логин "Skype".
      */
     public void setSkype(final String skype) {
-        this.skype = isNotBlank(skype) ? skype : "";
+        this.skype = isNotEmpty(skype) ? skype : "";
     }
 
     /**
@@ -474,7 +500,7 @@ public final class User extends Model implements UserDetails {
      * @param description Описание пользователя.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 
     /**
@@ -502,17 +528,21 @@ public final class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только для чтения
      * или пустой список.
      */
-    public List<Order> getClientOrders() {
+    public Collection<Order> getClientOrders() {
         return getUnmodifiableList(this.clientOrders);
     }
 
     /**
      * Устанавливает список заказов, которые оформил текущий клиент.
      *
-     * @param clientOrders Список заказов, оформленных клиентом.
+     * @param orders Список заказов, оформленных клиентом.
      */
-    public void setClientOrders(final List<Order> clientOrders) {
-        this.clientOrders = clientOrders;
+    public void setClientOrders(final Collection<Order> orders) {
+        if (isNotEmpty(orders)) {
+            this.clientOrders = new ArrayList<>(orders);
+        } else {
+            this.clientOrders = new ArrayList<>();
+        }
     }
 
     /**
@@ -522,16 +552,20 @@ public final class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только
      * для чтения или пустой список.
      */
-    public List<Order> getManagerOrders() {
+    public Collection<Order> getManagerOrders() {
         return getUnmodifiableList(this.managerOrders);
     }
 
     /**
      * Устанавливает список заказов, которые обработал текущий менеджер.
      *
-     * @param managerOrders Список заказов, обработаных менеджером.
+     * @param orders Список заказов, обработаных менеджером.
      */
-    public void setManagerOrders(final List<Order> managerOrders) {
-        this.managerOrders = managerOrders;
+    public void setManagerOrders(final Collection<Order> orders) {
+        if (isNotEmpty(orders)) {
+            this.managerOrders = new ArrayList<>(orders);
+        } else {
+            this.managerOrders = new ArrayList<>();
+        }
     }
 }

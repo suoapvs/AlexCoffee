@@ -3,10 +3,8 @@ package ua.com.alexcoffee.model;
 import ua.com.alexcoffee.enums.StatusEnum;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Класс описывает сущность "Статус заказов", наследует класс {@link Model}.
@@ -48,20 +46,6 @@ public final class Status extends Model {
     private String description;
 
     /**
-     * Список заказов, которые имеют текущий статус.
-     * К текущстатусу можно добраться через поле "status"
-     * в объекте класса {@link Order}.
-     * Выборка объектов orders при первом доступе к ним.
-     * Сущности orders автоматически удаляется при удалении текущей.
-     */
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            mappedBy = "status",
-            cascade = CascadeType.REMOVE
-    )
-    private List<Order> orders = new ArrayList<>();
-
-    /**
      * Конструктр без параметров.
      */
     public Status() {
@@ -81,7 +65,7 @@ public final class Status extends Model {
     ) {
         super();
         this.title = title;
-        this.description = description;
+        setDescription(description);
     }
 
     /**
@@ -93,71 +77,42 @@ public final class Status extends Model {
      */
     @Override
     public String toString() {
-        return "Title: " + this.title.name()
-                + "\nDescription: " + this.description;
+        return "Status{" + super.toString() +
+                ", title: " + this.title.name() +
+                ", description: " + this.description +
+                '}';
     }
 
     /**
-     * Добавляет заказы в список текущего статуса.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @param order Заказ, который имеет текущий статус.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
-    public void addOrder(final Order order) {
-        this.orders.add(order);
+    @Override
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Status status = (Status) object;
+            result = (this.title.equals(status.title)) &&
+                    this.description.equalsIgnoreCase(status.description);
+        }
+        return result;
     }
 
     /**
-     * Добавляет список заказов в список заказов orders.
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @param orders Список заказов, которые будут иметь текущий статус.
+     * @return Значение типа int - уникальный номер объекта.
      */
-    public void addOrders(final List<Order> orders) {
-        this.orders.addAll(orders);
-    }
-
-    /**
-     * Удаляет заказ из списка текущего статуса.
-     *
-     * @param order Заказ, у которого будет удаленен текущий статус.
-     */
-    public void removeOrder(final Order order) {
-        this.orders.remove(order);
-    }
-
-    /**
-     * Метод удаляет список заказов из списка orders.
-     *
-     * @param orders Список заказов, у которых будет удаленен текущий статус.
-     */
-    public void removeOrders(final List<Order> orders) {
-        this.orders.removeAll(orders);
-    }
-
-    /**
-     * Очищает список заказов текущего статуса.
-     */
-    public void clearOrders() {
-        this.orders.clear();
-    }
-
-    /**
-     * Конвертирует список заказов текущего статуса
-     * в список только для чтений и возвращает его.
-     *
-     * @return Объект типа {@link List} - список заказов только для чтения
-     * или пустой список.
-     */
-    public List<Order> getOrders() {
-        return getUnmodifiableList(this.orders);
-    }
-
-    /**
-     * Устанавливает список заказов текущего статуса.
-     *
-     * @param orders Список заказов.
-     */
-    public void setOrders(final List<Order> orders) {
-        this.orders = orders;
+    @Override
+    public int hashCode() {
+        int result = this.title.hashCode();
+        result = 31 * result + this.description.hashCode();
+        return result;
     }
 
     /**
@@ -194,6 +149,6 @@ public final class Status extends Model {
      * @param description Описание статуса.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 }

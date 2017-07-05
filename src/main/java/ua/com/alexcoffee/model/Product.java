@@ -2,9 +2,10 @@ package ua.com.alexcoffee.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Класс описывает сущность "Товар", наследует класс {@link Model}.
@@ -165,11 +166,11 @@ public final class Product extends Model {
             final double price
     ) {
         super();
-        this.title = title;
-        this.url = url;
+        setTitle(title);
+        setUrl(url);
+        setPrice(price);
         this.category = category;
         this.photo = photo;
-        this.price = price;
         this.parameters = "";
         this.description = "";
         newArticle();
@@ -201,15 +202,44 @@ public final class Product extends Model {
     }
 
     /**
-     * Генерирует строку для конечного сравнения товаров в методе equals()
-     * родительского класса. Переопределенный метод родительского
-     * класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - название + URL + цена товара.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
-    public String toEquals() {
-        return getArticle() + getTitle() + getUrl() + getPrice();
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Product product = (Product) object;
+            result = this.article != product.article &&
+                    (this.price == product.price) &&
+                    this.title.equals(product.title) &&
+                    this.url.equals(product.url) &&
+                    this.parameters.equals(product.parameters) &&
+                    this.description.equals(product.description);
+        }
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = this.article;
+        result = 31 * result + this.title.hashCode();
+        result = 31 * result + this.url.hashCode();
+        result = 31 * result + this.parameters.hashCode();
+        result = 31 * result + this.description.hashCode();
+        long temp = Double.doubleToLongBits(this.price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     /**
@@ -245,9 +275,8 @@ public final class Product extends Model {
      * Генерирует новый артикль товара.
      */
     public void newArticle() {
-        this.article = Integer.parseInt(
-                createRandomString(CODE_PATTERN, CODE_LENGTH)
-        );
+        final String randomString = createRandomString(CODE_PATTERN, CODE_LENGTH);
+        this.article = Integer.parseInt(randomString);
     }
 
     /**
@@ -265,7 +294,11 @@ public final class Product extends Model {
      * @param article Артикль товара.
      */
     public void setArticle(final int article) {
-        this.article = article;
+        if (article > 0) {
+            this.article = article;
+        } else {
+            newArticle();
+        }
     }
 
     /**
@@ -283,7 +316,7 @@ public final class Product extends Model {
      * @param title Название товара.
      */
     public void setTitle(final String title) {
-        this.title = isNotBlank(title) ? title : "";
+        this.title = isNotEmpty(title) ? title : "";
     }
 
     /**
@@ -301,7 +334,7 @@ public final class Product extends Model {
      * @param url URL товара.
      */
     public void setUrl(final String url) {
-        this.url = isNotBlank(url) ? url : "";
+        this.url = isNotEmpty(url) ? url : "";
     }
 
     /**
@@ -319,7 +352,7 @@ public final class Product extends Model {
      * @param parameters Параметры товара.
      */
     public void setParameters(final String parameters) {
-        this.parameters = isNotBlank(parameters) ? parameters : "";
+        this.parameters = isNotEmpty(parameters) ? parameters : "";
     }
 
     /**
@@ -337,7 +370,7 @@ public final class Product extends Model {
      * @param description Описание товара.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 
     /**
@@ -391,7 +424,7 @@ public final class Product extends Model {
      * @param price Цена товара.
      */
     public void setPrice(final double price) {
-        this.price = price > 0 ? price : 0;
+        this.price = (price > 0) ? price : 0;
     }
 
     /**
@@ -399,16 +432,16 @@ public final class Product extends Model {
      *
      * @return Объект класса {@link SalePosition} - торговая позиция.
      */
-    public List<SalePosition> getSalePositions() {
+    public Collection<SalePosition> getSalePositions() {
         return this.salePositions;
     }
 
     /**
      * Устанавливает список торговых позиций, для которых пренадлежит текущий товара.
      *
-     * @param salePositions Торговая позиция.
+     * @param positions Торговые позиции.
      */
-    public void setSalePositions(final List<SalePosition> salePositions) {
-        this.salePositions = salePositions;
+    public void setSalePositions(final Collection<SalePosition> positions) {
+        this.salePositions = new ArrayList<>(positions);
     }
 }

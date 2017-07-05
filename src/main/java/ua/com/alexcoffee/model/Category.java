@@ -2,10 +2,11 @@ package ua.com.alexcoffee.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс описывает сущность "Категория товаров", наследует класс {@link Model}.
@@ -111,24 +112,44 @@ public final class Category extends Model {
      */
     @Override
     public String toString() {
-        return "Title: " + this.title
-                + "\nUrl: " + this.url
-                + "\nDescription: " + this.description;
+        return "Category{" + super.toString() +
+                ", title: " + this.title +
+                ", url: " + this.url +
+                ", description: " + this.description +
+                '}';
     }
 
     /**
-     * Генерирует строку для конечного сравнения категорий в методе equals() родительского
-     * класса. Переопределенный метод родительского класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - название + URL категории.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
-    public String toEquals() {
-        if (isBlank(this.title) || isBlank(this.url)) {
-            return super.toString();
-        } else {
-            return getTitle() + getUrl();
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Category other = (Category) object;
+            result = this.title.equalsIgnoreCase(other.title) &&
+                    this.url.equalsIgnoreCase(other.url);
         }
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = this.title.hashCode();
+        result = 31 * result + this.url.hashCode();
+        result = 31 * result + this.description.hashCode();
+        return result;
     }
 
     /**
@@ -157,7 +178,9 @@ public final class Category extends Model {
      * @param product Товар, который будет добавлен в текущую категорию.
      */
     public void addProduct(final Product product) {
-        this.products.add(product);
+        if (isNotNull(product)) {
+            this.products.add(product);
+        }
     }
 
     /**
@@ -166,8 +189,10 @@ public final class Category extends Model {
      * @param products Список товаров, которые будут добавлены
      *                 в текущую категорию.
      */
-    public void addProducts(final List<Product> products) {
-        this.products.addAll(products);
+    public void addProducts(final Collection<Product> products) {
+        if (isNotEmpty(products)) {
+            this.products.addAll(products);
+        }
     }
 
     /**
@@ -176,7 +201,9 @@ public final class Category extends Model {
      * @param product Товар, который будет удален из данной категории.
      */
     public void removeProduct(final Product product) {
-        this.products.remove(product);
+        if (isNotNull(product)) {
+            this.products.remove(product);
+        }
     }
 
     /**
@@ -184,8 +211,10 @@ public final class Category extends Model {
      *
      * @param products Список товаров, которые будут удалены из текущей категории.
      */
-    public void removeProducts(final List<Product> products) {
-        this.products.removeAll(products);
+    public void removeProducts(final Collection<Product> products) {
+        if (isNotEmpty(products)) {
+            this.products.removeAll(products);
+        }
     }
 
     /**
@@ -202,7 +231,7 @@ public final class Category extends Model {
      * @return Объект типа {@link List} - список товаров только для чтения
      * или пустой список.
      */
-    public List<Product> getProducts() {
+    public Collection<Product> getProducts() {
         return getUnmodifiableList(this.products);
     }
 
@@ -211,8 +240,9 @@ public final class Category extends Model {
      *
      * @param products Список товаров .
      */
-    public void setProducts(final List<Product> products) {
-        this.products = products;
+    public void setProducts(final Collection<Product> products) {
+        clearProducts();
+        addProducts(products);
     }
 
     /**
@@ -230,7 +260,7 @@ public final class Category extends Model {
      * @param title Название категории.
      */
     public void setTitle(final String title) {
-        this.title = isNotBlank(title) ? title : "";
+        this.title = isNotEmpty(title) ? title : "";
     }
 
     /**
@@ -248,7 +278,7 @@ public final class Category extends Model {
      * @param url URL категории.
      */
     public void setUrl(final String url) {
-        this.url = isNotBlank(url) ? url : "";
+        this.url = isNotEmpty(url) ? url : "";
     }
 
     /**
@@ -266,7 +296,7 @@ public final class Category extends Model {
      * @param description Описание категории.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 
     /**

@@ -2,6 +2,9 @@ package ua.com.alexcoffee.model;
 
 import javax.persistence.*;
 
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNull;
+
 /**
  * Класс описывает сущность "Торговая позиция", наследует класс {@link Model}.
  * Торговая позиция составляет товар и количество этого товара.
@@ -86,8 +89,8 @@ public final class SalePosition extends Model {
             final int number
     ) {
         super();
+        setNumber(number);
         this.product = product;
-        this.number = number;
     }
 
     /**
@@ -109,20 +112,39 @@ public final class SalePosition extends Model {
     }
 
     /**
-     * Генерирует строку для конечного сравнения
-     * торговых позиций в методе equals() родительского класса.
-     * Переопределенный метод родительского класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - результат работы метода
-     * сравнения входящего товара toEquals.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
-    public String toEquals() {
-        String line = this.product.toEquals();
-        if (getId() != null) {
-            line += getId();
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final SalePosition position = (SalePosition) object;
+            result = (this.number == position.number);
+            if (isNotNull(this.product)) {
+                result &= this.product.equals(position.product);
+            } else {
+                result &= isNull(position.product);
+            }
         }
-        return line;
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = isNotNull(this.product) ? this.product.hashCode() : 0;
+        result = 31 * result + this.number;
+        return result;
     }
 
     /**
@@ -157,7 +179,7 @@ public final class SalePosition extends Model {
      */
     public void setProduct(final Product product) {
         this.product = product;
-        this.number = product != null ? 1 : 0;
+        this.number = (product != null) ? 1 : 0;
     }
 
     /**
@@ -176,7 +198,7 @@ public final class SalePosition extends Model {
      * @param number Номер торговой позиции.
      */
     public void setNumber(final int number) {
-        this.number = number > 0 ? number : 0;
+        this.number = (number > 0) ? number : 0;
     }
 
     /**

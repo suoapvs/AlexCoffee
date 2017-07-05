@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
+
 /**
  * Класс представляет абстрактную модель сущностей, не описывает сущности как таковой.
  * Класс не отображается на отдельную таблицу в базе данных,
@@ -58,29 +60,31 @@ public abstract class Model implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
+
+    /**
+     * Возвращает описание категории.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа {@link String} -
+     * строка описание категории (название, URL, описание).
+     */
+    @Override
+    public String toString() {
+        return "Model{id=" + this.id + '}';
+    }
 
     /**
      * Сравнивает текущий объект с объектом переданым как параметр.
      * Переопределенный метод родительского класса {@link Object}.
      *
-     * @param obj объект для сравнения с текущим объектом.
+     * @param object объект для сравнения с текущим объектом.
      * @return Значение типа boolean - результат сравнения текущего объекта
      * с переданным объектом.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Model)) {
-            return false;
-        }
-        final Model other = (Model) obj;
-        return (this.toEquals().equals(other.toEquals()));
+    public boolean equals(Object object) {
+        return isNotNull(object) && (super.equals(object) || (getClass() == object.getClass()));
     }
 
     /**
@@ -90,21 +94,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа int - уникальный номер объекта.
      */
     @Override
-    public int hashCode() {
-        return this.id != null ? this.id.hashCode() : toString().hashCode();
-    }
-
-    /**
-     * Генерирует строку для конечного сравнения объектов в методе equals().
-     * Что бы в дочернем классе не переопределять весь метод equals(),
-     * можно переопределить тьлько этот метод.
-     *
-     * @return Значение типа {@link String} -
-     * результат работы метода toString().
-     */
-    public String toEquals() {
-        return toString();
-    }
+    public abstract int hashCode() ;
 
     /**
      * Возвращает рандомную строку из набор символов и длинны по-умолчанию.
@@ -112,7 +102,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа {@link String} - рандомная строка из набора
      * символов CODE_PATTERN длиной {@value CODE_LENGTH}.
      */
-    static String createRandomString() {
+    String createRandomString() {
         return createRandomString(CODE_PATTERN, CODE_LENGTH);
     }
 
@@ -124,7 +114,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа {@link String} - рандомная строка из набора символов
      * pattern длиной length.
      */
-    static String createRandomString(
+    String createRandomString(
             final char[] pattern,
             final int length
     ) {
@@ -143,7 +133,7 @@ public abstract class Model implements Serializable {
      * @param date Значение даты типа Date для обработки.
      * @return Значение типа {@link String} - дата в виде строки.
      */
-    static String dateToString(final Date date) {
+    String dateToString(final Date date) {
         return dateToStringWithFormat(date,
                 new SimpleDateFormat(DATE_PATTERN),
                 TimeZone.getTimeZone(TIME_ZONE)
@@ -174,7 +164,7 @@ public abstract class Model implements Serializable {
      *
      * @return Значение типа {@link Long} - значение поля serialVersionUID.
      */
-    public Long getId() {
+    public long getId() {
         return this.id;
     }
 
@@ -184,7 +174,7 @@ public abstract class Model implements Serializable {
      *
      * @param id Значение параметра будет записано в поле id объекта.
      */
-    public void setId(final Long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 

@@ -2,10 +2,12 @@ package ua.com.alexcoffee.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс описывает сущность "Заказы", наследует класс {@link Model}.
@@ -46,7 +48,7 @@ public final class Order extends Model {
             name = "date",
             nullable = false
     )
-    private String date;
+    private Date date;
 
     /**
      * Адрес доставки заказа. Значение поля
@@ -138,7 +140,7 @@ public final class Order extends Model {
         this.shippingDetails = "";
         this.description = "";
         this.number = createRandomString();
-        this.date = dateToString(new Date());
+        this.date = new Date();
     }
 
     /**
@@ -200,7 +202,6 @@ public final class Order extends Model {
             sb.append("\nDescription: ")
                     .append(this.description);
         }
-
         if (this.salePositions != null && !this.salePositions.isEmpty()) {
             sb.append("\nSale Positions: ");
             int count = 1;
@@ -227,14 +228,41 @@ public final class Order extends Model {
     }
 
     /**
-     * Генерирует строку для конечного сравнения заказа в методе equals()
-     * родительского класса. Переопределенный метод родительского класса {@link Model}.
+     * Сравнивает текущий объект с объектом переданым как параметр.
+     * Переопределенный метод родительского класса {@link Object}.
      *
-     * @return Значение типа {@link String} - номер заказа.
+     * @param object объект для сравнения с текущим объектом.
+     * @return Значение типа boolean - результат сравнения текущего объекта
+     * с переданным объектом.
      */
     @Override
-    public String toEquals() {
-        return getNumber();
+    public boolean equals(Object object) {
+        boolean result = super.equals(object);
+        if (result) {
+            final Order order = (Order) object;
+            result = this.number.equals(order.number) &&
+                    this.date.equals(order.date) &&
+                    this.shippingAddress.equals(order.shippingAddress) &&
+                    this.shippingDetails.equals(order.shippingDetails) &&
+                    this.description.equals(order.description);
+        }
+        return result;
+    }
+
+    /**
+     * Возвращает хеш код объекта.
+     * Переопределенный метод родительского класса {@link Object}.
+     *
+     * @return Значение типа int - уникальный номер объекта.
+     */
+    @Override
+    public int hashCode() {
+        int result = this.number.hashCode();
+        result = 31 * result + this.date.hashCode();
+        result = 31 * result + this.shippingAddress.hashCode();
+        result = 31 * result + this.shippingDetails.hashCode();
+        result = 31 * result + this.description.hashCode();
+        return result;
     }
 
     /**
@@ -271,44 +299,49 @@ public final class Order extends Model {
     /**
      * Добавляет торговую позицию в текущий заказа.
      *
-     * @param salePosition Торговая позиция, которая будет добавлена в заказ.
+     * @param position Торговая позиция, которая будет добавлена в заказ.
      */
-    public void addSalePosition(final SalePosition salePosition) {
-        this.salePositions.add(salePosition);
-        if (salePosition.getOrder() != this) {
-            salePosition.setOrder(this);
+    public void addSalePosition(final SalePosition position) {
+        if (isNotNull(position)) {
+            this.salePositions.add(position);
+            if (position.getOrder() != this) {
+                position.setOrder(this);
+            }
         }
     }
 
     /**
      * Добавляет список торговых позиций в текущий заказ.
      *
-     * @param salePositions Список торговых позиций,
-     *                      которые будут дабавлены в заказ.
+     * @param positions Список торговых позиций,
+     *                  которые будут дабавлены в заказ.
      */
-    public void addSalePositions(final List<SalePosition> salePositions) {
-        this.salePositions.addAll(salePositions);
-        salePositions.stream()
-                .filter(salePosition -> salePosition.getOrder() != this)
-                .forEach(salePosition -> salePosition.setOrder(this));
+    public void addSalePositions(final Collection<SalePosition> positions) {
+        if (isNotEmpty(positions)) {
+            positions.forEach(this::addSalePosition);
+        }
     }
 
     /**
      * Удаляет торговую позицию из текущего заказа.
      *
-     * @param salePosition Торговая позиция, которая будет удалена из заказу.
+     * @param position Торговая позиция, которая будет удалена из заказу.
      */
-    public void removeSalePosition(final SalePosition salePosition) {
-        this.salePositions.remove(salePosition);
+    public void removeSalePosition(final SalePosition position) {
+        if (isNotNull(position)) {
+            this.salePositions.remove(position);
+        }
     }
 
     /**
      * Удаляет список торговых позиция из текущего заказа.
      *
-     * @param salePositions Список торговых позиция, которые будут удалены из заказа.
+     * @param positions Список торговых позиция, которые будут удалены из заказа.
      */
-    public void removeSalePositions(final List<SalePosition> salePositions) {
-        this.salePositions.removeAll(salePositions);
+    public void removeSalePositions(final Collection<SalePosition> positions) {
+        if (isNotEmpty(positions)) {
+            this.salePositions.removeAll(positions);
+        }
     }
 
     /**
@@ -325,20 +358,18 @@ public final class Order extends Model {
      * @return Объект типа {@link List} - список торговых позиция только
      * для чтения или пустой список.
      */
-    public List<SalePosition> getSalePositions() {
+    public Collection<SalePosition> getSalePositions() {
         return getUnmodifiableList(this.salePositions);
     }
 
     /**
      * Устанавливает список торговых позицияй текущему заказу.
      *
-     * @param salePositions Список торговых позиция.
+     * @param positions Список торговых позиция.
      */
-    public void setSalePositions(final List<SalePosition> salePositions) {
-        this.salePositions = salePositions;
-        this.salePositions.stream()
-                .filter(salePosition -> salePosition.getOrder() != this)
-                .forEach(salePosition -> salePosition.setOrder(this));
+    public void setSalePositions(final Collection<SalePosition> positions) {
+        clearSalePositions();
+        addSalePositions(positions);
     }
 
     /**
@@ -356,7 +387,7 @@ public final class Order extends Model {
      * @param number Номер заказа.
      */
     public void setNumber(final String number) {
-        this.number = isNotBlank(number) ? number : "";
+        this.number = isNotEmpty(number) ? number : "";
     }
 
     /**
@@ -371,7 +402,7 @@ public final class Order extends Model {
      *
      * @return Значение типа {@link String} - дата модификации заказа.
      */
-    public String getDate() {
+    public Date getDate() {
         return this.date;
     }
 
@@ -381,7 +412,7 @@ public final class Order extends Model {
      * @param date Дата модификации заказа.
      */
     public void setDate(final Date date) {
-        this.date = date != null ? dateToString(date) : "";
+        this.date = isNotNull(date) ? date : new Date();
     }
 
     /**
@@ -453,7 +484,7 @@ public final class Order extends Model {
      * @param shippingAddress Адрес доставки заказа.
      */
     public void setShippingAddress(final String shippingAddress) {
-        this.shippingAddress = isNotBlank(shippingAddress) ? shippingAddress : "";
+        this.shippingAddress = isNotEmpty(shippingAddress) ? shippingAddress : "";
     }
 
     /**
@@ -471,7 +502,7 @@ public final class Order extends Model {
      * @param shippingDetails Детали доставки заказа.
      */
     public void setShippingDetails(final String shippingDetails) {
-        this.shippingDetails = isNotBlank(shippingDetails) ? shippingDetails : "";
+        this.shippingDetails = isNotEmpty(shippingDetails) ? shippingDetails : "";
     }
 
     /**
@@ -489,7 +520,7 @@ public final class Order extends Model {
      * @param description Описание заказа.
      */
     public void setDescription(final String description) {
-        this.description = isNotBlank(description) ? description : "";
+        this.description = isNotEmpty(description) ? description : "";
     }
 
     /**
