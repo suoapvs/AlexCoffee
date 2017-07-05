@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import ua.com.alexcoffee.model.Role;
 import ua.com.alexcoffee.service.interfaces.RoleService;
 
 /**
@@ -91,17 +92,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity)
             throws Exception {
+        final Role admin = getAdminRole();
+        final Role manager = getManagerRole();
         httpSecurity
                 .logout()
                 .invalidateHttpSession(false)
                 .and()
                 .authorizeRequests()
                 .antMatchers(ADMIN_REQUEST_URl)
-                .hasRole(this.roleService.getAdministrator().getTitle().name())
+                .hasRole(admin.getTitle().name())
                 .antMatchers(MANAGER_REQUEST_URl)
                 .hasAnyRole(
-                        this.roleService.getAdministrator().getTitle().name(),
-                        this.roleService.getManager().getTitle().name()
+                        admin.getTitle().name(),
+                        manager.getTitle().name()
                 )
                 .anyRequest().permitAll()
                 .and()
@@ -126,5 +129,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(this.userDetailsService);
+    }
+
+    private Role getAdminRole() {
+        return this.roleService.getAdministrator();
+    }
+
+    private Role getManagerRole() {
+        return this.roleService.getManager();
     }
 }

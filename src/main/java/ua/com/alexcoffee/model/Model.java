@@ -34,8 +34,7 @@ public abstract class Model implements Serializable {
     /**
      * Набор вожможных для использованния символов по-умолчанию.
      */
-    private static final char[] CODE_PATTERN =
-            "ALEXCOFFEE1234567890".toCharArray();
+    private static final char[] CODE_PATTERN = "ALEXCOFFEE1234567890".toCharArray();
 
     /**
      * Длина возвращаемой строки по-умолчанию 6.
@@ -45,8 +44,7 @@ public abstract class Model implements Serializable {
     /**
      * Строка-формат для даты по-умолчанию "EEE, d MMM yyyy, HH:mm:ss".
      */
-    private static final String DATE_PATTERN =
-            "EEE, d MMM yyyy, HH:mm:ss";
+    private static final String DATE_PATTERN = "EEE, d MMM yyyy, HH:mm:ss";
 
     /**
      * Название (код) часового пояса по-умолчанию "GMT+3".
@@ -199,11 +197,13 @@ public abstract class Model implements Serializable {
      * @param <T>  Возможный тип объектов в списке.
      * @return Значение типа {@link List} - список только для чтения или пустой список.
      */
-    public static <T extends Model> List<T> getUnmodifiableList(
-            final List<T> list
-    ) {
-        return ((list != null) && !list.isEmpty()) ?
-                Collections.unmodifiableList(list) :
-                Collections.EMPTY_LIST;
+    public <T extends Model> List<T> getUnmodifiableList(final List<T> list) {
+        final List<T> result;
+        if ((list != null) && !list.isEmpty()) {
+            result = Collections.unmodifiableList(list);
+        } else {
+            result = new ArrayList<>();
+        }
+        return result;
     }
 }
