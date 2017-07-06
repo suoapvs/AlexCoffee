@@ -1,7 +1,7 @@
 package ua.com.alexcoffee.service.impl;
 
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.model.Model;
+import ua.com.alexcoffee.model.model.Model;
 import ua.com.alexcoffee.repository.MainRepository;
 import ua.com.alexcoffee.service.interfaces.MainService;
 

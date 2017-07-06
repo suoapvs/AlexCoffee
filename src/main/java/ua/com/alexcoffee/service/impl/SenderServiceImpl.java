@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.user.User;
 import ua.com.alexcoffee.service.interfaces.SenderService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
@@ -68,7 +68,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
     /**
      * Заказ, информация о котором будет приходить на почту менеджерам.
      */
-    private Order order;
+    private Order orderEntity;
 
     /**
      * Конструктор для инициализации основных переменных сервиса.
@@ -87,11 +87,11 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      * Отсылает информацию о заказе менеджерам на электронную почту.
      * Запускает отдельный поток.
      *
-     * @param order Заказ для отправке менеджерам.
+     * @param orderEntity Заказ для отправке менеджерам.
      */
     @Override
-    public void send(final Order order) {
-        this.order = order;
+    public void send(final Order orderEntity) {
+        this.orderEntity = orderEntity;
         new Thread(this).start();
     }
 
@@ -101,7 +101,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      */
     @Override
     public void run() {
-        if (this.order != null) {
+        if (this.orderEntity != null) {
             this.admin = this.userService.getMainAdministrator();
             this.managers = this.userService.getManagers();
             if (isNotNull(this.admin) && isNotEmpty(this.managers)) {
@@ -115,8 +115,8 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      */
     private void choosePropertiesAndSend() {
         Properties properties;
-        final String subject = "AlexCoffee || New Order " + this.order.getNumber();
-        final String text = this.order.toString();
+        final String subject = "AlexCoffee || New Order " + this.orderEntity.getNumber();
+        final String text = this.orderEntity.toString();
         for (User manager : this.managers) {
             try {
                 try {
@@ -218,17 +218,17 @@ public final class SenderServiceImpl implements SenderService, Runnable {
      *
      * @return Объект класса {@link Order} - заказ для обработки.
      */
-    public Order getOrder() {
-        return this.order;
+    public Order getOrderEntity() {
+        return this.orderEntity;
     }
 
     /**
      * Устанавливает заказ для отправки менеджерам.
      *
-     * @param order Заказ для обработки.
+     * @param orderEntity Заказ для обработки.
      */
-    public void setOrder(final Order order) {
-        this.order = order;
+    public void setOrderEntity(final Order orderEntity) {
+        this.orderEntity = orderEntity;
     }
 
     /**

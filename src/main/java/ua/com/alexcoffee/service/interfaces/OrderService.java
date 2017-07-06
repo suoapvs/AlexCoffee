@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 
 /**
  * Интерфейс сервисного слоя, описывает набор методов для работы

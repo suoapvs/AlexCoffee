@@ -3,7 +3,7 @@ package ua.com.alexcoffee.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-import ua.com.alexcoffee.model.SalePosition;
+import ua.com.alexcoffee.model.position.SalePosition;
 import ua.com.alexcoffee.repository.SalePositionRepository;
 import ua.com.alexcoffee.service.interfaces.SalePositionService;
 

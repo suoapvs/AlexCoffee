@@ -1,7 +1,7 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +42,7 @@ public interface UserRepository extends MainRepository<User> {
      * @param role Роль пользователя для возврата.
      * @return Объект класса {@link User} - пользователь с ролью role.
      */
-    User findByRole(Role role);
+    User findByRole(UserRole role);
 
     /**
      * Возвращает всех пользователей из базы данных, у которых
@@ -52,7 +52,7 @@ public interface UserRepository extends MainRepository<User> {
      * @return Объект типа {@link List} - список пользователей,
      * которые имеют роль role.
      */
-    Collection<User> findAllByRole(Role role);
+    Collection<User> findAllByRole(UserRole role);
 
     /**
      * Удаляет всех пользователей из базы данных, у которых
@@ -60,7 +60,7 @@ public interface UserRepository extends MainRepository<User> {
      *
      * @param role Роль пользователей для удаления.
      */
-    void deleteAllByRole(Role role);
+    void deleteAllByRole(UserRole role);
 
     /**
      * Удаляет пользователя из базы даных, у которого совпадает имя с значением

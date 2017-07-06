@@ -1,4 +1,8 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.photo;
+
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.product.Product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +24,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  */
 @Entity
 @Table(name = "photos")
-public final class Photo extends Model {
+public class Photo extends Model {
     /**
      * Номер версии класса необходимый
      * для десериализации и сериализации.
@@ -39,59 +43,21 @@ public final class Photo extends Model {
      * Не может быть null.
      */
     @Column(name = "title", nullable = false)
-    private String title;
+    private String title = "";
 
     /**
      * Строка-ссылка на малое изображения.
      * Значение поля сохраняется в колонке "photo_link_short".
      */
     @Column(name = "photo_link_short")
-    private String photoLinkShort;
+    private String smallUrl = "";
 
     /**
      * Строка-ссылка на большое изображения.
      * Значение поля сохраняется в колонке "photo_link_long".
      */
     @Column(name = "photo_link_long")
-    private String photoLinkLong;
-
-    /**
-     * Конструктр без параметров.
-     */
-    public Photo() {
-        this("", "", "");
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных изображения.
-     *
-     * @param title          Название изображения.
-     * @param photoLinkShort Строка-ссылка на малое изображения.
-     * @param photoLinkLong  Строка-ссылка на большое изображения.
-     */
-    public Photo(
-            final String title,
-            final String photoLinkShort,
-            final String photoLinkLong
-    ) {
-        super();
-        setTitle(title);
-        setPhotoLinkShort(photoLinkShort);
-        setPhotoLinkLong(photoLinkLong);
-    }
-
-    /**
-     * Конструктор для инициализации переменных изображения.
-     *
-     * @param title          Название изображения.
-     * @param photoLinkShort Строка-ссылка на малое изображения.
-     */
-    public Photo(
-            final String title,
-            final String photoLinkShort
-    ) {
-        this(title, photoLinkShort, "");
-    }
+    private String longUrl = "";
 
     /**
      * Возвращает описание изображения.
@@ -105,8 +71,8 @@ public final class Photo extends Model {
     public String toString() {
         return "Photo{" + super.toString() +
                 ", title: " + this.title +
-                ", photoLinkShort: " + this.photoLinkShort +
-                ", photoLinkLong: " + this.photoLinkLong +
+                ", smallUrl: " + this.smallUrl +
+                ", longUrl: " + this.longUrl +
                 '}';
     }
 
@@ -124,8 +90,8 @@ public final class Photo extends Model {
         if (result) {
             final Photo photo = (Photo) object;
             result = this.title.equals(photo.title) &&
-                    this.photoLinkShort.equals(photo.photoLinkShort) &&
-                    this.photoLinkLong.equals(photo.photoLinkLong);
+                    this.smallUrl.equals(photo.smallUrl) &&
+                    this.longUrl.equals(photo.longUrl);
         }
         return result;
     }
@@ -139,26 +105,9 @@ public final class Photo extends Model {
     @Override
     public int hashCode() {
         int result = this.title.hashCode();
-        result = 31 * result + this.photoLinkShort.hashCode();
-        result = 31 * result + this.photoLinkLong.hashCode();
+        result = 31 * result + this.smallUrl.hashCode();
+        result = 31 * result + this.longUrl.hashCode();
         return result;
-    }
-
-    /**
-     * Инициализация полей изображения.
-     *
-     * @param title          Название изображения.
-     * @param photoLinkShort Строка-ссылка на малое изображения.
-     * @param photoLinkLong  Строка-ссылка на большое изображения.
-     */
-    public void initialize(
-            final String title,
-            final String photoLinkShort,
-            final String photoLinkLong
-    ) {
-        setTitle(title);
-        setPhotoLinkShort(photoLinkShort);
-        setPhotoLinkLong(photoLinkLong);
     }
 
     /**
@@ -184,17 +133,17 @@ public final class Photo extends Model {
      *
      * @return Значение типа {@link String} - строка-ссылка на малое изображения.
      */
-    public String getPhotoLinkShort() {
-        return this.photoLinkShort;
+    public String getSmallUrl() {
+        return this.smallUrl;
     }
 
     /**
      * Устанавливает строку-ссылка на малое изображения.
      *
-     * @param photoLinkShort Строка-ссылка на малое изображения.
+     * @param smallUrl Строка-ссылка на малое изображения.
      */
-    public void setPhotoLinkShort(final String photoLinkShort) {
-        this.photoLinkShort = isNotEmpty(photoLinkShort) ? photoLinkShort : "";
+    public void setSmallUrl(final String smallUrl) {
+        this.smallUrl = isNotEmpty(smallUrl) ? smallUrl : "";
     }
 
     /**
@@ -202,16 +151,20 @@ public final class Photo extends Model {
      *
      * @return Значение типа {@link String} - строка-ссылка на большое изображения.
      */
-    public String getPhotoLinkLong() {
-        return this.photoLinkLong;
+    public String getLongUrl() {
+        return this.longUrl;
     }
 
     /**
      * Устанавливает строку-ссылка на большое изображения.
      *
-     * @param photoLinkLong Строка-ссылка на большое изображения.
+     * @param longUrl Строка-ссылка на большое изображения.
      */
-    public void setPhotoLinkLong(final String photoLinkLong) {
-        this.photoLinkLong = isNotEmpty(photoLinkLong) ? photoLinkLong : "";
+    public void setLongUrl(final String longUrl) {
+        this.longUrl = isNotEmpty(longUrl) ? longUrl : "";
+    }
+
+    public static PhotoBuilder getBuilder() {
+        return new PhotoBuilder();
     }
 }

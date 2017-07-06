@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Category;
+import ua.com.alexcoffee.model.category.Category;
 
 /**
  * Интерфейс сервисного слоя, описывает набор методов для работы

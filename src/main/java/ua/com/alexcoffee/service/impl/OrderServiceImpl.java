@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 import ua.com.alexcoffee.repository.OrderRepository;
 import ua.com.alexcoffee.service.interfaces.OrderService;
 
@@ -68,13 +68,13 @@ public final class OrderServiceImpl extends MainServiceImpl<Order> implements Or
     @Transactional(readOnly = true)
     public Order get(final String number) throws IllegalArgumentException, NullPointerException {
         if (isEmpty(number)) {
-            throw new IllegalArgumentException("No order number!");
+            throw new IllegalArgumentException("No orderEntity number!");
         }
-        final Order order = this.repository.findByNumber(number);
-        if (isNull(order)) {
-            throw new NullPointerException("Can't find order by number " + number + "!");
+        final Order orderEntity = this.repository.findByNumber(number);
+        if (isNull(orderEntity)) {
+            throw new NullPointerException("Can't find orderEntity by number " + number + "!");
         }
-        return order;
+        return orderEntity;
     }
 
     /**

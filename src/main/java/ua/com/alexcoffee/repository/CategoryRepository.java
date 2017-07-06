@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.Category;
+import ua.com.alexcoffee.model.category.Category;
 
 /**
  * Репозиторий для объектов класса {@link Category}, предоставляющий

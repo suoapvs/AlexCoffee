@@ -1,8 +1,10 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.order.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,12 +25,11 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
- * @see Role
  * @see Order
  */
 @Entity
 @Table(name = "users")
-public final class User extends Model implements UserDetails {
+public class User extends Model implements UserDetails {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -40,21 +41,21 @@ public final class User extends Model implements UserDetails {
      * Не может быть null.
      */
     @Column(name = "name", nullable = false)
-    private String name;
+    private String name = "";
 
     /**
      * Имя пользователя для входа в учетную запись на сайте (логин).
      * Значение поля сохраняется в колонке "username".
      */
     @Column(name = "username")
-    private String username;
+    private String username = "";
 
     /**
      * Пароль пользователя для входа в учетную запись на сайте.
      * Значение поля сохраняется в колонке "password".
      */
     @Column(name = "password")
-    private String password;
+    private String password = "";
 
     /**
      * Электронная почта пользователя.
@@ -65,7 +66,7 @@ public final class User extends Model implements UserDetails {
             name = "email",
             nullable = false
     )
-    private String email;
+    private String email = "";
 
     /**
      * Номер телефона пользователя.
@@ -76,71 +77,63 @@ public final class User extends Model implements UserDetails {
             name = "phone",
             nullable = false
     )
-    private String phone;
+    private String phone = "";
 
     /**
      * Ссылка на страничку в соц. сети "ВКонтакте" пользователя.
      * Значение поля сохраняется в колонке "vkontakte".
      */
     @Column(name = "vkontakte")
-    private String vkontakte;
+    private String vkontakte = "";
 
     /**
      * Ссылка на страничку в соц. сети "Facebook" пользователя.
      * Значение поля сохраняется в колонке "facebook".
      */
     @Column(name = "facebook")
-    private String facebook;
+    private String facebook = "";
 
     /**
      * Логин пользователя в месенджере "Skype".
      * Значение поля сохраняется в колонке "skype".
      */
     @Column(name = "skype")
-    private String skype;
+    private String skype = "";
 
     /**
      * Описание заказа.
      * Значение поля сохраняется в колонке "description".
      */
     @Column(name = "description")
-    private String description;
+    private String description = "";
 
     /**
      * Роль пользователя.
-     * Значение поля (id объекта role) сохраняется в колонке "role_id".
-     * Не может быть null.
-     * Между объектами классов {@link User} и {@link Role} связь многие-к-одному,
-     * а именно много разных пользователей могут иметь одинаковую роль (права) на сайте.
-     * Выборка объекта status до первого доступа нему, при первом доступе к текущему объекту.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = "role_id",
-            referencedColumnName = "id"
-    )
-    private Role role;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.CLIENT;
 
     /**
      * Список заказов, которые сделал текущий клиент.
      * К текущему пользователю можно добраться через поле "client"
      * в объекте класса {@link Order}.
      * Выборка продаж при первом доступе к текущему объекту.
-     * Сущности clientOrders автоматически удаляются при удалении текущей сущности.
+     * Сущности clientOrderEntities автоматически удаляются при удалении текущей сущности.
      */
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "client",
             cascade = CascadeType.REMOVE
     )
-    private List<Order> clientOrders = new ArrayList<>();
+    private List<Order> clientOrderEntities = new ArrayList<>();
 
     /**
      * Список заказов, которые обработал текущий менеджер.
      * К текущему пользователю можно добраться через поле "manager"
      * в объекте класса {@link Order}.
      * Выборка продаж при первом доступе к текущему объекту.
-     * Сущности managerOrders автоматически удаляются
+     * Сущности managerOrderEntities автоматически удаляются
      * при удалении текущей сущности.
      */
     @OneToMany(
@@ -148,41 +141,7 @@ public final class User extends Model implements UserDetails {
             mappedBy = "manager",
             cascade = CascadeType.REMOVE
     )
-    private List<Order> managerOrders = new ArrayList<>();
-
-    /**
-     * Конструктр без параметров.
-     */
-    public User() {
-        this("", "", "", null);
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных заказа.
-     *
-     * @param name  Имя пользователя.
-     * @param email Электронная почта пользователя.
-     * @param phone Номер телефона пользователя.
-     * @param role  Роль пользователя.
-     */
-    public User(
-            final String name,
-            final String email,
-            final String phone,
-            final Role role
-    ) {
-        super();
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.role = role;
-        this.username = "";
-        this.password = "";
-        this.vkontakte = "";
-        this.facebook = "";
-        this.skype = "";
-        this.description = "";
-    }
+    private List<Order> managerOrderEntities = new ArrayList<>();
 
     /**
      * Возвращает описание пользователя.
@@ -194,7 +153,7 @@ public final class User extends Model implements UserDetails {
     @Override
     public String toString() {
         return "Name: " + this.name
-                + "\nRole: " + this.role.getDescription()
+                + "\nRole: " + this.role.name()
                 + "\nEmail: " + this.email
                 + "\nPhone: " + this.phone;
     }
@@ -296,49 +255,9 @@ public final class User extends Model implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         final List<GrantedAuthority> roles = new ArrayList<>();
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(
-                "ROLE_" + this.role.getTitle().name()
-        );
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + this.role.name());
         roles.add(authority);
         return roles;
-    }
-
-    /**
-     * Инициализация полей пользователя.
-     *
-     * @param name        Имя пользвателя.
-     * @param username    Логин пользователя.
-     * @param password    Пароль пользователя.
-     * @param email       Электронная почта пользователя.
-     * @param phone       Номер телефона пользователя.
-     * @param vkontakte   Ссылка на страничку в соц. сети "ВКонтакте" пользователя.
-     * @param facebook    Ссылка на страничку в соц. сети "Facebook" пользователя.
-     * @param skype       Логин пользователя в месенджере "Skype".
-     * @param description Описание пользователя.
-     * @param role        Роль пользователя.
-     */
-    public void initialize(
-            final String name,
-            final String username,
-            final String password,
-            final String email,
-            final String phone,
-            final String vkontakte,
-            final String facebook,
-            final String skype,
-            final String description,
-            final Role role
-    ) {
-        setName(name);
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
-        setPhone(phone);
-        setVkontakte(vkontakte);
-        setFacebook(facebook);
-        setSkype(skype);
-        setDescription(description);
-        setRole(role);
     }
 
     /**
@@ -506,9 +425,9 @@ public final class User extends Model implements UserDetails {
     /**
      * Возвращает роль пользователя.
      *
-     * @return Объект класса {@link Role} - роль пользователя.
+     * @return Объект класса {@link UserRole} - роль пользователя.
      */
-    public Role getRole() {
+    public UserRole getRole() {
         return this.role;
     }
 
@@ -517,7 +436,7 @@ public final class User extends Model implements UserDetails {
      *
      * @param role Роль пользователя.
      */
-    public void setRole(final Role role) {
+    public void setRole(final UserRole role) {
         this.role = role;
     }
 
@@ -528,20 +447,20 @@ public final class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только для чтения
      * или пустой список.
      */
-    public Collection<Order> getClientOrders() {
-        return getUnmodifiableList(this.clientOrders);
+    public Collection<Order> getClientOrderEntities() {
+        return getUnmodifiableList(this.clientOrderEntities);
     }
 
     /**
      * Устанавливает список заказов, которые оформил текущий клиент.
      *
-     * @param orders Список заказов, оформленных клиентом.
+     * @param orderEntities Список заказов, оформленных клиентом.
      */
-    public void setClientOrders(final Collection<Order> orders) {
-        if (isNotEmpty(orders)) {
-            this.clientOrders = new ArrayList<>(orders);
+    public void setClientOrderEntities(final Collection<Order> orderEntities) {
+        if (isNotEmpty(orderEntities)) {
+            this.clientOrderEntities = new ArrayList<>(orderEntities);
         } else {
-            this.clientOrders = new ArrayList<>();
+            this.clientOrderEntities = new ArrayList<>();
         }
     }
 
@@ -552,20 +471,20 @@ public final class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только
      * для чтения или пустой список.
      */
-    public Collection<Order> getManagerOrders() {
-        return getUnmodifiableList(this.managerOrders);
+    public Collection<Order> getManagerOrderEntities() {
+        return getUnmodifiableList(this.managerOrderEntities);
     }
 
     /**
      * Устанавливает список заказов, которые обработал текущий менеджер.
      *
-     * @param orders Список заказов, обработаных менеджером.
+     * @param orderEntities Список заказов, обработаных менеджером.
      */
-    public void setManagerOrders(final Collection<Order> orders) {
-        if (isNotEmpty(orders)) {
-            this.managerOrders = new ArrayList<>(orders);
+    public void setManagerOrderEntities(final Collection<Order> orderEntities) {
+        if (isNotEmpty(orderEntities)) {
+            this.managerOrderEntities = new ArrayList<>(orderEntities);
         } else {
-            this.managerOrders = new ArrayList<>();
+            this.managerOrderEntities = new ArrayList<>();
         }
     }
 }

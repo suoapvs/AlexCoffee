@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.photo.Photo;
 import ua.com.alexcoffee.repository.PhotoRepository;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 

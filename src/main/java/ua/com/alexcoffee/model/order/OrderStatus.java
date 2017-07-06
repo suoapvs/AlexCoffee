@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.enums;
+package ua.com.alexcoffee.model.order;
 
 /**
  * Перечесление вожможных статусов выполнения заказа.
@@ -6,7 +6,7 @@ package ua.com.alexcoffee.enums;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public enum StatusEnum {
+public enum OrderStatus {
     /**
      * Новый заказ.
      */

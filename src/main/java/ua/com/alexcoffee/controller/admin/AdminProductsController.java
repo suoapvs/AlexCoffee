@@ -10,15 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Category;
-import ua.com.alexcoffee.model.Photo;
-import ua.com.alexcoffee.model.Product;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.photo.PhotoBuilder;
+import ua.com.alexcoffee.model.product.Product;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 import ua.com.alexcoffee.service.interfaces.ProductService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс-контроллер страниц управления товарами. К даному контроллеру и соответствующим
@@ -92,7 +94,7 @@ public final class AdminProductsController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"", "/", "/all"},
+            value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
     public ModelAndView viewAllProducts(final ModelAndView modelAndView) {
@@ -178,19 +180,29 @@ public final class AdminProductsController {
             @RequestParam(value = "price") final double price,
             final ModelAndView modelAndView
     ) {
-        final Category category = this.categoryService.get(categoryId);
-        final Photo photo = new Photo(
-                photoTitle,
-                (smallPhotoFile != null) ?
-                        smallPhotoFile.getOriginalFilename() : null,
-                (bigPhotoFile != null) ?
-                        bigPhotoFile.getOriginalFilename() : null);
         final Product product = new Product();
-        product.initialize(
-                title, url, parameters,
-                description, category,
-                photo, price
-        );
+        product.setTitle(title);
+        product.setUrl(url);
+        product.setParameters(parameters);
+        product.setDescription(description);
+        product.setPrice(price);
+
+        final Category category = this.categoryService.get(categoryId);
+        product.setCategory(category);
+
+        final PhotoBuilder photoBuilder = Photo.getBuilder();
+        photoBuilder.addTitle(photoTitle);
+        if (isNotNull(smallPhotoFile)) {
+            final String smallUrl = smallPhotoFile.getOriginalFilename();
+            photoBuilder.addSmallUrl(smallUrl);
+        }
+        if (isNotNull(bigPhotoFile)) {
+            final String longUrl = bigPhotoFile.getOriginalFilename();
+            photoBuilder.addLongUrl(longUrl);
+        }
+        final Photo photo = photoBuilder.build();
+        product.setPhoto(photo);
+
         this.productService.add(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
@@ -203,7 +215,7 @@ public final class AdminProductsController {
      * по запросу "/admin/product/save" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится к
-     *                                   этому методу GET.
+     *                                 этому методу GET.
      */
     @RequestMapping(
             value = "/save",
@@ -280,22 +292,26 @@ public final class AdminProductsController {
             final ModelAndView modelAndView
     ) {
         final Product product = this.productService.get(id);
+        product.setTitle(title);
+        product.setUrl(url);
+        product.setParameters(parameters);
+        product.setDescription(description);
+        product.setPrice(price);
+
         final Category category = this.categoryService.get(categoryId);
+        product.setCategory(category);
+
         final Photo photo = this.photoService.get(photoId);
-        final String photoLinkShort = (smallPhotoFile == null) ||
-                (isBlank(smallPhotoFile.getOriginalFilename())) ?
-                photo.getPhotoLinkShort() :
-                smallPhotoFile.getOriginalFilename();
-        final String photoLinkLong = (bigPhotoFile == null) ||
-                (isBlank(bigPhotoFile.getOriginalFilename())) ?
-                photo.getPhotoLinkLong() :
-                bigPhotoFile.getOriginalFilename();
-        photo.initialize(photoTitle, photoLinkShort, photoLinkLong);
-        product.initialize(
-                title, url,
-                parameters, description,
-                category, photo, price
-        );
+        if (isNotNull(smallPhotoFile) && isNotEmpty(smallPhotoFile.getOriginalFilename())) {
+            final String smallUrl = smallPhotoFile.getOriginalFilename();
+            photo.setSmallUrl(smallUrl);
+        }
+        if (isNotNull(bigPhotoFile) && isNotEmpty(bigPhotoFile.getOriginalFilename())) {
+            final String longUrl = bigPhotoFile.getOriginalFilename();
+            photo.setLongUrl(longUrl);
+        }
+        product.setPhoto(photo);
+
         this.productService.update(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
@@ -308,7 +324,7 @@ public final class AdminProductsController {
      * по запросу "/admin/product/update" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится
-     *                                   к этому методу GET.
+     *                                 к этому методу GET.
      */
     @RequestMapping(
             value = "/update",

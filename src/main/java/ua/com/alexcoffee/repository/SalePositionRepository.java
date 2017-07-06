@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.SalePosition;
+import ua.com.alexcoffee.model.position.SalePosition;
 
 /**
  * Репозиторий для объектов класса {@link SalePosition}, предоставляющий

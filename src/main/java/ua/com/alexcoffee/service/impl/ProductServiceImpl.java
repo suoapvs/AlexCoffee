@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.model.Product;
+import ua.com.alexcoffee.model.product.Product;
 import ua.com.alexcoffee.repository.ProductRepository;
 import ua.com.alexcoffee.service.interfaces.ProductService;
 

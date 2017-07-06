@@ -3,8 +3,8 @@ package ua.com.alexcoffee.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
-import ua.com.alexcoffee.model.SalePosition;
-import ua.com.alexcoffee.model.ShoppingCart;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
 
 import java.util.Collection;
 import java.util.List;

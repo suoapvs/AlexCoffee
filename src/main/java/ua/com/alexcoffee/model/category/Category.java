@@ -1,8 +1,12 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.category;
+
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.product.Product;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
@@ -23,7 +27,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
  */
 @Entity
 @Table(name = "categories")
-public final class Category extends Model {
+public class Category extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -34,21 +38,21 @@ public final class Category extends Model {
      * в колонке "title". Не может быть null.
      */
     @Column(name = "title", nullable = false)
-    private String title;
+    private String title = "";
 
     /**
      * URL категории. Значение поля сохраняется
      * в колонке "url". Не может быть null.
      */
     @Column(name = "url", nullable = false)
-    private String url;
+    private String url = "";
 
     /**
      * Описание категории.
      * Значение поля сохраняется в колонке "description".
      */
     @Column(name = "description")
-    private String description;
+    private String description = "";
 
     /**
      * Изображение категории. Значение поля (id объекта photo) сохраняется
@@ -73,35 +77,7 @@ public final class Category extends Model {
             mappedBy = "category",
             cascade = CascadeType.ALL
     )
-    private List<Product> products = new ArrayList<>();
-
-    /**
-     * Конструктр без параметров.
-     */
-    public Category() {
-        this("", "", "", null);
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных категории.
-     *
-     * @param title       Название категории.
-     * @param url         URL категории.
-     * @param description Описание категории.
-     * @param photo       Изображение категории.
-     */
-    public Category(
-            final String title,
-            final String url,
-            final String description,
-            final Photo photo
-    ) {
-        super();
-        this.title = title;
-        this.url = url;
-        this.description = description;
-        this.photo = photo;
-    }
+    private Collection<Product> products = new HashSet<>();
 
     /**
      * Возвращает описание категории.
@@ -150,26 +126,6 @@ public final class Category extends Model {
         result = 31 * result + this.url.hashCode();
         result = 31 * result + this.description.hashCode();
         return result;
-    }
-
-    /**
-     * Инициализация полей категории.
-     *
-     * @param title       Название категории.
-     * @param url         URL категории.
-     * @param description Описание категории.
-     * @param photo       Изображение категории.
-     */
-    public void initialize(
-            final String title,
-            final String url,
-            final String description,
-            final Photo photo
-    ) {
-        setTitle(title);
-        setUrl(url);
-        setDescription(description);
-        setPhoto(photo);
     }
 
     /**
@@ -315,5 +271,9 @@ public final class Category extends Model {
      */
     public void setPhoto(final Photo photo) {
         this.photo = photo;
+    }
+
+    public static CategoryBuilder getBuilder() {
+        return new CategoryBuilder();
     }
 }

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.OrderService;
-import ua.com.alexcoffee.service.interfaces.RoleService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 /**
@@ -43,26 +43,16 @@ public final class ManagerUsersController {
     private final UserService userService;
 
     /**
-     * Объект сервиса для работы с ролями пользователей.
-     */
-    private final RoleService roleService;
-
-    /**
      * Конструктор для инициализации основных переменных контроллера страниц для менеджеров.
      * Помечен аннотацией @Autowired, которая позволит Spring автоматически инициализировать
      * объекты.
      *
      * @param userService Объект сервиса для работы с пользователями.
-     * @param roleService Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
-    public ManagerUsersController(
-            final UserService userService,
-            final RoleService roleService
-    ) {
+    public ManagerUsersController(final UserService userService) {
         super();
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     /**
@@ -81,8 +71,8 @@ public final class ManagerUsersController {
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("users", this.userService.getPersonnel());
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("user/manager/all");
         return modelAndView;
@@ -105,8 +95,8 @@ public final class ManagerUsersController {
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("user", this.userService.get(id));
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("user/manager/one");
         return modelAndView;

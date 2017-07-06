@@ -10,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Category;
-import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.category.CategoryBuilder;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.photo.PhotoBuilder;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс-контроллер страниц управления категориями. К даному контроллеру
@@ -82,7 +85,7 @@ public final class AdminCategoriesController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"", "/", "/all"},
+            value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
     public ModelAndView viewAllCategories(final ModelAndView modelAndView) {
@@ -165,14 +168,18 @@ public final class AdminCategoriesController {
             @RequestParam(value = "photo") final MultipartFile photoFile,
             final ModelAndView modelAndView
     ) {
-        final Photo photo = new Photo(
-                photoTitle,
-                (photoFile != null)
-                        ? photoFile.getOriginalFilename()
-                        : null,
-                null
-        );
-        final Category category = new Category(title, url, description, photo);
+        final CategoryBuilder categoryBuilder = Category.getBuilder();
+        categoryBuilder.addTitle(title).addUrl(url).addDescription(description);
+
+        final PhotoBuilder photoBuilder = Photo.getBuilder();
+        photoBuilder.addTitle(photoTitle);
+        if (isNotNull(photoFile)) {
+            photoBuilder.addSmallUrl(photoFile.getOriginalFilename());
+        }
+        final Photo photo = photoBuilder.build();
+        categoryBuilder.addPhoto(photo);
+
+        final Category category = categoryBuilder.build();
         this.categoryService.add(category);
         this.photoService.saveFile(photoFile);
         modelAndView.setViewName("redirect:/admin/category/all");
@@ -250,13 +257,15 @@ public final class AdminCategoriesController {
     ) {
         final Photo photo = this.photoService.get(photoId);
         photo.setTitle(photoTitle);
-        final String photoLinkShort = (photoFile == null)
-                || (isBlank(photoFile.getOriginalFilename())) ?
-                photo.getPhotoLinkShort() :
-                photoFile.getOriginalFilename();
-        photo.setPhotoLinkShort(photoLinkShort);
+        if (isNotNull(photoFile) && isNotEmpty(photoFile.getOriginalFilename())) {
+            final String smallIUrl = photoFile.getOriginalFilename();
+            photo.setSmallUrl(smallIUrl);
+        }
         final Category category = this.categoryService.get(id);
-        category.initialize(title, url, description, photo);
+        category.setTitle(title);
+        category.setUrl(url);
+        category.setDescription(description);
+        category.setPhoto(photo);
         this.categoryService.update(category);
         this.photoService.saveFile(photoFile);
         modelAndView.setViewName("redirect:/admin/view/" + id);

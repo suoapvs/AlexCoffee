@@ -1,4 +1,8 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.order;
+
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,13 +22,12 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
  *
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
- * @see Status
  * @see User
  * @see SalePosition
  */
 @Entity
 @Table(name = "orders")
-public final class Order extends Model {
+public class Order extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -38,7 +41,7 @@ public final class Order extends Model {
             name = "number",
             nullable = false
     )
-    private String number;
+    private String number = "";
 
     /**
      * Дата модификации заказа. Значение поля
@@ -48,41 +51,35 @@ public final class Order extends Model {
             name = "date",
             nullable = false
     )
-    private Date date;
+    private Date date = new Date();
 
     /**
      * Адрес доставки заказа. Значение поля
      * сохраняется в колонке "shipping_address".
      */
     @Column(name = "shipping_address")
-    private String shippingAddress;
+    private String shippingAddress = "";
 
     /**
      * Детали доставки заказа. Значение поля
      * сохраняется в колонке "shipping_details".
      */
     @Column(name = "shipping_details")
-    private String shippingDetails;
+    private String shippingDetails = "";
 
     /**
      * Описание заказа. Значение поля с
      * охраняется в колонке "description".
      */
     @Column(name = "description")
-    private String description;
+    private String description = "";
 
     /**
-     * Статус заказа. Значение поля (id объекта status) сохраняется в колонке "status_id".
-     * Между объектами классов {@link Order} и {@link Status} связь многие-к-одному, а
-     * именно много разных заказов могут иметь одинаковый статус выполнения. Выборка объекта
-     * status до первого доступа нему, при первом доступе к текущему объекту.
+     * Статус заказа.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = "status_id",
-            referencedColumnName = "id"
-    )
-    private Status status;
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.NEW;
 
     /**
      * Клиент, оформивший заказ.
@@ -131,37 +128,6 @@ public final class Order extends Model {
     private List<SalePosition> salePositions = new ArrayList<>();
 
     /**
-     * Конструктр без параметров. Автоматически инициализируются
-     * поля номер и дата модификации заказа.
-     */
-    public Order() {
-        super();
-        this.shippingAddress = "";
-        this.shippingDetails = "";
-        this.description = "";
-        this.number = createRandomString();
-        this.date = new Date();
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных заказа.
-     *
-     * @param status        Статус заказа.
-     * @param client        Клиент, оформивший заказ.
-     * @param salePositions Список торговых позиция.
-     */
-    public Order(
-            final Status status,
-            final User client,
-            final List<SalePosition> salePositions
-    ) {
-        this();
-        this.status = status;
-        this.client = client;
-        addSalePositions(salePositions);
-    }
-
-    /**
      * Возвращает описание заказа. Переопределенный метод родительского класса {@link Object}.
      *
      * @return Значение типа {@link String} - строка описание заказа (номер, статус,
@@ -172,7 +138,7 @@ public final class Order extends Model {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append(this.number).append(", ")
-                .append(this.status.getDescription())
+                .append(this.status.name())
                 .append(",\n").append(this.date);
         if (this.client != null) {
             sb.append("\n\nClient: ")
@@ -185,7 +151,7 @@ public final class Order extends Model {
         }
         if (this.manager != null) {
             sb.append("\n")
-                    .append(this.manager.getRole().getDescription())
+                    .append(this.manager.getRole().name())
                     .append(" ")
                     .append(this.manager.getName())
                     .append("\n");
@@ -239,12 +205,12 @@ public final class Order extends Model {
     public boolean equals(Object object) {
         boolean result = super.equals(object);
         if (result) {
-            final Order order = (Order) object;
-            result = this.number.equals(order.number) &&
-                    this.date.equals(order.date) &&
-                    this.shippingAddress.equals(order.shippingAddress) &&
-                    this.shippingDetails.equals(order.shippingDetails) &&
-                    this.description.equals(order.description);
+            final Order orderEntity = (Order) object;
+            result = this.number.equals(orderEntity.number) &&
+                    this.date.equals(orderEntity.date) &&
+                    this.shippingAddress.equals(orderEntity.shippingAddress) &&
+                    this.shippingDetails.equals(orderEntity.shippingDetails) &&
+                    this.description.equals(orderEntity.description);
         }
         return result;
     }
@@ -263,37 +229,6 @@ public final class Order extends Model {
         result = 31 * result + this.shippingDetails.hashCode();
         result = 31 * result + this.description.hashCode();
         return result;
-    }
-
-    /**
-     * Инициализация полей заказа.
-     *
-     * @param number          Номер заказа.
-     * @param date            Дата модификации заказа.
-     * @param shippingAddress Адрес доставки заказа.
-     * @param shippingDetails Детали доставки заказа.
-     * @param description     Описание заказа.
-     * @param status          Статус заказа.
-     * @param client          Клиент, оформивший заказ.
-     * @param manager         Менеджер, обработавший заказ.
-     */
-    public void initialize(
-            final String number,
-            final Date date,
-            final String shippingAddress,
-            final String shippingDetails,
-            final String description,
-            final Status status, User client,
-            final User manager
-    ) {
-        setNumber(number);
-        setDate(date);
-        setShippingAddress(shippingAddress);
-        setShippingDetails(shippingDetails);
-        setDescription(description);
-        setStatus(status);
-        setClient(client);
-        setManager(manager);
     }
 
     /**
@@ -418,9 +353,9 @@ public final class Order extends Model {
     /**
      * Возвращает статус работы заказа.
      *
-     * @return Объект класса {@link Status} - статус заказа.
+     * @return Объект класса {@link OrderStatus} - статус заказа.
      */
-    public Status getStatus() {
+    public OrderStatus getStatus() {
         return this.status;
     }
 
@@ -429,7 +364,7 @@ public final class Order extends Model {
      *
      * @param status Статус заказа.
      */
-    public void setStatus(final Status status) {
+    public void setStatus(final OrderStatus status) {
         this.status = status;
     }
 

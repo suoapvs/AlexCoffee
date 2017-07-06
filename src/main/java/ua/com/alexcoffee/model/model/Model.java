@@ -1,4 +1,11 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.model;
+
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
+import ua.com.alexcoffee.model.user.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
 import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
@@ -21,9 +29,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
  * @see Order
  * @see Photo
  * @see Product
- * @see Role
  * @see SalePosition
- * @see Status
  * @see User
  */
 @MappedSuperclass
@@ -94,7 +100,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа int - уникальный номер объекта.
      */
     @Override
-    public abstract int hashCode() ;
+    public abstract int hashCode();
 
     /**
      * Возвращает рандомную строку из набор символов и длинны по-умолчанию.
@@ -102,7 +108,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа {@link String} - рандомная строка из набора
      * символов CODE_PATTERN длиной {@value CODE_LENGTH}.
      */
-    String createRandomString() {
+    protected String createRandomString() {
         return createRandomString(CODE_PATTERN, CODE_LENGTH);
     }
 
@@ -114,7 +120,7 @@ public abstract class Model implements Serializable {
      * @return Значение типа {@link String} - рандомная строка из набора символов
      * pattern длиной length.
      */
-    String createRandomString(
+    protected String createRandomString(
             final char[] pattern,
             final int length
     ) {
@@ -133,29 +139,11 @@ public abstract class Model implements Serializable {
      * @param date Значение даты типа Date для обработки.
      * @return Значение типа {@link String} - дата в виде строки.
      */
-    String dateToString(final Date date) {
+    protected String dateToString(final Date date) {
         return dateToStringWithFormat(date,
                 new SimpleDateFormat(DATE_PATTERN),
                 TimeZone.getTimeZone(TIME_ZONE)
         );
-    }
-
-    /**
-     * Конвертирует дату типа Date в строку используя для работы входящими
-     * параметрами формат даты и часовой пояс.
-     *
-     * @param date       Значение даты типа Date для обработки.
-     * @param dateFormat Формат даты для обработки входного параметра date.
-     * @param timeZone   Часовой пояс для обработки входного параметра date.
-     * @return Значение типа {@link String} - дата в виде строки.
-     */
-    private static String dateToStringWithFormat(
-            final Date date,
-            final DateFormat dateFormat,
-            final TimeZone timeZone
-    ) {
-        dateFormat.setTimeZone(timeZone);
-        return dateFormat.format(date);
     }
 
     /**
@@ -183,17 +171,35 @@ public abstract class Model implements Serializable {
      * Если входной параметер - лист равен null или пустой,
      * тогда метод возвращает пустой список.
      *
-     * @param list Входной объект коллекции для обработки.
-     * @param <T>  Возможный тип объектов в списке.
+     * @param collection Входной объект коллекции для обработки.
+     * @param <T>        Возможный тип объектов в списке.
      * @return Значение типа {@link List} - список только для чтения или пустой список.
      */
-    public <T extends Model> List<T> getUnmodifiableList(final List<T> list) {
+    public <T extends Model> List<T> getUnmodifiableList(final Collection<T> collection) {
         final List<T> result;
-        if ((list != null) && !list.isEmpty()) {
-            result = Collections.unmodifiableList(list);
+        if (isNotEmpty(collection)) {
+            result = Collections.unmodifiableList(new ArrayList<>(collection));
         } else {
             result = new ArrayList<>();
         }
         return result;
+    }
+
+    /**
+     * Конвертирует дату типа Date в строку используя для работы входящими
+     * параметрами формат даты и часовой пояс.
+     *
+     * @param date       Значение даты типа Date для обработки.
+     * @param dateFormat Формат даты для обработки входного параметра date.
+     * @param timeZone   Часовой пояс для обработки входного параметра date.
+     * @return Значение типа {@link String} - дата в виде строки.
+     */
+    private static String dateToStringWithFormat(
+            final Date date,
+            final DateFormat dateFormat,
+            final TimeZone timeZone
+    ) {
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(date);
     }
 }

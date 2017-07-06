@@ -1,4 +1,4 @@
-package ua.com.alexcoffee.enums;
+package ua.com.alexcoffee.model.user;
 
 /**
  * Перечесление вожможных ролей пользователей.
@@ -6,7 +6,7 @@ package ua.com.alexcoffee.enums;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  */
-public enum RoleEnum {
+public enum UserRole {
     /**
      * Роль для клиента сайта.
      */

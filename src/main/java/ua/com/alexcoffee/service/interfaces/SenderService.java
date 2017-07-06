@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
@@ -19,9 +19,9 @@ public interface SenderService {
     /**
      * Отсылает информацию о заказе менеджерам на электронную почту.
      *
-     * @param order Заказ для отправке менеджерам.
+     * @param orderEntity Заказ для отправке менеджерам.
      */
-    void send(Order order);
+    void send(Order orderEntity);
 
     /**
      * Возвращает настройки протокола TLS (Transport Layer Security) для отправки сообщения.

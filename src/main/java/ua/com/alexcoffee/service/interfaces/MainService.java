@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Model;
+import ua.com.alexcoffee.model.model.Model;
 import ua.com.alexcoffee.service.impl.MainServiceImpl;
 
 import java.util.Collection;

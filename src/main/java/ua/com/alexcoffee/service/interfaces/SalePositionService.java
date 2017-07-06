@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.SalePosition;
+import ua.com.alexcoffee.model.position.SalePosition;
 
 /**
  * Интерфейс сервисного слоя, описывает набор методов для работы

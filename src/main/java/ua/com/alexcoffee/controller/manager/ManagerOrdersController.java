@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.model.Status;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.order.OrderStatus;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.OrderService;
-import ua.com.alexcoffee.service.interfaces.RoleService;
-import ua.com.alexcoffee.service.interfaces.StatusService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 import java.util.Date;
+
+import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
 
 /**
  * Класс-контроллер страниц, предназначеных для управления заказами менеджерами.
@@ -53,37 +54,21 @@ public final class ManagerOrdersController {
     private final OrderService orderService;
 
     /**
-     * Объект сервиса для работы с статусами виполнения заказов.
-     */
-    private final StatusService statusService;
-
-    /**
-     * Объект сервиса для работы с ролями пользователей.
-     */
-    private final RoleService roleService;
-
-    /**
      * Конструктор для инициализации основных переменных контроллера страниц для менеджеров.
      * Помечен аннотацией @Autowired, которая позволит Spring автоматически инициализировать
      * объекты.
      *
      * @param userService   Объект сервиса для работы с пользователями.
      * @param orderService  Объект сервиса для работы с заказами клиентов.
-     * @param statusService Объект сервиса для работы с статусами виполнения заказов.
-     * @param roleService   Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
     public ManagerOrdersController(
             final UserService userService,
-            final OrderService orderService,
-            final StatusService statusService,
-            final RoleService roleService
+            final OrderService orderService
     ) {
         super();
         this.userService = userService;
         this.orderService = orderService;
-        this.statusService = statusService;
-        this.roleService = roleService;
     }
 
     /**
@@ -102,7 +87,7 @@ public final class ManagerOrdersController {
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("orders", this.orderService.getAll());
-        modelAndView.addObject("status_new", this.statusService.getDefault());
+        modelAndView.addObject("status_new", OrderStatus.NEW);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("order/manager/all");
         return modelAndView;
@@ -128,10 +113,10 @@ public final class ManagerOrdersController {
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
-        modelAndView.addObject("status_new", this.statusService.getDefault());
+        modelAndView.addObject("status_new", OrderStatus.NEW);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
         modelAndView.setViewName("order/manager/one");
         return modelAndView;
     }
@@ -160,7 +145,7 @@ public final class ManagerOrdersController {
             modelAndView.addObject("order", order);
             modelAndView.addObject("sale_positions", order.getSalePositions());
             modelAndView.addObject("order_price", order.getPrice());
-            modelAndView.addObject("statuses", this.statusService.getAll());
+            modelAndView.addObject("statuses", OrderStatus.values());
             modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
             modelAndView.setViewName("order/manager/edit");
         } else {
@@ -176,7 +161,7 @@ public final class ManagerOrdersController {
      * @param id           Код заказа для обновления.
      * @param managerId    Код менеджера или администратора, который обработал заказ в последний раз.
      * @param number       Номер заказа.
-     * @param statusId     Код статуса выполнения заказа.
+     * @param statusName     Код статуса выполнения заказа.
      * @param name         Имя клиента, оформивший заказ.
      * @param email        Электронная почта клиента.
      * @param phone        Номер телефона клиента.
@@ -194,7 +179,7 @@ public final class ManagerOrdersController {
             @RequestParam final long id,
             @RequestParam(value = "auth_user") final long managerId,
             @RequestParam(value = "number") final String number,
-            @RequestParam(value = "status") final long statusId,
+            @RequestParam(value = "status") final String statusName,
             @RequestParam(value = "name") final String name,
             @RequestParam(value = "email") final String email,
             @RequestParam(value = "phone") final String phone,
@@ -204,23 +189,24 @@ public final class ManagerOrdersController {
             final ModelAndView modelAndView
     ) {
         final Order order = this.orderService.get(id);
-        if ((order.getManager() == null) ||
-                (order.getManager() == this.userService.getAuthenticatedUser())) {
+        if (isNotNull(order.getManager()) || (order.getManager() == this.userService.getAuthenticatedUser())) {
             final User client = order.getClient();
             client.setName(name);
             client.setEmail(email);
             client.setPhone(phone);
-            final Status status = this.statusService.get(statusId);
+            final OrderStatus status = OrderStatus.valueOf(statusName);
             User manager = null;
-            if (!status.equals(this.statusService.getDefault())) {
+            if (!status.equals(OrderStatus.NEW)) {
                 manager = this.userService.get(managerId);
             }
-            order.initialize(
-                    number, new Date(),
-                    address, details,
-                    description, status,
-                    client, manager
-            );
+            order.setNumber(number);
+            order.setDate(new Date());
+            order.setShippingAddress(address);
+            order.setShippingDetails(details);
+            order.setDescription(description);
+            order.setStatus(status);
+            order.setClient(client);
+            order.setManager(manager);
             this.orderService.update(order);
         }
         modelAndView.setViewName("redirect:/manager/order/view/" + id);

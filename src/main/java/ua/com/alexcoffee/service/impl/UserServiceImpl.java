@@ -10,9 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
-import ua.com.alexcoffee.repository.RoleRepository;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.repository.UserRepository;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
@@ -67,30 +66,18 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     private final UserRepository repository;
 
     /**
-     * Реализация репозитория {@link RoleRepository} для работы
-     * ролями пользователей с базой данных.
-     */
-    private final RoleRepository roleRepository;
-
-    /**
      * Конструктор для инициализации основных переменных сервиса.
      * Помечаный аннотацией @Autowired, которая позволит Spring
      * автоматически инициализировать объект.
      *
      * @param repository     Реализация интерфейса {@link UserRepository}
      *                       для работы пользователей с базой данных.
-     * @param roleRepository Реализация репозитория {@link RoleRepository}
-     *                       для работы ролями пользователей с базой данных.
      */
     @Autowired
     @SuppressWarnings("SpringJavaAutowiringInspection")
-    public UserServiceImpl(
-            final UserRepository repository,
-            final RoleRepository roleRepository
-    ) {
+    public UserServiceImpl(final UserRepository repository) {
         super(repository);
         this.repository = repository;
-        this.roleRepository = roleRepository;
     }
 
     /**
@@ -153,7 +140,6 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional(readOnly = true)
     public User getMainAdministrator() throws NullPointerException {
-        final Role adminRole = this.roleRepository.findOne(ADMIN_ROLE_ID);
         final User user = new ArrayList<>(getAdministrators()).get(0);
         if (isNull(user)) {
             throw new NullPointerException("Can't find administrator!");
@@ -170,7 +156,7 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional(readOnly = true)
     public Collection<User> getAdministrators() {
-        return getByRoleId(ADMIN_ROLE_ID);
+        return this.repository.findAllByRole(UserRole.ADMIN);
     }
 
     /**
@@ -182,7 +168,7 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional(readOnly = true)
     public Collection<User> getManagers() {
-        return getByRoleId(MANAGER_ROLE_ID);
+        return this.repository.findAllByRole(UserRole.MANAGER);
     }
 
     /**
@@ -194,7 +180,7 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
     @Override
     @Transactional(readOnly = true)
     public Collection<User> getClients() {
-        return getByRoleId(CLIENT_ROLE_ID);
+        return this.repository.findAllByRole(UserRole.CLIENT);
     }
 
     /**
@@ -255,7 +241,7 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
      */
     @Override
     @Transactional
-    public void removeByRole(final Role role) {
+    public void removeByRole(final UserRole role) {
         if (isNotNull(role)) {
             this.repository.deleteAllByRole(role);
         }
@@ -293,10 +279,5 @@ public final class UserServiceImpl extends MainServiceImpl<User> implements User
         } catch (IllegalArgumentException | NullPointerException ex) {
             throw new UsernameNotFoundException(ex.getMessage(), ex);
         }
-    }
-
-    private Collection<User> getByRoleId(final long id) {
-        final Role role = this.roleRepository.findOne(id);
-        return this.repository.findAllByRole(role);
     }
 }

@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.service.interfaces.RoleService;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 
 /**
  * Класс настройки безопасности Spring Security.
@@ -22,9 +22,7 @@ import ua.com.alexcoffee.service.interfaces.RoleService;
  * @author Yurii Salimov (yuriy.alex.salimov@gmail.com)
  * @version 1.2
  * @see UserDetailsService
- * @see RoleService
- * @see ua.com.alexcoffee.model.User
- * @see ua.com.alexcoffee.model.Role
+ * @see User
  * @see SecurityInitializer
  */
 @Configuration
@@ -71,15 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     /**
-     * Объект сервиса для работы с ролями пользователей.
-     * Поле помечано аннотацией @Autowired, которая
-     * позволит Spring автоматически инициализировать
-     * объект.
-     */
-    @Autowired
-    private RoleService roleService;
-
-    /**
      * Настройка правил доступа пользователей к страницам сайта. Указываем адреса ресурсов с
      * ограниченным доступом, ограничение задано по ролям. К страницам, URL которых начинается
      * на "{@value ADMIN_REQUEST_URl}", имеют доступ только пользователи с ролью - администратор.
@@ -92,19 +81,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity)
             throws Exception {
-        final Role admin = getAdminRole();
-        final Role manager = getManagerRole();
         httpSecurity
                 .logout()
                 .invalidateHttpSession(false)
                 .and()
                 .authorizeRequests()
                 .antMatchers(ADMIN_REQUEST_URl)
-                .hasRole(admin.getTitle().name())
+                .hasRole(UserRole.ADMIN.name())
                 .antMatchers(MANAGER_REQUEST_URl)
                 .hasAnyRole(
-                        admin.getTitle().name(),
-                        manager.getTitle().name()
+                        UserRole.ADMIN.name(),
+                        UserRole.MANAGER.name()
                 )
                 .anyRequest().permitAll()
                 .and()
@@ -129,13 +116,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(this.userDetailsService);
-    }
-
-    private Role getAdminRole() {
-        return this.roleService.getAdministrator();
-    }
-
-    private Role getManagerRole() {
-        return this.roleService.getManager();
     }
 }

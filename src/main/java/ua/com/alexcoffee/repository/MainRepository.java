@@ -1,7 +1,7 @@
 package ua.com.alexcoffee.repository;
 
 import org.springframework.data.repository.NoRepositoryBean;
-import ua.com.alexcoffee.model.Model;
+import ua.com.alexcoffee.model.model.Model;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

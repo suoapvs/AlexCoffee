@@ -1,7 +1,7 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.SalePosition;
-import ua.com.alexcoffee.model.ShoppingCart;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.photo.Photo;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

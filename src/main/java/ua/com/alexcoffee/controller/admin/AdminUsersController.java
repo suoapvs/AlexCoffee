@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
-import ua.com.alexcoffee.service.interfaces.RoleService;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 /**
@@ -40,25 +39,15 @@ public final class AdminUsersController {
     private final UserService userService;
 
     /**
-     * Объект сервиса для работы с ролями пользователей.
-     */
-    private final RoleService roleService;
-
-    /**
      * Конструктор для инициализации основных переменных контроллера пользователями.
      * Помечен аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объекты.
      *
      * @param userService Объект сервиса для работы с пользователями.
-     * @param roleService Объект сервиса для работы с ролями пользователей.
      */
     @Autowired
-    public AdminUsersController(
-            final UserService userService,
-            final RoleService roleService
-    ) {
+    public AdminUsersController(final UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     /**
@@ -70,13 +59,13 @@ public final class AdminUsersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"", "/", "/all"},
+            value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
     public ModelAndView viewAllPersonnel(final ModelAndView modelAndView) {
         modelAndView.addObject("users", this.userService.getPersonnel());
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("user/admin/all");
         return modelAndView;
@@ -99,8 +88,8 @@ public final class AdminUsersController {
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("user", this.userService.get(id));
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/user/admin/one");
         return modelAndView;
@@ -121,7 +110,7 @@ public final class AdminUsersController {
     public ModelAndView getAddUserPage(
             final ModelAndView modelAndView
     ) {
-        modelAndView.addObject("roles", this.roleService.getPersonnel());
+        modelAndView.addObject("roles", UserRole.values());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/user/admin/add");
         return modelAndView;
@@ -133,7 +122,7 @@ public final class AdminUsersController {
      * URL запроса "/admin/user/save", метод POST.
      *
      * @param name         Имя нового пользователя.
-     * @param roleId       Код роли пользователя.
+     * @param roleName     Код роли пользователя.
      * @param username     Логин пользователя для входа в аккаунт на сайте.
      * @param password     Пароль пользователя для входа в аккаунт на сайте.
      * @param email        Электронная почта пользователя.
@@ -151,7 +140,7 @@ public final class AdminUsersController {
     )
     public ModelAndView saveUser(
             @RequestParam(value = "name") final String name,
-            @RequestParam(value = "role") final long roleId,
+            @RequestParam(value = "role") final String roleName,
             @RequestParam(value = "username") final String username,
             @RequestParam(value = "password") final String password,
             @RequestParam(value = "email") final String email,
@@ -163,13 +152,17 @@ public final class AdminUsersController {
             final ModelAndView modelAndView
     ) {
         final User user = new User();
-        final Role role = this.roleService.get(roleId);
-        user.initialize(
-                name, username, password,
-                email, phone,
-                vkontakte, facebook, skype,
-                description, role
-        );
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setVkontakte(vkontakte);
+        user.setFacebook(facebook);
+        user.setSkype(skype);
+        user.setDescription(description);
+        final UserRole role = UserRole.valueOf(roleName);
+        user.setRole(role);
         this.userService.add(user);
         modelAndView.setViewName("redirect:/admin/user/all");
         return modelAndView;
@@ -180,7 +173,7 @@ public final class AdminUsersController {
      * обратится по запросу "/admin/user/save" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится к
-     *                                   этому методу GET.
+     *                                 этому методу GET.
      */
     @RequestMapping(
             value = "/save",
@@ -211,7 +204,7 @@ public final class AdminUsersController {
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("user", this.userService.get(id));
-        modelAndView.addObject("roles", this.roleService.getPersonnel());
+        modelAndView.addObject("roles", UserRole.values());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/user/admin/edit");
         return modelAndView;
@@ -224,7 +217,7 @@ public final class AdminUsersController {
      *
      * @param id           Код пользователя для обновления.
      * @param name         Имя пользователя.
-     * @param roleId       Код роли пользователя.
+     * @param roleName     Код роли пользователя.
      * @param username     Логин пользователя для входа в аккаунт на сайте.
      * @param password     Пароль пользователя для входа в аккаунт на сайте.
      * @param email        Электронная почта пользователя.
@@ -243,7 +236,7 @@ public final class AdminUsersController {
     public ModelAndView updateUser(
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "name") final String name,
-            @RequestParam(value = "role") final long roleId,
+            @RequestParam(value = "role") final String roleName,
             @RequestParam(value = "username") final String username,
             @RequestParam(value = "password") final String password,
             @RequestParam(value = "email") final String email,
@@ -255,13 +248,17 @@ public final class AdminUsersController {
             final ModelAndView modelAndView
     ) {
         final User user = this.userService.get(id);
-        final Role role = this.roleService.get(roleId);
-        user.initialize(
-                name, username, password,
-                email, phone,
-                vkontakte, facebook, skype,
-                description, role
-        );
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setVkontakte(vkontakte);
+        user.setFacebook(facebook);
+        user.setSkype(skype);
+        user.setDescription(description);
+        final UserRole role = UserRole.valueOf(roleName);
+        user.setRole(role);
         this.userService.update(user);
         modelAndView.setViewName("redirect:/admin/user/view/" + id);
         return modelAndView;
@@ -272,7 +269,7 @@ public final class AdminUsersController {
      * по запросу "/admin/user/update" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится к
-     *                                   этому методу GET.
+     *                                 этому методу GET.
      */
     @RequestMapping(
             value = "/update",

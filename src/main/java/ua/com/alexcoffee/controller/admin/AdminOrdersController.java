@@ -9,12 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.Order;
-import ua.com.alexcoffee.model.Status;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.order.OrderStatus;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.OrderService;
-import ua.com.alexcoffee.service.interfaces.RoleService;
-import ua.com.alexcoffee.service.interfaces.StatusService;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
 import java.util.Date;
@@ -45,42 +44,25 @@ public final class AdminOrdersController {
     private final OrderService orderService;
 
     /**
-     * Объект сервиса для работы с статусами выполнения заказов.
-     */
-    private final StatusService statusService;
-
-    /**
      * Объект сервиса для работы с категориями товаров.
      */
     private final UserService userService;
-
-    /**
-     * Объект сервиса для работы с категориями товаров.
-     */
-    private final RoleService roleService;
 
     /**
      * Конструктор для инициализации основных переменных контроллера заказов.
      * Помечен аннотацией @Autowired, которая позволит Spring автоматически
      * инициализировать объекты.
      *
-     * @param orderService  Объект сервиса для работы с заказами клиентов.
-     * @param statusService Объект сервиса для работы с статусами выполнения
-     *                      заказов.
-     * @param userService   Объект сервиса для работы с категориями товаров.
-     * @param roleService   Объект сервиса для работы с категориями товаров.
+     * @param orderService Объект сервиса для работы с заказами клиентов.
+     * @param userService  Объект сервиса для работы с категориями товаров.
      */
     @Autowired
     public AdminOrdersController(
             final OrderService orderService,
-            final StatusService statusService,
-            final UserService userService,
-            final RoleService roleService
+            final UserService userService
     ) {
         this.orderService = orderService;
-        this.statusService = statusService;
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     /**
@@ -91,13 +73,13 @@ public final class AdminOrdersController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"", "/", "/all"},
+            value = { "", "/", "/all" },
             method = RequestMethod.GET)
     public ModelAndView viewAllOrders(
             final ModelAndView modelAndView
     ) {
         modelAndView.addObject("orders", this.orderService.getAll());
-        modelAndView.addObject("status_new", this.statusService.getDefault());
+        modelAndView.addObject("status_new", OrderStatus.NEW);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("order/admin/all");
         return modelAndView;
@@ -123,9 +105,9 @@ public final class AdminOrdersController {
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
-        modelAndView.addObject("status_new", this.statusService.getDefault());
-        modelAndView.addObject("admin_role", this.roleService.getAdministrator());
-        modelAndView.addObject("manager_role", this.roleService.getManager());
+        modelAndView.addObject("status_new", OrderStatus.NEW);
+        modelAndView.addObject("admin_role", UserRole.ADMIN);
+        modelAndView.addObject("manager_role", UserRole.MANAGER);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("order/admin/one");
         return modelAndView;
@@ -152,7 +134,7 @@ public final class AdminOrdersController {
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
-        modelAndView.addObject("statuses", this.statusService.getAll());
+        modelAndView.addObject("statuses", OrderStatus.values());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("order/admin/edit");
         return modelAndView;
@@ -165,7 +147,7 @@ public final class AdminOrdersController {
      * @param id           Код заказа для обновления.
      * @param managerId    Код менеджера или администратора, который обработал заказ в последний раз.
      * @param number       Номер заказа.
-     * @param statusId     Код статуса выполнения заказа.
+     * @param statusName   Код статуса выполнения заказа.
      * @param name         Имя клиента, оформивший заказ.
      * @param email        Электронная почта клиента.
      * @param phone        Номер телефона клиента.
@@ -183,7 +165,7 @@ public final class AdminOrdersController {
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "auth_user") final long managerId,
             @RequestParam(value = "number") final String number,
-            @RequestParam(value = "status") final long statusId,
+            @RequestParam(value = "status") final String statusName,
             @RequestParam(value = "user_name") final String name,
             @RequestParam(value = "user_email") final String email,
             @RequestParam(value = "user_phone") final String phone,
@@ -193,18 +175,24 @@ public final class AdminOrdersController {
             final ModelAndView modelAndView
     ) {
         final Order order = this.orderService.get(id);
+        order.setNumber(number);
+        order.setShippingAddress(address);
+        order.setShippingDetails(details);
+        order.setDescription(description);
+        order.setDate(new Date());
+
         final User client = order.getClient();
         client.setName(name);
         client.setEmail(email);
         client.setPhone(phone);
-        final Status status = this.statusService.get(statusId);
+        order.setClient(client);
+
+        final OrderStatus status = OrderStatus.valueOf(statusName);
+        order.setStatus(status);
+
         final User manager = this.userService.get(managerId);
-        order.initialize(
-                number, new Date(),
-                address, details,
-                description, status,
-                client, manager
-        );
+        order.setManager(manager);
+
         this.orderService.update(order);
         modelAndView.setViewName("redirect:/admin/order/view/" + id);
         return modelAndView;
@@ -215,7 +203,7 @@ public final class AdminOrdersController {
      * по запросу "/admin/order/update" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится
-     *                                   к этому методу GET.
+     *                                 к этому методу GET.
      */
     @RequestMapping(
             value = "/update_order",

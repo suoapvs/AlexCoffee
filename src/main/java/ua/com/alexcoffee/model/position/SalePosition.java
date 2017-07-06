@@ -1,4 +1,9 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.position;
+
+import ua.com.alexcoffee.model.basket.ShoppingCart;
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.product.Product;
 
 import javax.persistence.*;
 
@@ -21,7 +26,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNull;
  */
 @Entity
 @Table(name = "sales")
-public final class SalePosition extends Model {
+public class SalePosition extends Model {
 
     /**
      * Товар текущей торговой позици.
@@ -49,7 +54,7 @@ public final class SalePosition extends Model {
             name = "number",
             nullable = false
     )
-    private int number;
+    private int number = 0;
 
     /**
      * Заказ, к которому относится текущая торговая позиция
@@ -70,28 +75,6 @@ public final class SalePosition extends Model {
             nullable = false
     )
     private Order order;
-
-    /**
-     * Конструктр без параметров.
-     */
-    public SalePosition() {
-        this(null, 0);
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных категории.
-     *
-     * @param product Товар текущей торговой позици.
-     * @param number  Количество товаров в текущей торговой позиции.
-     */
-    public SalePosition(
-            final Product product,
-            final int number
-    ) {
-        super();
-        setNumber(number);
-        this.product = product;
-    }
 
     /**
      * Возвращает описание торговой позиции.

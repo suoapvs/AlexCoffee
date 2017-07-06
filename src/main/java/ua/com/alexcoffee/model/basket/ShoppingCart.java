@@ -1,9 +1,10 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.basket;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
+import ua.com.alexcoffee.model.position.SalePosition;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -41,23 +42,7 @@ public class ShoppingCart implements Serializable {
      * Список торговых позиций,
      * которые сделал клиент, но пока не оформил заказ.
      */
-    private List<SalePosition> salePositions;
-
-    /**
-     * Конструктр без параметров.
-     */
-    public ShoppingCart() {
-        this.salePositions = new ArrayList<>();
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных корзины.
-     *
-     * @param salePositions Торговые позиции, сделаные клиентом.
-     */
-    public ShoppingCart(final Collection<SalePosition> salePositions) {
-        this.salePositions = new ArrayList<>(salePositions);
-    }
+    private List<SalePosition> salePositions = new ArrayList<>();
 
     /**
      * Возвращает описание корзины.

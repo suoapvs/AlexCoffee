@@ -1,4 +1,9 @@
-package ua.com.alexcoffee.model;
+package ua.com.alexcoffee.model.product;
+
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.model.Model;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.photo.Photo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +27,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  */
 @Entity
 @Table(name = "products")
-public final class Product extends Model {
+public class Product extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -47,7 +52,7 @@ public final class Product extends Model {
             name = "article",
             nullable = false
     )
-    private int article;
+    private int article = 0;
 
     /**
      * Название товара.
@@ -58,7 +63,7 @@ public final class Product extends Model {
             name = "title",
             nullable = false
     )
-    private String title;
+    private String title = "";
 
     /**
      * URL товара.
@@ -69,21 +74,21 @@ public final class Product extends Model {
             name = "url",
             nullable = false
     )
-    private String url;
+    private String url = "";
 
     /**
      * Параметры товара.
      * Значение поля сохраняется в колонке "parameters".
      */
     @Column(name = "parameters")
-    private String parameters;
+    private String parameters = "";
 
     /**
      * Описание товара.
      * Значение поля сохраняется в колонке "description".
      */
     @Column(name = "description")
-    private String description;
+    private String description = "";
 
     /**
      * Категория товара.
@@ -124,7 +129,7 @@ public final class Product extends Model {
             name = "price",
             nullable = false
     )
-    private double price;
+    private double price = 0;
 
     /**
      * Изображение товара.
@@ -139,42 +144,6 @@ public final class Product extends Model {
             cascade = CascadeType.REMOVE
     )
     private List<SalePosition> salePositions = new ArrayList<>();
-
-    /**
-     * Конструктр без параметров.
-     * Автоматически инициализируются поля article.
-     */
-    public Product() {
-        this("", "", null, null, 0.0);
-    }
-
-    /**
-     * Конструктор для инициализации основных переменных товара.
-     * Автоматически инициализируются поля article.
-     *
-     * @param title    Название товара.
-     * @param url      URL товара.
-     * @param category Категория товара.
-     * @param photo    Изображение товара.
-     * @param price    Цена товара.
-     */
-    public Product(
-            final String title,
-            final String url,
-            final Category category,
-            final Photo photo,
-            final double price
-    ) {
-        super();
-        setTitle(title);
-        setUrl(url);
-        setPrice(price);
-        this.category = category;
-        this.photo = photo;
-        this.parameters = "";
-        this.description = "";
-        newArticle();
-    }
 
     /**
      * Возвращает описание товара.
@@ -240,35 +209,6 @@ public final class Product extends Model {
         long temp = Double.doubleToLongBits(this.price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
-    }
-
-    /**
-     * Инициализация полей товара.
-     *
-     * @param title       Название товара.
-     * @param url         URL товара.
-     * @param parameters  Параметры товара.
-     * @param description Описание товара.
-     * @param category    Категория товара.
-     * @param photo       Изображение товара.
-     * @param price       Цена товара.
-     */
-    public void initialize(
-            final String title,
-            final String url,
-            final String parameters,
-            final String description,
-            final Category category,
-            final Photo photo,
-            final double price
-    ) {
-        setTitle(title);
-        setUrl(url);
-        setParameters(parameters);
-        setDescription(description);
-        setCategory(category);
-        setPhoto(photo);
-        setPrice(price);
     }
 
     /**

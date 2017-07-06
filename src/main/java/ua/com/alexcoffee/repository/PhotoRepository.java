@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.photo.Photo;
 
 /**
  * Репозиторий для объектов класса {@link Photo}, предоставляющий

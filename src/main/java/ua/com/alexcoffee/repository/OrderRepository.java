@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 
 /**
  * Репозиторий для объектов класса {@link Order}, предоставляющий

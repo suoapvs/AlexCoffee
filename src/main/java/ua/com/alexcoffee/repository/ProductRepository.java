@@ -1,6 +1,6 @@
 package ua.com.alexcoffee.repository;
 
-import ua.com.alexcoffee.model.Product;
+import ua.com.alexcoffee.model.product.Product;
 
 import java.util.Collection;
 import java.util.List;

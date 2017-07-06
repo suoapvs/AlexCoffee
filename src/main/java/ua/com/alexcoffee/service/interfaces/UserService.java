@@ -1,7 +1,7 @@
 package ua.com.alexcoffee.service.interfaces;
 
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 
 import java.util.Collection;
 import java.util.List;
@@ -92,7 +92,7 @@ public interface UserService extends MainService<User> {
      *
      * @param role Роль пользователя для удаления.
      */
-    void removeByRole(Role role);
+    void removeByRole(UserRole role);
 
     /**
      * Удаляет список персонала сайта.

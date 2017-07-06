@@ -9,10 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ua.com.alexcoffee.model.*;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.order.OrderStatus;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс-контроллер домашних страниц. К даному контроллеру и соответствующим страницам
@@ -59,16 +67,6 @@ public final class HomeController {
     private final OrderService orderService;
 
     /**
-     * Объект сервиса для работы  с статусами заказов.
-     */
-    private final StatusService statusService;
-
-    /**
-     * Объект сервиса для работы с ролями пользователей.
-     */
-    private final RoleService roleService;
-
-    /**
      * Объект сервиса для работы с товарами.
      */
     private final SenderService senderService;
@@ -82,8 +80,6 @@ public final class HomeController {
      * @param categoryService     Объект сервиса для работы с категориями товаров.
      * @param shoppingCartService Объект сервиса для работы с торговой корзиной.
      * @param orderService        Объект сервиса для работы с заказами.
-     * @param statusService       Объект сервиса для работы с статусами заказов.
-     * @param roleService         Объект сервиса для работы с ролями пользователей.
      * @param senderService       Объект сервиса для работы с товарами.
      */
     @Autowired
@@ -92,16 +88,12 @@ public final class HomeController {
             final CategoryService categoryService,
             final ShoppingCartService shoppingCartService,
             final OrderService orderService,
-            final StatusService statusService,
-            final RoleService roleService,
             final SenderService senderService
     ) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.shoppingCartService = shoppingCartService;
         this.orderService = orderService;
-        this.statusService = statusService;
-        this.roleService = roleService;
         this.senderService = senderService;
     }
 
@@ -253,11 +245,11 @@ public final class HomeController {
             final ModelAndView modelAndView
     ) {
         final int number = 1;
-        final SalePosition salePosition = new SalePosition(
-                this.productService.get(id),
-                number
-        );
-        this.shoppingCartService.add(salePosition);
+        final SalePosition position = new SalePosition();
+        position.setNumber(number);
+        final Product product = this.productService.get(id);
+        position.setProduct(product);
+        this.shoppingCartService.add(position);
         modelAndView.setViewName("redirect:/cart");
         return modelAndView;
     }
@@ -299,11 +291,11 @@ public final class HomeController {
             final ModelAndView modelAndView
     ) {
         final int number = 1;
-        final SalePosition salePosition = new SalePosition(
-                this.productService.get(id),
-                number
-        );
-        this.shoppingCartService.add(salePosition);
+        final SalePosition position = new SalePosition();
+        position.setNumber(number);
+        final Product product = this.productService.get(id);
+        position.setProduct(product);
+        this.shoppingCartService.add(position);
         modelAndView.setViewName("redirect:" + url);
         return modelAndView;
     }
@@ -361,15 +353,18 @@ public final class HomeController {
             final ModelAndView modelAndView
     ) {
         if (this.shoppingCartService.getSize() > 0) {
-            final Role role = this.roleService.getDefault();
-            final User client = new User(name, email, phone, role);
-            final Status status = this.statusService.getDefault();
-            final Order order = new Order(
-                    status, client,
-                    new ArrayList<>(
-                            this.shoppingCartService.getSalePositions()
-                    )
-            );
+            final UserRole role = UserRole.CLIENT;
+            final User client = new User();
+            client.setName(name);
+            client.setEmail(email);
+            client.setPhone(phone);
+            client.setRole(role);
+            final OrderStatus status = OrderStatus.NEW;
+            final List<SalePosition> positions = new ArrayList<>(this.shoppingCartService.getSalePositions());
+            final Order order = new Order();
+            order.setStatus(status);
+            order.setClient(client);
+            order.setSalePositions(positions);
             this.orderService.add(order);
             this.senderService.send(order);
             modelAndView.addObject("order", order);
