@@ -40,14 +40,14 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="100"
+                                    <input class="input-orderEntity" type="text" name="title" minlength="5" maxlength="100"
                                            placeholder="Введите название товара" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>URL:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="url" pattern="[a-z0-9_]{5,50}"
+                                    <input class="input-orderEntity" type="text" name="url" pattern="[a-z0-9_]{5,50}"
                                            placeholder=" Введите URL, формат (a-z, 0-9, _)"
                                            minlength="5" maxlength="50" required>
                                 </td>
@@ -55,7 +55,7 @@
                             <tr>
                                 <th>Категория:</th>
                                 <td>
-                                    <select class="input-order" name="category" title="Категория товара">
+                                    <select class="input-orderEntity" name="category" title="Категория товара">
                                         <c:forEach items="${categories}" var="category">
                                             <option value="${category.id}">${category.title}</option>
                                         </c:forEach>
@@ -65,21 +65,21 @@
                             <tr>
                                 <th>Параметры:</th>
                                 <td>
-                                    <textarea class="input-order textarea" name="parameters" maxlength="500"
+                                    <textarea class="input-orderEntity textarea" name="parameters" maxlength="500"
                                               placeholder="Введите параметры товара" required></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                    <textarea class="input-order textarea" name="description" maxlength="500"
+                                    <textarea class="input-orderEntity textarea" name="description" maxlength="500"
                                               placeholder="Введите описание товара"></textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Изображение:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="photo_title" required
+                                    <input class="input-orderEntity" type="text" name="photo_title" required
                                            placeholder="Введите название фото" minlength="5" maxlength="100">
                                     <br>Малое: <input type="file" name="small_photo" accept="image/*">
                                     <br>Большое: <input type="file" name="big_photo" accept="image/*">
@@ -88,7 +88,7 @@
                             <tr>
                                 <th>Цена:</th>
                                 <td>
-                                    <input class="input-order" type="number" name="price" required
+                                    <input class="input-orderEntity" type="number" name="price" required
                                            placeholder="Введите цену товара" min="0" max="99999" step="0.01">
                                 </td>
                             </tr>

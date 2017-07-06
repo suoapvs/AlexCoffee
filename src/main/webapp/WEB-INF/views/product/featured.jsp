@@ -12,7 +12,7 @@
                        title="Перейти к <c:out value="${featured_product.title}"/>">
                         <img class=" img-thumbnail blink" width="185px" height="185px"
                              alt="<c:out value="${featured_product.title}"/>"
-                             src="<c:url value="/resources/img/${featured_product.photo.photoLinkShort}"/>">
+                             src="<c:url value="/resources/img/${featured_product.photo.smallUrl}"/>">
                         <div class="text-shadow">
                             <c:out value="${featured_product.title}"/>
                         </div>

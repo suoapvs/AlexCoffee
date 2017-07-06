@@ -31,7 +31,7 @@
             <div class="row one-product">
                 <div class="col-xs-7 col-xs-offset-1 col-sm-7 col-sm-offset-1 col-md-7 col-md-offset-1 col-lg-7 col-lg-offset-1">
                     <div class="col-xs-3 col-md-3 col-sm-3 col-lg-3">
-                        <img src="<c:url value="/resources/img/${product.photo.photoLinkShort}"/>"
+                        <img src="<c:url value="/resources/img/${product.photo.smallUrl}"/>"
                              width="185px" height="185px" alt="<c:out value="${product.title}"/>">
                     </div>
                     <div class="col-xs-6 col-xs-offset-2 col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2 col-lg-6 col-lg-offset-2 col-xl-6 col-xl-offset-2">
@@ -61,9 +61,9 @@
                             <p><b>Описание товара:</b></p>
                             <p><c:out value="${product.description}"/></p>
                         </c:if>
-                        <c:if test="${not empty product.photo.photoLinkLong}">
+                        <c:if test="${not empty product.photo.longUrl}">
                             <p>
-                                <img src="<c:url value="/resources/img/${product.photo.photoLinkLong}"/>"
+                                <img src="<c:url value="/resources/img/${product.photo.longUrl}"/>"
                                      class="hidden-xs hidden-sm" width="465px" height="465px"
                                      alt="<c:out value="${product.title}"/>">
                             </p>

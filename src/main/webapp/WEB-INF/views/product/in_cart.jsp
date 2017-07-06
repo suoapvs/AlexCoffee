@@ -22,7 +22,7 @@
                     </td>
                     <td>${position.number}</td>
                     <td>
-                        <img src="<c:url value="/resources/img/${position.product.photo.photoLinkShort}"/>"
+                        <img src="<c:url value="/resources/img/${position.product.photo.smallUrl}"/>"
                              width="50px" height="50px" alt="<c:out value="${position.product.title}"/>">
                     </td>
                     <td>

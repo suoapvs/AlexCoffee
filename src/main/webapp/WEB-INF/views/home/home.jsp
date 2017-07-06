@@ -73,7 +73,7 @@
                                 <div class="category">
                                     <a href="<c:url value="/category/${category.url}"/>"
                                        title="Перейти к категории <c:out value="${category.title}"/>">
-                                        <img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
+                                        <img src="<c:url value="/resources/img/${category.photo.smallUrl}"/>"
                                              class="img-thumbnail blink" width="150px" height="150px"
                                              alt="<c:out value="${category.title}"/>">
                                         <div class="text-shadow">

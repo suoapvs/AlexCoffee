@@ -8,7 +8,7 @@
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
             <div class="product">
                 <a href="<c:url value="/product/${product.url}"/>" title="Перейти к ${product.title}">
-                    <img src="<c:url value="/resources/img/${product.photo.photoLinkShort}"/>"
+                    <img src="<c:url value="/resources/img/${product.photo.smallUrl}"/>"
                          alt="<c:out value="${product.title}"/>" class="img-thumbnail blink"
                          width="185px" height="185px">
                     <div class="text-shadow">

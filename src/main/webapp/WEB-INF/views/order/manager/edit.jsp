@@ -11,8 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="title" content="Редактирование заказа ${order.number} || Alex Coffee">
-        <title>Редактирование заказа ${order.number} || Alex Coffee</title>
+        <meta name="title" content="Редактирование заказа ${orderEntity.number} || Alex Coffee">
+        <title>Редактирование заказа ${orderEntity.number} || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
@@ -24,38 +24,38 @@
     <body>
         <%-- NAVBAR --%>
     <jsp:include page="/WEB-INF/views/other/manager_navbar.jsp"/>
-        <%-- Edit order --%>
+        <%-- Edit orderEntity --%>
     <div class="container-fluid">
-        <section id="order">
+        <section id="orderEntity">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Редактирование заказа </span>
-                            <span class="color-green">${order.number}</span>
+                            <span class="color-green">${orderEntity.number}</span>
                         </b>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
-                    <form action="<c:url value="/managers/order/update"/>" method="post">
-                        <input type="hidden" name="id" value="${order.id}">
+                    <form action="<c:url value="/managers/orderEntity/update"/>" method="post">
+                        <input type="hidden" name="id" value="${orderEntity.id}">
                         <input type="hidden" name="auth_user" value="${auth_user.id}">
                         <table class="table">
                             <tr>
                                 <th>Номер:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="number" pattern="[A-Za-z0-9]{3,10}"
+                                    <input class="input-orderEntity" type="text" name="number" pattern="[A-Za-z0-9]{3,10}"
                                            placeholder=" Введите номер, формат (A-Z, a-z, 0-9)"
-                                           value="${order.number}" minlength="3" maxlength="10" required>
+                                           value="${orderEntity.number}" minlength="3" maxlength="10" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Статус:</th>
                                 <td>
-                                    <select class="input-order" name="status" title="Статус заказа">
-                                        <option value="${order.status.id}">${order.status.description}</option>
+                                    <select class="input-orderEntity" name="status" title="Статус заказа">
+                                        <option value="${orderEntity.status.id}">${orderEntity.status.description}</option>
                                         <c:forEach items="${statuses}" var="status">
-                                            <c:if test="${status.id ne order.status.id}">
+                                            <c:if test="${status.id ne orderEntity.status.id}">
                                                 <option value="${status.id}">${status.description}</option>
                                             </c:if>
                                         </c:forEach>
@@ -64,39 +64,39 @@
                             </tr>
                             <tr>
                                 <th>Дата:</th>
-                                <td>${order.date}</td>
+                                <td>${orderEntity.date}</td>
                             </tr>
                             <tr>
                                 <th>Клиент:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="user_name" minlength="2" maxlength="50"
-                                           placeholder=" Введите имя клиента" value="${order.client.name}" required>
-                                    <br><input class="input-order" name="user_email" value="${order.client.email}"
+                                    <input class="input-orderEntity" type="text" name="user_name" minlength="2" maxlength="50"
+                                           placeholder=" Введите имя клиента" value="${orderEntity.client.name}" required>
+                                    <br><input class="input-orderEntity" name="user_email" value="${orderEntity.client.email}"
                                                placeholder=" Введите email клиента, формат (A-Z, a-z, 0-9, _, ., @)"
                                                pattern="[A-Za-z0-9_.@]{5,50}" minlength="5" maxlength="50" type="email">
-                                    <br><input id="phone" class="input-order" type="text" name="user_phone" required
-                                               placeholder=" Введите телефон клиента" value="${order.client.phone}">
+                                    <br><input id="phone" class="input-orderEntity" type="text" name="user_phone" required
+                                               placeholder=" Введите телефон клиента" value="${orderEntity.client.phone}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Адрес доставки:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="shipping-address" maxlength="100"
-                                           placeholder=" Введите адрес доставки" value="${order.shippingAddress}">
+                                    <input class="input-orderEntity" type="text" name="shipping-address" maxlength="100"
+                                           placeholder=" Введите адрес доставки" value="${orderEntity.shippingAddress}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Детали доставки:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="shipping-details" maxlength="100"
-                                           placeholder=" Введите детали даставки" value="${order.shippingDetails}">
+                                    <input class="input-orderEntity" type="text" name="shipping-details" maxlength="100"
+                                           placeholder=" Введите детали даставки" value="${orderEntity.shippingDetails}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>Коментарии:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description"
-                                          placeholder=" Коментарий" maxlength="250">${order.description}</textarea>
+                                <textarea class="input-orderEntity textarea" name="description"
+                                          placeholder=" Коментарий" maxlength="250">${orderEntity.description}</textarea>
                                 </td>
                             </tr>
                             <tr>

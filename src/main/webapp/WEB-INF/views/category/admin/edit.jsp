@@ -40,14 +40,14 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title" minlength="5" maxlength="50"
+                                    <input class="input-orderEntity" type="text" name="title" minlength="5" maxlength="50"
                                            placeholder=" Введите название категории" value="${category.title}" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>URL:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="url" pattern="[a-z0-9_]{5,50}"
+                                    <input class="input-orderEntity" type="text" name="url" pattern="[a-z0-9_]{5,50}"
                                            placeholder=" Введите URL, формат (a-z, 0-9, _)" value="${category.url}"
                                            minlength="5" maxlength="50" required>
                                 </td>
@@ -55,7 +55,7 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" name="description" maxlength="500"
+                                <textarea class="input-orderEntity textarea" name="description" maxlength="500"
                                           placeholder=" Введите описание категории">${category.description}</textarea>
                                 </td>
                             </tr>
@@ -63,7 +63,7 @@
                                 <th>Изображение:</th>
                                 <td>
                                     <input type="hidden" name="photo_id" value="${category.photo.id}">
-                                    <input class="input-order" type="text" name="photo_title"
+                                    <input class="input-orderEntity" type="text" name="photo_title"
                                            placeholder="Введите название фото" value="${category.photo.title}"
                                            minlength="5" maxlength="100">
                                     <br><input type="file" name="photo" accept="image/*">

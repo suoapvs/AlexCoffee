@@ -31,7 +31,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="intro-text label-categories">
                         <img id="label-category" width="150px" height="150px" alt="<c:out value="${category.title}"/>"
-                             src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>">
+                             src="<c:url value="/resources/img/${category.photo.smallUrl}"/>">
                         <div class="text-shadow">
                             <span class="home-block-name color-green"><c:out value="${category.title}"/></span>
                             <c:if test="${fn:length(products) eq 0}">

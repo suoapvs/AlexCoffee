@@ -25,7 +25,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <div id="menu-product">
                     <ul class="nav navbar-nav">
-                        <li id="nav-orders"><a href="<c:url value="/managers/order/all"/>">Заказы</a></li>
+                        <li id="nav-orderEntities"><a href="<c:url value="/managers/orderEntity/all"/>">Заказы</a></li>
                         <li id="nav-persons"><a href="<c:url value="/managers/user/all"/>">Персонал</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

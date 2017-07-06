@@ -40,14 +40,14 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="title" value="${product.title}"
+                                    <input class="input-orderEntity" type="text" name="title" value="${product.title}"
                                            placeholder="Введите название товара" minlength="5" maxlength="100" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>URL:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="url" pattern="[a-z0-9_]{5,50}"
+                                    <input class="input-orderEntity" type="text" name="url" pattern="[a-z0-9_]{5,50}"
                                            placeholder=" Введите URL, формат (a-z, 0-9, _)" value="${product.url}"
                                            minlength="5" maxlength="50" required>
                                 </td>
@@ -55,7 +55,7 @@
                             <tr>
                                 <th>Категория:</th>
                                 <td>
-                                    <select class="input-order" name="category" title="Категория товара">
+                                    <select class="input-orderEntity" name="category" title="Категория товара">
                                         <option value="${product.category.id}">${product.category.title}</option>
                                         <c:forEach items="${categories}" var="category">
                                             <c:if test="${category.id ne product.category.id}">
@@ -68,14 +68,14 @@
                             <tr>
                                 <th>Параметры:</th>
                                 <td>
-                                <textarea class="input-order textarea" placeholder="Введите параметры товара"
+                                <textarea class="input-orderEntity textarea" placeholder="Введите параметры товара"
                                           name="parameters" maxlength="500" required>${product.parameters}</textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                <textarea class="input-order textarea" placeholder="Введите описание товара"
+                                <textarea class="input-orderEntity textarea" placeholder="Введите описание товара"
                                           name="description" maxlength="500">${product.description}</textarea>
                                 </td>
                             </tr>
@@ -83,7 +83,7 @@
                                 <th>Изображение:</th>
                                 <td>
                                     <input type="hidden" name="photo_id" value="${product.photo.id}">
-                                    <input class="input-order" type="text" name="photo_title"
+                                    <input class="input-orderEntity" type="text" name="photo_title"
                                            placeholder="Введите название фото" value="${product.photo.title}"
                                            minlength="5" maxlength="100">
                                     <br>Малое: <input type="file" name="small_photo" accept="image/*">
@@ -93,7 +93,7 @@
                             <tr>
                                 <th>Цена:</th>
                                 <td>
-                                    <input class="input-order" type="text" name="price" min="0" max="99999" step="0.01"
+                                    <input class="input-orderEntity" type="text" name="price" min="0" max="99999" step="0.01"
                                            placeholder="Введите цену товара" value="${product.price}" required>
                                 </td>
                             </tr>
