@@ -3,6 +3,9 @@ package ua.com.alexcoffee.model;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.product.Product;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +32,10 @@ public class CategoryTest {
         String title = "New Category";
         String url = "url";
         String description = "Some new category";
-        Category category = new Category(title, url, description, null);
+        Category category = new Category();
+        category.setTitle(title);
+        category.setUrl(url);
+        category.setDescription(description);
         String line = "Title: " + title + "\nUrl: " + url + "\nDescription: " + description;
         assertEquals(category.toString(), line);
 
@@ -50,8 +56,15 @@ public class CategoryTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        Category cat1 = new Category("Category", "cat_url", "Description about some category/", null);
-        Category cat2 = new Category("Category", "cat_url", "", null);
+        final Category cat1 = new Category();
+        cat1.setTitle("Category");
+        cat1.setUrl("cat_url");
+        cat1.setDescription("Description about some category");
+
+        final Category cat2 = new Category();
+        cat2.setTitle("Category");
+        cat2.setUrl("cat_url");
+        cat2.setDescription("");
 
         assertTrue(cat1.equals(cat2));
         assertTrue(cat2.equals(cat1));
@@ -63,9 +76,20 @@ public class CategoryTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        Category cat1 = new Category("Category", "cat_url", "", null);
-        Category cat2 = new Category("Category", "cat_url", "", null);
-        Category cat3 = new Category("Category", "cat_url", "", null);
+        final Category cat1 = new Category();
+        cat1.setTitle("Category");
+        cat1.setUrl("cat_url");
+        cat1.setDescription("Description about some category");
+
+        final Category cat2 = new Category();
+        cat2.setTitle("Category");
+        cat2.setUrl("cat_url");
+        cat2.setDescription("Description about some category");
+
+        final Category cat3 = new Category();
+        cat3.setTitle("Category");
+        cat3.setUrl("cat_url");
+        cat3.setDescription("Description about some category");
 
         assertTrue(cat1.equals(cat2));
         assertTrue(cat2.equals(cat3));
@@ -78,8 +102,15 @@ public class CategoryTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        Category cat1 = new Category("Category", "cat_url", "Description about some category/", null);
-        Category cat2 = new Category("Category", "cat_url", "", null);
+        final Category cat1 = new Category();
+        cat1.setTitle("Category");
+        cat1.setUrl("cat_url");
+        cat1.setDescription("Description about some category");
+
+        final Category cat2 = new Category();
+        cat2.setTitle("Category");
+        cat2.setUrl("cat_url");
+        cat2.setDescription("");
 
         for (int i = 0; i < 10; i++) {
             assertTrue(cat1.equals(cat2));
@@ -97,8 +128,11 @@ public class CategoryTest {
         String description = "Description";
         Photo photo = new Photo();
 
-        Category category = new Category();
-        category.initialize(title, url, description, photo);
+        final Category category = new Category();
+        category.setTitle(title);
+        category.setUrl(url);
+        category.setDescription(description);
+        category.setPhoto(photo);
 
         assertEquals(category.getTitle(), title);
         assertEquals(category.getUrl(), url);

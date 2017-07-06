@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.mock;
         @ContextConfiguration(classes = RootConfig.class),
         @ContextConfiguration(classes = WebConfig.class)
 })
+@ComponentScan(basePackages = "ua.com.alexcoffee.repository")
 public class RootConfigTest {
 
     @Autowired
@@ -40,13 +42,7 @@ public class RootConfigTest {
     private ProductRepository productRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private SalePositionRepository salePositionRepository;
-
-    @Autowired
-    private StatusRepository statusRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -90,23 +86,9 @@ public class RootConfigTest {
     }
 
     @Test
-    public void roleRepositoryNotNull() throws Exception {
-        System.out.print("-> roleRepository Not Null - ");
-        assertNotNull(roleRepository);
-        System.out.println("OK!");
-    }
-
-    @Test
     public void salePositionRepositoryNotNull() throws Exception {
         System.out.print("-> salePositionRepository Not Null - ");
         assertNotNull(salePositionRepository);
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void statusRepositoryNotNull() throws Exception {
-        System.out.print("-> statusRepository Not Null - ");
-        assertNotNull(statusRepository);
         System.out.println("OK!");
     }
 

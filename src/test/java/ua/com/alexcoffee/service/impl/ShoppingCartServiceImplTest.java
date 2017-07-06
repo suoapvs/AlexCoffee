@@ -3,8 +3,8 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.model.SalePosition;
-import ua.com.alexcoffee.model.ShoppingCart;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
 import ua.com.alexcoffee.service.interfaces.ShoppingCartService;
 import ua.com.alexcoffee.tools.MockService;
 

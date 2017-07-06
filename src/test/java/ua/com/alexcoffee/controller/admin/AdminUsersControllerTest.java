@@ -66,7 +66,7 @@ public class AdminUsersControllerTest {
     public void saveUserTest() throws Exception {
         System.out.print("-> saveUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.saveUser("name", ID, "username", "password", "email",
+        ModelAndView modelAndView = adminUsersController.saveUser("name", "ADMIN", "username", "password", "email",
                 "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
         String viewName = "redirect:/admin/user/all";
         checkModelAndView(modelAndView, viewName);
@@ -99,7 +99,7 @@ public class AdminUsersControllerTest {
     public void updateUserTest() throws Exception {
         System.out.print("-> updateUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.updateUser(ID, "name", ID, "username", "password",
+        ModelAndView modelAndView = adminUsersController.updateUser(ID, "name", "ADMIN", "username", "password",
                 "email", "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
         String viewName = "redirect:/admin/user/view/" + ID;
         checkModelAndView(modelAndView, viewName);

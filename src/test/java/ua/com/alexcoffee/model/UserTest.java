@@ -3,7 +3,8 @@ package ua.com.alexcoffee.model;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.enums.RoleEnum;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 
 import static org.junit.Assert.*;
 import static ua.com.alexcoffee.tools.MockModel.getTenOrders;
@@ -24,13 +25,15 @@ public class UserTest {
     public void toStringTest() {
         System.out.print("-> toString() - ");
 
-        String name = "Name";
-        String email = "Email";
-        String phone = "Phone";
-        Role role = new Role(RoleEnum.ADMIN, "ADMIN");
-
-        User user = new User(name, email, phone, role);
-        String line = "Name: " + name + "\nRole: " + role.getDescription() + "\nEmail: " + email
+        final String name = "Name";
+        final String email = "Email";
+        final String phone = "Phone";
+        final User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setRole(UserRole.ADMIN);
+        final String line = "Name: " + name + "\nRole: " + UserRole.ADMIN.name() + "\nEmail: " + email
                 + "\nPhone: " + phone;
 
         assertTrue(user.toString().equals(line));
@@ -42,7 +45,14 @@ public class UserTest {
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
-        User user = new User("User", "someemail", "+380000000000", null);
+        final String name = "Name";
+        final String email = "Email";
+        final String phone = "Phone";
+        final User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setRole(UserRole.ADMIN);
         assertTrue(user.equals(user));
 
         System.out.println("OK!");
@@ -52,8 +62,19 @@ public class UserTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        User user1 = new User("User", "someemail", "+380000000000", null);
-        User user2 = new User("User", "someemail", "+380000000000", null);
+        final String name = "Name";
+        final String email = "Email";
+        final String phone = "Phone";
+        final User user1 = new User();
+        user1.setName(name);
+        user1.setEmail(email);
+        user1.setPhone(phone);
+        user1.setRole(UserRole.ADMIN);
+        final User user2 = new User();
+        user2.setName(name);
+        user2.setEmail(email);
+        user2.setPhone(phone);
+        user2.setRole(UserRole.ADMIN);
 
         assertTrue(user1.equals(user2));
         assertTrue(user2.equals(user1));
@@ -65,9 +86,24 @@ public class UserTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        User user1 = new User("User", "someemail", "+380000000000", null);
-        User user2 = new User("User", "someemail", "+380000000000", null);
-        User user3 = new User("User", "someemail", "+380000000000", null);
+        final String name = "Name";
+        final String email = "Email";
+        final String phone = "Phone";
+        final User user1 = new User();
+        user1.setName(name);
+        user1.setEmail(email);
+        user1.setPhone(phone);
+        user1.setRole(UserRole.ADMIN);
+        final User user2 = new User();
+        user2.setName(name);
+        user2.setEmail(email);
+        user2.setPhone(phone);
+        user2.setRole(UserRole.ADMIN);
+        final User user3 = new User();
+        user3.setName(name);
+        user3.setEmail(email);
+        user3.setPhone(phone);
+        user3.setRole(UserRole.ADMIN);
 
         assertTrue(user1.equals(user2));
         assertTrue(user2.equals(user3));
@@ -80,8 +116,19 @@ public class UserTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        User user1 = new User("User", "someemail", "+380000000000", null);
-        User user2 = new User("User", "someemail", "+380000000000", null);
+        final String name = "Name";
+        final String email = "Email";
+        final String phone = "Phone";
+        final User user1 = new User();
+        user1.setName(name);
+        user1.setEmail(email);
+        user1.setPhone(phone);
+        user1.setRole(UserRole.ADMIN);
+        final User user2 = new User();
+        user2.setName(name);
+        user2.setEmail(email);
+        user2.setPhone(phone);
+        user2.setRole(UserRole.ADMIN);
 
         for (int i = 0; i < 10; i++) {
             assertTrue(user1.equals(user2));
@@ -108,7 +155,7 @@ public class UserTest {
         System.out.print("-> getAuthorities() - ");
 
         User user = new User();
-        user.setRole(new Role(RoleEnum.ADMIN, "ADMIN"));
+        user.setRole(UserRole.ADMIN);
 
         assertNotNull(user.getAuthorities());
 
@@ -119,19 +166,27 @@ public class UserTest {
     public void initializeTest() {
         System.out.print("-> initialize() - ");
 
-        String name = "name";
-        String username = "username";
-        String password = "pass";
-        String email = "email";
-        String phone = "phone";
-        String vkontakte = "vk";
-        String facebook = "fb";
-        String skype = "sk";
-        String description = "description";
-        Role role = new Role();
+        final String name = "name";
+        final String username = "username";
+        final String password = "pass";
+        final String email = "email";
+        final String phone = "phone";
+        final String vkontakte = "vk";
+        final String facebook = "fb";
+        final String skype = "sk";
+        final String description = "description";
 
-        User user = new User();
-        user.initialize(name, username, password, email, phone, vkontakte, facebook, skype, description, role);
+        final User user = new User();
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setVkontakte(vkontakte);
+        user.setFacebook(facebook);
+        user.setSkype(skype);
+        user.setDescription(description);
+        user.setRole(UserRole.ADMIN);
 
         assertEquals(user.getName(), name);
         assertEquals(user.getUsername(), username);
@@ -142,7 +197,7 @@ public class UserTest {
         assertEquals(user.getFacebook(), facebook);
         assertEquals(user.getSkype(), skype);
         assertEquals(user.getDescription(), description);
-        assertEquals(user.getRole(), role);
+        assertEquals(user.getRole(), UserRole.ADMIN);
 
         System.out.println("OK!");
     }
@@ -151,12 +206,12 @@ public class UserTest {
     public void setAndGetNameTest() {
         System.out.print("-> setAndGetName() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setName(null);
         assertNotNull(user.getName());
         assertTrue(user.getName().isEmpty());
 
-        String name = "NAME";
+        final String name = "NAME";
         user.setName(name);
         assertEquals(user.getName(), name);
 
@@ -167,12 +222,12 @@ public class UserTest {
     public void setAndGetUsernameTest() {
         System.out.print("-> setAndGetUsername() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setUsername(null);
         assertNotNull(user.getUsername());
         assertTrue(user.getUsername().isEmpty());
 
-        String username = "USERNAME";
+        final String username = "USERNAME";
         user.setUsername(username);
         assertEquals(user.getUsername(), username);
 
@@ -183,12 +238,12 @@ public class UserTest {
     public void setAndGetPasswordTest() {
         System.out.print("-> setAndGetPassword() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setPassword(null);
         assertNotNull(user.getPassword());
         assertTrue(user.getPassword().isEmpty());
 
-        String password = "pass";
+        final String password = "pass";
         user.setPassword(password);
         assertEquals(user.getPassword(), password);
 
@@ -199,12 +254,12 @@ public class UserTest {
     public void setAndGetEmailTest() {
         System.out.print("-> setAndGetEmail() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setEmail(null);
         assertNotNull(user.getEmail());
         assertTrue(user.getEmail().isEmpty());
 
-        String email = "email";
+        final String email = "email";
         user.setEmail(email);
         assertEquals(user.getEmail(), email);
 
@@ -215,12 +270,12 @@ public class UserTest {
     public void setAndGetPhoneTest() {
         System.out.print("-> setAndGetPhone() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setPhone(null);
         assertNotNull(user.getPhone());
         assertTrue(user.getPhone().isEmpty());
 
-        String phone = "phone";
+        final String phone = "phone";
         user.setPhone(phone);
         assertEquals(user.getPhone(), phone);
 
@@ -231,12 +286,12 @@ public class UserTest {
     public void setAndGetVkontakteTest() {
         System.out.print("-> setAndGetVkontakte() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setVkontakte(null);
         assertNotNull(user.getVkontakte());
         assertTrue(user.getVkontakte().isEmpty());
 
-        String vkontakte = "vk";
+        final String vkontakte = "vk";
         user.setVkontakte(vkontakte);
         assertEquals(user.getVkontakte(), vkontakte);
 
@@ -247,12 +302,12 @@ public class UserTest {
     public void setAndGetFacebookTest() {
         System.out.print("-> setAndGetFacebook() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setFacebook(null);
         assertNotNull(user.getFacebook());
         assertTrue(user.getFacebook().isEmpty());
 
-        String facebook = "fb";
+        final String facebook = "fb";
         user.setFacebook(facebook);
         assertEquals(user.getFacebook(), facebook);
 
@@ -263,12 +318,12 @@ public class UserTest {
     public void setAndGetSkypeTest() {
         System.out.print("-> setAndGetSkype() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setSkype(null);
         assertNotNull(user.getSkype());
         assertTrue(user.getSkype().isEmpty());
 
-        String skype = "skype";
+        final String skype = "skype";
         user.setSkype(skype);
         assertEquals(user.getSkype(), skype);
 
@@ -279,12 +334,12 @@ public class UserTest {
     public void setAndGetDescriptionTest() {
         System.out.print("-> setAndGetDescription() - ");
 
-        User user = new User();
+        final User user = new User();
         user.setDescription(null);
         assertNotNull(user.getDescription());
         assertTrue(user.getDescription().isEmpty());
 
-        String description = "description";
+        final String description = "description";
         user.setDescription(description);
         assertEquals(user.getDescription(), description);
 
@@ -295,12 +350,10 @@ public class UserTest {
     public void setAndGetRoleTest() {
         System.out.print("-> setAndGetRole() - ");
 
-        Role role = new Role(RoleEnum.ADMIN, "ADMIN");
-        User user = new User();
-        user.setRole(role);
-
+        final User user = new User();
+        user.setRole(UserRole.ADMIN);
         assertNotNull(user.getRole());
-        assertEquals(user.getRole(), role);
+        assertEquals(user.getRole(), UserRole.ADMIN);
 
         System.out.println("OK!");
     }
@@ -309,9 +362,9 @@ public class UserTest {
     public void setAndGetClientOrdersTest() {
         System.out.print("-> setAndGetClientOrders() - ");
 
-        User user = new User();
-        user.setClientOrders(getTenOrders());
-        assertTrue(user.getClientOrders().size() == 10);
+        final User user = new User();
+        user.setClientOrderEntities(getTenOrders());
+        assertTrue(user.getClientOrderEntities().size() == 10);
 
         System.out.println("OK!");
     }
@@ -320,9 +373,9 @@ public class UserTest {
     public void setAndGetManagerOrdersTest() {
         System.out.print("-> setAndGetManagerOrders() - ");
 
-        User user = new User();
-        user.setManagerOrders(getTenOrders());
-        assertTrue(user.getManagerOrders().size() == 10);
+        final User user = new User();
+        user.setManagerOrderEntities(getTenOrders());
+        assertTrue(user.getManagerOrderEntities().size() == 10);
 
         System.out.println("OK!");
     }

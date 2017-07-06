@@ -3,6 +3,10 @@ package ua.com.alexcoffee.model;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
 
 import java.util.List;
 
@@ -30,7 +34,7 @@ public class ProductTest {
         String description = "Description";
         double price = 100.0;
 
-        Product product = new Product();
+        final Product product = new Product();
         product.setTitle(title);
         product.setParameters(parameters);
         product.setDescription(description);
@@ -40,7 +44,8 @@ public class ProductTest {
 
         assertEquals(product.toString(), line);
 
-        Category category = new Category(title, null, null, null);
+        final Category category = new Category();
+        category.setTitle(title);
         product.setCategory(category);
         line += "\nCategory: " + category.getTitle();
 
@@ -117,8 +122,14 @@ public class ProductTest {
         Photo photo = new Photo();
         double price = 10.0;
 
-        Product product = new Product();
-        product.initialize(title, url, parameters, description, category, photo, price);
+        final Product product = new Product();
+        product.setTitle(title);
+        product.setUrl(url);
+        product.setParameters(parameters);
+        product.setDescription(description);
+        product.setCategory(category);
+        product.setPhoto(photo);
+        product.setPrice(price);
 
         assertEquals(product.getTitle(), title);
         assertEquals(product.getUrl(), url);

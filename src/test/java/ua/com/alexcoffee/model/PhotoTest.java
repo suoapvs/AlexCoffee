@@ -1,6 +1,7 @@
 package ua.com.alexcoffee.model;
 
 import org.junit.*;
+import ua.com.alexcoffee.model.photo.Photo;
 
 import static org.junit.Assert.*;
 
@@ -17,37 +18,18 @@ public class PhotoTest {
     }
 
     @Test
-    public void ConstructorTest() {
-        System.out.print("-> Photo() - ");
-
-        Photo photo = new Photo();
-        assertNotNull(photo.getTitle());
-        assertNotNull(photo.getPhotoLinkShort());
-        assertNotNull(photo.getPhotoLinkLong());
-
-        photo = new Photo("Title", "qdeq", "dfvdv");
-        assertNotNull(photo.getTitle());
-        assertNotNull(photo.getPhotoLinkShort());
-        assertNotNull(photo.getPhotoLinkLong());
-
-        photo = new Photo("Title", "qdeq");
-        assertNotNull(photo.getTitle());
-        assertNotNull(photo.getPhotoLinkShort());
-        assertNotNull(photo.getPhotoLinkLong());
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void toStringTest() {
         System.out.print("-> toString() - ");
 
-        String title = "Title";
-        String pls = "pls";
-        String pll = "pll";
+        final String title = "Title";
+        final String pls = "pls";
+        final  String pll = "pll";
 
-        Photo photo = new Photo(title, pls, pll);
-        String line = "Title: " + title + "\nphoto short link: " + pls + "\nphoto long link: " + pll;
+        final Photo photo = new Photo();
+        photo.setTitle(title);
+        photo.setSmallUrl(pls);
+        photo.setLongUrl(pll);
+        final String line = "Title: " + title + "\nphoto short link: " + pls + "\nphoto long link: " + pll;
 
         assertEquals(photo.toString(), line);
 
@@ -68,8 +50,14 @@ public class PhotoTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        Photo photo1 = new Photo("Photo", "link1", "link2");
-        Photo photo2 = new Photo("Photo", "link1", "link2");
+        final Photo photo1 = new Photo();
+        photo1.setTitle("Photo");
+        photo1.setSmallUrl("link1");
+        photo1.setLongUrl( "link2");
+        final Photo photo2 = new Photo();
+        photo2.setTitle("Photo");
+        photo2.setSmallUrl("link1");
+        photo2.setLongUrl( "link2");
 
         assertTrue(photo1.equals(photo2));
         assertTrue(photo2.equals(photo1));
@@ -81,9 +69,18 @@ public class PhotoTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        Photo photo1 = new Photo("Photo", "link1", "link2");
-        Photo photo2 = new Photo("Photo", "link1", "link2");
-        Photo photo3 = new Photo("Photo", "link1", "link2");
+        final Photo photo1 = new Photo();
+        photo1.setTitle("Photo");
+        photo1.setSmallUrl("link1");
+        photo1.setLongUrl( "link2");
+        final Photo photo2 = new Photo();
+        photo2.setTitle("Photo");
+        photo2.setSmallUrl("link1");
+        photo2.setLongUrl( "link2");
+        final Photo photo3 = new Photo();
+        photo3.setTitle("Photo");
+        photo3.setSmallUrl("link1");
+        photo3.setLongUrl( "link2");
 
         assertTrue(photo1.equals(photo2));
         assertTrue(photo2.equals(photo3));
@@ -96,30 +93,18 @@ public class PhotoTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        Photo photo1 = new Photo("Photo", "link1", "link2");
-        Photo photo2 = new Photo("Photo", "link1", "link2");
+        final Photo photo1 = new Photo();
+        photo1.setTitle("Photo");
+        photo1.setSmallUrl("link1");
+        photo1.setLongUrl( "link2");
+        final Photo photo2 = new Photo();
+        photo2.setTitle("Photo");
+        photo2.setSmallUrl("link1");
+        photo2.setLongUrl( "link2");
 
         for (int i = 0; i < 10; i++) {
             assertTrue(photo1.equals(photo2));
         }
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void initializeTest() {
-        System.out.print("-> initialize() - ");
-
-        String title = "Title";
-        String pls = "pls";
-        String pll = "pll";
-
-        Photo photo = new Photo();
-        photo.initialize(title, pls, pll);
-
-        assertEquals(photo.getTitle(), title);
-        assertEquals(photo.getPhotoLinkShort(), pls);
-        assertEquals(photo.getPhotoLinkLong(), pll);
 
         System.out.println("OK!");
     }
@@ -145,13 +130,13 @@ public class PhotoTest {
         System.out.print("-> setAndGetPhotoLinkShort() - ");
 
         Photo photo = new Photo();
-        photo.setPhotoLinkShort(null);
-        assertNotNull(photo.getPhotoLinkShort());
-        assertTrue(photo.getPhotoLinkShort().isEmpty());
+        photo.setSmallUrl(null);
+        assertNotNull(photo.getSmallUrl());
+        assertTrue(photo.getSmallUrl().isEmpty());
 
         String photoLinkShort = "Photo Link Short";
-        photo.setPhotoLinkShort(photoLinkShort);
-        assertEquals(photo.getPhotoLinkShort(), photoLinkShort);
+        photo.setSmallUrl(photoLinkShort);
+        assertEquals(photo.getSmallUrl(), photoLinkShort);
 
         System.out.println("OK!");
     }
@@ -161,13 +146,13 @@ public class PhotoTest {
         System.out.print("-> setPhotoLinkLong() - ");
 
         Photo photo = new Photo();
-        photo.setPhotoLinkLong(null);
-        assertNotNull(photo.getPhotoLinkLong());
-        assertTrue(photo.getPhotoLinkLong().isEmpty());
+        photo.setLongUrl(null);
+        assertNotNull(photo.getLongUrl());
+        assertTrue(photo.getLongUrl().isEmpty());
 
         String photoLinkLong = "Photo Link Long";
-        photo.setPhotoLinkLong(photoLinkLong);
-        assertEquals(photo.getPhotoLinkLong(), photoLinkLong);
+        photo.setLongUrl(photoLinkLong);
+        assertEquals(photo.getLongUrl(), photoLinkLong);
 
         System.out.println("OK!");
     }

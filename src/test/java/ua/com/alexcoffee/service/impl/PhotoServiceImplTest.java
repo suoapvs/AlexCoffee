@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.web.multipart.MultipartFile;
-import ua.com.alexcoffee.model.Photo;
+import ua.com.alexcoffee.model.photo.Photo;
 import ua.com.alexcoffee.service.interfaces.PhotoService;
 import ua.com.alexcoffee.tools.MockService;
 

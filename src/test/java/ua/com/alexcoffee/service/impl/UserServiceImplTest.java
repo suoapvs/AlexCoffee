@@ -4,8 +4,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import ua.com.alexcoffee.model.Role;
-import ua.com.alexcoffee.model.User;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.UserService;
 import ua.com.alexcoffee.tools.MockService;
 
@@ -204,7 +204,7 @@ public class UserServiceImplTest {
         userService.remove(users);
 
         userService.removeByName(NAME);
-        userService.removeByRole(new Role());
+        userService.removeByRole(UserRole.ADMIN);
         userService.removePersonnel();
 
         System.out.println("OK!");

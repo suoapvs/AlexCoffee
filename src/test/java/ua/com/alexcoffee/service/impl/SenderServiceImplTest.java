@@ -3,14 +3,14 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 import ua.com.alexcoffee.service.interfaces.SenderService;
 import ua.com.alexcoffee.tools.MockService;
 
 import java.util.Properties;
 
 import static org.junit.Assert.assertNotNull;
-import static ua.com.alexcoffee.tools.MockModel.getOrder;
+import static ua.com.alexcoffee.tools.MockModel.getOrderEntity;
 
 public class SenderServiceImplTest {
 
@@ -45,8 +45,8 @@ public class SenderServiceImplTest {
     public void noExceptionOfVoidMethodTest() throws Exception {
         System.out.print("-> noExceptionOfVoidMethod() - ");
 
-        Order order = getOrder();
-        senderService.send(order);
+        Order orderEntity = getOrderEntity();
+        senderService.send(orderEntity);
 
         System.out.println("OK!");
     }

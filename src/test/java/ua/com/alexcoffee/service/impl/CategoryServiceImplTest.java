@@ -3,7 +3,7 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.model.Category;
+import ua.com.alexcoffee.model.category.Category;
 import ua.com.alexcoffee.service.interfaces.CategoryService;
 import ua.com.alexcoffee.tools.MockService;
 

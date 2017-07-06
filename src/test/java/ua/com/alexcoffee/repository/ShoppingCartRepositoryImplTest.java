@@ -11,9 +11,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ua.com.alexcoffee.config.RootConfig;
 import ua.com.alexcoffee.config.WebConfig;
-import ua.com.alexcoffee.model.Product;
-import ua.com.alexcoffee.model.SalePosition;
-import ua.com.alexcoffee.model.ShoppingCart;
+import ua.com.alexcoffee.model.product.Product;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,9 +67,14 @@ public class ShoppingCartRepositoryImplTest {
     public void addAndGetAndRemoveSalePositions() throws Exception {
         System.out.print("-> Add and Get and Remove - ");
 
-        List<SalePosition> positions1 = new ArrayList<>();
-        Product product = new Product("Title", "URL", null, null, 10.0);
-        SalePosition position = new SalePosition(product, 1);
+        final List<SalePosition> positions1 = new ArrayList<>();
+        final Product product = new Product();
+        product.setTitle("Title");
+        product.setUrl("URL");
+        product.setPrice(10);
+        final SalePosition position = new SalePosition();
+        position.setProduct(product);
+        position.setNumber(100);
         positions1.add(position);
 
         shoppingCartRepository.addSalePosition(position);
@@ -88,8 +93,12 @@ public class ShoppingCartRepositoryImplTest {
     public void clearSalePositionsTest() throws Exception {
         System.out.print("-> clearSalePositions() - ");
 
-        Product product = new Product("Title", "URL", null, null, 10.0);
-        SalePosition position = new SalePosition(product, 1);
+        final Product product = new Product();
+        product.setTitle("Title");
+        product.setUrl("URL");
+        product.setPrice(10);
+        final SalePosition position = new SalePosition();
+        position.setProduct(product);
         shoppingCartRepository.addSalePosition(position);
         shoppingCartRepository.clearSalePositions();
 
@@ -114,8 +123,13 @@ public class ShoppingCartRepositoryImplTest {
 
         assertTrue(shoppingCartRepository.getSize() == 0);
 
-        Product product = new Product("Title", "URL", null, null, 10.0);
-        SalePosition position = new SalePosition(product, 2);
+        final Product product = new Product();
+        product.setTitle("Title");
+        product.setUrl("URL");
+        product.setPrice(10);
+        final SalePosition position = new SalePosition();
+        position.setProduct(product);
+        position.setNumber(2);
         shoppingCartRepository.addSalePosition(position);
 
         assertTrue(shoppingCartRepository.getSize() == 2);
@@ -129,8 +143,13 @@ public class ShoppingCartRepositoryImplTest {
 
         assertTrue(shoppingCartRepository.getPrice() == 0);
 
-        Product product = new Product("Title", "URL", null, null, 10.0);
-        SalePosition position = new SalePosition(product, 2);
+        final Product product = new Product();
+        product.setTitle("Title");
+        product.setUrl("URL");
+        product.setPrice(10);
+        final SalePosition position = new SalePosition();
+        position.setProduct(product);
+        position.setNumber(1);
         shoppingCartRepository.addSalePosition(position);
 
         assertTrue(shoppingCartRepository.getPrice() == position.getPrice());

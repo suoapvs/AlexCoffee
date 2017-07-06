@@ -3,6 +3,9 @@ package ua.com.alexcoffee.model;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
 
 import static org.junit.Assert.*;
 
@@ -22,18 +25,23 @@ public class SalePositionTest {
     public void toStringTest() {
         System.out.print("-> toString() - ");
 
-        Product product = new Product("Title", "url", null, null, 10.0);
-        product.setId((long) 1);
-        SalePosition salePosition = new SalePosition(product, 5);
-        salePosition.setId((long) 2);
+        final Product product = new Product();
+        product.setTitle("Title");
+        product.setUrl("url");
+        product.setPrice(10.0);
+        product.setId(1);
+        final SalePosition position = new SalePosition();
+        position.setId(1);
+        position.setProduct(product);
+        position.setNumber(2);
 
-        String line = "SalePosition #" + salePosition.getId() + ":"
+        final String line = "SalePosition #" + position.getId() + ":"
                 + "\n" + product.getTitle() + "\n№ " + product.getId()
                 + ", " + product.getPrice() + " UAH"
-                + "\nNumber = " + salePosition.getNumber()
-                + "\nPrice = " + salePosition.getPrice();
+                + "\nNumber = " + position.getNumber()
+                + "\nPrice = " + position.getPrice();
 
-        assertEquals(salePosition.toString(), line);
+        assertEquals(position.toString(), line);
 
         System.out.println("OK!");
     }
@@ -42,8 +50,8 @@ public class SalePositionTest {
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
-        SalePosition salePosition = new SalePosition();
-        assertTrue(salePosition.equals(salePosition));
+        SalePosition position = new SalePosition();
+        assertTrue(position.equals(position));
 
         System.out.println("OK!");
     }
@@ -52,16 +60,25 @@ public class SalePositionTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        Product product = new Product();
-        SalePosition salePosition1 = new SalePosition(product, 1);
-        SalePosition salePosition2 = new SalePosition(product, 1);
+        final Product product = new Product();
+        final SalePosition position1 = new SalePosition();
+        position1.setId(1);
+        position1.setProduct(product);
+        position1.setNumber(2);
+        SalePosition position2 = new SalePosition();
+        position2.setId(2);
+        position2.setProduct(product);
+        position2.setNumber(2);
 
-        assertTrue(salePosition1.equals(salePosition2));
-        assertTrue(salePosition2.equals(salePosition1));
+        assertTrue(position1.equals(position2));
+        assertTrue(position2.equals(position1));
 
-        salePosition2 = new SalePosition(new Product(), 5);
+        position2 = new SalePosition();
+        position2.setId(2);
+        position2.setProduct(new Product());
+        position2.setNumber(5);
 
-        assertFalse(salePosition1.equals(salePosition2));
+        assertFalse(position1.equals(position2));
 
         System.out.println("OK!");
     }
@@ -70,14 +87,23 @@ public class SalePositionTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        Product product = new Product();
-        SalePosition salePosition1 = new SalePosition(product, 24);
-        SalePosition salePosition2 = new SalePosition(product, 24);
-        SalePosition salePosition3 = new SalePosition(product, 24);
+        final Product product = new Product();
+        final SalePosition position1 = new SalePosition();
+        position1.setId(1);
+        position1.setProduct(product);
+        position1.setNumber(2);
+        final SalePosition position2 = new SalePosition();
+        position2.setId(2);
+        position2.setProduct(product);
+        position2.setNumber(2);
+        final SalePosition position3 = new SalePosition();
+        position3.setId(3);
+        position3.setProduct(product);
+        position3.setNumber(2);
 
-        assertTrue(salePosition1.equals(salePosition2));
-        assertTrue(salePosition2.equals(salePosition3));
-        assertTrue(salePosition1.equals(salePosition3));
+        assertTrue(position1.equals(position2));
+        assertTrue(position2.equals(position3));
+        assertTrue(position1.equals(position3));
 
         System.out.println("OK!");
     }
@@ -86,12 +112,18 @@ public class SalePositionTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        Product product = new Product();
-        SalePosition salePosition1 = new SalePosition(product, 20);
-        SalePosition salePosition2 = new SalePosition(product, 20);
+        final Product product = new Product();
+        final SalePosition position1 = new SalePosition();
+        position1.setId(1);
+        position1.setProduct(product);
+        position1.setNumber(2);
+        final SalePosition position2 = new SalePosition();
+        position2.setId(2);
+        position2.setProduct(product);
+        position2.setNumber(2);
 
         for (int i = 0; i < 10; i++) {
-            assertTrue(salePosition1.equals(salePosition2));
+            assertTrue(position1.equals(position2));
         }
 
         System.out.println("OK!");
@@ -99,15 +131,20 @@ public class SalePositionTest {
 
     @Test
     public void getPriceTest() {
-        Product product = new Product("", "", null, null, 100);
-        SalePosition salePosition = new SalePosition(product, 10);
-        assertTrue(salePosition.getPrice() == product.getPrice() * 10);
+        final Product product = new Product();
+        product.setPrice(100);
+        SalePosition position = new SalePosition();
+        position.setProduct(product);
+        position.setNumber(10);
+        assertTrue(position.getPrice() == product.getPrice() * 10);
     }
 
     @Test
     public void numberIncrTest() {
         System.out.print("-> numberIncr() - ");
-        SalePosition position = new SalePosition(new Product(), 1);
+        SalePosition position = new SalePosition();
+        position.setProduct(new Product());
+        position.setNumber(1);
         position.numberIncrement();
         position.numberIncrement();
         assertTrue(position.getNumber() == 3);
@@ -132,18 +169,18 @@ public class SalePositionTest {
     public void setAndGetNumberTest() {
         System.out.print("-> setAndGetNumber() - ");
 
-        SalePosition salePosition = new SalePosition();
-        salePosition.setNumber(10);
-        assertTrue(salePosition.getNumber() == 10);
+        SalePosition position = new SalePosition();
+        position.setNumber(10);
+        assertTrue(position.getNumber() == 10);
 
-        salePosition.setNumber(-10);
-        assertTrue(salePosition.getNumber() == 0);
+        position.setNumber(-10);
+        assertTrue(position.getNumber() == 0);
 
-        salePosition.setProduct(null);
-        assertTrue(salePosition.getNumber() == 0);
+        position.setProduct(null);
+        assertTrue(position.getNumber() == 0);
 
-        salePosition.setProduct(new Product());
-        assertTrue(salePosition.getNumber() == 1);
+        position.setProduct(new Product());
+        assertTrue(position.getNumber() == 1);
 
         System.out.print("OK!");
     }
@@ -152,12 +189,12 @@ public class SalePositionTest {
     public void setAndGetOrderTest() {
         System.out.print("-> setAndGetOrder() - ");
 
-        Order order = new Order();
+        Order orderEntity = new Order();
         SalePosition position = new SalePosition();
-        position.setOrder(order);
+        position.setOrder(orderEntity);
 
         assertNotNull(position.getOrder());
-        assertEquals(position.getOrder(), order);
+        assertEquals(position.getOrder(), orderEntity);
 
         System.out.println("OK!");
     }

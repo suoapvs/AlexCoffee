@@ -66,7 +66,7 @@ public class AdminOrdersControllerTest {
     public void updateOrderTest() throws Exception {
         System.out.print("-> updateOrder() - ");
 
-        ModelAndView modelAndView = adminOrdersController.updateOrder(ID, ID, "number", ID, "name", "email", "phone",
+        ModelAndView modelAndView = adminOrdersController.updateOrder(ID, ID, "number", "NEW", "name", "email", "phone",
                 "shippingAddress", "shippingDetails", "description", new ModelAndView());
         String viewName = "redirect:/admin/order/view/1";
         checkModelAndView(modelAndView, viewName);

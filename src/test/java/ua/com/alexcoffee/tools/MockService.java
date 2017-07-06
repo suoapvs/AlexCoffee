@@ -12,11 +12,9 @@ public final class MockService {
     private static OrderService orderService;
     private static PhotoService photoService;
     private static ProductService productService;
-    private static RoleService roleService;
     private static SalePositionService salePositionService;
     private static SenderService senderService;
     private static ShoppingCartService shoppingCartService;
-    private static StatusService statusService;
     private static UserService userService;
 
     public static CategoryService getCategoryService() {
@@ -47,13 +45,6 @@ public final class MockService {
         return productService;
     }
 
-    public static RoleService getRoleService() {
-        if (roleService == null) {
-            roleService = initRoleService();
-        }
-        return roleService;
-    }
-
     public static SalePositionService getSalePositionService() {
         if (salePositionService == null) {
             salePositionService = initSalePositionService();
@@ -73,13 +64,6 @@ public final class MockService {
             shoppingCartService = initShoppingCartService();
         }
         return shoppingCartService;
-    }
-
-    public static StatusService getStatusService() {
-        if (statusService == null) {
-            statusService = initStatusService();
-        }
-        return statusService;
     }
 
     public static UserService getUserService() {
@@ -109,11 +93,6 @@ public final class MockService {
         return new ProductServiceImpl(productRepository);
     }
 
-    private static RoleService initRoleService() {
-        RoleRepository roleRepository = getRoleRepository();
-        return new RoleServiceImpl(roleRepository);
-    }
-
     private static SalePositionService initSalePositionService() {
         SalePositionRepository salePositionRepository = getSalePositionRepository();
         return new SalePositionServiceImpl(salePositionRepository);
@@ -129,14 +108,8 @@ public final class MockService {
         return new ShoppingCartServiceImpl(shoppingCartRepository);
     }
 
-    private static StatusService initStatusService() {
-        StatusRepository statusRepository = getStatusRepository();
-        return new StatusServiceImpl(statusRepository);
-    }
-
     private static UserService initUserService() {
         UserRepository userRepository = getUserRepository();
-        RoleRepository roleRepository = getRoleRepository();
-        return new UserServiceImpl(userRepository, roleRepository);
+        return new UserServiceImpl(userRepository);
     }
 }

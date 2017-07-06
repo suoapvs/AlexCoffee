@@ -97,10 +97,8 @@ public final class MockController {
 
     private static AdminOrdersController initAdminOrdersController() {
         OrderService orderService = getOrderService();
-        StatusService statusService = getStatusService();
         UserService userService = getUserService();
-        RoleService roleService = getRoleService();
-        return new AdminOrdersController(orderService, statusService, userService, roleService);
+        return new AdminOrdersController(orderService, userService);
     }
 
     private static AdminProductsController initAdminProductsController() {
@@ -113,8 +111,7 @@ public final class MockController {
 
     private static AdminUsersController initAdminUsersController() {
         UserService userService = getUserService();
-        RoleService roleService = getRoleService();
-        return new AdminUsersController(userService, roleService);
+        return new AdminUsersController(userService);
     }
 
     private static HomeController initHomeController() {
@@ -122,25 +119,22 @@ public final class MockController {
         CategoryService categoryService = getCategoryService();
         ShoppingCartService shoppingCartService = getShoppingCartService();
         OrderService orderService = getOrderService();
-        StatusService statusService = getStatusService();
-        RoleService roleService = getRoleService();
         SenderService senderService = getSenderService();
-        return new HomeController(productService, categoryService, shoppingCartService,
-                orderService, statusService, roleService, senderService);
+        return new HomeController(
+                productService, categoryService, shoppingCartService,
+                orderService, senderService
+        );
     }
 
     private static ManagerOrdersController initManagerOrdersController() {
         UserService userService = getUserService();
         OrderService orderService = getOrderService();
-        StatusService statusService = getStatusService();
-        RoleService roleService = getRoleService();
-        return new ManagerOrdersController(userService, orderService, statusService, roleService);
+        return new ManagerOrdersController(userService, orderService);
     }
 
     private static ManagerUsersController initManagerUsersController() {
         UserService userService = getUserService();
-        RoleService roleService = getRoleService();
-        return new ManagerUsersController(userService, roleService);
+        return new ManagerUsersController(userService);
     }
 
     private static AdviceController initAdviceController() {

@@ -3,7 +3,7 @@ package ua.com.alexcoffee.model;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.enums.StatusEnum;
+import ua.com.alexcoffee.model.category.Category;
 import ua.com.alexcoffee.tools.MockModel;
 
 import java.util.Collections;
@@ -30,19 +30,6 @@ public class ModelTest {
 
         assertFalse(category.equals(null));
         assertEquals(category, category);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void hashCodeTest() {
-        System.out.print("-> hashCode() - ");
-
-        Status status = new Status(StatusEnum.NEW, "New");
-        assertTrue(status.toString().hashCode() == status.hashCode());
-
-        status.setId((long) 2);
-        assertTrue(status.getId() == status.hashCode());
 
         System.out.println("OK!");
     }

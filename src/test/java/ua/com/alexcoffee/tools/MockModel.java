@@ -1,8 +1,14 @@
 package ua.com.alexcoffee.tools;
 
-import ua.com.alexcoffee.enums.RoleEnum;
-import ua.com.alexcoffee.enums.StatusEnum;
-import ua.com.alexcoffee.model.*;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.order.OrderStatus;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
+import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,17 +27,15 @@ public final class MockModel {
     public static final String USERNAME = "username";
     public static final String ANY_STRING = "any";
     public static final Long UNKNOWN_ID = -345230L;
-    public static final StatusEnum STATUS_ENUM = StatusEnum.NEW;
-    public static final RoleEnum ROLE_ENUM = RoleEnum.ADMIN;
+    public static final OrderStatus STATUS_ENUM = OrderStatus.NEW;
+    public static final UserRole ROLE_ENUM = UserRole.ADMIN;
 
     private static Category category;
     private static Order order;
     private static Photo photo;
     private static Product product;
-    private static Role role;
     private static SalePosition salePosition;
     private static ShoppingCart shoppingCart;
-    private static Status status;
     private static User user;
 
     public static Category getCategory() {
@@ -41,7 +45,7 @@ public final class MockModel {
         return category;
     }
 
-    public static Order getOrder() {
+    public static Order getOrderEntity() {
         if (order == null) {
             order = initOrder();
         }
@@ -62,13 +66,6 @@ public final class MockModel {
         return product;
     }
 
-    public static Role getRole() {
-        if (role == null) {
-            role = initRole();
-        }
-        return role;
-    }
-
     public static SalePosition getSalePosition() {
         if (salePosition == null) {
             salePosition = initSalePosition();
@@ -83,13 +80,6 @@ public final class MockModel {
         return shoppingCart;
     }
 
-    public static Status getStatus() {
-        if (status == null) {
-            status = initStatus();
-        }
-        return status;
-    }
-
     public static User getUser() {
         if (user == null) {
             user = initUser();
@@ -98,64 +88,77 @@ public final class MockModel {
     }
 
     private static Category initCategory() {
-        Photo photo = initPhoto();
-        Category category = new Category(TITLE, URL, ANY_STRING, photo);
+        final Category category = new Category();
         category.setId(ID);
+        category.setTitle(TITLE);
+        category.setUrl(URL);
+        category.setDescription(ANY_STRING);
+        final Photo photo = initPhoto();
+        category.setPhoto(photo);
         return category;
     }
 
     private static Order initOrder() {
-        User user = initUser();
-        Status status = initStatus();
-        List<SalePosition> salePositions = getTenSalePositions();
-        Order order = new Order(status, user, salePositions);
+        final Order order = new Order();
         order.setId(ID);
+        order.setStatus(STATUS_ENUM);
+        final User user = initUser();
+        final List<SalePosition> positions = getTenSalePositions();
+        order.setClient(user);
+        order.setSalePositions(positions);
         return order;
     }
 
     private static Photo initPhoto() {
-        Photo photo = new Photo(TITLE, ANY_STRING, ANY_STRING);
+        final Photo photo = new Photo();
         photo.setId(ID);
+        photo.setTitle(TITLE);
+        photo.setSmallUrl(ANY_STRING);
+        photo.setLongUrl(ANY_STRING);
         return photo;
     }
 
     private static Product initProduct() {
-        Category category = initCategory();
-        Photo photo = initPhoto();
-        Product product = new Product(TITLE, URL, category, photo, PRICE);
+        final Product product = new Product();
         product.setId(ID);
+        product.setTitle(TITLE);
+        product.setUrl(URL);
+        product.setPrice(PRICE);
+        final Category category = initCategory();
+        product.setCategory(category);
+        final Photo photo = initPhoto();
+        product.setPhoto(photo);
         return product;
     }
 
-    private static Role initRole() {
-        Role role = new Role(ROLE_ENUM, ROLE_ENUM.name());
-        role.setId(ID);
-        return role;
-    }
-
     private static SalePosition initSalePosition() {
-        Product product = initProduct();
-        SalePosition salePosition = new SalePosition(product, SIZE);
-        salePosition.setId(ID);
-        return salePosition;
+        final SalePosition position = new SalePosition();
+        position.setId(ID);
+        position.setNumber(SIZE);
+        final Product product = initProduct();
+        position.setProduct(product);
+        return position;
     }
 
     private static ShoppingCart initShoppingCart() {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setSalePositions(getTenSalePositions());
+        final ShoppingCart shoppingCart = new ShoppingCart();
+        final List<SalePosition> positions = getTenSalePositions();
+        shoppingCart.setSalePositions(positions);
         return shoppingCart;
     }
 
-    private static Status initStatus() {
-        Status status = new Status(STATUS_ENUM, STATUS_ENUM.name());
-        status.setId(ID);
-        return status;
-    }
-
     private static User initUser() {
-        Role role = initRole();
-        User user = new User(TITLE, ANY_STRING, ANY_STRING, role);
+        User user = new User();
         user.setId(ID);
+        user.setName(TITLE);
+        user.setUsername(TITLE);
+        user.setPassword(ANY_STRING);
+        user.setEmail(ANY_STRING);
+        user.setPhone(ANY_STRING);
+        user.setVkontakte(ANY_STRING);
+        user.setFacebook(ANY_STRING);
+        user.setSkype(ANY_STRING);
+        user.setRole(ROLE_ENUM);
         return user;
     }
 
@@ -170,13 +173,13 @@ public final class MockModel {
     }
 
     public static List<Order> getTenOrders() {
-        List<Order> orders = new ArrayList<>();
+        List<Order> orderEntities = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Order order = initOrder();
             order.setId((long) i);
-            orders.add(order);
+            orderEntities.add(order);
         }
-        return orders;
+        return orderEntities;
     }
 
     public static List<Photo> getTenPhoto() {
@@ -199,16 +202,6 @@ public final class MockModel {
         return products;
     }
 
-    public static List<Role> getTenRoles() {
-        List<Role> roles = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Role role = initRole();
-            role.setId((long) i);
-            roles.add(role);
-        }
-        return roles;
-    }
-
     public static List<SalePosition> getTenSalePositions() {
         List<SalePosition> salePositions = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -217,16 +210,6 @@ public final class MockModel {
             salePositions.add(salePosition);
         }
         return salePositions;
-    }
-
-    public static List<Status> getTenStatuses() {
-        List<Status> statuses = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Status status = initStatus();
-            status.setId((long) i);
-            statuses.add(status);
-        }
-        return statuses;
     }
 
     public static List<User> getTenUsers() {

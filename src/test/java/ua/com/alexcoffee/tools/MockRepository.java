@@ -1,8 +1,12 @@
 package ua.com.alexcoffee.tools;
 
-import ua.com.alexcoffee.enums.RoleEnum;
-import ua.com.alexcoffee.enums.StatusEnum;
-import ua.com.alexcoffee.model.*;
+import ua.com.alexcoffee.model.basket.ShoppingCart;
+import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.position.SalePosition;
+import ua.com.alexcoffee.model.product.Product;
+import ua.com.alexcoffee.model.user.User;
 import ua.com.alexcoffee.repository.*;
 
 import java.util.ArrayList;
@@ -18,10 +22,8 @@ public final class MockRepository {
     private static OrderRepository orderRepository;
     private static PhotoRepository photoRepository;
     private static ProductRepository productRepository;
-    private static RoleRepository roleRepository;
     private static SalePositionRepository salePositionRepository;
     private static ShoppingCartRepository shoppingCartRepository;
-    private static StatusRepository statusRepository;
     private static UserRepository userRepository;
 
 
@@ -57,14 +59,6 @@ public final class MockRepository {
     }
 
 
-    public static RoleRepository getRoleRepository() {
-        if (roleRepository == null) {
-            roleRepository = initRoleRepository();
-        }
-        return roleRepository;
-    }
-
-
     public static SalePositionRepository getSalePositionRepository() {
         if (salePositionRepository == null) {
             salePositionRepository = initSalePositionRepository();
@@ -79,15 +73,6 @@ public final class MockRepository {
         }
         return shoppingCartRepository;
     }
-
-
-    public static StatusRepository getStatusRepository() {
-        if (statusRepository == null) {
-            statusRepository = initStatusRepository();
-        }
-        return statusRepository;
-    }
-
 
     public static UserRepository getUserRepository() {
         if (userRepository == null) {
@@ -111,14 +96,14 @@ public final class MockRepository {
     }
 
     private static OrderRepository initOrderRepository() {
-        Order order = getOrder();
-        List<Order> orders = getTenOrders();
+        Order orderEntity = getOrderEntity();
+        List<Order> orderEntities = getTenOrders();
         OrderRepository orderRepository = mock(OrderRepository.class);
-        when(orderRepository.findOne(ID)).thenReturn(order);
+        when(orderRepository.findOne(ID)).thenReturn(orderEntity);
         when(orderRepository.findOne(UNKNOWN_ID)).thenReturn(null);
-        when(orderRepository.findByNumber(NUMBER)).thenReturn(order);
+        when(orderRepository.findByNumber(NUMBER)).thenReturn(orderEntity);
         when(orderRepository.findByNumber(ANY_STRING)).thenReturn(null);
-        when(orderRepository.findAll()).thenReturn(orders);
+        when(orderRepository.findAll()).thenReturn(orderEntities);
         return orderRepository;
     }
 
@@ -150,20 +135,6 @@ public final class MockRepository {
         return productRepository;
     }
 
-    private static RoleRepository initRoleRepository() {
-        Role role = getRole();
-        List<Role> roles = getTenRoles();
-        RoleRepository roleRepository = mock(RoleRepository.class);
-        when(roleRepository.findOne(ID)).thenReturn(role);
-        when(roleRepository.findOne(UNKNOWN_ID)).thenReturn(null);
-        when(roleRepository.findByTitle(ROLE_ENUM)).thenReturn(role);
-        when(roleRepository.findByTitle(RoleEnum.ADMIN)).thenReturn(role);
-        when(roleRepository.findByTitle(RoleEnum.MANAGER)).thenReturn(role);
-        when(roleRepository.findByTitle(RoleEnum.CLIENT)).thenReturn(null);
-        when(roleRepository.findAll()).thenReturn(roles);
-        return roleRepository;
-    }
-
     private static SalePositionRepository initSalePositionRepository() {
         SalePosition salePosition = getSalePosition();
         List<SalePosition> salePositions = getTenSalePositions();
@@ -182,18 +153,6 @@ public final class MockRepository {
         when(shoppingCartRepository.getPrice()).thenReturn(PRICE);
         when(shoppingCartRepository.getSalePositions()).thenReturn(shoppingCart.getSalePositions());
         return shoppingCartRepository;
-    }
-
-    private static StatusRepository initStatusRepository() {
-        Status status = getStatus();
-        List<Status> statuses = getTenStatuses();
-        StatusRepository statusRepository = mock(StatusRepository.class);
-        when(statusRepository.findOne(ID)).thenReturn(status);
-        when(statusRepository.findOne(UNKNOWN_ID)).thenReturn(null);
-        when(statusRepository.findByTitle(STATUS_ENUM)).thenReturn(status);
-        when(statusRepository.findByTitle(StatusEnum.CLOSED)).thenReturn(null);
-        when(statusRepository.findAll()).thenReturn(statuses);
-        return statusRepository;
     }
 
     private static UserRepository initUserRepository() {

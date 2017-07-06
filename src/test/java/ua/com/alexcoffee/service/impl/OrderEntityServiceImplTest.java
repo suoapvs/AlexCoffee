@@ -3,7 +3,7 @@ package ua.com.alexcoffee.service.impl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.alexcoffee.model.Order;
+import ua.com.alexcoffee.model.order.Order;
 import ua.com.alexcoffee.service.interfaces.OrderService;
 import ua.com.alexcoffee.tools.MockService;
 
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static ua.com.alexcoffee.tools.MockModel.*;
 
-public class OrderServiceImplTest {
+public class OrderEntityServiceImplTest {
 
     private static OrderService orderService;
 
@@ -35,8 +35,8 @@ public class OrderServiceImplTest {
     public void getByIdTest() throws Exception {
         System.out.print("-> getById() - ");
 
-        Order order = orderService.get(ID);
-        assertNotNull(order);
+        Order orderEntity = orderService.get(ID);
+        assertNotNull(orderEntity);
 
         System.out.println("OK!");
     }
@@ -45,15 +45,15 @@ public class OrderServiceImplTest {
     public void getByUnknownIdTest() throws Exception {
         System.out.println("-> getByUnknownId() - OK!");
 
-        Order order = orderService.get(UNKNOWN_ID);
+        Order orderEntity = orderService.get(UNKNOWN_ID);
     }
 
     @Test
     public void getByNumberTest() throws Exception {
         System.out.print("-> getByNumber() - ");
 
-        Order order = orderService.get(NUMBER);
-        assertNotNull(order);
+        Order orderEntity = orderService.get(NUMBER);
+        assertNotNull(orderEntity);
 
         System.out.println("OK!");
     }
@@ -63,7 +63,7 @@ public class OrderServiceImplTest {
         System.out.println("-> getByNullNumber() - OK!");
 
         String number = null;
-        Order order = orderService.get(number);
+        Order orderEntity = orderService.get(number);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -71,14 +71,14 @@ public class OrderServiceImplTest {
         System.out.println("-> getByEmptyNumber() - OK!");
 
         String number = "";
-        Order order = orderService.get(number);
+        Order orderEntity = orderService.get(number);
     }
 
     @Test(expected = NullPointerException.class)
     public void getByUnknownNumberTest() throws Exception {
         System.out.println("-> getByUnknownNumber() - OK!");
 
-        Order order = orderService.get(ANY_STRING);
+        Order orderEntity = orderService.get(ANY_STRING);
     }
 
     @Test
@@ -110,9 +110,9 @@ public class OrderServiceImplTest {
     public void getAllTest() throws Exception {
         System.out.println("-> getAll() - ");
 
-        Collection<Order> orders = orderService.getAll();
-        assertNotNull(orders);
-        assertTrue(orders.size() >= 0);
+        Collection<Order> orderEntities = orderService.getAll();
+        assertNotNull(orderEntities);
+        assertTrue(orderEntities.size() >= 0);
 
         System.out.println("OK!");
     }
@@ -121,27 +121,27 @@ public class OrderServiceImplTest {
     public void noExceptionOfVoidMethodTest() throws Exception {
         System.out.print("-> noExceptionOfVoidMethod() - ");
 
-        Order order = null;
-        orderService.add(order);
-        orderService.update(order);
-        orderService.remove(order);
+        Order orderEntity = null;
+        orderService.add(orderEntity);
+        orderService.update(orderEntity);
+        orderService.remove(orderEntity);
 
-        order = getOrder();
-        orderService.add(order);
-        orderService.update(order);
-        orderService.remove(order);
+        orderEntity = getOrderEntity();
+        orderService.add(orderEntity);
+        orderService.update(orderEntity);
+        orderService.remove(orderEntity);
 
-        List<Order> orders = null;
-        orderService.add(orders);
-        orderService.remove(orders);
+        List<Order> orderEntities = null;
+        orderService.add(orderEntities);
+        orderService.remove(orderEntities);
 
-        orders = new ArrayList<>();
-        orderService.add(orders);
-        orderService.remove(orders);
+        orderEntities = new ArrayList<>();
+        orderService.add(orderEntities);
+        orderService.remove(orderEntities);
 
-        orders.add(order);
-        orderService.add(orders);
-        orderService.remove(orders);
+        orderEntities.add(orderEntity);
+        orderService.add(orderEntities);
+        orderService.remove(orderEntities);
 
         System.out.println("OK!");
     }
