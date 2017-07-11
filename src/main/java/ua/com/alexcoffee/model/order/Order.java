@@ -140,7 +140,7 @@ public class Order extends Model {
         sb.append(this.number).append(", ")
                 .append(this.status.name())
                 .append(",\n").append(this.date);
-        if (this.client != null) {
+        if (isNotNull(this.client)) {
             sb.append("\n\nClient: ")
                     .append(this.client.getName())
                     .append("\ne-mail: ")
@@ -149,26 +149,26 @@ public class Order extends Model {
                     .append(this.client.getPhone())
                     .append("\n");
         }
-        if (this.manager != null) {
+        if (isNotNull(this.manager)) {
             sb.append("\n")
                     .append(this.manager.getRole().name())
                     .append(" ")
                     .append(this.manager.getName())
                     .append("\n");
         }
-        if (!this.shippingAddress.isEmpty()) {
+        if (isNotEmpty(this.shippingAddress)) {
             sb.append("\nShipping address: ")
                     .append(this.shippingAddress);
         }
-        if (!this.shippingDetails.isEmpty()) {
+        if (isNotEmpty(this.shippingDetails)) {
             sb.append("\nShipping details: ")
                     .append(this.shippingDetails);
         }
-        if (!this.description.isEmpty()) {
+        if (isNotEmpty(this.description)) {
             sb.append("\nDescription: ")
                     .append(this.description);
         }
-        if (this.salePositions != null && !this.salePositions.isEmpty()) {
+        if (isNotEmpty(this.salePositions)) {
             sb.append("\nSale Positions: ");
             int count = 1;
             for (SalePosition salePosition : this.salePositions) {

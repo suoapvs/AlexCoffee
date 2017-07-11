@@ -162,7 +162,7 @@ public class SalePosition extends Model {
      */
     public void setProduct(final Product product) {
         this.product = product;
-        this.number = (product != null) ? 1 : 0;
+        this.number = isNotNull(product) ? 1 : 0;
     }
 
     /**
