@@ -2,15 +2,13 @@ package ua.com.alexcoffee.model.product;
 
 import ua.com.alexcoffee.model.category.Category;
 import ua.com.alexcoffee.model.model.Model;
-import ua.com.alexcoffee.model.position.SalePosition;
 import ua.com.alexcoffee.model.photo.Photo;
+import ua.com.alexcoffee.model.position.SalePosition;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 /**
  * Класс описывает сущность "Товар", наследует класс {@link Model}.
@@ -27,21 +25,11 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  */
 @Entity
 @Table(name = "products")
-public class Product extends Model {
+public final class Product extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Набор вожможных для использованния символов по-умолчанию.
-     */
-    private static final char[] CODE_PATTERN = "1234567890".toCharArray();
-
-    /**
-     * Длина возвращаемой строки по-умолчанию 5.
-     */
-    private static final int CODE_LENGTH = 5;
 
     /**
      * Артикль товара.
@@ -212,14 +200,6 @@ public class Product extends Model {
     }
 
     /**
-     * Генерирует новый артикль товара.
-     */
-    public void newArticle() {
-        final String randomString = createRandomString(CODE_PATTERN, CODE_LENGTH);
-        this.article = Integer.parseInt(randomString);
-    }
-
-    /**
      * Возвращает артикль товара.
      *
      * @return Значение типа int - артикль товара.
@@ -234,11 +214,7 @@ public class Product extends Model {
      * @param article Артикль товара.
      */
     public void setArticle(final int article) {
-        if (article > 0) {
-            this.article = article;
-        } else {
-            newArticle();
-        }
+        this.article = article;
     }
 
     /**
@@ -256,7 +232,7 @@ public class Product extends Model {
      * @param title Название товара.
      */
     public void setTitle(final String title) {
-        this.title = isNotEmpty(title) ? title : "";
+        this.title = title;
     }
 
     /**
@@ -274,7 +250,7 @@ public class Product extends Model {
      * @param url URL товара.
      */
     public void setUrl(final String url) {
-        this.url = isNotEmpty(url) ? url : "";
+        this.url = url;
     }
 
     /**
@@ -292,7 +268,7 @@ public class Product extends Model {
      * @param parameters Параметры товара.
      */
     public void setParameters(final String parameters) {
-        this.parameters = isNotEmpty(parameters) ? parameters : "";
+        this.parameters = parameters;
     }
 
     /**
@@ -310,7 +286,7 @@ public class Product extends Model {
      * @param description Описание товара.
      */
     public void setDescription(final String description) {
-        this.description = isNotEmpty(description) ? description : "";
+        this.description = description;
     }
 
     /**
@@ -364,7 +340,7 @@ public class Product extends Model {
      * @param price Цена товара.
      */
     public void setPrice(final double price) {
-        this.price = (price > 0) ? price : 0;
+        this.price = price;
     }
 
     /**
@@ -383,5 +359,9 @@ public class Product extends Model {
      */
     public void setSalePositions(final Collection<SalePosition> positions) {
         this.salePositions = new ArrayList<>(positions);
+    }
+
+    public static ProductBuilder getBuilder() {
+        return new ProductBuilder();
     }
 }

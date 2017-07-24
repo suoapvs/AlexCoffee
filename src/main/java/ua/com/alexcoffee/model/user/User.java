@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
-
 /**
  * Класс описывает сущность "Пользователь", наследует класс {@link Model}
  * и реализует методы интерфейса {@link UserDetails}.
@@ -29,7 +27,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotEmpty;
  */
 @Entity
 @Table(name = "users")
-public class User extends Model implements UserDetails {
+public final class User extends Model implements UserDetails {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -126,7 +124,7 @@ public class User extends Model implements UserDetails {
             mappedBy = "client",
             cascade = CascadeType.REMOVE
     )
-    private List<Order> clientOrderEntities = new ArrayList<>();
+    private Collection<Order> clientOrders = new ArrayList<>();
 
     /**
      * Список заказов, которые обработал текущий менеджер.
@@ -141,7 +139,10 @@ public class User extends Model implements UserDetails {
             mappedBy = "manager",
             cascade = CascadeType.REMOVE
     )
-    private List<Order> managerOrderEntities = new ArrayList<>();
+    private Collection<Order> managerOrders = new ArrayList<>();
+
+    protected User() {
+    }
 
     /**
      * Возвращает описание пользователя.
@@ -206,7 +207,6 @@ public class User extends Model implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-
 
     /**
      * Возвращает значение типа boolean от того,
@@ -275,7 +275,7 @@ public class User extends Model implements UserDetails {
      * @param name Имя пользователя.
      */
     public void setName(final String name) {
-        this.name = isNotEmpty(name) ? name : "";
+        this.name = name;
     }
 
     /**
@@ -293,7 +293,7 @@ public class User extends Model implements UserDetails {
      * @param username Логин пользователя.
      */
     public void setUsername(final String username) {
-        this.username = isNotEmpty(username) ? username : "";
+        this.username = username;
     }
 
     /**
@@ -311,7 +311,7 @@ public class User extends Model implements UserDetails {
      * @param password Пароль пользователя.
      */
     public void setPassword(final String password) {
-        this.password = isNotEmpty(password) ? password : "";
+        this.password = password;
     }
 
     /**
@@ -329,7 +329,7 @@ public class User extends Model implements UserDetails {
      * @param email Электронная почта пользователя.
      */
     public void setEmail(final String email) {
-        this.email = isNotEmpty(email) ? email : "";
+        this.email = email;
     }
 
     /**
@@ -347,7 +347,7 @@ public class User extends Model implements UserDetails {
      * @param phone Номер телефона пользователя.
      */
     public void setPhone(final String phone) {
-        this.phone = isNotEmpty(phone) ? phone : "";
+        this.phone = phone;
     }
 
     /**
@@ -365,7 +365,7 @@ public class User extends Model implements UserDetails {
      * @param vkontakte Ссылка "ВКонтакте" пользователя.
      */
     public void setVkontakte(final String vkontakte) {
-        this.vkontakte = isNotEmpty(vkontakte) ? vkontakte : "";
+        this.vkontakte = vkontakte;
     }
 
     /**
@@ -383,7 +383,7 @@ public class User extends Model implements UserDetails {
      * @param facebook Ссылка "Facebook" пользователя.
      */
     public void setFacebook(final String facebook) {
-        this.facebook = isNotEmpty(facebook) ? facebook : "";
+        this.facebook = facebook;
     }
 
     /**
@@ -401,7 +401,7 @@ public class User extends Model implements UserDetails {
      * @param skype Логин "Skype".
      */
     public void setSkype(final String skype) {
-        this.skype = isNotEmpty(skype) ? skype : "";
+        this.skype = skype;
     }
 
     /**
@@ -419,7 +419,7 @@ public class User extends Model implements UserDetails {
      * @param description Описание пользователя.
      */
     public void setDescription(final String description) {
-        this.description = isNotEmpty(description) ? description : "";
+        this.description = description;
     }
 
     /**
@@ -447,21 +447,17 @@ public class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только для чтения
      * или пустой список.
      */
-    public Collection<Order> getClientOrderEntities() {
-        return getUnmodifiableList(this.clientOrderEntities);
+    public Collection<Order> getClientOrders() {
+        return getUnmodifiableList(this.clientOrders);
     }
 
     /**
      * Устанавливает список заказов, которые оформил текущий клиент.
      *
-     * @param orderEntities Список заказов, оформленных клиентом.
+     * @param orders Список заказов, оформленных клиентом.
      */
-    public void setClientOrderEntities(final Collection<Order> orderEntities) {
-        if (isNotEmpty(orderEntities)) {
-            this.clientOrderEntities = new ArrayList<>(orderEntities);
-        } else {
-            this.clientOrderEntities = new ArrayList<>();
-        }
+    public void setClientOrders(final Collection<Order> orders) {
+        this.clientOrders = new ArrayList<>(orders);
     }
 
     /**
@@ -471,20 +467,20 @@ public class User extends Model implements UserDetails {
      * @return Объект типа {@link List} - список заказов только
      * для чтения или пустой список.
      */
-    public Collection<Order> getManagerOrderEntities() {
-        return getUnmodifiableList(this.managerOrderEntities);
+    public Collection<Order> getManagerOrders() {
+        return getUnmodifiableList(this.managerOrders);
     }
 
     /**
      * Устанавливает список заказов, которые обработал текущий менеджер.
      *
-     * @param orderEntities Список заказов, обработаных менеджером.
+     * @param orders Список заказов, обработаных менеджером.
      */
-    public void setManagerOrderEntities(final Collection<Order> orderEntities) {
-        if (isNotEmpty(orderEntities)) {
-            this.managerOrderEntities = new ArrayList<>(orderEntities);
-        } else {
-            this.managerOrderEntities = new ArrayList<>();
-        }
+    public void setManagerOrders(final Collection<Order> orders) {
+        this.managerOrders = new ArrayList<>(orders);
+    }
+
+    public static UserBuilder getBuilder() {
+        return new UserBuilder();
     }
 }

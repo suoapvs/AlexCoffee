@@ -68,6 +68,9 @@ public abstract class Model implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    protected Model() {
+    }
+
     /**
      * Возвращает описание категории.
      * Переопределенный метод родительского класса {@link Object}.
@@ -101,36 +104,6 @@ public abstract class Model implements Serializable {
      */
     @Override
     public abstract int hashCode();
-
-    /**
-     * Возвращает рандомную строку из набор символов и длинны по-умолчанию.
-     *
-     * @return Значение типа {@link String} - рандомная строка из набора
-     * символов CODE_PATTERN длиной {@value CODE_LENGTH}.
-     */
-    protected String createRandomString() {
-        return createRandomString(CODE_PATTERN, CODE_LENGTH);
-    }
-
-    /**
-     * Возвращает рандомную строку используя набор символов pattern длиной length.
-     *
-     * @param pattern Набор вожможных для использованния символов.
-     * @param length  Длина возвращаемой строки.
-     * @return Значение типа {@link String} - рандомная строка из набора символов
-     * pattern длиной length.
-     */
-    protected String createRandomString(
-            final char[] pattern,
-            final int length
-    ) {
-        final StringBuilder sb = new StringBuilder();
-        final Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            sb.append(pattern[random.nextInt(pattern.length)]);
-        }
-        return sb.toString();
-    }
 
     /**
      * Конвертирует дату типа Date в строку используя для работы входящими параметрами

@@ -27,7 +27,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
  */
 @Entity
 @Table(name = "categories")
-public class Category extends Model {
+public final class Category extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -78,6 +78,9 @@ public class Category extends Model {
             cascade = CascadeType.ALL
     )
     private Collection<Product> products = new HashSet<>();
+
+    protected Category() {
+    }
 
     /**
      * Возвращает описание категории.

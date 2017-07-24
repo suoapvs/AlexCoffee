@@ -27,7 +27,7 @@ import static ua.com.alexcoffee.util.validator.ObjectValidator.isNotNull;
  */
 @Entity
 @Table(name = "orders")
-public class Order extends Model {
+public final class Order extends Model {
     /**
      * Номер версии класса необходимый для десериализации и сериализации.
      */
@@ -125,7 +125,10 @@ public class Order extends Model {
             mappedBy = "order",
             cascade = CascadeType.ALL
     )
-    private List<SalePosition> salePositions = new ArrayList<>();
+    private Collection<SalePosition> salePositions = new ArrayList<>();
+
+    protected Order() {
+    }
 
     /**
      * Возвращает описание заказа. Переопределенный метод родительского класса {@link Object}.
@@ -294,7 +297,7 @@ public class Order extends Model {
      * для чтения или пустой список.
      */
     public Collection<SalePosition> getSalePositions() {
-        return getUnmodifiableList(this.salePositions);
+        return new ArrayList<>(this.salePositions);
     }
 
     /**
@@ -303,8 +306,7 @@ public class Order extends Model {
      * @param positions Список торговых позиция.
      */
     public void setSalePositions(final Collection<SalePosition> positions) {
-        clearSalePositions();
-        addSalePositions(positions);
+        this.salePositions = positions;
     }
 
     /**
@@ -322,14 +324,7 @@ public class Order extends Model {
      * @param number Номер заказа.
      */
     public void setNumber(final String number) {
-        this.number = isNotEmpty(number) ? number : "";
-    }
-
-    /**
-     * Генерирует новый номер заказа.
-     */
-    public void newNumber() {
-        this.number = createRandomString();
+        this.number = number;
     }
 
     /**
@@ -347,7 +342,7 @@ public class Order extends Model {
      * @param date Дата модификации заказа.
      */
     public void setDate(final Date date) {
-        this.date = isNotNull(date) ? date : new Date();
+        this.date = date;
     }
 
     /**
@@ -419,7 +414,7 @@ public class Order extends Model {
      * @param shippingAddress Адрес доставки заказа.
      */
     public void setShippingAddress(final String shippingAddress) {
-        this.shippingAddress = isNotEmpty(shippingAddress) ? shippingAddress : "";
+        this.shippingAddress = shippingAddress;
     }
 
     /**
@@ -437,7 +432,7 @@ public class Order extends Model {
      * @param shippingDetails Детали доставки заказа.
      */
     public void setShippingDetails(final String shippingDetails) {
-        this.shippingDetails = isNotEmpty(shippingDetails) ? shippingDetails : "";
+        this.shippingDetails = shippingDetails;
     }
 
     /**
@@ -455,7 +450,7 @@ public class Order extends Model {
      * @param description Описание заказа.
      */
     public void setDescription(final String description) {
-        this.description = isNotEmpty(description) ? description : "";
+        this.description = description;
     }
 
     /**
@@ -469,5 +464,9 @@ public class Order extends Model {
             price += salePosition.getPrice();
         }
         return price;
+    }
+
+    public static OrderBuilder getBuilder() {
+        return new OrderBuilder();
     }
 }

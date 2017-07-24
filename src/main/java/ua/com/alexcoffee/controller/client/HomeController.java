@@ -12,15 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.model.basket.ShoppingCart;
 import ua.com.alexcoffee.model.category.Category;
 import ua.com.alexcoffee.model.order.Order;
+import ua.com.alexcoffee.model.order.OrderBuilder;
 import ua.com.alexcoffee.model.order.OrderStatus;
 import ua.com.alexcoffee.model.position.SalePosition;
 import ua.com.alexcoffee.model.product.Product;
 import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserBuilder;
 import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Класс-контроллер домашних страниц. К даному контроллеру и соответствующим страницам
@@ -107,7 +106,7 @@ public final class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"", "/", "/index", "/home"},
+            value = { "", "/", "/index", "/home" },
             method = RequestMethod.GET
     )
     public ModelAndView home(final ModelAndView modelAndView) {
@@ -259,7 +258,7 @@ public final class HomeController {
      * по запросу "/cart/add" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение,если обратится к
-     *                                   этому методу GET.
+     *                                 этому методу GET.
      */
     @RequestMapping(
             value = "/cart/add",
@@ -305,7 +304,7 @@ public final class HomeController {
      * по запросу "/cart/add_quickly" методом GET.
      *
      * @throws IllegalMappingException Бросает исключение, если обратится к
-     *                                   этому методу GET.
+     *                                 этому методу GET.
      */
     @RequestMapping(
             value = "/cart/add_quickly",
@@ -353,18 +352,17 @@ public final class HomeController {
             final ModelAndView modelAndView
     ) {
         if (this.shoppingCartService.getSize() > 0) {
-            final UserRole role = UserRole.CLIENT;
-            final User client = new User();
-            client.setName(name);
-            client.setEmail(email);
-            client.setPhone(phone);
-            client.setRole(role);
-            final OrderStatus status = OrderStatus.NEW;
-            final List<SalePosition> positions = new ArrayList<>(this.shoppingCartService.getSalePositions());
-            final Order order = new Order();
-            order.setStatus(status);
-            order.setClient(client);
-            order.setSalePositions(positions);
+            final UserBuilder userBuilder = User.getBuilder();
+            userBuilder.addRole(UserRole.CLIENT)
+                    .addName(name)
+                    .addEmail(email)
+                    .addPhone(phone);
+            final User client = userBuilder.build();
+            final OrderBuilder orderBuilder = Order.getBuilder();
+            orderBuilder.addStatus(OrderStatus.NEW)
+                    .addClient(client)
+                    .addSalePositions(this.shoppingCartService.getSalePositions());
+            final Order order = orderBuilder.build();
             this.orderService.add(order);
             this.senderService.send(order);
             modelAndView.addObject("order", order);
@@ -400,7 +398,7 @@ public final class HomeController {
      * к запросам, к которым он не имеет права доступа (роли).
      *
      * @throws IllegalMappingException Бросает исключение в случае отсутствия
-     *                            прав доступа.
+     *                                 прав доступа.
      */
     @RequestMapping(
             value = "/forbidden_exception",
@@ -419,7 +417,7 @@ public final class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"/admin", "/admin/"},
+            value = { "/admin", "/admin/" },
             method = RequestMethod.GET
     )
     public ModelAndView redirectToAdminPage(final ModelAndView modelAndView) {
@@ -434,7 +432,7 @@ public final class HomeController {
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
-            value = {"/managers", "/managers/"},
+            value = { "/managers", "/managers/" },
             method = RequestMethod.GET
     )
     public ModelAndView redirectToManagerPage(final ModelAndView modelAndView) {

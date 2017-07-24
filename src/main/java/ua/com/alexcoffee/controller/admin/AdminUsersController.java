@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.model.user.User;
+import ua.com.alexcoffee.model.user.UserBuilder;
 import ua.com.alexcoffee.model.user.UserRole;
 import ua.com.alexcoffee.service.interfaces.UserService;
 
@@ -151,18 +152,19 @@ public final class AdminUsersController {
             @RequestParam(value = "description") final String description,
             final ModelAndView modelAndView
     ) {
-        final User user = new User();
-        user.setName(name);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setPhone(phone);
-        user.setVkontakte(vkontakte);
-        user.setFacebook(facebook);
-        user.setSkype(skype);
-        user.setDescription(description);
+        final UserBuilder userBuilder = User.getBuilder();
+        userBuilder.addName(name)
+                .addUsername(username)
+                .addPassword(password)
+                .addEmail(email)
+                .addPhone(phone)
+                .addVkontakte(vkontakte)
+                .addFacebook(facebook)
+                .addSkype(skype)
+                .addDescription(description);
         final UserRole role = UserRole.valueOf(roleName);
-        user.setRole(role);
+        userBuilder.addRole(role);
+        final User user = userBuilder.build();
         this.userService.add(user);
         modelAndView.setViewName("redirect:/admin/user/all");
         return modelAndView;

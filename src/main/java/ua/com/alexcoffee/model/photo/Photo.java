@@ -24,7 +24,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
  */
 @Entity
 @Table(name = "photos")
-public class Photo extends Model {
+public final class Photo extends Model {
     /**
      * Номер версии класса необходимый
      * для десериализации и сериализации.
@@ -58,6 +58,9 @@ public class Photo extends Model {
      */
     @Column(name = "photo_link_long")
     private String longUrl = "";
+
+    protected Photo() {
+    }
 
     /**
      * Возвращает описание изображения.
