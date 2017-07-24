@@ -189,7 +189,7 @@ public class SalePositionTest {
     public void setAndGetOrderTest() {
         System.out.print("-> setAndGetOrder() - ");
 
-        Order orderEntity = new Order();
+        Order orderEntity = Order.getBuilder().build();
         SalePosition position = new SalePosition();
         position.setOrder(orderEntity);
 

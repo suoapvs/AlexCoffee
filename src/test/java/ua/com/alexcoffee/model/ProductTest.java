@@ -44,7 +44,7 @@ public class ProductTest {
 
         assertEquals(product.toString(), line);
 
-        final Category category = new Category();
+        final Category category = Category.getBuilder().build();
         category.setTitle(title);
         product.setCategory(category);
         line += "\nCategory: " + category.getTitle();
@@ -118,8 +118,8 @@ public class ProductTest {
         String url = "Url";
         String parameters = "Parameters";
         String description = "Description";
-        Category category = new Category();
-        Photo photo = new Photo();
+        Category category = Category.getBuilder().build();
+        Photo photo = Photo.getBuilder().build();
         double price = 10.0;
 
         final Product product = new Product();
@@ -138,21 +138,6 @@ public class ProductTest {
         assertEquals(product.getCategory(), category);
         assertEquals(product.getPhoto(), photo);
         assertTrue(product.getPrice() == price);
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void newArticleTest() {
-        System.out.print("-> newArticle() - ");
-
-        Product product = new Product();
-        int article = product.getArticle();
-
-        product.newArticle();
-        int newArticle = product.getArticle();
-
-        assertTrue(article != newArticle);
 
         System.out.println("OK!");
     }
@@ -240,7 +225,7 @@ public class ProductTest {
         System.out.print("-> setAndGetPhoto() - ");
 
         Product product = new Product();
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
         product.setPhoto(photo);
 
         assertNotNull(product.getPhoto());
@@ -254,7 +239,7 @@ public class ProductTest {
         System.out.print("-> setAndGetCategory() - ");
 
         Product product = new Product();
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         product.setCategory(category);
 
         assertNotNull(product.getCategory());

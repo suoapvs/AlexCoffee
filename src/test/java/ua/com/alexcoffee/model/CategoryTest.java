@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.com.alexcoffee.model.category.Category;
+import ua.com.alexcoffee.model.category.CategoryBuilder;
 import ua.com.alexcoffee.model.photo.Photo;
 import ua.com.alexcoffee.model.product.Product;
 
@@ -32,7 +33,7 @@ public class CategoryTest {
         String title = "New Category";
         String url = "url";
         String description = "Some new category";
-        Category category = new Category();
+        Category category = Category.getBuilder().build();;
         category.setTitle(title);
         category.setUrl(url);
         category.setDescription(description);
@@ -46,7 +47,7 @@ public class CategoryTest {
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         assertTrue(category.equals(category));
 
         System.out.println("OK!");
@@ -56,12 +57,12 @@ public class CategoryTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        final Category cat1 = new Category();
+        final Category cat1 = Category.getBuilder().build();
         cat1.setTitle("Category");
         cat1.setUrl("cat_url");
         cat1.setDescription("Description about some category");
 
-        final Category cat2 = new Category();
+        final Category cat2 = Category.getBuilder().build();
         cat2.setTitle("Category");
         cat2.setUrl("cat_url");
         cat2.setDescription("");
@@ -76,17 +77,18 @@ public class CategoryTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        final Category cat1 = new Category();
+        final CategoryBuilder categoryBuilder = Category.getBuilder();
+        final Category cat1 = categoryBuilder.build();
         cat1.setTitle("Category");
         cat1.setUrl("cat_url");
         cat1.setDescription("Description about some category");
 
-        final Category cat2 = new Category();
+        final Category cat2 = categoryBuilder.build();
         cat2.setTitle("Category");
         cat2.setUrl("cat_url");
         cat2.setDescription("Description about some category");
 
-        final Category cat3 = new Category();
+        final Category cat3 = categoryBuilder.build();
         cat3.setTitle("Category");
         cat3.setUrl("cat_url");
         cat3.setDescription("Description about some category");
@@ -102,12 +104,13 @@ public class CategoryTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        final Category cat1 = new Category();
+        final CategoryBuilder categoryBuilder = Category.getBuilder();
+        final Category cat1 = categoryBuilder.build();
         cat1.setTitle("Category");
         cat1.setUrl("cat_url");
         cat1.setDescription("Description about some category");
 
-        final Category cat2 = new Category();
+        final Category cat2 = categoryBuilder.build();
         cat2.setTitle("Category");
         cat2.setUrl("cat_url");
         cat2.setDescription("");
@@ -126,9 +129,9 @@ public class CategoryTest {
         String title = "Title";
         String url = "URL";
         String description = "Description";
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
 
-        final Category category = new Category();
+        final Category category = Category.getBuilder().build();
         category.setTitle(title);
         category.setUrl(url);
         category.setDescription(description);
@@ -146,7 +149,7 @@ public class CategoryTest {
     public void addProductTest() {
         System.out.print("-> addProduct() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         for (int i = 0; i < 10; i++) {
             category.addProduct(new Product());
         }
@@ -161,7 +164,7 @@ public class CategoryTest {
 
         List<Product> products = getTenProducts();
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         category.addProducts(products);
         assertEquals(category.getProducts().size(), 10);
 
@@ -172,7 +175,7 @@ public class CategoryTest {
     public void removeProductTest() {
         System.out.print("-> removeProduct() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
 
         Product product = new Product();
         category.addProduct(product);
@@ -189,7 +192,7 @@ public class CategoryTest {
     public void removeProductsTest() {
         System.out.print("-> removeProducts() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         List<Product> products = getTenProducts();
 
         category.addProducts(products);
@@ -204,7 +207,7 @@ public class CategoryTest {
     public void clearProductsTest() {
         System.out.print("-> clearProducts() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         List<Product> products = getTenProducts();
         category.addProducts(products);
         category.clearProducts();
@@ -218,7 +221,7 @@ public class CategoryTest {
     public void getProductsTest() {
         System.out.print("-> getProducts() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         Product product = new Product();
 
         category.addProduct(product);
@@ -236,7 +239,7 @@ public class CategoryTest {
 
         List<Product> products = getTenProducts();
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         category.setProducts(products);
 
         assertNotNull(category.getProducts());
@@ -249,7 +252,7 @@ public class CategoryTest {
     public void setAndGetTitleTest() {
         System.out.print("-> setAndGetTitle() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         category.setTitle(null);
         assertNotNull(category.getTitle());
         assertTrue(category.getTitle().isEmpty());
@@ -265,7 +268,7 @@ public class CategoryTest {
     public void setAndGetUrlTest() {
         System.out.print("-> setAndGetUrl() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         category.setUrl(null);
         assertNotNull(category.getUrl());
         assertTrue(category.getUrl().isEmpty());
@@ -281,7 +284,7 @@ public class CategoryTest {
     public void setAndGetDescriptionTest() throws Exception {
         System.out.print("-> setDescription() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();
         category.setDescription(null);
         assertNotNull(category.getDescription());
         assertTrue(category.getDescription().isEmpty());
@@ -297,8 +300,8 @@ public class CategoryTest {
     public void setAndGetPhotoTest() {
         System.out.print("-> setAndGetPhoto() - ");
 
-        Category category = new Category();
-        category.setPhoto(new Photo());
+        Category category = Category.getBuilder().build();
+        category.setPhoto(Photo.getBuilder().build());
 
         assertNotNull(category.getPhoto());
 

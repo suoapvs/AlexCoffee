@@ -99,43 +99,7 @@ public class RootConfigTest {
         System.out.println("OK!");
     }
 
-    @Test
-    public void dataSourceTest() throws Exception {
-        System.out.print("-> dataSource() - ");
-        RootConfig rootConfig = new RootConfig();
-        assertNotNull(rootConfig.dataSource());
-        System.out.println("OK!");
-    }
 
-    @Test
-    public void jpaVendorAdapterTest() throws Exception {
-        System.out.print("-> jpaVendorAdapter() - ");
-        RootConfig rootConfig = new RootConfig();
-        assertNotNull(rootConfig.jpaVendorAdapter());
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void entityManagerFactoryTest() throws Exception {
-        System.out.print("-> entityManagerFactory() - ");
-
-        RootConfig rootConfig = new RootConfig();
-        DataSource dataSource = mock(DataSource.class);
-        JpaVendorAdapter jpaVendorAdapter = mock(JpaVendorAdapter.class);
-
-        assertNotNull(rootConfig.entityManagerFactory(dataSource, jpaVendorAdapter));
-
-        System.out.println("OK!");
-    }
-
-    @Test
-    public void transactionManagerTest() {
-        System.out.print("-> transactionManager() - ");
-        RootConfig rootConfig = new RootConfig();
-        EntityManagerFactory factory = mock(EntityManagerFactory.class);
-        assertNotNull(rootConfig.transactionManager(factory));
-        System.out.println("OK!");
-    }
 
     @Test
     public void persistenceTranslationTest() {

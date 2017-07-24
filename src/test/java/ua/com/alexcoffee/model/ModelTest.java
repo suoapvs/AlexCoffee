@@ -26,7 +26,7 @@ public class ModelTest {
     public void equalsTest() {
         System.out.print("-> equals() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();;
 
         assertFalse(category.equals(null));
         assertEquals(category, category);
@@ -38,7 +38,7 @@ public class ModelTest {
     public void getUnmodifiableListTest() {
         System.out.print("-> getUnmodifiableList() - ");
 
-        Category category = new Category();
+        Category category = Category.getBuilder().build();;
         assertEquals(category.getUnmodifiableList(null), Collections.EMPTY_LIST);
         assertTrue(category.getUnmodifiableList(MockModel.getTenProducts()).size() == 10);
 

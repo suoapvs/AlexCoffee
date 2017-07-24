@@ -88,7 +88,7 @@ public final class MockModel {
     }
 
     private static Category initCategory() {
-        final Category category = new Category();
+        final Category category = Category.getBuilder().build();
         category.setId(ID);
         category.setTitle(TITLE);
         category.setUrl(URL);
@@ -99,7 +99,7 @@ public final class MockModel {
     }
 
     private static Order initOrder() {
-        final Order order = new Order();
+        final Order order = Order.getBuilder().build();
         order.setId(ID);
         order.setStatus(STATUS_ENUM);
         final User user = initUser();
@@ -110,7 +110,7 @@ public final class MockModel {
     }
 
     private static Photo initPhoto() {
-        final Photo photo = new Photo();
+        final Photo photo = Photo.getBuilder().build();
         photo.setId(ID);
         photo.setTitle(TITLE);
         photo.setSmallUrl(ANY_STRING);
@@ -148,7 +148,7 @@ public final class MockModel {
     }
 
     private static User initUser() {
-        User user = new User();
+        User user = User.getBuilder().build();
         user.setId(ID);
         user.setName(TITLE);
         user.setUsername(TITLE);

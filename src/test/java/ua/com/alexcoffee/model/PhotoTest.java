@@ -25,7 +25,7 @@ public class PhotoTest {
         final String pls = "pls";
         final  String pll = "pll";
 
-        final Photo photo = new Photo();
+        final Photo photo = Photo.getBuilder().build();
         photo.setTitle(title);
         photo.setSmallUrl(pls);
         photo.setLongUrl(pll);
@@ -40,7 +40,7 @@ public class PhotoTest {
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
         assertTrue(photo.equals(photo));
 
         System.out.println("OK!");
@@ -50,11 +50,11 @@ public class PhotoTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        final Photo photo1 = new Photo();
+        final Photo photo1 = Photo.getBuilder().build();
         photo1.setTitle("Photo");
         photo1.setSmallUrl("link1");
         photo1.setLongUrl( "link2");
-        final Photo photo2 = new Photo();
+        final Photo photo2 = Photo.getBuilder().build();
         photo2.setTitle("Photo");
         photo2.setSmallUrl("link1");
         photo2.setLongUrl( "link2");
@@ -69,15 +69,15 @@ public class PhotoTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        final Photo photo1 = new Photo();
+        final Photo photo1 = Photo.getBuilder().build();
         photo1.setTitle("Photo");
         photo1.setSmallUrl("link1");
         photo1.setLongUrl( "link2");
-        final Photo photo2 = new Photo();
+        final Photo photo2 = Photo.getBuilder().build();
         photo2.setTitle("Photo");
         photo2.setSmallUrl("link1");
         photo2.setLongUrl( "link2");
-        final Photo photo3 = new Photo();
+        final Photo photo3 = Photo.getBuilder().build();
         photo3.setTitle("Photo");
         photo3.setSmallUrl("link1");
         photo3.setLongUrl( "link2");
@@ -93,11 +93,11 @@ public class PhotoTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        final Photo photo1 = new Photo();
+        final Photo photo1 = Photo.getBuilder().build();
         photo1.setTitle("Photo");
         photo1.setSmallUrl("link1");
         photo1.setLongUrl( "link2");
-        final Photo photo2 = new Photo();
+        final Photo photo2 = Photo.getBuilder().build();
         photo2.setTitle("Photo");
         photo2.setSmallUrl("link1");
         photo2.setLongUrl( "link2");
@@ -113,7 +113,7 @@ public class PhotoTest {
     public void setAndGetTitleTest() {
         System.out.print("-> setAndGetTitle() - ");
 
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
         photo.setTitle(null);
         assertNotNull(photo.getTitle());
         assertTrue(photo.getTitle().isEmpty());
@@ -129,7 +129,7 @@ public class PhotoTest {
     public void setAndGetPhotoLinkShortTest() {
         System.out.print("-> setAndGetPhotoLinkShort() - ");
 
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
         photo.setSmallUrl(null);
         assertNotNull(photo.getSmallUrl());
         assertTrue(photo.getSmallUrl().isEmpty());
@@ -145,7 +145,7 @@ public class PhotoTest {
     public void setAndGetPhotoLinkLongTest() {
         System.out.print("-> setPhotoLinkLong() - ");
 
-        Photo photo = new Photo();
+        Photo photo = Photo.getBuilder().build();
         photo.setLongUrl(null);
         assertNotNull(photo.getLongUrl());
         assertTrue(photo.getLongUrl().isEmpty());

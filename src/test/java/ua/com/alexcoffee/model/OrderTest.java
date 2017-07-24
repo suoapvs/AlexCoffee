@@ -32,12 +32,12 @@ public class OrderTest {
     public void ConstructorTest() {
         System.out.print("-> Order() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         assertNotNull(order.getNumber());
         assertNotNull(order.getDate());
 
-        final User client = new User();
-        order = new Order();
+        final User client = User.getBuilder().build();
+        order = Order.getBuilder().build();
         order.setStatus(OrderStatus.NEW);
         order.setClient(client);
         assertNotNull(order.getStatus());
@@ -54,13 +54,13 @@ public class OrderTest {
 
         StringBuilder sb = new StringBuilder();
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setStatus(OrderStatus.NEW);
         sb.append(order.getNumber()).append(", ").append(OrderStatus.NEW.name()).append(",\n").append(order.getDate());
         assertEquals(order.toString(), sb.toString());
 
 
-        final User client = new User();
+        final User client = User.getBuilder().build();
         client.setName("Client");
         client.setEmail("email");
         client.setPhone("phone");
@@ -70,7 +70,7 @@ public class OrderTest {
                 .append("\nphone: ").append(client.getPhone()).append("\n");
         assertEquals(order.toString(), sb.toString());
 
-        final User manager = new User();
+        final User manager = User.getBuilder().build();
         manager.setName("Manager");
         manager.setEmail("email");
         manager.setPhone("phone");
@@ -121,7 +121,7 @@ public class OrderTest {
     public void equalsReflexiveTest() {
         System.out.print("-> Reflexive equals - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         assertTrue(order.equals(order));
 
         System.out.println("OK!");
@@ -131,8 +131,8 @@ public class OrderTest {
     public void equalsSymmetricTest() {
         System.out.print("-> Symmetric equals - ");
 
-        Order order1 = new Order();
-        Order order2 = new Order();
+        Order order1 = Order.getBuilder().build();
+        Order order2 = Order.getBuilder().build();
         order2.setNumber(order1.getNumber());
 
         assertTrue(order1.equals(order2));
@@ -145,10 +145,10 @@ public class OrderTest {
     public void equalsTransitiveTest() {
         System.out.print("-> Transitive equals - ");
 
-        Order order1 = new Order();
-        Order order2 = new Order();
+        Order order1 = Order.getBuilder().build();
+        Order order2 = Order.getBuilder().build();
         order2.setNumber(order1.getNumber());
-        Order order3 = new Order();
+        Order order3 = Order.getBuilder().build();
         order3.setNumber(order2.getNumber());
 
         assertTrue(order1.equals(order2));
@@ -162,8 +162,8 @@ public class OrderTest {
     public void equalsConsistentTest() {
         System.out.print("-> Consistent equals - ");
 
-        Order order1 = new Order();
-        Order order2 = new Order();
+        Order order1 = Order.getBuilder().build();
+        Order order2 = Order.getBuilder().build();
         order2.setNumber(order1.getNumber());
 
         for (int i = 0; i < 10; i++) {
@@ -183,16 +183,16 @@ public class OrderTest {
         final String shippingDetails = "details";
         final String description = "description";
 
-        final User client = new User();
+        final User client = User.getBuilder().build();
         client.setName("Client");
         client.setEmail("email");
         client.setPhone("phone");
-        final User manager = new User();
+        final User manager = User.getBuilder().build();
         manager.setName("Manager");
         manager.setEmail("email");
         manager.setPhone("phone");
 
-        final  Order order = new Order();
+        final  Order order = Order.getBuilder().build();
         order.setNumber(number);
         order.setDate(date);
         order.setShippingAddress(shippingAddress);
@@ -217,7 +217,7 @@ public class OrderTest {
     public void addSalePositionTest() {
         System.out.print("-> addSalePosition() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.addSalePosition(new SalePosition());
 
         assertEquals(order.getSalePositions().size(), 1);
@@ -231,7 +231,7 @@ public class OrderTest {
 
         List<SalePosition> salePositions = getTenSalePositions();
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.addSalePositions(salePositions);
 
         assertEquals(order.getSalePositions().size(), 10);
@@ -243,7 +243,7 @@ public class OrderTest {
     public void removeSalePositionTest() {
         System.out.print("-> removeSalePositions() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
 
         SalePosition salePosition = new SalePosition();
 
@@ -260,7 +260,7 @@ public class OrderTest {
     public void removeSalePositionsTest() {
         System.out.print("-> removeSalePositions() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         List<SalePosition> positions = getTenSalePositions();
 
         order.setSalePositions(positions);
@@ -276,7 +276,7 @@ public class OrderTest {
     public void clearSalePositionsTest() {
         System.out.print("-> clearSalePositions() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setSalePositions(getTenSalePositions());
         order.clearSalePositions();
 
@@ -289,7 +289,7 @@ public class OrderTest {
     public void setAndGetSalePositionsTest() {
         System.out.print("-> setAndGetSalePositions() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setSalePositions(getTenSalePositions());
 
         assertNotNull(order.getSalePositions());
@@ -302,7 +302,7 @@ public class OrderTest {
     public void salePositionOrders() {
         System.out.print("-> Order of sale position - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         SalePosition salePosition = new SalePosition();
 
         order.addSalePosition(salePosition);
@@ -316,7 +316,7 @@ public class OrderTest {
     public void setAndGetNumberTest() {
         System.out.print("-> setAndGetNumber() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setNumber(null);
         assertNotNull(order.getNumber());
         assertTrue(order.getNumber().isEmpty());
@@ -329,25 +329,10 @@ public class OrderTest {
     }
 
     @Test
-    public void newNumberTest() {
-        System.out.print("-> newNumber() - ");
-
-        Order order = new Order();
-        String number = order.getNumber();
-
-        order.newNumber();
-        String newNumber = order.getNumber();
-
-        assertFalse(number.equals(newNumber));
-
-        System.out.println("OK!");
-    }
-
-    @Test
     public void setAndGetDateTest() {
         System.out.print("-> setAndGetDate() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setDate(null);
         assertNotNull(order.getDate());
 
@@ -362,7 +347,7 @@ public class OrderTest {
     public void setAndGetStatusTest() {
         System.out.print("-> setAndGetStatus() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setStatus(OrderStatus.CLOSED);
         assertNotNull(order.getStatus());
         assertEquals(order.getStatus(), OrderStatus.CLOSED);
@@ -374,8 +359,8 @@ public class OrderTest {
     public void setAndGetClientTest() {
         System.out.print("-> setAndGetClient() - ");
 
-        final Order order = new Order();
-        final User client = new User();
+        final Order order = Order.getBuilder().build();
+        final User client = User.getBuilder().build();
         client.setName("Client");
         order.setClient(client);
 
@@ -389,8 +374,8 @@ public class OrderTest {
     public void setAndGetManagerTest() {
         System.out.print("-> getManager() - ");
 
-        User manager = new User();
-        Order order = new Order();
+        User manager = User.getBuilder().build();
+        Order order = Order.getBuilder().build();
         order.setManager(manager);
 
         assertNotNull(order.getManager());
@@ -403,7 +388,7 @@ public class OrderTest {
     public void setAndGetShippingAddressTest() {
         System.out.print("-> setAndGetShippingAddress() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setShippingAddress(null);
         assertNotNull(order.getShippingAddress());
         assertTrue(order.getShippingAddress().isEmpty());
@@ -419,7 +404,7 @@ public class OrderTest {
     public void setAndGetShippingDetailsTest() {
         System.out.print("-> setAndGetShippingDetails() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setShippingDetails(null);
         assertNotNull(order.getShippingDetails());
         assertTrue(order.getShippingDetails().isEmpty());
@@ -435,7 +420,7 @@ public class OrderTest {
     public void setAndGetDescriptionTest() {
         System.out.print("-> setAndGetProducts() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         order.setDescription(null);
         assertNotNull(order.getDescription());
         assertTrue(order.getDescription().isEmpty());
@@ -451,7 +436,7 @@ public class OrderTest {
     public void getPriceTest() {
         System.out.print("-> getPrice() - ");
 
-        Order order = new Order();
+        Order order = Order.getBuilder().build();
         Product product;
         SalePosition salePosition;
         double price = 0;
