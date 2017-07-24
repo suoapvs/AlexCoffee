@@ -1,8 +1,10 @@
 package ua.com.alexcoffee.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -33,37 +35,32 @@ import org.springframework.web.servlet.view.JstlView;
                 "ua.com.alexcoffee.config"
         }
 )
+@PropertySource("classpath:content.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    /**
-     * Тип кодировки вьюшек.
-     */
-    private static final String CONTENT_TYPE = "text/html;charset=UTF-8";
+    @Value("${view.type}")
+    private String contentType;
 
-    /**
-     * Путь к вьюшкам.
-     */
-    private static final String PREFIX = "/WEB-INF/views/";
+    @Value("${view.name-prefix}")
+    private String prefix;
 
-    /**
-     * Разрешение вьюшек.
-     */
-    private static final String SUFFIX = ".jsp";
+    @Value("${view.name-suffix}")
+    private String suffix;
 
-    /**
-     * Путь к ресурсам.
-     */
-    private static final String RESOURCES_URL = "/resources/";
+    @Value("${view.expose_beans_as_attributes}")
+    private boolean exposeContextBeansAsAttributes;
 
-    /**
-     * URL запроса для авторизации.
-     */
-    private static final String LOGIN_URL = "/login";
+    @Value("${resources.url}")
+    private String resourcesUrl;
 
-    /**
-     * Название вьюшки авторизации.
-     */
-    private static final String LOGIN_VIEW_NAME = "login/login";
+    @Value("${resources.location}")
+    private String resourcesLocation;
+
+    @Value("${login.url}")
+    private String loginUrl;
+
+    @Value("${login.view}")
+    private String loginView;
 
     /**
      * Указывает Spring'у где находятся компоненты представления, и как их отображать.
@@ -74,9 +71,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {
         final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setContentType(CONTENT_TYPE);
-        viewResolver.setPrefix(PREFIX);
-        viewResolver.setSuffix(SUFFIX);
+        viewResolver.setContentType(this.contentType);
+        viewResolver.setPrefix(this.prefix);
+        viewResolver.setSuffix(this.suffix);
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setExposeContextBeansAsAttributes(true);
         return viewResolver;
@@ -89,8 +86,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry resource) {
-        resource.addResourceHandler(RESOURCES_URL + "**")
-                .addResourceLocations(RESOURCES_URL);
+        resource.addResourceHandler(this.resourcesUrl)
+                .addResourceLocations(this.resourcesLocation);
     }
 
     /**
@@ -103,7 +100,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addViewControllers(final ViewControllerRegistry viewController) {
-        viewController.addViewController(LOGIN_URL).setViewName(LOGIN_VIEW_NAME);
+        viewController.addViewController(this.loginUrl).setViewName(this.loginView);
         viewController.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }
