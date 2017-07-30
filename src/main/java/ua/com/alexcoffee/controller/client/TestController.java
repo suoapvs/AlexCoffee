@@ -53,7 +53,7 @@ public final class TestController {
     )
     public ModelAndView getTestPage(final ModelAndView modelAndView) {
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
-        modelAndView.setViewName("client/test");
+        modelAndView.setViewName("home/test");
         return modelAndView;
     }
 }

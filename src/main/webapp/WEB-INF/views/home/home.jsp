@@ -35,14 +35,15 @@
                     <span class="main-text-label color-green">Alex</span>
                     <span class="main-text-label color-brown">Coffee</span>
                     <h1>
+
+                        <a href="<c:url value="/test"/>" title="Что это значит?">
+                            <img src="<c:url value="/resources/img/main_big_icon_test.png"/>"
+                                 id="label-main" class="main-label-test" alt="Alex Coffee">
+                        </a>
                             <%--
-                            <a href="<c:url value="/test" title="Что это значит?">
-                            <img src="resources/img/main_big_icon_test.png"/>"
-                                id = "label-main" class="main-label-test" alt="Alex Coffee">
-                            </a>
-                            --%>
                         <img src="<c:url value="/resources/img/main_big_icon.png"/>"
                              id="label-main" class="main-label " alt="Alex Coffee">
+                             --%>
                     </h1>
                     <span class="main-text-label color-green">Лучший магазин </span>
                     <span class="main-text-label color-brown"> кофе</span>

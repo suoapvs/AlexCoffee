@@ -205,7 +205,7 @@ public final class SenderServiceImpl implements SenderService, Runnable {
                 }
         );
         final Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("support@alexcoffee.com.ua"));
+        message.setFrom(new InternetAddress("info@alexcoffee.com.ua"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
         message.setSubject(MimeUtility.encodeText(subject, CHARSET, ENCODING));
         message.setContent(text, "text/plain;charset=" + CHARSET);
