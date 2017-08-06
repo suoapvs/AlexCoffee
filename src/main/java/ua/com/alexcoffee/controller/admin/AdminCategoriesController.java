@@ -81,22 +81,16 @@ public final class AdminCategoriesController {
      * URL запроса {"/admin/category", "/admin/category/", "/admin/category/all"},
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllCategories(final ModelAndView modelAndView) {
-        modelAndView.addObject(
-                "categories",
-                this.categoryService.getAll()
-        );
-        modelAndView.addObject(
-                "auth_user",
-                this.userService.getAuthenticatedUser()
-        );
+    public ModelAndView viewAllCategories() {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("categories", this.categoryService.getAll());
+        modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("category/admin/all");
         return modelAndView;
     }
@@ -106,17 +100,14 @@ public final class AdminCategoriesController {
      * URL запроса "/admin/category/view/{id}", метод GET.
      *
      * @param id           Код категории, которою нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewCategory(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewCategory(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("category", this.categoryService.get(id));
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("category/admin/one");
@@ -129,14 +120,14 @@ public final class AdminCategoriesController {
      * URL запроса "/admin/category/add",
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/add",
             method = RequestMethod.GET
     )
-    public ModelAndView getAddCategoryPage(final ModelAndView modelAndView) {
+    public ModelAndView getAddCategoryPage() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("category/admin/add");
@@ -153,20 +144,18 @@ public final class AdminCategoriesController {
      * @param description  Описание категории.
      * @param photoTitle   Название изображения категории.
      * @param photoFile    Файл-изображение для сохранения в файловой системе.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.POST
     )
-    public ModelAndView saveCategory(
+    public String saveCategory(
             @RequestParam final String title,
             @RequestParam final String url,
             @RequestParam final String description,
             @RequestParam(value = "photo_title") final String photoTitle,
-            @RequestParam(value = "photo") final MultipartFile photoFile,
-            final ModelAndView modelAndView
+            @RequestParam(value = "photo") final MultipartFile photoFile
     ) {
         final CategoryBuilder categoryBuilder = Category.getBuilder();
         categoryBuilder.addTitle(title).addUrl(url).addDescription(description);
@@ -182,8 +171,7 @@ public final class AdminCategoriesController {
         final Category category = categoryBuilder.build();
         this.categoryService.add(category);
         this.photoService.saveFile(photoFile);
-        modelAndView.setViewName("redirect:/admin/category/all");
-        return modelAndView;
+        return "redirect:/admin/category/all";
     }
 
     /**
@@ -208,17 +196,14 @@ public final class AdminCategoriesController {
      * URL запроса "/admin/category/edit/{id}", метод GET.
      *
      * @param id           Код категории, которую нужно отредактировать.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/edit/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView getEditCategoryPage(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getEditCategoryPage(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("category", this.categoryService.get(id));
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
@@ -238,22 +223,20 @@ public final class AdminCategoriesController {
      * @param photoId      Код изображения категории.
      * @param photoTitle   Название изображения.
      * @param photoFile    Файл-изображение для сохранения в файловой системе.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.POST
     )
-    public ModelAndView updateCategory(
+    public String updateCategory(
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "title") final String title,
             @RequestParam(value = "url") final String url,
             @RequestParam(value = "description") final String description,
             @RequestParam(value = "photo_id") final long photoId,
             @RequestParam(value = "photo_title") final String photoTitle,
-            @RequestParam(value = "photo") final MultipartFile photoFile,
-            final ModelAndView modelAndView
+            @RequestParam(value = "photo") final MultipartFile photoFile
     ) {
         final Photo photo = this.photoService.get(photoId);
         photo.setTitle(photoTitle);
@@ -268,8 +251,7 @@ public final class AdminCategoriesController {
         category.setPhoto(photo);
         this.categoryService.update(category);
         this.photoService.saveFile(photoFile);
-        modelAndView.setViewName("redirect:/admin/view/" + id);
-        return modelAndView;
+        return "redirect:/admin/view/" + id;
     }
 
     /**
@@ -294,38 +276,29 @@ public final class AdminCategoriesController {
      * URL запроса "/admin/category/delete/{id}", метод GET.
      *
      * @param id           Код категории, которою нужно удалить.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteCategory(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public String deleteCategory(@PathVariable(value = "id") final long id) {
         this.categoryService.remove(id);
-        modelAndView.setViewName("redirect:/admin/category/all");
-        return modelAndView;
+        return "redirect:/admin/category/all";
     }
 
     /**
      * Удаляет все категории и перенаправляет по запросу "/admin/category/all".
      * URL запроса "/admin/category/delete_all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete_all",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteAllCategories(
-            final ModelAndView modelAndView
-    ) {
+    public String deleteAllCategories() {
         this.categoryService.removeAll();
-        modelAndView.setViewName("redirect:/admin/category/all");
-        return modelAndView;
+        return "redirect:/admin/category/all";
     }
 }

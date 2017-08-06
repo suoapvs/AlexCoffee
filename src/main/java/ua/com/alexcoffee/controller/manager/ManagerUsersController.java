@@ -60,16 +60,14 @@ public final class ManagerUsersController {
      * URL запроса {"/managers/user", "/managers/user/", "/managers/user/all"},
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllPersonnel(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewAllPersonnel() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", this.userService.getPersonnel());
         modelAndView.addObject("admin_role", UserRole.ADMIN);
         modelAndView.addObject("manager_role", UserRole.MANAGER);
@@ -83,17 +81,14 @@ public final class ManagerUsersController {
      * URL запроса "/managers/user/view/{id}", метод GET.
      *
      * @param id           Код пользователя, которого нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewUser(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewUser(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", this.userService.get(id));
         modelAndView.addObject("admin_role", UserRole.ADMIN);
         modelAndView.addObject("manager_role", UserRole.MANAGER);

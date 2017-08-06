@@ -56,14 +56,14 @@ public final class AdminUsersController {
      * URL запроса {"/admin/user", "/admin/user/", "/admin/user/all"},
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllPersonnel(final ModelAndView modelAndView) {
+    public ModelAndView viewAllPersonnel() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", this.userService.getPersonnel());
         modelAndView.addObject("admin_role", UserRole.ADMIN);
         modelAndView.addObject("manager_role", UserRole.MANAGER);
@@ -77,17 +77,14 @@ public final class AdminUsersController {
      * URL запроса "/admin/user/view/{id}", метод GET.
      *
      * @param id           Код категории, которою нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewUser(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewUser(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", this.userService.get(id));
         modelAndView.addObject("admin_role", UserRole.ADMIN);
         modelAndView.addObject("manager_role", UserRole.MANAGER);
@@ -108,9 +105,8 @@ public final class AdminUsersController {
             value = "/add",
             method = RequestMethod.GET
     )
-    public ModelAndView getAddUserPage(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getAddUserPage() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("roles", UserRole.values());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("/user/admin/add");
@@ -132,14 +128,13 @@ public final class AdminUsersController {
      * @param facebook     Ссылка на страничку в соц. сети "Facebook" пользователя.
      * @param skype        Логин пользователя в месенджере "Skype".
      * @param description  Описание пользователя.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.POST
     )
-    public ModelAndView saveUser(
+    public String saveUser(
             @RequestParam(value = "name") final String name,
             @RequestParam(value = "role") final String roleName,
             @RequestParam(value = "username") final String username,
@@ -149,8 +144,7 @@ public final class AdminUsersController {
             @RequestParam(value = "vkontakte") final String vkontakte,
             @RequestParam(value = "facebook") final String facebook,
             @RequestParam(value = "skype") final String skype,
-            @RequestParam(value = "description") final String description,
-            final ModelAndView modelAndView
+            @RequestParam(value = "description") final String description
     ) {
         final UserBuilder userBuilder = User.getBuilder();
         userBuilder.addName(name)
@@ -166,8 +160,7 @@ public final class AdminUsersController {
         userBuilder.addRole(role);
         final User user = userBuilder.build();
         this.userService.add(user);
-        modelAndView.setViewName("redirect:/admin/user/all");
-        return modelAndView;
+        return "redirect:/admin/user/all";
     }
 
     /**
@@ -194,17 +187,14 @@ public final class AdminUsersController {
      *
      * @param id           Код пользователя, информацию о котором
      *                     нужно отредактировать.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/edit/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView getEditUserPage(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getEditUserPage(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", this.userService.get(id));
         modelAndView.addObject("roles", UserRole.values());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
@@ -228,14 +218,13 @@ public final class AdminUsersController {
      * @param facebook     Ссылка на страничку в соц. сети "Facebook" пользователя.
      * @param skype        Логин пользователя в месенджере "Skype".
      * @param description  Описание пользователя.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.POST
     )
-    public ModelAndView updateUser(
+    public String updateUser(
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "name") final String name,
             @RequestParam(value = "role") final String roleName,
@@ -246,8 +235,7 @@ public final class AdminUsersController {
             @RequestParam(value = "vkontakte") final String vkontakte,
             @RequestParam(value = "facebook") final String facebook,
             @RequestParam(value = "skype") final String skype,
-            @RequestParam(value = "description") final String description,
-            final ModelAndView modelAndView
+            @RequestParam(value = "description") final String description
     ) {
         final User user = this.userService.get(id);
         user.setName(name);
@@ -262,8 +250,7 @@ public final class AdminUsersController {
         final UserRole role = UserRole.valueOf(roleName);
         user.setRole(role);
         this.userService.update(user);
-        modelAndView.setViewName("redirect:/admin/user/view/" + id);
-        return modelAndView;
+        return "redirect:/admin/user/view/" + id;
     }
 
     /**
@@ -289,40 +276,31 @@ public final class AdminUsersController {
      * URL запроса "/admin/user/delete/{id}", метод GET.
      *
      * @param id           Код пользвателя, которого нужно удалить.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteUser(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public String deleteUser(@PathVariable(value = "id") final long id) {
         if (this.userService.getMainAdministrator().getId() != id) {
             this.userService.remove(id);
         }
-        modelAndView.setViewName("redirect:/admin/user/all");
-        return modelAndView;
+        return "redirect:/admin/user/all";
     }
 
     /**
      * Удаляет всех пользователей и перенаправляет по запросу "/admin/user/all".
      * URL запроса "/admin/user/delete_all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete_all",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteAll(
-            final ModelAndView modelAndView
-    ) {
+    public String deleteAll() {
         this.userService.removePersonnel();
-        modelAndView.setViewName("redirect:/admin/user/all");
-        return modelAndView;
+        return "redirect:/admin/user/all";
     }
 }

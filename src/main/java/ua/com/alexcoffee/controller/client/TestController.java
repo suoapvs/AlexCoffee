@@ -44,14 +44,14 @@ public final class TestController {
     /**
      * Возвращает страцницу "client/test" с тестовым описанием сайта.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/test",
             method = RequestMethod.GET
     )
-    public ModelAndView getTestPage(final ModelAndView modelAndView) {
+    public ModelAndView getTestPage() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
         modelAndView.setViewName("home/test");
         return modelAndView;

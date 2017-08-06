@@ -102,14 +102,14 @@ public final class HomeController {
      * товаров, 12 рандомных товаров и количество товаров в корзине.
      * URL запроса {"", "/", "/index", "/home"}, метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "", "/", "/index", "/home" },
             method = RequestMethod.GET
     )
-    public ModelAndView home(final ModelAndView modelAndView) {
+    public ModelAndView home() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories", this.categoryService.getAll());
         final int productNumber = 12;
         modelAndView.addObject("products", this.productService.getRandom(productNumber));
@@ -124,21 +124,15 @@ public final class HomeController {
      * URL запроса "/category/{url}", метод GET.
      *
      * @param url          URL категории, товары которой нужно вернуть на странице.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/category/{url}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewProductsInCategory(
-            @PathVariable("url") final String url,
-            final ModelAndView modelAndView
-    ) {
-        modelAndView.addObject(
-                "category",
-                this.categoryService.get(url)
-        );
+    public ModelAndView viewProductsInCategory(@PathVariable("url") final String url) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("category", this.categoryService.get(url));
         modelAndView.addObject("products", this.productService.getByCategoryUrl(url));
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
         modelAndView.setViewName("category/one");
@@ -149,16 +143,14 @@ public final class HomeController {
      * Возвращает страницу "client/products" с всема товарами.
      * URL запроса "/product/all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/product/all",
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllProducts(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewAllProducts() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", this.productService.getAll());
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
         modelAndView.setViewName("product/all");
@@ -173,17 +165,13 @@ public final class HomeController {
      *
      * @param url          URL или артикль товара, который нужно вернуть
      *                     на страницу.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/product/{url}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewProduct(
-            @PathVariable("url") final String url,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewProduct(@PathVariable("url") final String url) {
         Product product;
         try {
             final int article = Integer.parseInt(url);
@@ -192,15 +180,14 @@ public final class HomeController {
             product = this.productService.getByUrl(url);
         }
         final long categoryId = product.getCategory().getId();
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("product", product);
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
         final int categoryNumber = 4;
         modelAndView.addObject(
                 "featured_products",
                 this.productService.getRandomByCategoryId(
-                        categoryNumber,
-                        categoryId,
-                        product.getId()
+                        categoryNumber, categoryId, product.getId()
                 )
         );
         modelAndView.setViewName("product/one");
@@ -212,14 +199,14 @@ public final class HomeController {
      * позициями, которие сделал клиент.
      * URL запроса "/cart", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/cart",
             method = RequestMethod.GET
     )
-    public ModelAndView viewCart(final ModelAndView modelAndView) {
+    public ModelAndView viewCart() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("sale_positions", this.shoppingCartService.getSalePositions());
         modelAndView.addObject("price_of_cart", this.shoppingCartService.getPrice());
         modelAndView.addObject("cart_size", this.shoppingCartService.getSize());
@@ -232,25 +219,20 @@ public final class HomeController {
      * URL запроса "/cart/add", метод POST.
      *
      * @param id           Код товара, который нужно добавить в корзину.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/cart/add",
             method = RequestMethod.POST
     )
-    public ModelAndView addProductToCart(
-            @RequestParam(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public String addProductToCart(@RequestParam(value = "id") final long id) {
         final int number = 1;
         final SalePosition position = new SalePosition();
         position.setNumber(number);
         final Product product = this.productService.get(id);
         position.setProduct(product);
         this.shoppingCartService.add(position);
-        modelAndView.setViewName("redirect:/cart");
-        return modelAndView;
+        return "redirect:/cart";
     }
 
     /**
@@ -277,17 +259,15 @@ public final class HomeController {
      *
      * @param id           Код товара, который нужно добавить в корзину.
      * @param url          URL запроса для перенаправления.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/cart/add_quickly",
             method = RequestMethod.POST
     )
-    public ModelAndView addProductToCartQuickly(
+    public String addProductToCartQuickly(
             @RequestParam(value = "id") final long id,
-            @RequestParam(value = "url") final String url,
-            final ModelAndView modelAndView
+            @RequestParam(value = "url") final String url
     ) {
         final int number = 1;
         final SalePosition position = new SalePosition();
@@ -295,8 +275,7 @@ public final class HomeController {
         final Product product = this.productService.get(id);
         position.setProduct(product);
         this.shoppingCartService.add(position);
-        modelAndView.setViewName("redirect:" + url);
-        return modelAndView;
+        return "redirect:" + url;
     }
 
     /**
@@ -320,17 +299,15 @@ public final class HomeController {
      * Очищает корзину от торгвых позиции и перенаправление по запросу "/cart".
      * URL запроса "/cart/clear", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/cart/clear",
             method = RequestMethod.GET
     )
-    public ModelAndView clearCart(final ModelAndView modelAndView) {
+    public String clearCart() {
         this.shoppingCartService.clear();
-        modelAndView.setViewName("redirect:/cart");
-        return modelAndView;
+        return "redirect:/cart";
     }
 
     /**
@@ -341,16 +318,15 @@ public final class HomeController {
      * @param name         Имя клиента, сжелавшего заказ.
      * @param email        Электронная почта клиента.
      * @param phone        Номер телефона клиента.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public ModelAndView viewCheckout(
             @RequestParam(value = "user_name") final String name,
             @RequestParam(value = "user_email") final String email,
-            @RequestParam(value = "user_phone") final String phone,
-            final ModelAndView modelAndView
+            @RequestParam(value = "user_phone") final String phone
     ) {
+        final ModelAndView modelAndView = new ModelAndView();
         if (this.shoppingCartService.getSize() > 0) {
             final UserBuilder userBuilder = User.getBuilder();
             userBuilder.addRole(UserRole.CLIENT)
@@ -381,16 +357,14 @@ public final class HomeController {
      * Перенаправляет по запросу "/cart", если обратится
      * по запросу "/checkout" методом GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/checkout",
             method = RequestMethod.GET
     )
-    public ModelAndView viewCheckout(final ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/cart");
-        return modelAndView;
+    public String viewCheckout() {
+        return "redirect:/cart";
     }
 
     /**
@@ -413,30 +387,26 @@ public final class HomeController {
     /**
      * Перенаправляет на страницу с заказами для администратора.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "/admin", "/admin/" },
             method = RequestMethod.GET
     )
-    public ModelAndView redirectToAdminPage(final ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/admin/order/all");
-        return modelAndView;
+    public String redirectToAdminPage() {
+        return "redirect:/admin/order/all";
     }
 
     /**
      * Перенаправляет на страницу с заказами для менеджера.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "/managers", "/managers/" },
             method = RequestMethod.GET
     )
-    public ModelAndView redirectToManagerPage(final ModelAndView modelAndView) {
-        modelAndView.setViewName("redirect:/managers/order/all");
-        return modelAndView;
+    public String redirectToManagerPage() {
+        return "redirect:/admin/order/all";
     }
 }

@@ -69,15 +69,13 @@ public final class AdminOrdersController {
      * Возвращает все заказы, сделаные клиентами, на страницу "admin/order/all".
      * URL запроса {"/admin/order", "/admin/order/", "/admin/order/all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "", "/", "/all" },
             method = RequestMethod.GET)
-    public ModelAndView viewAllOrders(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewAllOrders() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("orders", this.orderService.getAll());
         modelAndView.addObject("status_new", OrderStatus.NEW);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
@@ -90,18 +88,15 @@ public final class AdminOrdersController {
      * URL запроса "/admin/order/view/{id}", метод GET.
      *
      * @param id           Код заказа, который нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewOrder(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewOrder(@PathVariable(value = "id") final long id) {
         final Order order = this.orderService.get(id);
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
@@ -119,18 +114,15 @@ public final class AdminOrdersController {
      * URL запроса "/admin/order/edit/{id}", метод GET.
      *
      * @param id           Код заказа, который нужно отредактировать.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/edit/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView getEditOrderPage(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getEditOrderPage(@PathVariable(value = "id") final long id) {
         final Order order = this.orderService.get(id);
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
@@ -154,14 +146,13 @@ public final class AdminOrdersController {
      * @param address      Адрес доставки товаров заказа.
      * @param details      Детали доставки заказа.
      * @param description  Описание заказа.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.POST
     )
-    public ModelAndView updateOrder(
+    public String updateOrder(
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "auth_user") final long managerId,
             @RequestParam(value = "number") final String number,
@@ -171,8 +162,7 @@ public final class AdminOrdersController {
             @RequestParam(value = "user_phone") final String phone,
             @RequestParam(value = "shipping-address") final String address,
             @RequestParam(value = "shipping-details") final String details,
-            @RequestParam(value = "description") final String description,
-            final ModelAndView modelAndView
+            @RequestParam(value = "description") final String description
     ) {
         final Order order = this.orderService.get(id);
         order.setNumber(number);
@@ -194,8 +184,7 @@ public final class AdminOrdersController {
         order.setManager(manager);
 
         this.orderService.update(order);
-        modelAndView.setViewName("redirect:/admin/order/view/" + id);
-        return modelAndView;
+        return "redirect:/admin/order/view/" + id;
     }
 
     /**
@@ -221,36 +210,29 @@ public final class AdminOrdersController {
      * URL запроса "/admin/order/delete/{id}", метод GET.
      *
      * @param id           Код заказа, которою нужно удалить.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteOrder(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public String deleteOrder(@PathVariable(value = "id") final long id) {
         this.orderService.remove(id);
-        modelAndView.setViewName("redirect:/admin/order/all");
-        return modelAndView;
+        return "redirect:/admin/order/all";
     }
 
     /**
      * Удаляет все заказы и перенаправляет по запросу "/admin/order/all".
      * URL запроса "/admin/order/delete_all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete_all",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteAllOrders(final ModelAndView modelAndView) {
+    public String deleteAllOrders() {
         this.orderService.removeAll();
-        modelAndView.setViewName("redirect:/admin/order/all");
-        return modelAndView;
+        return "redirect:/admin/order/all";
     }
 }

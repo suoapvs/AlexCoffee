@@ -90,14 +90,14 @@ public final class AdminProductsController {
      * URL запроса {"/admin/product", "/admin/product/", "/admin/product/all"},
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = { "", "/", "/all" },
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllProducts(final ModelAndView modelAndView) {
+    public ModelAndView viewAllProducts() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("products", this.productService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("product/admin/all");
@@ -109,17 +109,14 @@ public final class AdminProductsController {
      * URL запроса "/admin/view/{id}", метод GET.
      *
      * @param id           Код товара, который нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewProduct(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewProduct(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("product", this.productService.get(id));
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
         modelAndView.setViewName("product/admin/one");
@@ -130,14 +127,14 @@ public final class AdminProductsController {
      * Возвращает страницу "admin/product/add" для добавления нового товара.
      * URL запроса "/admin/product/add", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/add",
             method = RequestMethod.GET
     )
-    public ModelAndView getAddProductPage(final ModelAndView modelAndView) {
+    public ModelAndView getAddProductPage() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("categories", this.categoryService.getAll());
         modelAndView.addObject("photos", this.photoService.getAll());
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
@@ -161,14 +158,13 @@ public final class AdminProductsController {
      * @param bigPhotoFile   Файл большго изображения для сохранения
      *                       в файловой системе.
      * @param price          Цена товара.
-     * @param modelAndView   Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/save",
             method = RequestMethod.POST
     )
-    public ModelAndView saveProduct(
+    public String saveProduct(
             @RequestParam(value = "title") final String title,
             @RequestParam(value = "url") final String url,
             @RequestParam(value = "parameters") final String parameters,
@@ -177,8 +173,7 @@ public final class AdminProductsController {
             @RequestParam(value = "photo_title") final String photoTitle,
             @RequestParam(value = "small_photo") final MultipartFile smallPhotoFile,
             @RequestParam(value = "big_photo") final MultipartFile bigPhotoFile,
-            @RequestParam(value = "price") final double price,
-            final ModelAndView modelAndView
+            @RequestParam(value = "price") final double price
     ) {
         final Product product = new Product();
         product.setTitle(title);
@@ -206,8 +201,7 @@ public final class AdminProductsController {
         this.productService.add(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
-        modelAndView.setViewName("redirect:/admin/product/all");
-        return modelAndView;
+        return "redirect:/admin/product/all";
     }
 
     /**
@@ -233,17 +227,14 @@ public final class AdminProductsController {
      * URL запроса "/admin/product/edit/{id}", метод GET.
      *
      * @param id           Код товара, который нужно отредактировать.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/edit/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView getEditProductPage(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getEditProductPage(@PathVariable(value = "id") final long id) {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("product", this.productService.get(id));
         modelAndView.addObject("categories", this.categoryService.getAll());
         modelAndView.addObject("photos", this.photoService.getAll());
@@ -270,14 +261,13 @@ public final class AdminProductsController {
      * @param bigPhotoFile   Файл большго изображения для сохранения
      *                       в файловой системе.
      * @param price          Цена товара.
-     * @param modelAndView   Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.POST
     )
-    public ModelAndView updateProduct(
+    public String updateProduct(
             @RequestParam(value = "id") final long id,
             @RequestParam(value = "title") final String title,
             @RequestParam(value = "url") final String url,
@@ -288,8 +278,7 @@ public final class AdminProductsController {
             @RequestParam(value = "photo_title") final String photoTitle,
             @RequestParam(value = "small_photo") final MultipartFile smallPhotoFile,
             @RequestParam(value = "big_photo") final MultipartFile bigPhotoFile,
-            @RequestParam(value = "price") final double price,
-            final ModelAndView modelAndView
+            @RequestParam(value = "price") final double price
     ) {
         final Product product = this.productService.get(id);
         product.setTitle(title);
@@ -315,8 +304,7 @@ public final class AdminProductsController {
         this.productService.update(product);
         this.photoService.saveFile(smallPhotoFile);
         this.photoService.saveFile(bigPhotoFile);
-        modelAndView.setViewName("redirect:/admin/product/view/" + id);
-        return modelAndView;
+        return "redirect:/admin/product/view/" + id;
     }
 
     /**
@@ -342,36 +330,29 @@ public final class AdminProductsController {
      * URL запроса "/admin/product/delete/{id}", метод GET.
      *
      * @param id           Код товара, который нужно удалить.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteProduct(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public String deleteProduct(@PathVariable(value = "id") final long id) {
         this.productService.remove(id);
-        modelAndView.setViewName("redirect:/admin/products");
-        return modelAndView;
+        return "redirect:/admin/product/all";
     }
 
     /**
      * Удаляет все товары и перенаправляет по запросу "/admin/product/all".
      * URL запроса "/admin/product/delete_all", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/delete_all",
             method = RequestMethod.GET
     )
-    public ModelAndView deleteAllProducts(final ModelAndView modelAndView) {
+    public String deleteAllProducts() {
         this.productService.removeAll();
-        modelAndView.setViewName("redirect:/admin/product/all");
-        return modelAndView;
+        return "redirect:/admin/product/all";
     }
 }

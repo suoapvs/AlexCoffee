@@ -76,16 +76,14 @@ public final class ManagerOrdersController {
      * URL запроса {"/managers/order", "/managers/order/", "/managers/order/all"},
      * метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = {"", "/", "/all"},
             method = RequestMethod.GET
     )
-    public ModelAndView viewAllOrders(
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewAllOrders() {
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("orders", this.orderService.getAll());
         modelAndView.addObject("status_new", OrderStatus.NEW);
         modelAndView.addObject("auth_user", this.userService.getAuthenticatedUser());
@@ -98,18 +96,15 @@ public final class ManagerOrdersController {
      * URL запроса "/managers/order/view/{id}",  метод GET.
      *
      * @param id           Код заказа, который нужно вернуть.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/view/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView viewOrder(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView viewOrder(@PathVariable(value = "id") final long id) {
         final Order order = this.orderService.get(id);
+        final ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("order", order);
         modelAndView.addObject("sale_positions", order.getSalePositions());
         modelAndView.addObject("order_price", order.getPrice());
@@ -128,19 +123,16 @@ public final class ManagerOrdersController {
      * URL запроса "/admin/order/edit/{id}", метод GET.
      *
      * @param id           Код заказа, который нужно отредактировать.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/edit/{id}",
             method = RequestMethod.GET
     )
-    public ModelAndView getEditOrderPage(
-            @PathVariable(value = "id") final long id,
-            final ModelAndView modelAndView
-    ) {
+    public ModelAndView getEditOrderPage(@PathVariable(value = "id") final long id) {
         final Order order = this.orderService.get(id);
-        if ((order.getManager() == null) ||
+        final ModelAndView modelAndView = new ModelAndView();
+        if (isNotNull(order.getManager()) ||
                 (order.getManager().equals(this.userService.getAuthenticatedUser()))) {
             modelAndView.addObject("order", order);
             modelAndView.addObject("sale_positions", order.getSalePositions());
@@ -168,14 +160,13 @@ public final class ManagerOrdersController {
      * @param address      Адрес доставки заказа.
      * @param details      Детали доставки заказа.
      * @param description  Описание заказа.
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
             value = "/update",
             method = RequestMethod.POST
     )
-    public ModelAndView updateOrder(
+    public String updateOrder(
             @RequestParam final long id,
             @RequestParam(value = "auth_user") final long managerId,
             @RequestParam(value = "number") final String number,
@@ -185,8 +176,7 @@ public final class ManagerOrdersController {
             @RequestParam(value = "phone") final String phone,
             @RequestParam(value = "shipping-address") final String address,
             @RequestParam(value = "shipping-details") final String details,
-            @RequestParam final String description,
-            final ModelAndView modelAndView
+            @RequestParam final String description
     ) {
         final Order order = this.orderService.get(id);
         if (isNotNull(order.getManager()) || (order.getManager() == this.userService.getAuthenticatedUser())) {
@@ -209,8 +199,7 @@ public final class ManagerOrdersController {
             order.setManager(manager);
             this.orderService.update(order);
         }
-        modelAndView.setViewName("redirect:/manager/order/view/" + id);
-        return modelAndView;
+        return "redirect:/manager/order/view/" + id;
     }
 
     /**
