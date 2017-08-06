@@ -7,6 +7,7 @@ import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.ID;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -30,7 +31,7 @@ public class AdminCategoriesControllerTest {
     public void viewAllCategoriesTest() throws Exception {
         System.out.print("-> viewAllCategories() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.viewAllCategories(new ModelAndView());
+        ModelAndView modelAndView = adminCategoriesController.viewAllCategories();
         String[] keys = { "categories" };
         checkModelAndView(modelAndView, "category/admin/all", keys);
 
@@ -41,7 +42,7 @@ public class AdminCategoriesControllerTest {
     public void viewCategoryTest() throws Exception {
         System.out.print("-> viewCategory() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.viewCategory(ID, new ModelAndView());
+        ModelAndView modelAndView = adminCategoriesController.viewCategory(ID);
         String[] keys = { "category" };
         String viewName = "category/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -53,7 +54,7 @@ public class AdminCategoriesControllerTest {
     public void getAddCategoryPageTest() throws Exception {
         System.out.print("-> getAddCategoryPage() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.getAddCategoryPage(new ModelAndView());
+        ModelAndView modelAndView = adminCategoriesController.getAddCategoryPage();
         String[] keys = { "photos" };
         String viewName = "category/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
@@ -65,11 +66,11 @@ public class AdminCategoriesControllerTest {
     public void saveCategoryTest() throws Exception {
         System.out.print("-> saveCategory() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.saveCategory(
-                "Title", "url", "Description", "Photo", null, new ModelAndView()
+        String view = adminCategoriesController.saveCategory(
+                "Title", "url", "Description", "Photo", null
         );
         String viewName = "redirect:/admin/category/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -87,7 +88,7 @@ public class AdminCategoriesControllerTest {
     public void getEditCategoryPageTest() throws Exception {
         System.out.print("-> getEditCategoryPage() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.getEditCategoryPage(ID, new ModelAndView());
+        ModelAndView modelAndView = adminCategoriesController.getEditCategoryPage(ID);
         String[] keys = { "category", "photos" };
         String viewName = "category/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
@@ -99,10 +100,9 @@ public class AdminCategoriesControllerTest {
     public void updateCategoryTest() throws Exception {
         System.out.print("-> updateCategory() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.updateCategory(ID, "Title", "url", "Description",
-                ID, "Photo", null, new ModelAndView());
+        String view = adminCategoriesController.updateCategory(ID, "Title", "url", "Description", ID, "Photo", null);
         String viewName = "redirect:/admin/view/1";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -120,9 +120,9 @@ public class AdminCategoriesControllerTest {
     public void deleteCategoryTest() throws Exception {
         System.out.print("-> deleteCategory() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.deleteCategory(ID, new ModelAndView());
+        String view = adminCategoriesController.deleteCategory(ID);
         String viewName = "redirect:/admin/category/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -131,9 +131,9 @@ public class AdminCategoriesControllerTest {
     public void deleteAllCategoriesTest() throws Exception {
         System.out.print("-> deleteAllCategories() - ");
 
-        ModelAndView modelAndView = adminCategoriesController.deleteAllCategories(new ModelAndView());
+        String view = adminCategoriesController.deleteAllCategories();
         String viewName = "redirect:/admin/category/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }

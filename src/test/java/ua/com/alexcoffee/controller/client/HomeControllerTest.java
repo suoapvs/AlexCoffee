@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.*;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -18,7 +19,6 @@ public class HomeControllerTest {
     @BeforeClass
     public static void setUp() {
         System.out.println("\nTesting class \"HomeController\" - START.\n");
-
         homeController = MockController.getHomeController();
     }
 
@@ -32,7 +32,7 @@ public class HomeControllerTest {
     public void homeTest() throws Exception {
         System.out.print("-> home() - ");
 
-        ModelAndView modelAndView = homeController.home(new ModelAndView());
+        ModelAndView modelAndView = homeController.home();
         String[] keys = {"categories", "products", "cart_size"};
         String viewName = "home/home";
         checkModelAndView(modelAndView, viewName, keys);
@@ -45,7 +45,7 @@ public class HomeControllerTest {
     public void viewProductsInCategoryTest() throws Exception {
         System.out.print("-> viewProductsInCategory() - ");
 
-        ModelAndView modelAndView = homeController.viewProductsInCategory(URL, new ModelAndView());
+        ModelAndView modelAndView = homeController.viewProductsInCategory(URL);
         String[] keys = {"category", "products", "cart_size"};
         String viewName = "category/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -58,7 +58,7 @@ public class HomeControllerTest {
     public void viewAllProductsTest() throws Exception {
         System.out.print("-> viewAllProducts() - ");
 
-        ModelAndView modelAndView = homeController.viewAllProducts(new ModelAndView());
+        ModelAndView modelAndView = homeController.viewAllProducts();
         String[] keys = {"products", "cart_size"};
         String viewName = "product/all";
         checkModelAndView(modelAndView, viewName, keys);
@@ -71,12 +71,12 @@ public class HomeControllerTest {
     public void viewProductTest() throws Exception {
         System.out.print("-> viewProduct() - ");
 
-        ModelAndView modelAndView1 = homeController.viewProduct(URL, new ModelAndView());
+        ModelAndView modelAndView1 = homeController.viewProduct(URL);
         String[] keys = {"product", "cart_size", "featured_products"};
         String viewName = "product/one";
         checkModelAndView(modelAndView1, viewName, keys);
 
-        ModelAndView modelAndView2 = homeController.viewProduct(Integer.toString(ARTICLE), new ModelAndView());
+        ModelAndView modelAndView2 = homeController.viewProduct(Integer.toString(ARTICLE));
         checkModelAndView(modelAndView2, viewName, keys);
 
         System.out.println("OK!");
@@ -87,7 +87,7 @@ public class HomeControllerTest {
     public void viewCartTest() throws Exception {
         System.out.print("-> viewCart() - ");
 
-        ModelAndView modelAndView = homeController.viewCart(new ModelAndView());
+        ModelAndView modelAndView = homeController.viewCart();
         String[] keys = {"sale_positions", "price_of_cart", "cart_size"};
         String viewName = "cart/cart";
         checkModelAndView(modelAndView, viewName, keys);
@@ -100,9 +100,9 @@ public class HomeControllerTest {
     public void addProductToCartTest() throws Exception {
         System.out.print("-> addProductToCart() - ");
 
-        ModelAndView modelAndView = homeController.addProductToCart(ID, new ModelAndView());
+        String view = homeController.addProductToCart(ID);
         String viewName = "redirect:/cart";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -122,9 +122,9 @@ public class HomeControllerTest {
     public void addProductToCartQuicklyTest() throws Exception {
         System.out.print("-> addProductToCartQuickly() - ");
 
-        ModelAndView modelAndView = homeController.addProductToCartQuickly(ID, URL, new ModelAndView());
+        String view = homeController.addProductToCartQuickly(ID, URL);
         String viewName = "redirect:" + URL;
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -144,9 +144,9 @@ public class HomeControllerTest {
     public void clearCartTest() throws Exception {
         System.out.print("-> clearCart() - ");
 
-        ModelAndView modelAndView = homeController.clearCart(new ModelAndView());
+        String view = homeController.clearCart();
         String viewName = "redirect:/cart";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -156,7 +156,7 @@ public class HomeControllerTest {
     public void viewCheckoutTest() throws Exception {
         System.out.print("-> viewCheckout() RequestMethod.GET - ");
 
-        ModelAndView modelAndView = homeController.viewCheckout("Name", "email", "phone", new ModelAndView());
+        ModelAndView modelAndView = homeController.viewCheckout("Name", "email", "phone");
         String[] keys = {};
         String viewName = "client/checkout";
 
@@ -168,9 +168,9 @@ public class HomeControllerTest {
     public void viewCheckoutGetTest() throws Exception {
         System.out.print("-> viewCheckout() RequestMethod.GET - ");
 
-        ModelAndView modelAndView = homeController.viewCheckout(new ModelAndView());
+        String view = homeController.viewCheckout();
         String viewName = "redirect:/cart";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }

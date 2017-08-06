@@ -8,6 +8,7 @@ import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.ID;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -31,7 +32,7 @@ public class ManagerOrdersControllerTest {
     public void viewAllOrdersTest() throws Exception {
         System.out.print("-> viewAllOrders() - ");
 
-        ModelAndView modelAndView = managerOrdersController.viewAllOrders(new ModelAndView());
+        ModelAndView modelAndView = managerOrdersController.viewAllOrders();
         String[] keys = { "orders", "status_new" };
         String viewName = "order/manager/all";
         checkModelAndView(modelAndView, viewName, keys);
@@ -43,7 +44,7 @@ public class ManagerOrdersControllerTest {
     public void viewOrderTest() throws Exception {
         System.out.print("-> viewOrder() - ");
 
-        ModelAndView modelAndView = managerOrdersController.viewOrder(ID, new ModelAndView());
+        ModelAndView modelAndView = managerOrdersController.viewOrder(ID);
         String[] keys = { "order", "sales", "order_price", "status_new", "manager_role", "admin_role" };
         String viewName = "manager/order/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -56,7 +57,7 @@ public class ManagerOrdersControllerTest {
     public void getEditOrderPageTest() throws Exception {
         System.out.print("-> getEditOrderPage() - ");
 
-        ModelAndView modelAndView = managerOrdersController.getEditOrderPage(ID, new ModelAndView());
+        ModelAndView modelAndView = managerOrdersController.getEditOrderPage(ID);
         String[] keys = { "order", "sale_positions", "order_price", "statuses" };
         String viewName = "order/manager/edit";
         checkModelAndView(modelAndView, viewName, keys);
@@ -68,10 +69,10 @@ public class ManagerOrdersControllerTest {
     public void updateOrderTest() throws Exception {
         System.out.print("-> updateOrder() - ");
 
-        ModelAndView modelAndView = managerOrdersController.updateOrder(ID, ID, "number", "NEW",
-                "name", "email", "phone", "shippingAddress", "shippingDetails", "description", new ModelAndView());
+        String view = managerOrdersController.updateOrder(ID, ID, "number", "NEW",
+                "name", "email", "phone", "shippingAddress", "shippingDetails", "description");
         String viewName = "redirect:/manager/order/view/1";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }

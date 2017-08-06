@@ -8,6 +8,7 @@ import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.ID;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -30,7 +31,7 @@ public class AdminUsersControllerTest {
     public void viewAllPersonneGetTest() throws Exception {
         System.out.print("-> viewAllPersonne() - ");
 
-        ModelAndView modelAndView = adminUsersController.viewAllPersonnel(new ModelAndView());
+        ModelAndView modelAndView = adminUsersController.viewAllPersonnel();
         String[] keys = { "users", "admin_role", "manager_role" };
         String viewName = "user/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
@@ -42,7 +43,7 @@ public class AdminUsersControllerTest {
     public void viewUserTest() throws Exception {
         System.out.print("-> viewUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.viewUser(ID, new ModelAndView());
+        ModelAndView modelAndView = adminUsersController.viewUser(ID);
         String[] keys = { "user", "admin_role", "manager_role" };
         String viewName = "/user/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -54,7 +55,7 @@ public class AdminUsersControllerTest {
     public void getAddUserPageTest() throws Exception {
         System.out.print("-> getAddUserPage() - ");
 
-        ModelAndView modelAndView = adminUsersController.getAddUserPage(new ModelAndView());
+        ModelAndView modelAndView = adminUsersController.getAddUserPage();
         String[] keys = { "roles" };
         String viewName = "/user/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
@@ -66,10 +67,10 @@ public class AdminUsersControllerTest {
     public void saveUserTest() throws Exception {
         System.out.print("-> saveUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.saveUser("name", "ADMIN", "username", "password", "email",
-                "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
+        String view = adminUsersController.saveUser("name", "ADMIN", "username", "password", "email",
+                "phone", "vkontakte", "facebook", "skype", "description");
         String viewName = "redirect:/admin/user/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -87,7 +88,7 @@ public class AdminUsersControllerTest {
     public void getEditUserPageTest() throws Exception {
         System.out.print("-> getEditUserPage() - ");
 
-        ModelAndView modelAndView = adminUsersController.getEditUserPage(ID, new ModelAndView());
+        ModelAndView modelAndView = adminUsersController.getEditUserPage(ID);
         String[] keys = { "user", "roles" };
         String viewName = "/user/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
@@ -99,10 +100,10 @@ public class AdminUsersControllerTest {
     public void updateUserTest() throws Exception {
         System.out.print("-> updateUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.updateUser(ID, "name", "ADMIN", "username", "password",
-                "email", "phone", "vkontakte", "facebook", "skype", "description", new ModelAndView());
+        String view = adminUsersController.updateUser(ID, "name", "ADMIN", "username", "password",
+                "email", "phone", "vkontakte", "facebook", "skype", "description");
         String viewName = "redirect:/admin/user/view/" + ID;
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -121,9 +122,9 @@ public class AdminUsersControllerTest {
     public void deleteUserTest() throws Exception {
         System.out.print("-> deleteUser() - ");
 
-        ModelAndView modelAndView = adminUsersController.deleteUser(ID, new ModelAndView());
+        String view = adminUsersController.deleteUser(ID);
         String viewName = "redirect:/admin/user/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -132,9 +133,9 @@ public class AdminUsersControllerTest {
     public void deleteAllTest() throws Exception {
         System.out.print("-> deleteAll() - ");
 
-        ModelAndView modelAndView = adminUsersController.deleteAll(new ModelAndView());
+        String view = adminUsersController.deleteAll();
         String viewName = "redirect:/admin/user/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }

@@ -7,6 +7,7 @@ import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.ID;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -30,7 +31,7 @@ public class AdminOrdersControllerTest {
     public void viewAllOrdersTest() throws Exception {
         System.out.print("-> viewAllOrders() - ");
 
-        ModelAndView modelAndView = adminOrdersController.viewAllOrders(new ModelAndView());
+        ModelAndView modelAndView = adminOrdersController.viewAllOrders();
         String[] keys = { "orders", "status_new" };
         String viewName = "order/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
@@ -42,7 +43,7 @@ public class AdminOrdersControllerTest {
     public void viewOrderTest() throws Exception {
         System.out.print("-> viewOrder() - ");
 
-        ModelAndView modelAndView = adminOrdersController.viewOrder(ID, new ModelAndView());
+        ModelAndView modelAndView = adminOrdersController.viewOrder(ID);
         String[] keys = { "order", "sale_positions", "order_price", "status_new", "admin_role", "manager_role" };
         String viewName = "order/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -54,7 +55,7 @@ public class AdminOrdersControllerTest {
     public void getEditOrderPageTest() throws Exception {
         System.out.print("-> getEditOrderPage() - ");
 
-        ModelAndView modelAndView = adminOrdersController.getEditOrderPage(ID, new ModelAndView());
+        ModelAndView modelAndView = adminOrdersController.getEditOrderPage(ID);
         String[] keys = { "order", "sale_positions", "order_price", "statuses" };
         String viewName = "order/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
@@ -66,10 +67,10 @@ public class AdminOrdersControllerTest {
     public void updateOrderTest() throws Exception {
         System.out.print("-> updateOrder() - ");
 
-        ModelAndView modelAndView = adminOrdersController.updateOrder(ID, ID, "number", "NEW", "name", "email", "phone",
-                "shippingAddress", "shippingDetails", "description", new ModelAndView());
+        String view = adminOrdersController.updateOrder(ID, ID, "number", "NEW", "name", "email", "phone",
+                "shippingAddress", "shippingDetails", "description");
         String viewName = "redirect:/admin/order/view/1";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -87,9 +88,9 @@ public class AdminOrdersControllerTest {
     public void deleteOrderTest() throws Exception {
         System.out.print("-> deleteOrder() - ");
 
-        ModelAndView modelAndView = adminOrdersController.deleteOrder(ID, new ModelAndView());
+        String view = adminOrdersController.deleteOrder(ID);
         String viewName = "redirect:/admin/order/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -98,9 +99,9 @@ public class AdminOrdersControllerTest {
     public void deleteAllOrdersTest() throws Exception {
         System.out.print("-> deleteAllOrders() - ");
 
-        ModelAndView modelAndView = adminOrdersController.deleteAllOrders(new ModelAndView());
+        String view = adminOrdersController.deleteAllOrders();
         String viewName = "redirect:/admin/order/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }

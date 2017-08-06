@@ -7,6 +7,7 @@ import org.springframework.data.mapping.model.IllegalMappingException;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alexcoffee.tools.MockController;
 
+import static org.junit.Assert.assertEquals;
 import static ua.com.alexcoffee.tools.MockModel.ID;
 import static ua.com.alexcoffee.tools.ModelAndViews.checkModelAndView;
 
@@ -30,7 +31,7 @@ public class AdminProductsControllerTest {
     public void viewAllProductsTest() throws Exception {
         System.out.print("-> viewAllOrders() - ");
 
-        ModelAndView modelAndView = adminProductsController.viewAllProducts(new ModelAndView());
+        ModelAndView modelAndView = adminProductsController.viewAllProducts();
         String[] keys = { "products" };
         String viewName = "product/admin/all";
         checkModelAndView(modelAndView, viewName, keys);
@@ -42,7 +43,7 @@ public class AdminProductsControllerTest {
     public void viewProductTest() throws Exception {
         System.out.print("-> viewProduct() - ");
 
-        ModelAndView modelAndView = adminProductsController.viewProduct(ID, new ModelAndView());
+        ModelAndView modelAndView = adminProductsController.viewProduct(ID);
         String[] keys = { "product" };
         String viewName = "product/admin/one";
         checkModelAndView(modelAndView, viewName, keys);
@@ -54,7 +55,7 @@ public class AdminProductsControllerTest {
     public void getAddProductPageTest() throws Exception {
         System.out.print("-> getAddProductPage() - ");
 
-        ModelAndView modelAndView = adminProductsController.getAddProductPage(new ModelAndView());
+        ModelAndView modelAndView = adminProductsController.getAddProductPage();
         String[] keys = { "categories", "photos" };
         String viewName = "product/admin/add";
         checkModelAndView(modelAndView, viewName, keys);
@@ -66,10 +67,10 @@ public class AdminProductsControllerTest {
     public void saveProductTest() throws Exception {
         System.out.print("-> saveProduct() - ");
 
-        ModelAndView modelAndView = adminProductsController.saveProduct("title", "url", "parameters", "description",
-                ID, "photoTitle", null, null, 1.0, new ModelAndView());
+        String view = adminProductsController.saveProduct("title", "url", "parameters", "description",
+                ID, "photoTitle", null, null, 1.0);
         String viewName = "redirect:/admin/product/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -87,7 +88,7 @@ public class AdminProductsControllerTest {
     public void getEditProductPageTest() throws Exception {
         System.out.print("-> getEditProductPage() - ");
 
-        ModelAndView modelAndView = adminProductsController.getEditProductPage(ID, new ModelAndView());
+        ModelAndView modelAndView = adminProductsController.getEditProductPage(ID);
         String[] keys = { "product", "categories", "photos" };
         String viewName = "product/admin/edit";
         checkModelAndView(modelAndView, viewName, keys);
@@ -99,10 +100,10 @@ public class AdminProductsControllerTest {
     public void updateProductTest() throws Exception {
         System.out.print("-> updateProduct() - ");
 
-        ModelAndView modelAndView = adminProductsController.updateProduct(ID, "title", "url", "parameters",
-                "description", ID, ID, "photoTitle", null, null, 1.0, new ModelAndView());
+        String view = adminProductsController.updateProduct(ID, "title", "url", "parameters",
+                "description", ID, ID, "photoTitle", null, null, 1.0);
         String viewName = "redirect:/admin/product/view/" + ID;
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -120,9 +121,9 @@ public class AdminProductsControllerTest {
     public void deleteProductTest() throws Exception {
         System.out.print("-> deleteProduct() - ");
 
-        ModelAndView modelAndView = adminProductsController.deleteProduct(ID, new ModelAndView());
+        String view = adminProductsController.deleteProduct(ID);
         String viewName = "redirect:/admin/products";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
@@ -131,9 +132,9 @@ public class AdminProductsControllerTest {
     public void deleteAllProductsTest() throws Exception {
         System.out.print("-> deleteAllProducts() - ");
 
-        ModelAndView modelAndView = adminProductsController.deleteAllProducts(new ModelAndView());
+        String view = adminProductsController.deleteAllProducts();
         String viewName = "redirect:/admin/product/all";
-        checkModelAndView(modelAndView, viewName);
+        assertEquals(view, viewName);
 
         System.out.println("OK!");
     }
