@@ -25,7 +25,7 @@
     <div class="container-fluid">
         <section id="orderEntities">
             <div class="row admin-page">
-                <c:set var="orders_length" value="${fn:length(orderEntities)}"/>
+                <c:set var="orders_length" value="${fn:length(orders)}"/>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
                         <b>
@@ -43,34 +43,34 @@
                                 <th class="hidden-xs">Дата</th>
                                 <th>
                                     Действие
-                                    <a href="<c:url value="/admin/orderEntity/delete_all"/>" title="Удалить все заказы">
+                                    <a href="<c:url value="/admin/order/delete_all"/>" title="Удалить все заказы">
                                         <button class="btn btn-danger" type="submit">Удалить ВСЕ</button>
                                     </a>
                                 </th>
                             </tr>
-                            <c:forEach items="${orderEntities}" var="orderEntity">
+                            <c:forEach items="${orders}" var="order">
                                 <tr>
-                                    <td>${orderEntity.number}</td>
+                                    <td>${order.number}</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${orderEntity.status eq status_new}">
-                                                <span class="color-green">${orderEntity.status.description}</span>
+                                            <c:when test="${order.status eq status_new}">
+                                                <span class="color-green">${order.status.description}</span>
                                             </c:when>
-                                            <c:otherwise>${orderEntity.status.description}</c:otherwise>
+                                            <c:otherwise>${order.status.description}</c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td class="hidden-xs">${orderEntity.date}</td>
+                                    <td class="hidden-xs">${order.date}</td>
                                     <td>
-                                        <a href="<c:url value="/admin/orderEntity/view/${orderEntity.id}"/>"
-                                           title="Смотреть заказ ${orderEntity.number}">
+                                        <a href="<c:url value="/admin/order/view/${order.id}"/>"
+                                           title="Смотреть заказ ${order.number}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/orderEntity/edit/${orderEntity.id}"/>"
-                                           title="Редактировать заказ ${orderEntity.number}">
+                                        <a href="<c:url value="/admin/order/edit/${order.id}"/>"
+                                           title="Редактировать заказ ${order.number}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>
-                                        <a href="<c:url value="/admin/orderEntity/delete/${orderEntity.id}"/>"
-                                           title="Удалить заказ ${orderEntity.number}">
+                                        <a href="<c:url value="/admin/order/delete/${order.id}"/>"
+                                           title="Удалить заказ ${order.number}">
                                             <button class="btn btn-danger" type="submit">Удалить</button>
                                         </a>
                                     </td>

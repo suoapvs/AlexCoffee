@@ -11,8 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="Yurii Salimov https://www.linkedin.com/in/yurii-salimov">
         <meta name="robots" content="noindex,nofollow">
-        <meta name="title" content="Заказ ${orderEntity.number} || Alex Coffee">
-        <title>Заказ ${orderEntity.number} || Alex Coffee</title>
+        <meta name="title" content="Заказ ${order.number} || Alex Coffee">
+        <title>Заказ ${order.number} || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
@@ -23,50 +23,50 @@
     <body>
     <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
     <div class="container-fluid">
-        <section id="orderEntity">
+        <section id="order">
             <div class="row admin-page">
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1">
                     <div class="row section-name text-shadow">
-                        <b><span class="color-brown">Заказ </span><span class="color-green">${orderEntity.number}</span></b>
+                        <b><span class="color-brown">Заказ </span><span class="color-green">${order.number}</span></b>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                     <table class="table">
                         <tr>
                             <th>Номер:</th>
-                            <td>${orderEntity.number}</td>
+                            <td>${order.number}</td>
                         </tr>
                         <tr>
                             <th>Статус:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${orderEntity.status eq status_new}">
-                                        <span class="color-green"><b>${orderEntity.status.description}</b></span>
+                                    <c:when test="${order.status eq status_new}">
+                                        <span class="color-green"><b>${order.status.description}</b></span>
                                     </c:when>
-                                    <c:otherwise>${orderEntity.status.description}</c:otherwise>
+                                    <c:otherwise>${order.status.description}</c:otherwise>
                                 </c:choose>
                             </td>
                         </tr>
                         <tr>
                             <th>Дата:</th>
-                            <td>${orderEntity.date}</td>
+                            <td>${order.date}</td>
                         </tr>
                         <tr>
                             <th>Заказ обработал:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${orderEntity.manager ne null}">
+                                    <c:when test="${order.manager ne null}">
                                         <c:choose>
-                                            <c:when test="${orderEntity.manager.role eq admin_role}">
-                                                <span class="color-red">${orderEntity.manager.role.description}</span>
+                                            <c:when test="${order.manager.role eq admin_role}">
+                                                <span class="color-red">${order.manager.role.description}</span>
                                             </c:when>
-                                            <c:when test="${orderEntity.manager.role eq manager_role}">
-                                                <span class="color-green">${orderEntity.manager.role.description}</span>
+                                            <c:when test="${order.manager.role eq manager_role}">
+                                                <span class="color-green">${order.manager.role.description}</span>
                                             </c:when>
-                                            <c:otherwise>${orderEntity.manager.role.description}</c:otherwise>
+                                            <c:otherwise>${order.manager.role.description}</c:otherwise>
                                         </c:choose>
-                                        <a href="<c:url value="/admin/user/view/${orderEntity.manager.id}"/>">
-                                                ${orderEntity.manager.name}
+                                        <a href="<c:url value="/admin/user/view/${order.manager.id}"/>">
+                                                ${order.manager.name}
                                         </a>
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
@@ -76,17 +76,17 @@
                         <tr>
                             <th>Клиент:</th>
                             <td>
-                                Имя: <b>${orderEntity.client.name}</b>
-                                <br>Email: <b>${orderEntity.client.email}</b>
-                                <br>Телефон: <b>${orderEntity.client.phone}</b>
+                                Имя: <b>${order.client.name}</b>
+                                <br>Email: <b>${order.client.email}</b>
+                                <br>Телефон: <b>${order.client.phone}</b>
                             </td>
                         </tr>
                         <tr>
                             <th>Адрес доставки:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${not empty orderEntity.shippingAddress}">
-                                        ${orderEntity.shippingAddress}
+                                    <c:when test="${not empty order.shippingAddress}">
+                                        ${order.shippingAddress}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
                                 </c:choose>
@@ -96,8 +96,8 @@
                             <th>Детали доставки:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${not empty orderEntity.shippingDetails}">
-                                        ${orderEntity.shippingDetails}
+                                    <c:when test="${not empty order.shippingDetails}">
+                                        ${order.shippingDetails}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
                                 </c:choose>
@@ -107,8 +107,8 @@
                             <th>Коментарии:</th>
                             <td>
                                 <c:choose>
-                                    <c:when test="${not empty orderEntity.description}">
-                                        ${orderEntity.description}
+                                    <c:when test="${not empty order.description}">
+                                        ${order.description}
                                     </c:when>
                                     <c:otherwise>-</c:otherwise>
                                 </c:choose>
@@ -139,15 +139,15 @@
                         <tr>
                             <th></th>
                             <td>
-                                <a href="<c:url value="/admin/orderEntity/edit/${orderEntity.id}"/>"
-                                   title="Редактировать заказ ${orderEntity.number}">
+                                <a href="<c:url value="/admin/order/edit/${order.id}"/>"
+                                   title="Редактировать заказ ${order.number}">
                                     <button class="btn btn-success" type="submit">Редактировать</button>
                                 </a>
-                                <a href="<c:url value="/admin/orderEntity/delete/${orderEntity.id}"/>"
-                                   title="Удалить заказ ${orderEntity.number}">
+                                <a href="<c:url value="/admin/order/delete/${order.id}"/>"
+                                   title="Удалить заказ ${order.number}">
                                     <button class="btn btn-danger" type="submit">Удалить</button>
                                 </a>
-                                <a href="<c:url value="/admin/orderEntity/all"/>" title="Вернуться к списку заказов">
+                                <a href="<c:url value="/admin/order/all"/>" title="Вернуться к списку заказов">
                                     <button class="btn btn-info" type="submit">Назад</button>
                                 </a>
                             </td>

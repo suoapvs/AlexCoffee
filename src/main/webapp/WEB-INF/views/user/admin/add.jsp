@@ -35,14 +35,14 @@
                             <tr>
                                 <th>Имя:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="name" placeholder="Введите имя"
+                                    <input class="input-order" type="text" name="name" placeholder="Введите имя"
                                            minlength="2" maxlength="50" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Роль:</th>
                                 <td>
-                                    <select class="input-orderEntity" name="role" title="Роль пользователя">
+                                    <select class="input-order" name="role" title="Роль пользователя">
                                         <c:forEach items="${roles}" var="role">
                                             <option value="${role.id}">${role.description}</option>
                                         </c:forEach>
@@ -52,7 +52,7 @@
                             <tr>
                                 <th>Логин:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="username" pattern="[A-Za-z0-9_]{5,50}"
+                                    <input class="input-order" type="text" name="username" pattern="[A-Za-z0-9_]{5,50}"
                                            placeholder="Введите логин, формат (A-Z, a-z, 0-9, _)"
                                            minlength="5" maxlength="50" required>
                                 </td>
@@ -60,7 +60,7 @@
                             <tr>
                                 <th>Пароль:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="password" pattern="[A-Za-z0-9]{6,50}"
+                                    <input class="input-order" type="text" name="password" pattern="[A-Za-z0-9]{6,50}"
                                            placeholder=" Введите пароль, формат (A-Z, a-z, 0-9)"
                                            minlength="6" maxlength="50" required>
                                 </td>
@@ -68,7 +68,7 @@
                             <tr>
                                 <th>Email:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="email" name="email" pattern="[A-Za-z0-9_.@]{5,50}"
+                                    <input class="input-order" type="email" name="email" pattern="[A-Za-z0-9_.@]{5,50}"
                                            placeholder=" Введите электронную почту, формат (A-Z, a-z, 0-9, _, ., @)"
                                            minlength="5" maxlength="50" required>
                                 </td>
@@ -76,14 +76,14 @@
                             <tr>
                                 <th>Телефон:</th>
                                 <td>
-                                    <input class="phone input-orderEntity" type="text" name="phone"
+                                    <input class="phone input-order" type="text" name="phone"
                                            placeholder=" Введите телефон" required>
                                 </td>
                             </tr>
                             <tr>
                                 <th>ВКонтакте:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="vkontakte" pattern="[a-z0-9_/.]{5,50}"
+                                    <input class="input-order" type="text" name="vkontakte" pattern="[a-z0-9_/.]{5,50}"
                                            placeholder=" Введите адрес ВКонтакте, формат (a-z, 0-9, _, /, .)"
                                            minlength="5" maxlength="50">
                                 </td>
@@ -91,7 +91,7 @@
                             <tr>
                                 <th>Facebook:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="facebook" pattern="[a-z0-9_/.]{5,50}"
+                                    <input class="input-order" type="text" name="facebook" pattern="[a-z0-9_/.]{5,50}"
                                            placeholder=" Введите адрес Facebook, формат (a-z, 0-9, _, /, .)"
                                            minlength="5" maxlength="50">
                                 </td>
@@ -99,7 +99,7 @@
                             <tr>
                                 <th>Skype:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="skype" pattern="[A-Za-z0-9_.]{5,50}"
+                                    <input class="input-order" type="text" name="skype" pattern="[A-Za-z0-9_.]{5,50}"
                                            placeholder=" Введите логин Skype, формат (A-Z, a-z, 0-9, _, .)"
                                            minlength="5" maxlength="50">
                                 </td>
@@ -107,7 +107,7 @@
                             <tr>
                                 <th>Описание:</th>
                                 <td>
-                                    <textarea class="input-orderEntity textarea" placeholder=" Введите описание работника"
+                                    <textarea class="input-order textarea" placeholder=" Введите описание работника"
                                               name="description" maxlength="500"></textarea>
                                 </td>
                             </tr>
