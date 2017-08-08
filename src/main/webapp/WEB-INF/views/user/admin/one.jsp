@@ -14,11 +14,10 @@
         <title>${user.name} | ${user.role.description} || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
-              type="text/css">
+        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
     <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
@@ -58,13 +57,15 @@
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td><a href="mailto:${user.email}" title="Email" target="_blank">${user.email}</a></td>
+                            <td>
+                                <a href="mailto:${user.email}" title="Email" target="_blank">${user.email}</a>
+                            </td>
                         </tr>
                         <tr>
                             <th>Телефон:</th>
                             <td>${user.phone}</td>
                         </tr>
-                        <c:if test="${(user.vkontakte ne null) and (user.vkontakte ne '')}">
+                        <c:if test="${not empty user.vkontakte}">
                             <tr>
                                 <th>ВКонтакте:</th>
                                 <td>
@@ -73,7 +74,7 @@
                                 </td>
                             </tr>
                         </c:if>
-                        <c:if test="${(user.facebook ne null) and (user.facebook ne '')}">
+                        <c:if test="${not empty user.facebook}">
                             <tr>
                                 <th>Facebook:</th>
                                 <td>
@@ -82,7 +83,7 @@
                                 </td>
                             </tr>
                         </c:if>
-                        <c:if test="${(user.skype ne null) and (user.skype ne '')}">
+                        <c:if test="${not empty user.skype}">
                             <tr>
                                 <th>Skype:</th>
                                 <td>
@@ -91,7 +92,7 @@
                                 </td>
                             </tr>
                         </c:if>
-                        <c:if test="${(user.description ne null) and (user.description ne '')}">
+                        <c:if test="${not empty user.description}">
                             <tr>
                                 <th>Описание:</th>
                                 <td>${user.description}</td>
@@ -118,10 +119,10 @@
             </div>
         </section>
     </div>
-    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.appear.js"/>"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>"></script>
     </body>
     </html>
 </compress:html>

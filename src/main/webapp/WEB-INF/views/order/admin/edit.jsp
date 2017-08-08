@@ -15,11 +15,10 @@
         <title>Редактирование заказа ${orderEntity.number} || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
-              type="text/css">
+        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
     <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
@@ -42,7 +41,8 @@
                             <tr>
                                 <th>Номер:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="number" pattern="[A-Za-z0-9]{3,10}"
+                                    <input class="input-orderEntity" type="text" name="number"
+                                           pattern="[A-Za-z0-9]{3,10}"
                                            placeholder=" Введите номер, формат (A-Z, a-z, 0-9)"
                                            value="${orderEntity.number}" minlength="3" maxlength="10" required>
                                 </td>
@@ -67,10 +67,13 @@
                             <tr>
                                 <th>Клиент:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="user_name" minlength="2" maxlength="50"
-                                           placeholder=" Введите имя клиента" value="${orderEntity.client.name}" required><br>
+                                    <input class="input-orderEntity" type="text" name="user_name" minlength="2"
+                                           maxlength="50"
+                                           placeholder=" Введите имя клиента" value="${orderEntity.client.name}"
+                                           required><br>
                                     <input class="input-orderEntity" type="email" name="user_email" minlength="5"
-                                           value="${orderEntity.client.email}" pattern="[A-Za-z0-9_.@]{5,50}" maxlength="50"
+                                           value="${orderEntity.client.email}" pattern="[A-Za-z0-9_.@]{5,50}"
+                                           maxlength="50"
                                            placeholder=" Введите email клиента, формат (A-Z, a-z, 0-9, _, ., @)"><br>
                                     <input id="phone" class="input-orderEntity" type="text" name="user_phone" required
                                            placeholder=" Введите телефон клиента" value="${orderEntity.client.phone}">
@@ -87,7 +90,8 @@
                                 <th>Детали доставки:</th>
                                 <td>
                                     <input class="input-orderEntity" type="text" name="shipping-details" maxlength="100"
-                                           placeholder=" Введите детали даставки" value="${orderEntity.shippingDetails}">
+                                           placeholder=" Введите детали даставки"
+                                           value="${orderEntity.shippingDetails}">
                                 </td>
                             </tr>
                             <tr>
@@ -123,9 +127,11 @@
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Обновить информацию о заказе">Сохранить</button>
+                                            title="Обновить информацию о заказе">Сохранить
+                                    </button>
                                     <button class="btn btn-info" type="reset"
-                                            title="Сбросить введенные даные">Сброс</button>
+                                            title="Сбросить введенные даные">Сброс
+                                    </button>
                                 </td>
                             </tr>
                         </table>
@@ -134,10 +140,10 @@
             </div>
         </section>
     </div>
-    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.appear.js"/>"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>"></script>
     </body>
     </html>
 </compress:html>

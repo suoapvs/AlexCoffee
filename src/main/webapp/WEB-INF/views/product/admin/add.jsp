@@ -15,11 +15,10 @@
         <title>Новый продукт || Alex Coffee</title>
         <link rel="shortcut icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
         <link rel="icon" href="<c:url value="/resources/img/favicon.ico"/>" type="image/x-icon">
-        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet" type="text/css">
-        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet" type="text/css">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
-              type="text/css">
+        <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/animate.css"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/style.min.css"/>" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
     <jsp:include page="/WEB-INF/views/other/admin_navbar.jsp"/>
@@ -40,8 +39,8 @@
                             <tr>
                                 <th>Название:</th>
                                 <td>
-                                    <input class="input-orderEntity" type="text" name="title" minlength="5" maxlength="100"
-                                           placeholder="Введите название товара" required>
+                                    <input class="input-orderEntity" type="text" name="title" minlength="5"
+                                           maxlength="100" placeholder="Введите название товара" required>
                                 </td>
                             </tr>
                             <tr>
@@ -81,8 +80,10 @@
                                 <td>
                                     <input class="input-orderEntity" type="text" name="photo_title" required
                                            placeholder="Введите название фото" minlength="5" maxlength="100">
-                                    <br>Малое: <input type="file" name="small_photo" accept="image/*">
-                                    <br>Большое: <input type="file" name="big_photo" accept="image/*">
+                                    <br>
+                                    Малое: <input type="file" name="small_photo" accept="image/*">
+                                    <br>
+                                    Большое: <input type="file" name="big_photo" accept="image/*">
                                 </td>
                             </tr>
                             <tr>
@@ -96,9 +97,13 @@
                                 <th></th>
                                 <td>
                                     <button class="btn btn-success" type="submit"
-                                            title="Добавить новый товар">Добавить товар</button>
+                                            title="Добавить новый товар">
+                                        Добавить товар
+                                    </button>
                                     <button class="btn btn-info" type="reset"
-                                            title="Сбросить введенные даные">Сброс</button>
+                                            title="Сбросить введенные даные">
+                                        Сброс
+                                    </button>
                                 </td>
                             </tr>
                         </table>
@@ -107,10 +112,10 @@
             </div>
         </section>
     </div>
-    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.appear.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
-    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>" type="text/javascript"></script>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.appear.js"/>"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/jquery.maskedinput.min.js"/>"></script>
     </body>
     </html>
 </compress:html>
