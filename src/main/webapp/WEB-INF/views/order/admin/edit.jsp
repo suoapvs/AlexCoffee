@@ -51,10 +51,10 @@
                                 <th>Статус:</th>
                                 <td>
                                     <select class="input-order" name="status" title="Статус заказа">
-                                        <option value="${order.status.id}">${order.status.description}</option>
+                                        <option value="${order.status.description}">${order.status.description}</option>
                                         <c:forEach items="${statuses}" var="status">
-                                            <c:if test="${status.id ne order.status.id}">
-                                                <option value="${status.id}">${status.description}</option>
+                                            <c:if test="${status ne order.status}">
+                                                <option value="${status.description}">${status.description}</option>
                                             </c:if>
                                         </c:forEach>
                                     </select>

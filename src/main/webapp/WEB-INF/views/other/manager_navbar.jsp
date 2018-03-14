@@ -25,12 +25,12 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <div id="menu-product">
                     <ul class="nav navbar-nav">
-                        <li id="nav-orderEntities"><a href="<c:url value="/managers/orderEntity/all"/>">Заказы</a></li>
+                        <li id="nav-orderEntities"><a href="<c:url value="/managers/order/all"/>">Заказы</a></li>
                         <li id="nav-persons"><a href="<c:url value="/managers/user/all"/>">Персонал</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="auth-user">
-                            <a href="<c:url value="/managers/view_user_${auth_user.id}"/>">${auth_user.name}</a>
+                            <a href="<c:url value="/managers/user/view/${auth_user.id}"/>">${auth_user.name}</a>
                         </li>
                         <li id="nav-logout">
                             <form class="form-signin" action="<c:url value="/logout"/>" method="post">

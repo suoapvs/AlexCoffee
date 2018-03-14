@@ -44,10 +44,10 @@
                                 <th>Роль:</th>
                                 <td>
                                     <select class="input-order" name="role" title="Роль пользователя">
-                                        <option value="${user.role.id}">${user.role.description}</option>
+                                        <option value="${user.role.description}">${user.role.description}</option>
                                         <c:forEach items="${roles}" var="role">
                                             <c:if test="${role ne user.role}">
-                                                <option value="${role.id}">${role.description}</option>
+                                                <option value="${role.description}">${role.description}</option>
                                             </c:if>
                                         </c:forEach>
                                     </select>

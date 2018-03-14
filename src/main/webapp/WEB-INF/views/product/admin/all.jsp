@@ -71,7 +71,7 @@
                                            title="Смотреть товар ${product.title}">
                                             <button class="btn btn-info" type="submit">Смотреть</button>
                                         </a>
-                                        <a href="<c:url value="/admin/product/edit/{product.id}"/>"
+                                        <a href="<c:url value="/admin/product/edit/${product.id}"/>"
                                            title="Редактировать товар ${product.title}">
                                             <button class="btn btn-success" type="submit">Редактировать</button>
                                         </a>

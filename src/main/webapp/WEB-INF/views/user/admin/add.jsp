@@ -44,7 +44,7 @@
                                 <td>
                                     <select class="input-order" name="role" title="Роль пользователя">
                                         <c:forEach items="${roles}" var="role">
-                                            <option value="${role.id}">${role.description}</option>
+                                            <option value="${role.description}">${role.description}</option>
                                         </c:forEach>
                                     </select>
                                 </td>

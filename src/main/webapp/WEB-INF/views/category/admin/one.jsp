@@ -52,7 +52,7 @@
                         <tr>
                             <th>Изображение:</th>
                             <td>${category.photo.title}
-                                <br><img src="<c:url value="/resources/img/${category.photo.photoLinkShort}"/>"
+                                <br><img src="<c:url value="/resources/img/${category.photo.smallUrl}"/>"
                                          width="75px" height="75px" alt="${category.title}">
                             </td>
                         </tr>

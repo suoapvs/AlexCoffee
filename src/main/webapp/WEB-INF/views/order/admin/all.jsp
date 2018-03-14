@@ -30,11 +30,13 @@
                     <div class="row section-name text-shadow">
                         <b>
                             <span class="color-brown">Заказы</span>
-                            <c:if test="${orders_length}"><span class="color-red"> - список пуст!</span></c:if>
+                            <c:if test="${orders_length eq 0}">
+                                <span class="color-red"> - список пуст!</span>
+                            </c:if>
                         </b>
                     </div>
                 </div>
-                <c:if test="${orders_length}">
+                <c:if test="${orders_length gt 0}">
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1 col-xl-10 col-xl-offset-1 full-cart">
                         <table class="table">
                             <tr>

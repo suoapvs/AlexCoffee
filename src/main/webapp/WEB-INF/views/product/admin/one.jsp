@@ -63,10 +63,10 @@
                             <th>Изображение:</th>
                             <td>
                                     ${product.photo.title}
-                                <br><img src="<c:url value="/resources/img/${product.photo.photoLinkShort}"/>"
+                                <br><img src="<c:url value="/resources/img/${product.photo.smallUrl}"/>"
                                          width="75px" height="75px" alt="${product.title}">
-                                <c:if test="${product.photo.photoLinkLong ne null}">
-                                    <img src="<c:url value="/resources/img/${product.photo.photoLinkLong}"/>"
+                                <c:if test="${product.photo.smallUrl ne null}">
+                                    <img src="<c:url value="/resources/img/${product.photo.longUrl}"/>"
                                          width="100px" height="100px" alt="${product.title}">
                                 </c:if>
                             </td>
