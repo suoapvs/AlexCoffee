@@ -30,5 +30,9 @@ public enum OrderStatus {
     /**
      * Отказ заказа.
      */
-    REJECTION
+    REJECTION;
+
+    public String getDescription() {
+        return toString();
+    }
 }

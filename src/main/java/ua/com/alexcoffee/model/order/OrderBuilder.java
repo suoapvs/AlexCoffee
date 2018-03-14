@@ -54,6 +54,7 @@ public final class OrderBuilder extends ModelBuilder<Order, OrderBuilder> {
         order.setClient(getClient());
         order.setManager(getManager());
         order.setSalePositions(getSalePositions());
+        updateSalePositions(order);
         return super.build(order);
     }
 
@@ -174,18 +175,16 @@ public final class OrderBuilder extends ModelBuilder<Order, OrderBuilder> {
     }
 
     private User getManager() {
-        final User manager;
-        if (isNotNull(this.manager)) {
-            manager = this.manager;
-        } else {
-            final UserBuilder userBuilder = User.getBuilder();
-            userBuilder.addRole(UserRole.MANAGER);
-            manager = userBuilder.build();
-        }
-        return manager;
+        return this.manager;
     }
 
     private Collection<SalePosition> getSalePositions() {
         return this.salePositions;
+    }
+
+    private void updateSalePositions(final Order order) {
+        for (SalePosition position : this.salePositions) {
+            position.setOrder(order);
+        }
     }
 }

@@ -20,5 +20,9 @@ public enum UserRole {
     /**
      * Роль для менеджера сайта.
      */
-    MANAGER
+    MANAGER;
+
+    public String getDescription() {
+        return toString();
+    }
 }

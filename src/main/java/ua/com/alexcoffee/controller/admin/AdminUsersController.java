@@ -98,7 +98,6 @@ public final class AdminUsersController {
      * члена персонала (администратора или менеджера).
      * URL запроса "/admin/user/add", метод GET.
      *
-     * @param modelAndView Объект класса {@link ModelAndView}.
      * @return Объект класса {@link ModelAndView}.
      */
     @RequestMapping(
