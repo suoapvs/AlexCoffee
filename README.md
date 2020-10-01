@@ -19,7 +19,7 @@ Managers can navigate on the main pages of the site and the pages intended for m
 [![Alex Coffee](screenshot/manager_orders.jpg)](http://alexcoffee.tk/manager/orders)  [![Alex Coffee](screenshot/manager_order_view.jpg)](http://alexcoffee.tk/manager/orders)
 
 <h4>For Administrator</h4>
-
+1...nice and good coffe 
 Administrator can navigate on all the pages of the site, in particular through the pages of managers and pages intended for the administrator ([.../admin](http://alexcoffee.tk/admin)). Administrator can add, edit, and delete information about the products, categories and managers. All information is stored in the database.
 
 [![Alex Coffee](screenshot/admin_orders.jpg)](http://alexcoffee.tk/admin/orders)  [![Alex Coffee](screenshot/admin_product_view.jpg)](http://alexcoffee.tk/admin/products)
